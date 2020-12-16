@@ -1,5 +1,5 @@
 package business.prenotazioni;
-
+//Test
 import java.sql.Timestamp;
 
 public class Prenotazione<T> {
