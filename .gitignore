@@ -1,7 +1,9 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
+
 ### GitHub ###
+
 .github/
 
 ### STS ###
