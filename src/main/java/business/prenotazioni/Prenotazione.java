@@ -1,10 +1,10 @@
 package business.prenotazioni;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class Prenotazione<T> {
 
-  private Timestamp dataPrenotazione;
+  private Date dataPrenotazione;
   private Identificativo<T> identificativo;
   private int sala;
   private int fasciaOraria;
@@ -18,7 +18,7 @@ public class Prenotazione<T> {
    * @param fasciaOraria la fascia oraria della prenotazione
    * @param email l'email del prenotante 
    */
-  public Prenotazione(Timestamp dataPrenotazione, Identificativo<T> identificativo, int sala,
+  public Prenotazione(Date dataPrenotazione, Identificativo<T> identificativo, int sala,
       int fasciaOraria, String email) {
     this.dataPrenotazione = dataPrenotazione;
     this.identificativo = identificativo;
@@ -27,11 +27,11 @@ public class Prenotazione<T> {
     this.email = email;
   }
 
-  public Timestamp getDataPrenotazione() {
+  public Date getDataPrenotazione() {
     return dataPrenotazione;
   }
 
-  public void setDataPrenotazione(Timestamp dataPrenotazione) {
+  public void setDataPrenotazione(Date dataPrenotazione) {
     this.dataPrenotazione = dataPrenotazione;
   }
 
