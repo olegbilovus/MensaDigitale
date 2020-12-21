@@ -6,4 +6,3 @@ before_install:
 - git lfs pull
 script: 
 - mvn clean verify
-- mvn test -B
