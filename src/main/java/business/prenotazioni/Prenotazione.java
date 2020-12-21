@@ -1,6 +1,5 @@
 package business.prenotazioni;
 
-// Test
 import java.sql.Timestamp;
 
 public class Prenotazione<T> {
@@ -11,6 +10,14 @@ public class Prenotazione<T> {
   private int fasciaOraria;
   private String email;
 
+  /**
+   * Bean della prenotazione.
+   * @param dataPrenotazione la data della prenotazione
+   * @param identificativo l'identificativo della prenotazione
+   * @param sala la sala della prenotazione
+   * @param fasciaOraria la fascia oraria della prenotazione
+   * @param email l'email del prenotante 
+   */
   public Prenotazione(Timestamp dataPrenotazione, Identificativo<T> identificativo, int sala,
       int fasciaOraria, String email) {
     this.dataPrenotazione = dataPrenotazione;
