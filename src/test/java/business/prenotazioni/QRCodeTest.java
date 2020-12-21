@@ -13,7 +13,7 @@ import java.util.UUID;
 import javax.imageio.ImageIO;
 import org.junit.jupiter.api.Test;
 
-class QRcodeTest {
+class QRCodeTest {
 
   @Test
   void testCreateQR() {
