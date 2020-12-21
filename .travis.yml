@@ -1,6 +1,9 @@
 language: java
-jdk: oraclejdk14
+jdk: 
+- oraclejdk14
 before_install:
 - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
 - git lfs pull
-script: mvn clean verify
+script: 
+- mvn clean verify
+- mvn test -B
