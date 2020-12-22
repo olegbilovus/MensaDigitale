@@ -39,6 +39,7 @@ public class DriverManagerConnectionPool {
    * Creazione di una connessione.
    */
   
+  
   public static synchronized Connection getConnection() throws SQLException {
     Connection connection;
     if (!freeDbConnections.isEmpty()) {
