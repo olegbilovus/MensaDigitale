@@ -1,6 +1,7 @@
 package business.prenotazioni;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.NotFoundException;
