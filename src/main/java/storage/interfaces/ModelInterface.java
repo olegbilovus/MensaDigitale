@@ -7,17 +7,10 @@ import java.util.Collection;
  *@category L'interfaccia per la creazione di tutti i model
  *
  * @param <T> Il tipo di bean a cui il model fa riferimento
- * @param <U> La chiave da utilizzare per identificare unovacemnte un bean all'inetrno del database
 */
 
-public interface ModelInterface<T, U> {
-  /**
-  * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
-  * @param type La chiave primaria dell'elemento della tabella a cui facciamo riferimento
-  * @return Il bean dell'elemento preso dal database 
-  * @throws SQLException Eccezione lanciata da SQL
-  */
-  public T doRetrieveByKey(U type) throws SQLException;
+public interface ModelInterface<T> {
+
 
   /**
   * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.

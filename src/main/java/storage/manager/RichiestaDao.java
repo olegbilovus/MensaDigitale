@@ -6,43 +6,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import storage.interfaces.ValutazioneInterface;
+import storage.interfaces.RichiestaInterface;
 
-
-public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
-
+public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
 
   /*
-   * Costruttore per ValutazioneDao.
+   * Costruttore per RichiestaDao.
    */
-  public ValutazioneDao() {}
-
+  public RichiestaDao() {}
+  
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    * 
-   * @category Ricerca la valutazione in base all'email dell'utente
+   * @category Ricerca la richiesta in base all'id della richiesta
    * 
-   * @param email email dell'utente da ricercare
+   * @param id id della richiesta da ricercare
    */
 
   @Override
-  public ValutazioneBean doRetrieveByKey(String email, String piatto) throws SQLException {
-    ValutazioneBean bean = new ValutazioneBean();
+  public RichiestaBean doRetrieveByKey(int id) throws SQLException {
+    RichiestaBean bean = new RichiestaBean();
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "SELECT * FROM valutazione WHERE email=? AND piatto=?";
+    String sql = "SELECT * FROM richiesta WHERE id=?";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
-      statement.setString(1, email);
-      statement.setString(2, piatto);
+      statement.setInt(1, id);
       System.out.println("DoRetrieveByKey" + statement);
       ResultSet rs = statement.executeQuery();
       if (rs.next()) {
+        bean.setId(rs.getInt("id"));
         bean.setEmail(rs.getString("email"));
-        bean.setPiatto(rs.getString("piatto"));
-        bean.setRecensione(rs.getInt("recensione"));
-        bean.setDataValutazione(rs.getDate("dataValutazione"));
+        bean.setEsito(rs.getInt("esito"));
+        bean.setValutatore(rs.getString("valutatore"));
       }
       return bean;
     } catch (Exception e) {
@@ -67,27 +64,27 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
    * 
-   * @category Ritorna tutte le valutazioni
+   * @category Ritorna tutte le richieste
    * 
    */
 
   @Override
-  public Collection<ValutazioneBean> doRetrieveAll() throws SQLException {
+  public Collection<RichiestaBean> doRetrieveAll() throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "SELECT * FROM valutazione";
-    ArrayList<ValutazioneBean> collection = new ArrayList<ValutazioneBean>();
+    String sql = "SELECT * FROM richiesta";
+    ArrayList<RichiestaBean> collection = new ArrayList<RichiestaBean>();
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       System.out.println("DoRetriveAll" + statement);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
-        ValutazioneBean bean = new ValutazioneBean();
+        RichiestaBean bean = new RichiestaBean();
+        bean.setId(rs.getInt("id"));
         bean.setEmail(rs.getString("email"));
-        bean.setPiatto(rs.getString("piatto"));
-        bean.setRecensione(rs.getInt("recensione"));
-        bean.setDataValutazione(rs.getDate("dataValutazione"));
+        bean.setEsito(rs.getInt("esito"));
+        bean.setValutatore(rs.getString("valutatore"));
         collection.add(bean);
       }
       return collection;
@@ -113,23 +110,23 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
    * 
-   * @category Salva una recensione nel database
+   * @category Salva una richiesta nel database
    * 
-   * @param bean Recensione da salvare
+   * @param bean Richiesta da salvare
    */
 
   @Override
-  public void doSave(ValutazioneBean bean) throws SQLException {
+  public void doSave(RichiestaBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSER INTO valutazione VALUES (?,?,?,?)";
+    String sql = "INSER INTO richiesta VALUES (?,?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
-      statement.setString(1, bean.getEmail());
-      statement.setString(2, bean.getPiatto());
-      statement.setInt(3, bean.getRecensione());
-      statement.setDate(4, bean.getDataValutazione());
+      statement.setInt(1, bean.getId());
+      statement.setString(2, bean.getEmail());
+      statement.setInt(3, bean.getEsito());
+      statement.setString(4, bean.getValutatore());
       System.out.println("doSave=" + statement);
       statement.executeUpdate();
       con.commit();
@@ -154,22 +151,21 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
    * 
-   * @category Aggiorna una recensione
+   * @category Aggiorna una richiesta
    * 
-   * @param bean Recensione con contenuto aggiornato
+   * @param bean Richiesta con contenuto aggiornato
    */
 
   @Override
-  public void doUpdate(ValutazioneBean bean) throws SQLException {
+  public void doUpdate(RichiestaBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "UPDATE valutazione SET recensione=? WHERE email=? AND piatto=?";
+    String sql = "UPDATE richiesta SET esito=? WHERE id=?";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
-      statement.setInt(1, bean.getRecensione());
-      statement.setString(2, bean.getEmail());
-      statement.setString(3, bean.getPiatto());
+      statement.setInt(1, bean.getEsito());
+      statement.setInt(2, bean.getId());
       System.out.println("doUpdate=" + statement);
       statement.executeUpdate();
       con.commit();
@@ -193,21 +189,20 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
    * 
-   * @category Cancella una recensione
+   * @category Cancella una richiesta
    * 
    * @param bean Indica il bean da eliminare
    */
 
   @Override
-  public void doDelete(ValutazioneBean bean) throws SQLException {
+  public void doDelete(RichiestaBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "DELETE FROM valutazione WHERE email=? AND piatto=?";
+    String sql = "DELETE FROM richiesta WHERE id=?";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
-      statement.setString(1, bean.getEmail());
-      statement.setString(1, bean.getPiatto());
+      statement.setInt(1, bean.getId());
       System.out.println("doUpdate=" + statement);
       statement.executeUpdate();
       con.commit();
@@ -229,4 +224,3 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
   }
 
 }
-

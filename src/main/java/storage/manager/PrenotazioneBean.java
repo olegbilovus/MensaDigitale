@@ -4,27 +4,29 @@ import java.sql.Date;
 
 public class PrenotazioneBean {
 
-  private int id;
+  private String id;
   private String email;
   private Date dataPrenotazione;
   private int sala;
   private int fasciaOraria;
 
-  
+
   public PrenotazioneBean() {
     super();
   }
 
   /**
    * Costruttore della prenotazione.
+   * 
    * @param email L'email dell'utente
    * @param id Identificatore della richiesta
    * @param dataPrenotazione Data della prenotazione
    * @param sala Sala prenotata
    * @param fasciaOraria Fascia oraria della prenotazione
    */
-  
-  public PrenotazioneBean(int id, String email, Date dataPrenotazione, int sala, int fasciaOraria) {
+
+  public PrenotazioneBean(String id, String email, Date dataPrenotazione, int sala,
+      int fasciaOraria) {
     super();
     this.id = id;
     this.email = email;
@@ -33,11 +35,11 @@ public class PrenotazioneBean {
     this.fasciaOraria = fasciaOraria;
   }
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -76,9 +78,9 @@ public class PrenotazioneBean {
   @Override
   public String toString() {
     return "PrenotazioneBean [id=" + id + ", email=" + email + ", dataPrenotazione="
-      + dataPrenotazione + ", sala=" + sala + ", fasciaOraria=" + fasciaOraria + "]";
+        + dataPrenotazione + ", sala=" + sala + ", fasciaOraria=" + fasciaOraria + "]";
   }
-  
-  
-  
+
+
+
 }
