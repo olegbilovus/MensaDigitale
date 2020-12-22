@@ -1,12 +1,6 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
-
-### GitHub ###
-
-.github/
-
-
 ### STS ###
 .apt_generated
 .classpath
