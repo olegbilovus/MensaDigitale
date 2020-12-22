@@ -35,9 +35,10 @@ public class DriverManagerConnectionPool {
     return newConnection;
   }
 
-  /*
+  /**
    * Creazione di una connessione.
    */
+  
   public static synchronized Connection getConnection() throws SQLException {
     Connection connection;
     if (!freeDbConnections.isEmpty()) {
@@ -57,9 +58,10 @@ public class DriverManagerConnectionPool {
     return connection;
   }
 
-  /*
+  /**
    * Rilascio connessione.
    */
+  
   public static synchronized void releaseConnection(Connection connection) throws SQLException {
     if (connection != null) {
       freeDbConnections.add(connection);
