@@ -36,7 +36,7 @@ public class DriverManagerConnectionPool {
   }
 
   /**
-   * Creazione di una connessione.
+   * Creazione di una connessionev lala.
    */
   
   
