@@ -4,8 +4,6 @@ jdk:
 before_install:
 - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
 - git lfs pull
-script: 
-- sbt clean coverage test
 after_success: 
 - sbt coveralls
 
