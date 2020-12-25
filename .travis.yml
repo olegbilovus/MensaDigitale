@@ -5,5 +5,5 @@ before_install:
 - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
 - git lfs pull
 script:
-- mvn -DrepoToken=$COVERALL_API_TOKEN
+- mvn clean verify -DrepoToken=$COVERALL_API_TOKEN
 
