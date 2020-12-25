@@ -10,4 +10,4 @@ before_script:
 - mysql -u root -e "CREATE DATABASE MensaDigitale;"
 - mysql -u root -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
 - mysql -u root -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'localhost';"
-- mysql -u $MYSQL_USER -p $MYSQL_PASS -e "SHOW schemas;"
+- mysql -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "SHOW schemas;"
