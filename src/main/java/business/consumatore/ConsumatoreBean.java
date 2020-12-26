@@ -1,4 +1,4 @@
-package storage.manager;
+package business.consumatore;
 
 import java.sql.Date;
 

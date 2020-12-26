@@ -1,9 +1,8 @@
 package storage.interfaces;
 
 import java.sql.SQLException;
-import storage.manager.FasciaOrariaBean;
 
-public interface FasciaOrariaInterface<T> extends ModelInterface<FasciaOrariaBean> {
+public interface FasciaOrariaInterface<T> extends ModelInterface<T> {
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.

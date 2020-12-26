@@ -1,11 +1,12 @@
 package storage.manager;
 
+import business.prenotazioni.FasciaOrariaBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collection;        
 import storage.interfaces.FasciaOrariaInterface;
 
 public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> {
