@@ -7,10 +7,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +50,7 @@ public class QRCode implements Identificativo<String> {
    * @throws IOException errore di IO
    * @post InputStream.string = identificativo
    */
-  public static InputStream createQR(String identificativo, int height, int width)
+  public static byte[] createQR(String identificativo, int height, int width)
       throws WriterException, IOException {
 
     Map<EncodeHintType, ErrorCorrectionLevel> hashMap =
@@ -72,7 +70,7 @@ public class QRCode implements Identificativo<String> {
     byte[] dataByte = Files.readAllBytes(file.toPath());
     file.delete();
 
-    return new ByteArrayInputStream(dataByte);
+    return dataByte;
   }
 
 }

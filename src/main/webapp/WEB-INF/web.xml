@@ -9,9 +9,19 @@
 		<description></description>
 		<servlet-class>business.prenotazioni.PrenotazioneServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>QRCodeServlet</servlet-name>
+		<display-name>QRCodeServlet</display-name>
+		<description></description>
+		<servlet-class>business.prenotazioni.QRCodeServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>PrenotazioneServlet</servlet-name>
 		<url-pattern>/prenotazione</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>QRCodeServlet</servlet-name>
+		<url-pattern>/qrcode</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
