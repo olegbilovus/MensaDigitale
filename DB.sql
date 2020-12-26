@@ -58,7 +58,7 @@ CREATE TABLE valutazione (
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE fasciaOraria (
+CREATE TABLE fasciaoraria (
     id INT PRIMARY KEY,
     fascia VARCHAR(20)
 );
