@@ -73,8 +73,8 @@ CREATE TABLE prenotazione (
     FOREIGN KEY (email)
         REFERENCES consumatore (email)
         ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (fasciaOraria)
-        REFERENCES fasciaOraria (id)
+    FOREIGN KEY (fasciaoraria)
+        REFERENCES fasciaoraria (id)
         ON DELETE CASCADE ON UPDATE CASCADE
 );
 
