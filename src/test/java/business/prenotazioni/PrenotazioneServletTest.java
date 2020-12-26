@@ -22,7 +22,7 @@ class PrenotazioneServletTest {
         "tester", "tester", 0, 0, 0, 1);
     ConsumatoreInterface<ConsumatoreBean> consumatoreDao = new ConsumatoreDao();
     consumatoreDao.doSave(tester);
-    // need login servlet to continue
+    // need login servlet to continue the testing
   }
 
   @Test
