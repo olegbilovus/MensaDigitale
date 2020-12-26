@@ -15,5 +15,5 @@ public interface PrenotazioneInterface<T> extends ModelInterface<T> {
    */
   public T doRetrieveByKey(String id) throws SQLException;
   
-  public T doRetrieveByDate(Date date) throws SQLException;
+  public T doRetrieveByDateAndFascia(Date date, String email, int fasciaOraria) throws SQLException;
 }

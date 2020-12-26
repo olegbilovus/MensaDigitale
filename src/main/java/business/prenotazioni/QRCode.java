@@ -52,7 +52,8 @@ public class QRCode implements Identificativo<String> {
    * @throws IOException errore di IO
    * @post InputStream.string = identificativo
    */
-  public InputStream createQR(int height, int width) throws WriterException, IOException {
+  public static InputStream createQR(String identificativo, int height, int width)
+      throws WriterException, IOException {
 
     Map<EncodeHintType, ErrorCorrectionLevel> hashMap =
         new HashMap<EncodeHintType, ErrorCorrectionLevel>();

@@ -230,16 +230,19 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   }
 
   @Override
-  public PrenotazioneBean<String> doRetrieveByDate(Date date) throws SQLException {
+  public PrenotazioneBean<String> doRetrieveByDateAndFascia(Date date, String email,
+      int fasciaOraria) throws SQLException {
     PrenotazioneBean<String> bean = new PrenotazioneBean<String>();
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "SELECT * FROM prenotazione WHERE id=?";
+    String sql = "SELECT * FROM prenotazione WHERE id=? and email=?";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       statement.setDate(1, date);
-      System.out.println("DoRetrieveByKey" + statement);
+      statement.setString(2, email);
+      statement.setInt(2, fasciaOraria);
+      System.out.println("doRetrieveByDateAndFascia" + statement);
       ResultSet rs = statement.executeQuery();
       if (rs.next()) {
         bean.setIdentificativo(new QRCode(rs.getString("id")));
