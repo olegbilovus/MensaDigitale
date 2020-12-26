@@ -30,7 +30,7 @@ class PrenotazioneServletTest {
   private PrenotazioneDao prenotazioneDao = new PrenotazioneDao();
   private static HttpSession session = Mockito.mock(HttpSession.class);
   private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-  HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
   private ServletContext ctx = Mockito.mock(ServletContext.class);
   private PrenotazioneServlet servlet = new PrenotazioneServlet() {
     public ServletContext getServletContext() {
