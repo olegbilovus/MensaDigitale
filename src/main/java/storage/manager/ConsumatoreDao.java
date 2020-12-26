@@ -144,7 +144,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
   public void doSave(ConsumatoreBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSER INTO consumatore VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    String sql = "INSERT INTO consumatore VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);

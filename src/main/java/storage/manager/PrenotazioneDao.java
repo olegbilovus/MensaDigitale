@@ -44,8 +44,8 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
         bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
         bean.setSala(rs.getInt("sala"));
         bean.setFasciaOraria(rs.getInt("fasciaOraria"));
+        return bean;
       }
-      return bean;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -124,7 +124,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   public void doSave(PrenotazioneBean<String> bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSER INTO prenotazione VALUES (?,?,?,?,?)";
+    String sql = "INSERT INTO prenotazione VALUES(?,?,?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
@@ -235,13 +235,14 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
     PrenotazioneBean<String> bean = new PrenotazioneBean<String>();
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "SELECT * FROM prenotazione WHERE id=? and email=?";
+    String sql =
+        "SELECT * FROM prenotazione WHERE dataPrenotazione=? and email=? and fasciaOraria=?";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       statement.setDate(1, date);
       statement.setString(2, email);
-      statement.setInt(2, fasciaOraria);
+      statement.setInt(3, fasciaOraria);
       System.out.println("doRetrieveByDateAndFascia" + statement);
       ResultSet rs = statement.executeQuery();
       if (rs.next()) {
@@ -250,8 +251,8 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
         bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
         bean.setSala(rs.getInt("sala"));
         bean.setFasciaOraria(rs.getInt("fasciaOraria"));
+        return bean;
       }
-      return bean;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {

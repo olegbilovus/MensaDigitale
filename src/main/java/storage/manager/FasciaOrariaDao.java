@@ -116,7 +116,7 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
   public void doSave(FasciaOrariaBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSER INTO fasciaoraria VALUES (?,?)";
+    String sql = "INSERT INTO fasciaoraria VALUES (?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);

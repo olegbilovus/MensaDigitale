@@ -52,8 +52,8 @@ public class PrenotazioneServlet extends HttpServlet {
               new QRCode(UUID.randomUUID().toString().replace("-", ""));
 
           PrenotazioneBean<String> prenotazione =
-              new PrenotazioneBean<>(new Date(System.currentTimeMillis()), identificativo,
-                  fasciaOraria, sala, consumatore.getEmail());
+              new PrenotazioneBean<>(new Date(System.currentTimeMillis()), identificativo, sala,
+                  fasciaOraria, consumatore.getEmail());
 
           prenotazioneDAO.doSave(prenotazione);
           request.getSession().setAttribute("prenotazione", prenotazione);
@@ -61,6 +61,8 @@ public class PrenotazioneServlet extends HttpServlet {
       } catch (SQLException e) {
         e.printStackTrace();
       }
+    } else {
+      throw new IllegalArgumentException();
     }
   }
 

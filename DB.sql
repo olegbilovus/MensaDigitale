@@ -59,12 +59,12 @@ CREATE TABLE valutazione (
 );
 
 CREATE TABLE fasciaOraria (
-    id int primary key,
-    fascia varchar(20)
+    id INT PRIMARY KEY,
+    fascia VARCHAR(20)
 );
 
 CREATE TABLE prenotazione (
-    id VARCHAR(50),
+    id VARCHAR(150),
     email VARCHAR(150),
     dataPrenotazione DATE NOT NULL,
     sala INT NOT NULL,
