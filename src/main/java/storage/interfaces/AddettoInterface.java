@@ -1,7 +1,7 @@
 package storage.interfaces;
 
+import business.addetto.AddettoBean;
 import java.sql.SQLException;
-import storage.manager.AddettoBean;
 
 public interface AddettoInterface<T> extends ModelInterface<AddettoBean> {
 

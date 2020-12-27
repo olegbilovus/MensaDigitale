@@ -1,4 +1,4 @@
-﻿DROP database IF EXISTS MensaDigitale;
+#﻿DROP database IF EXISTS MensaDigitale;
 CREATE database MensaDigitale;
 USE MensaDigitale;
 

@@ -42,7 +42,7 @@ public class MenuBean {
 
   /**
    * Aggiunge un piatto alla lista dei secondi.
-   *
+   * 
    * @param secondo il piatto da aggiungere alla lista dei secondi
    */
   public void addSecondo(PiattoBean secondo) {
@@ -104,6 +104,52 @@ public class MenuBean {
    */
   public void clearContorni() {
     contorni.clear();
+  }
+  
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((contorni == null) ? 0 : contorni.hashCode());
+    result = prime * result + ((primi == null) ? 0 : primi.hashCode());
+    result = prime * result + ((secondi == null) ? 0 : secondi.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    MenuBean other = (MenuBean) obj;
+    if (contorni == null) {
+      if (other.contorni != null) {
+        return false;
+      }
+    } else if (!contorni.equals(other.contorni)) {
+      return false;
+    }
+    if (primi == null) {
+      if (other.primi != null) {
+        return false;
+      }
+    } else if (!primi.equals(other.primi)) {
+      return false;
+    }
+    if (secondi == null) {
+      if (other.secondi != null) {
+        return false;
+      }
+    } else if (!secondi.equals(other.secondi)) {
+      return false;
+    }
+    return true;
   }
 
   @Override
