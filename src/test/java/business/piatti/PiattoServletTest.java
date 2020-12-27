@@ -101,7 +101,7 @@ class PiattoServletTest {
   @Test
   void tc_pm_1_8() {
     String nome = "Testing";
-    String ingredienti = "LATTE, FARINA";
+    String ingredienti = "LATTE,FARINA";
     String calorie = "1";
     String proteine = "1";
     String grassi = "1";
