@@ -2,6 +2,8 @@ package business.prenotazioni;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.consumatore.ConsumatoreBean;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -15,7 +17,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import business.consumatore.ConsumatoreBean;
 import storage.manager.ConsumatoreDao;
 import storage.manager.FasciaOrariaDao;
 import storage.manager.PrenotazioneDao;
