@@ -1,4 +1,4 @@
-package storage.manager;
+package business.admin;
 
 public class AdministratorBean {
 
