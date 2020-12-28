@@ -1,16 +1,18 @@
 package business.piatti;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import storage.manager.PiattoDao;
 
 class PiattoServletTest {
   
   private PiattoServlet servlet = new PiattoServlet();
+  private PiattoDao dao = new PiattoDao();
   private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
   
@@ -100,21 +102,29 @@ class PiattoServletTest {
   
   @Test
   void tc_pm_1_8() {
-    String nome = "Testing";
-    String ingredienti = "LATTE,FARINA";
-    String calorie = "1";
-    String proteine = "1";
-    String grassi = "1";
-    String sodio = "1";
-    String carboidrati = "1";
-    Mockito.doReturn(nome).when(request).getParameter("nomePiatto");
-    Mockito.doReturn(ingredienti).when(request).getParameter("ingredienti");
-    Mockito.doReturn(calorie).when(request).getParameter("calorie");
-    Mockito.doReturn(proteine).when(request).getParameter("proteine");
-    Mockito.doReturn(grassi).when(request).getParameter("grassi");
-    Mockito.doReturn(sodio).when(request).getParameter("sodio");
-    Mockito.doReturn(carboidrati).when(request).getParameter("carboidrati");
-    assertDoesNotThrow(() -> servlet.doPost(request, response));
+    try {
+      String nome = "Testing";
+      String ingredienti = "LATTE,FARINA";
+      String calorie = "1";
+      String proteine = "1";
+      String grassi = "1";
+      String sodio = "1";
+      String carboidrati = "1";
+      Mockito.doReturn(nome).when(request).getParameter("nomePiatto");
+      Mockito.doReturn(ingredienti).when(request).getParameter("ingredienti");
+      Mockito.doReturn(calorie).when(request).getParameter("calorie");
+      Mockito.doReturn(proteine).when(request).getParameter("proteine");
+      Mockito.doReturn(grassi).when(request).getParameter("grassi");
+      Mockito.doReturn(sodio).when(request).getParameter("sodio");
+      Mockito.doReturn(carboidrati).when(request).getParameter("carboidrati");
+      assertDoesNotThrow(() -> servlet.doPost(request, response));
+    } finally {
+      try {
+        dao.doDelete(new PiattoBean("Testing", null, 0, 0, 0, 0, 0));
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
     
   }
 
