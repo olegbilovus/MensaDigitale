@@ -1,7 +1,7 @@
 package storage.interfaces;
 
+import business.piatti.PiattoBean;
 import java.sql.SQLException;
-import storage.manager.PiattoBean;
 
 public interface PiattoInterface<T> extends ModelInterface<PiattoBean> {
 

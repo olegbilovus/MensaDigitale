@@ -1,5 +1,6 @@
 package storage.manager;
 
+import business.addetto.AddettoBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

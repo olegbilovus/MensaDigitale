@@ -1,5 +1,6 @@
 package storage.manager;
 
+import business.piatti.PiattoBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -126,7 +127,7 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   public void doSave(PiattoBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSER INTO piatto VALUES (?,?,?,?,?,?,?)";
+    String sql = "INSERT INTO piatto VALUES (?,?,?,?,?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
