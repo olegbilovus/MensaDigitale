@@ -212,4 +212,38 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
 
     }
   }
+  
+  /**
+   * Metodo utilizzato per trovare una fascia oraria identificata dalla fascia.
+   * 
+   * @category Restituisce una fascia oraria
+   * 
+   * @param fasciaOraria indica la fascia oraria da cercare
+   */
+  public FasciaOrariaBean doRetrieveByFascia(String fasciaOraria) throws SQLException {
+    Connection con = null;
+    PreparedStatement statement = null;
+    String sql = "SELECT * FROM fasciaoraria WHERE fascia = ?";
+    FasciaOrariaBean result = null;
+    try {
+      con = DriverManagerConnectionPool.getConnection();
+      statement = con.prepareStatement(sql);
+      statement.setString(1, fasciaOraria);
+      System.out.println("doRetrieveByFascia=" + statement);
+      ResultSet results = statement.executeQuery();
+      results.next();
+      result = new FasciaOrariaBean(results.getInt("id"), results.getString("fascia"));
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        statement.close();
+        DriverManagerConnectionPool.releaseConnection(con);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+
+    return result;
+  }
 }
