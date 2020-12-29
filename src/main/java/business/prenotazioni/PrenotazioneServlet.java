@@ -41,13 +41,15 @@ public class PrenotazioneServlet extends HttpServlet {
         (ConsumatoreBean) request.getSession().getAttribute("consumatore");
     int fasciaOraria = Integer.parseInt(request.getParameter("fasciaOraria"));
     int sala = Integer.parseInt(request.getParameter("sala"));
+    String action = request.getParameter("action");
 
     if (fasciaOraria >= 1
         && fasciaOraria <= (Integer) getServletContext().getAttribute("numFasceOrarie") && sala >= 1
         && sala <= 5) {
       try {
-        if (prenotazioneDAO.doRetrieveByDateAndFascia(new Date(System.currentTimeMillis()),
-            consumatore.getEmail(), fasciaOraria) == null) {
+        PrenotazioneBean<String> bean = prenotazioneDAO.doRetrieveByDateAndFascia(
+            new Date(System.currentTimeMillis()), consumatore.getEmail(), fasciaOraria);
+        if (action.equals("invia") && bean == null) {
           Identificativo<String> identificativo =
               new QRCode(UUID.randomUUID().toString().replace("-", ""));
 
@@ -57,6 +59,10 @@ public class PrenotazioneServlet extends HttpServlet {
 
           prenotazioneDAO.doSave(prenotazione);
           request.getSession().setAttribute("prenotazione", prenotazione);
+
+        } else if (action.equals("elimina") && bean != null) {
+          prenotazioneDAO.doDelete(bean);
+          request.getSession().removeAttribute("prenotazione");
         }
       } catch (SQLException e) {
         e.printStackTrace();
@@ -65,5 +71,6 @@ public class PrenotazioneServlet extends HttpServlet {
       throw new IllegalArgumentException();
     }
   }
+
 
 }

@@ -6,15 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;        
+import java.util.Collection;
 import storage.interfaces.FasciaOrariaInterface;
 
 public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> {
-
-  /*
-   * Costruttore per FasciaOrariaDao.
-   */
-  public FasciaOrariaDao() {}
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
@@ -72,7 +67,7 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
     Connection con = null;
     PreparedStatement statement = null;
     String sql = "SELECT * FROM fasciaoraria";
-    ArrayList<FasciaOrariaBean> collection = new ArrayList<FasciaOrariaBean>();
+    ArrayList<FasciaOrariaBean> collection = new ArrayList<>();
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
