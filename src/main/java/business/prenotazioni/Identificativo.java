@@ -1,6 +1,10 @@
 package business.prenotazioni;
 
-public abstract class Identificativo<T> {
+import java.io.Serializable;
+
+public abstract class Identificativo<T> implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   public abstract T getIdentificativo();
 
