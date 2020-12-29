@@ -43,6 +43,7 @@ class PrenotazioneServletTest {
   public static void init() {
     Mockito.doReturn(tester).when(session).getAttribute("consumatore");
     Mockito.doReturn(session).when(request).getSession();
+    Mockito.doReturn("invia").when(request).getParameter("action");
   }
 
   @BeforeEach

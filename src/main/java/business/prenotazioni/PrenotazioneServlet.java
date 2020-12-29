@@ -16,54 +16,65 @@ import storage.manager.PrenotazioneDao;
  * Servlet implementation class PrenotazioneServlet.
  */
 public class PrenotazioneServlet extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  private static PrenotazioneInterface<PrenotazioneBean<String>> prenotazioneDAO =
-      new PrenotazioneDao();
+	private static PrenotazioneInterface<PrenotazioneBean<String>> prenotazioneDAO =
+		new PrenotazioneDao();
 
-  public PrenotazioneServlet() {
-    super();
-  }
+	public PrenotazioneServlet() {
+		super();
+	}
 
-  @Override
-  protected void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-  }
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {
+		response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+	}
 
-  @Override
-  protected void doPost(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {
 
-    response.setContentType("text/html");
+		response.setContentType("text/html");
 
-    ConsumatoreBean consumatore =
-        (ConsumatoreBean) request.getSession().getAttribute("consumatore");
-    int fasciaOraria = Integer.parseInt(request.getParameter("fasciaOraria"));
-    int sala = Integer.parseInt(request.getParameter("sala"));
+		ConsumatoreBean consumatore =
+			(ConsumatoreBean) request.getSession().getAttribute("consumatore");
+		int fasciaOraria = Integer.parseInt(request.getParameter("fasciaOraria"));
+		int sala = Integer.parseInt(request.getParameter("sala"));
+		String action = request.getParameter("action");
 
-    if (fasciaOraria >= 1
-        && fasciaOraria <= (Integer) getServletContext().getAttribute("numFasceOrarie") && sala >= 1
-        && sala <= 5) {
-      try {
-        if (prenotazioneDAO.doRetrieveByDateAndFascia(new Date(System.currentTimeMillis()),
-            consumatore.getEmail(), fasciaOraria) == null) {
-          Identificativo<String> identificativo =
-              new QRCode(UUID.randomUUID().toString().replace("-", ""));
+		if (fasciaOraria >= 1
+				&& fasciaOraria <= (Integer) getServletContext().getAttribute("numFasceOrarie") && sala >= 1
+				&& sala <= 5) {
+			try {
+				PrenotazioneBean<String> bean = prenotazioneDAO.doRetrieveByDateAndFascia(new Date(System.currentTimeMillis()),
+												consumatore.getEmail(), fasciaOraria);
+				if (action.equals("invia")) {
+					if (bean == null) {
+						Identificativo<String> identificativo =
+							new QRCode(UUID.randomUUID().toString().replace("-", ""));
 
-          PrenotazioneBean<String> prenotazione =
-              new PrenotazioneBean<>(new Date(System.currentTimeMillis()), identificativo, sala,
-                  fasciaOraria, consumatore.getEmail());
+						PrenotazioneBean<String> prenotazione =
+							new PrenotazioneBean<>(new Date(System.currentTimeMillis()), identificativo, sala,
+												   fasciaOraria, consumatore.getEmail());
 
-          prenotazioneDAO.doSave(prenotazione);
-          request.getSession().setAttribute("prenotazione", prenotazione);
-        }
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-    } else {
-      throw new IllegalArgumentException();
-    }
-  }
+						prenotazioneDAO.doSave(prenotazione);
+						request.getSession().setAttribute("prenotazione", prenotazione);
+					}
+				} else if (action.equals("elimina")) {
+					if (bean != null) {
+						prenotazioneDAO.doDelete(bean);
+						request.getSession().removeAttribute("prenotazione");
+					}
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else {
+			throw new IllegalArgumentException();
+		}
+	}
+
 
 }
