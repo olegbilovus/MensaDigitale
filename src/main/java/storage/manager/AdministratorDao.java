@@ -73,7 +73,7 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
     Connection con = null;
     PreparedStatement statement = null;
     String sql = "SELECT * FROM administrator";
-    ArrayList<AdministratorBean> collection = new ArrayList<AdministratorBean>();
+    ArrayList<AdministratorBean> collection = new ArrayList<>();
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);

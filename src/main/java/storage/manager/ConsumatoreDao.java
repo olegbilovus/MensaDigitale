@@ -12,7 +12,7 @@ import storage.interfaces.ConsumatoreInterface;
 public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
 
 
-  /*
+  /**
    * Costruttore per ConsumatoreDao.
    */
   public ConsumatoreDao() {}
@@ -87,7 +87,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
     Connection con = null;
     PreparedStatement statement = null;
     String sql = "SELECT * FROM consumatore";
-    ArrayList<ConsumatoreBean> collection = new ArrayList<ConsumatoreBean>();
+    ArrayList<ConsumatoreBean> collection = new ArrayList<>();
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);

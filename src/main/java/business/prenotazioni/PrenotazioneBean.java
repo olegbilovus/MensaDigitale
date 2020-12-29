@@ -1,9 +1,11 @@
 package business.prenotazioni;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class PrenotazioneBean<T> {
+public class PrenotazioneBean<T> implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private Date dataPrenotazione;
   private Identificativo<T> identificativo;
   private int sala;
