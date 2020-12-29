@@ -2,6 +2,7 @@ package storage.interfaces;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Collection;
 
 
 public interface PrenotazioneInterface<T> extends ModelInterface<T> {
@@ -14,6 +15,9 @@ public interface PrenotazioneInterface<T> extends ModelInterface<T> {
    * @throws SQLException Eccezione lanciata da SQL
    */
   public T doRetrieveByKey(String id) throws SQLException;
-  
+
   public T doRetrieveByDateAndFascia(Date date, String email, int fasciaOraria) throws SQLException;
+
+  public Collection<T> doRetrieveByDateSalaFascia(Date date, int sala, int fascia)
+      throws SQLException;
 }

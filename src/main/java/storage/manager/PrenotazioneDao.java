@@ -87,7 +87,6 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
         bean.setFasciaOraria(rs.getInt("fasciaOraria"));
         collection.add(bean);
       }
-      return collection;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -103,7 +102,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
       }
 
     }
-    return null;
+    return collection;
 
   }
 
@@ -264,6 +263,50 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
     }
     return null;
+  }
+
+  @Override
+  public Collection<PrenotazioneBean<String>> doRetrieveByDateSalaFascia(Date date, int sala,
+      int fascia) throws SQLException {
+    Connection con = null;
+    PreparedStatement statement = null;
+    String sql =
+        "SELECT * FROM prenotazione WHERE dataPrenotazione=? and sala=? and fasciaOraria=?";
+    ArrayList<PrenotazioneBean<String>> collection = new ArrayList<>();
+    try {
+      con = DriverManagerConnectionPool.getConnection();
+      statement = con.prepareStatement(sql);
+      statement.setDate(1, date);
+      statement.setInt(2, sala);
+      statement.setInt(3, fascia);
+      System.out.println("doRetrieveByDateSalaFascia" + statement);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        PrenotazioneBean<String> bean = new PrenotazioneBean<>();
+        bean.setIdentificativo(new QRCode(rs.getString("id")));
+        bean.setEmail(rs.getString("email"));
+        bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
+        bean.setSala(rs.getInt("sala"));
+        bean.setFasciaOraria(rs.getInt("fasciaOraria"));
+        collection.add(bean);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+
+      try {
+
+        statement.close();
+        DriverManagerConnectionPool.releaseConnection(con);
+
+      } catch (SQLException e) {
+
+        e.printStackTrace();
+      }
+
+    }
+    return collection;
+
   }
 
 }
