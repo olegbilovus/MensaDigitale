@@ -14,11 +14,6 @@ import storage.interfaces.PrenotazioneInterface;
 public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<String>> {
 
   /**
-   * Costruttore per PrenotazioneDao.
-   */
-  public PrenotazioneDao() {}
-
-  /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    *
    * @category Ricerca la prenotazione in base all'id della prenotazione
@@ -28,7 +23,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
   @Override
   public PrenotazioneBean<String> doRetrieveByKey(String id) throws SQLException {
-    PrenotazioneBean<String> bean = new PrenotazioneBean<String>();
+    PrenotazioneBean<String> bean = new PrenotazioneBean<>();
     Connection con = null;
     PreparedStatement statement = null;
     String sql = "SELECT * FROM prenotazione WHERE id=?";
@@ -77,14 +72,14 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
     Connection con = null;
     PreparedStatement statement = null;
     String sql = "SELECT * FROM prenotazione";
-    ArrayList<PrenotazioneBean<String>> collection = new ArrayList<PrenotazioneBean<String>>();
+    ArrayList<PrenotazioneBean<String>> collection = new ArrayList<>();
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       System.out.println("DoRetriveAll" + statement);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
-        PrenotazioneBean<String> bean = new PrenotazioneBean<String>();
+        PrenotazioneBean<String> bean = new PrenotazioneBean<>();
         bean.setIdentificativo(new QRCode(rs.getString("id")));
         bean.setEmail(rs.getString("email"));
         bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
@@ -232,7 +227,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   @Override
   public PrenotazioneBean<String> doRetrieveByDateAndFascia(Date date, String email,
       int fasciaOraria) throws SQLException {
-    PrenotazioneBean<String> bean = new PrenotazioneBean<String>();
+    PrenotazioneBean<String> bean = new PrenotazioneBean<>();
     Connection con = null;
     PreparedStatement statement = null;
     String sql =

@@ -49,24 +49,20 @@ public class PrenotazioneServlet extends HttpServlet {
       try {
         PrenotazioneBean<String> bean = prenotazioneDAO.doRetrieveByDateAndFascia(
             new Date(System.currentTimeMillis()), consumatore.getEmail(), fasciaOraria);
-        if (action.equals("invia")) {
-          if (bean == null) {
-            Identificativo<String> identificativo =
-                new QRCode(UUID.randomUUID().toString().replace("-", ""));
+        if (action.equals("invia") && bean == null) {
+          Identificativo<String> identificativo =
+              new QRCode(UUID.randomUUID().toString().replace("-", ""));
 
-            PrenotazioneBean<String> prenotazione =
-                new PrenotazioneBean<>(new Date(System.currentTimeMillis()), identificativo, sala,
-                    fasciaOraria, consumatore.getEmail());
+          PrenotazioneBean<String> prenotazione =
+              new PrenotazioneBean<>(new Date(System.currentTimeMillis()), identificativo, sala,
+                  fasciaOraria, consumatore.getEmail());
 
-            prenotazioneDAO.doSave(prenotazione);
-            request.getSession().setAttribute("prenotazione", prenotazione);
-          }
-        } else if (action.equals("elimina")) {
-          if (bean != null) {
-            prenotazioneDAO.doDelete(bean);
-            request.getSession().removeAttribute("prenotazione");
-          }
+          prenotazioneDAO.doSave(prenotazione);
+          request.getSession().setAttribute("prenotazione", prenotazione);
 
+        } else if (action.equals("elimina") && bean != null) {
+          prenotazioneDAO.doDelete(bean);
+          request.getSession().removeAttribute("prenotazione");
         }
       } catch (SQLException e) {
         e.printStackTrace();
