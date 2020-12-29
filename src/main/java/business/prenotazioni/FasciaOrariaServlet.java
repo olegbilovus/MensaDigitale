@@ -36,11 +36,14 @@ public class FasciaOrariaServlet extends HttpServlet {
     Collection<FasciaOrariaBean> fasceOrarieEsistenti;
     try {
       fasceOrarieEsistenti = (Collection<FasciaOrariaBean>) fasciaOrariaDao.doRetrieveAll();
+      int numFasceOrarie = ((int) request.getServletContext().getAttribute("numFasceOrarie"));
       if (action.equals("inserisci")) {
         if (!presente(fasciaOraria, fasceOrarieEsistenti)) {
           int id = getNewId(fasceOrarieEsistenti);
           FasciaOrariaBean nuovaFasciaOraria = new FasciaOrariaBean(id, fasciaOraria);
           fasciaOrariaDao.doSave(nuovaFasciaOraria);
+          numFasceOrarie++;
+          request.getServletContext().setAttribute("numFasceOrarie", numFasceOrarie);
         } else {
           /*
            * La fascia oraria che si vuole inserire è già presente, devo mandare un messaggio
@@ -51,6 +54,8 @@ public class FasciaOrariaServlet extends HttpServlet {
         if (presente(fasciaOraria, fasceOrarieEsistenti)) {
           FasciaOrariaBean fasciaOrariaDeleted = fasciaOrariaDao.doRetrieveByFascia(fasciaOraria);
           fasciaOrariaDao.doDelete(fasciaOrariaDeleted);
+          numFasceOrarie--;
+          request.getServletContext().setAttribute("numFasceOrarie", numFasceOrarie);
         } else {
           /*
            * La fascia oraria che si vuole eliminare non è presente, devo mandare un messaggio
