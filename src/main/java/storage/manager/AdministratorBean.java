@@ -1,25 +1,27 @@
-package business.utente;
+package storage.manager;
 
-public abstract class Utente {
+public class AdministratorBean {
+
   private String email;
   private String nome;
   private String cognome;
 
+  public AdministratorBean() {
+    super();
+  }
+
   /**
-   * Utente rappresenta l'utente generico del sistema.
-   * 
-   * @param email è l'email dell'utente
-   * @param nome è il nome dell'utente
-   * @param cognome è il cognome dell'utente
+   * Costruttore dell'admin.
+   * @param email L'email dell'admin
+   * @param nome Nome dell'admin
+   * @param cognome Cognome dell'admin
    */
-  public Utente(String email, String nome, String cognome) {
+  
+  public AdministratorBean(String email, String nome, String cognome) {
+    super();
     this.email = email;
     this.nome = nome;
     this.cognome = cognome;
-  }
-
-  public Utente() {
-    super();
   }
 
   public String getEmail() {
@@ -46,4 +48,15 @@ public abstract class Utente {
     this.cognome = cognome;
   }
 
+  @Override
+  public String toString() {
+    return "AdministratorBean [email=" + email + ", nome=" + nome + ", cognome=" + cognome + "]";
+  }
+  
+  
+  
+  
+  
+  
+  
 }
