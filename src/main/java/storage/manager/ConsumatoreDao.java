@@ -271,8 +271,8 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
    *           codice fiscale Il risultato � una lista di stringhe della forma:
    *           nome|cognome|email|fasciaoraria|sala|data
    * 
-   * @param codiceFiscale � il codice fiscale del consumatore
-   * @param dataIniziale � la data (14gg antecedente a quella odierna)
+   * @param codiceFiscale e' il codice fiscale del consumatore
+   * @param dataIniziale e' la data (14gg antecedente a quella odierna)
    */
   public Collection<String> doRetrieveForTracciamento(String codiceFiscale, String dataIniziale) {
     Connection con = null;
