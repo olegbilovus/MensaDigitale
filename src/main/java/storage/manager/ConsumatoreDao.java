@@ -54,8 +54,8 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
         bean.setResidenzaNucleoFamiliare(rs.getInt("residenzaNucleoFamiliare"));
         bean.setSaldo(rs.getInt("saldo"));
         bean.setFasciaPagamento(rs.getInt("fasciaPagamento"));
+        return bean;
       }
-      return bean;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -260,5 +260,5 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
     }
   }
 
-  
+
 }

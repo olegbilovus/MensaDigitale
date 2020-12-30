@@ -11,6 +11,7 @@ public class PrenotazioneBean<T> implements Serializable {
   private int sala;
   private int fasciaOraria;
   private String email;
+  private boolean entrato;
 
   public PrenotazioneBean() {
     super();
@@ -32,6 +33,7 @@ public class PrenotazioneBean<T> implements Serializable {
     this.sala = sala;
     this.fasciaOraria = fasciaOraria;
     this.email = email;
+    this.entrato = false;
   }
 
   public Date getDataPrenotazione() {
@@ -78,7 +80,15 @@ public class PrenotazioneBean<T> implements Serializable {
   public String toString() {
     return this.getClass().getName() + "[dataPrenotazione=" + dataPrenotazione + ", identificativo="
         + identificativo + ", sala=" + sala + ", fasciaOraria=" + fasciaOraria + ", email=" + email
-        + "]";
+        + ", entrato=" + entrato + "]";
+  }
+
+  public boolean isEntrato() {
+    return entrato;
+  }
+
+  public void setEntrato(boolean entrato) {
+    this.entrato = entrato;
   }
 
   @Override
