@@ -7,11 +7,9 @@ public class FasciaOrariaBean {
 
   /**
    * Bean della fascia oraria.
-   * 
    * @param id l'id della fascia oraria
    * @param fascia la stringa che rappresenta la fascia oraria
    */
-  
   public FasciaOrariaBean(int id, String fascia) {
     this.id = id;
     this.fascia = fascia;
@@ -41,5 +39,6 @@ public class FasciaOrariaBean {
   public String toString() {
     return this.getClass().getName() + "[id=" + id + ", fascia=" + fascia + "]";
   }
+
 
 }
