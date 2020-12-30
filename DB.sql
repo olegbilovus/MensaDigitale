@@ -69,6 +69,7 @@ CREATE TABLE prenotazione (
     dataPrenotazione DATE NOT NULL,
     sala INT NOT NULL,
     fasciaOraria INT NOT NULL,
+    entrato BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (id),
     FOREIGN KEY (email)
         REFERENCES consumatore (email)

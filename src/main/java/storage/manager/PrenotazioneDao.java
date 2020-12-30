@@ -39,6 +39,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
         bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
         bean.setSala(rs.getInt("sala"));
         bean.setFasciaOraria(rs.getInt("fasciaOraria"));
+        bean.setEntrato(rs.getBoolean("entrato"));
         return bean;
       }
     } catch (Exception e) {
@@ -85,6 +86,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
         bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
         bean.setSala(rs.getInt("sala"));
         bean.setFasciaOraria(rs.getInt("fasciaOraria"));
+        bean.setEntrato(rs.getBoolean("entrato"));
         collection.add(bean);
       }
     } catch (Exception e) {
@@ -118,7 +120,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   public void doSave(PrenotazioneBean<String> bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSERT INTO prenotazione VALUES(?,?,?,?,?)";
+    String sql = "INSERT INTO prenotazione VALUES(?,?,?,?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
@@ -127,6 +129,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
       statement.setDate(3, bean.getDataPrenotazione());
       statement.setInt(4, bean.getSala());
       statement.setInt(5, bean.getFasciaOraria());
+      statement.setBoolean(6, bean.isEntrato());
       System.out.println("doSave=" + statement);
       statement.executeUpdate();
       con.commit();
@@ -245,6 +248,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
         bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
         bean.setSala(rs.getInt("sala"));
         bean.setFasciaOraria(rs.getInt("fasciaOraria"));
+        bean.setEntrato(rs.getBoolean("entrato"));
         return bean;
       }
     } catch (Exception e) {
@@ -288,6 +292,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
         bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
         bean.setSala(rs.getInt("sala"));
         bean.setFasciaOraria(rs.getInt("fasciaOraria"));
+        bean.setEntrato(rs.getBoolean("entrato"));
         collection.add(bean);
       }
     } catch (Exception e) {
