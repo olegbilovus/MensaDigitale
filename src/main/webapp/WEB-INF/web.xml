@@ -37,6 +37,18 @@
 		<description></description>
 		<servlet-class>business.prenotazioni.TracciamentoContattiServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>GestioneIdentificativo</servlet-name>
+		<display-name>GestioneIdentificativo</display-name>
+		<description></description>
+		<servlet-class>business.addetto.GestioneIdentificativo</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>Pagamento</servlet-name>
+		<display-name>Pagamento</display-name>
+		<description></description>
+		<servlet-class>business.addetto.Pagamento</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>PrenotazioneServlet</servlet-name>
 		<url-pattern>/prenotazione</url-pattern>
@@ -52,6 +64,14 @@
 	<servlet-mapping>
 		<servlet-name>TracciamentoContattiServlet</servlet-name>
 		<url-pattern>/TracciamentoContattiServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GestioneIdentificativo</servlet-name>
+		<url-pattern>/gestioneidentificativo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Pagamento</servlet-name>
+		<url-pattern>/pagamento</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

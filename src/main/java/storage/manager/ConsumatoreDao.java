@@ -58,8 +58,8 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
         bean.setResidenzaNucleoFamiliare(rs.getInt("residenzaNucleoFamiliare"));
         bean.setSaldo(rs.getInt("saldo"));
         bean.setFasciaPagamento(rs.getInt("fasciaPagamento"));
+        return bean;
       }
-      return bean;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -268,11 +268,11 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
    * Metodo utilizzato per effettuare il tracciamento dei contatti.
    * 
    * @category Trova tutti i consumatori entrati in contatto con il consumatore di cui si cerca il
-   *           codice fiscale Il risultato è una lista di stringhe della forma:
+   *           codice fiscale Il risultato ï¿½ una lista di stringhe della forma:
    *           nome|cognome|email|fasciaoraria|sala|data
    * 
-   * @param codiceFiscale è il codice fiscale del consumatore
-   * @param dataIniziale è la data (14gg antecedente a quella odierna)
+   * @param codiceFiscale ï¿½ il codice fiscale del consumatore
+   * @param dataIniziale ï¿½ la data (14gg antecedente a quella odierna)
    */
   public Collection<String> doRetrieveForTracciamento(String codiceFiscale, String dataIniziale) {
     Connection con = null;
