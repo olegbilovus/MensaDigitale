@@ -268,26 +268,26 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
    * Metodo utilizzato per effettuare il tracciamento dei contatti.
    * 
    * @category Trova tutti i consumatori entrati in contatto con il consumatore di cui si cerca il
-   *           codice fiscale
+   *           codice fiscale Il risultato è una lista di stringhe della forma:
+   *           nome|cognome|email|fasciaoraria|sala|data
    * 
    * @param codiceFiscale è il codice fiscale del consumatore
    * @param dataIniziale è la data (14gg antecedente a quella odierna)
    */
-  public Collection<ConsumatoreBean> doRetrieveForTracciamento(String codiceFiscale,
-      String dataIniziale) {
+  public Collection<String> doRetrieveForTracciamento(String codiceFiscale, String dataIniziale) {
     Connection con = null;
     PreparedStatement statement = null;
-    ArrayList<ConsumatoreBean> listaRisultati = new ArrayList<ConsumatoreBean>();
+    ArrayList<String> listaRisultati = new ArrayList<>();
     // codicefiscale, data, fascia, boolean
     String table = "consumatore c1 JOIN prenotazione p1 ON p.email = c.email";
-    String dateMalate = "SELECT dataPrenotazione FROM " + table
-        + " WHERE codicefiscale = ? AND campobooleano = true";
+    String dateMalate =
+        "SELECT dataPrenotazione FROM " + table + " WHERE codicefiscale = ? AND entrato = true";
     String table2 =
         "(consumatore c2 JOIN prenotazione p2 on p.email = c.email) pr JOIN fasciaoraria f "
-        + "ON pr.fasciaoraria = f.id";
+            + "ON pr.fasciaoraria = f.id";
     String consumatoriEntrati =
-        "SELECT email, nome, cognome, fascia, sala, dataPrenotazione, c2.campobooleano FROM "
-            + table2 + " WHERE dataPrenotazione in (" + dateMalate + ")";
+        "SELECT email, nome, cognome, fascia, sala, dataPrenotazione, c2.entrato FROM " + table2
+            + " WHERE dataPrenotazione in (" + dateMalate + ")";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(consumatoriEntrati);
@@ -297,13 +297,24 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
       while (results.next()) {
         String dataPrenotazione = results.getString("dataPrenotazione");
         if (fourteenDaysBetween(dataIniziale, dataPrenotazione)) {
-          if(results.getBoolean("c2.campobooleano")) {
-            
+          if (results.getBoolean("c2.entrato")) {
+            String risultato =
+                String.join("|", results.getString("nome"), results.getString("cognome"),
+                    results.getString("email"), results.getString("fascia"),
+                    results.getString("sala"), results.getString("dataPrenotazione"));
+            listaRisultati.add(risultato);
           }
         }
       }
     } catch (Exception e) {
       e.printStackTrace();
+    } finally {
+      try {
+        statement.close();
+        DriverManagerConnectionPool.releaseConnection(con);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
     return listaRisultati;
   }
