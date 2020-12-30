@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import storage.interfaces.AdministratorInterface;
+import business.admin.AdministratorBean;
 
 public class AdministratorDao implements AdministratorInterface<AdministratorBean> {
 

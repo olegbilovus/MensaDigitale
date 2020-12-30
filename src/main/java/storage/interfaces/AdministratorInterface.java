@@ -1,7 +1,7 @@
 package storage.interfaces;
 
 import java.sql.SQLException;
-import storage.manager.AdministratorBean;
+import business.admin.AdministratorBean;
 
 public interface AdministratorInterface<T> extends ModelInterface<AdministratorBean> {
 

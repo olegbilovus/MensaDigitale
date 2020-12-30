@@ -1,6 +1,8 @@
 package storage.interfaces;
 
+import business.prenotazioni.FasciaOrariaBean;
 import java.sql.SQLException;
+
 
 public interface FasciaOrariaInterface<T> extends ModelInterface<T> {
 
@@ -12,4 +14,13 @@ public interface FasciaOrariaInterface<T> extends ModelInterface<T> {
    * @throws SQLException Eccezione lanciata da SQL
    */
   public T doRetrieveByKey(int id) throws SQLException;
+
+  /**
+   * Metodo utilizzato per trovare una fascia oraria identificata dalla fascia.
+   * 
+   * @category Restituisce una fascia oraria
+   * 
+   * @param fasciaOraria indica la fascia oraria da cercare
+   */
+  public FasciaOrariaBean doRetrieveByFascia(String fasciaOraria) throws SQLException;
 }
