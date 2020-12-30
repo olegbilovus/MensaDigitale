@@ -31,6 +31,12 @@
 		<description></description>
 		<servlet-class>business.piatti.PiattoServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>TracciamentoContattiServlet</servlet-name>
+		<display-name>TracciamentoContattiServlet</display-name>
+		<description></description>
+		<servlet-class>business.prenotazioni.TracciamentoContattiServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>PrenotazioneServlet</servlet-name>
 		<url-pattern>/prenotazione</url-pattern>
@@ -42,6 +48,10 @@
 	<servlet-mapping>
 		<servlet-name>PiattoServlet</servlet-name>
 		<url-pattern>/PiattoServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TracciamentoContattiServlet</servlet-name>
+		<url-pattern>/TracciamentoContattiServlet</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

@@ -21,7 +21,7 @@ public class FasciaOrariaServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    response.getWriter().append("Served at: ").append(request.getContextPath());
+    doPost(request, response);
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -163,7 +163,7 @@ public class FasciaOrariaServlet extends HttpServlet {
   }
 
   private int getNewId(Collection<FasciaOrariaBean> list) {
-    boolean[] array = new boolean[list.size() + 1];
+    boolean[] array = new boolean[list.size() + 1]; //+1 è la posizione [0] che ignoriamo
     array[0] = false; // Evitiamo di usare un id = 0
     for (int i = 1; i < array.length; i++) {
       array[i] = true;
