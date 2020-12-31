@@ -1,17 +1,18 @@
 package business.piatti;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuBean {
+public class MenuBean implements Serializable {
 
   private List<PiattoBean> primi;
   private List<PiattoBean> secondi;
   private List<PiattoBean> contorni;
 
   /**
-   * Costruttore per la classe MenuBean.
-   * Inizializza le liste che rappresentano i primi, i secondi e i contorni.
+   * Costruttore per la classe MenuBean. Inizializza le liste che rappresentano i primi, i secondi e
+   * i contorni.
    */
   public MenuBean() {
     primi = new ArrayList<PiattoBean>();
@@ -42,7 +43,7 @@ public class MenuBean {
 
   /**
    * Aggiunge un piatto alla lista dei secondi.
-   * 
+   *
    * @param secondo il piatto da aggiungere alla lista dei secondi
    */
   public void addSecondo(PiattoBean secondo) {
@@ -85,27 +86,21 @@ public class MenuBean {
     contorni.remove(contorno);
   }
 
-  /**
-   * Rimuove tutti i piatti dalla lista dei primi.
-   */
+  /** Rimuove tutti i piatti dalla lista dei primi. */
   public void clearPrimi() {
     primi.clear();
   }
 
-  /**
-   * Rimuove tutti i piatti dalla lista dei secondi.
-   */
+  /** Rimuove tutti i piatti dalla lista dei secondi. */
   public void clearSecondi() {
     secondi.clear();
   }
 
-  /**
-   * Rimuove tutti i piatti dalla lista dei contorni.
-   */
+  /** Rimuove tutti i piatti dalla lista dei contorni. */
   public void clearContorni() {
     contorni.clear();
   }
-  
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -154,10 +149,6 @@ public class MenuBean {
 
   @Override
   public String toString() {
-    return "MenuBean{"
-            + "primi=" + primi
-            + ", secondi=" + secondi
-            + ", contorni=" + contorni
-            + '}';
+    return "MenuBean{" + "primi=" + primi + ", secondi=" + secondi + ", contorni=" + contorni + '}';
   }
 }

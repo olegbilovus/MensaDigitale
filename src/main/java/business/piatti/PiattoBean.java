@@ -1,19 +1,20 @@
 package business.piatti;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class PiattoBean {
+public class PiattoBean implements Serializable {
 
   private String nome;
   private String ingredienti;
+  private String portata; // 'primo', 'secondo', 'contorno'
   private int calorie;
   private int proteine;
   private int grassi;
   private int sodio;
   private int carboidrati;
 
-  public PiattoBean() {
-  }
+  public PiattoBean() {}
 
   /**
    * Costruttore della classe PiattoBean.
@@ -26,10 +27,18 @@ public class PiattoBean {
    * @param sodio numero di sodio (in g/porzione)
    * @param carboidrati numero di carboidrati (in g/porzione)
    */
-  public PiattoBean(String nome, String ingredienti, int calorie, int proteine,
-                    int grassi, int sodio, int carboidrati) {
+  public PiattoBean(
+      String nome,
+      String ingredienti,
+      String portata,
+      int calorie,
+      int proteine,
+      int grassi,
+      int sodio,
+      int carboidrati) {
     this.nome = nome;
     this.ingredienti = ingredienti;
+    this.portata = portata;
     this.calorie = calorie;
     this.proteine = proteine;
     this.grassi = grassi;
@@ -93,6 +102,14 @@ public class PiattoBean {
     this.carboidrati = carboidrati;
   }
 
+  public String getPortata() {
+    return portata;
+  }
+
+  public void setPortata(String portata) {
+    this.portata = portata;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -102,23 +119,51 @@ public class PiattoBean {
       return false;
     }
     PiattoBean that = (PiattoBean) o;
-    return getCalorie() == that.getCalorie() && getProteine() == that.getProteine()
-            && getGrassi() == that.getGrassi() && getSodio() == that.getSodio()
-            && getCarboidrati() == that.getCarboidrati() && getNome().equals(that.getNome())
-            && getIngredienti().equals(that.getIngredienti());
+    return getCalorie() == that.getCalorie()
+        && getProteine() == that.getProteine()
+        && getGrassi() == that.getGrassi()
+        && getSodio() == that.getSodio()
+        && getCarboidrati() == that.getCarboidrati()
+        && getNome().equals(that.getNome())
+        && getIngredienti().equals(that.getIngredienti())
+        && getPortata().equals(that.getPortata());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getNome(), getIngredienti(), getCalorie(),
-            getProteine(), getGrassi(), getSodio(), getCarboidrati());
+    return Objects.hash(
+        getNome(),
+        getIngredienti(),
+        getPortata(),
+        getCalorie(),
+        getProteine(),
+        getGrassi(),
+        getSodio(),
+        getCarboidrati());
   }
 
   @Override
   public String toString() {
-    return "PiattoBean{" + "nome='" + nome + '\'' + ", ingredienti='" + ingredienti
-            + '\'' + ", calorie=" + ", proteine=" + calorie + proteine + ", grassi="
-            + grassi + ", sodio=" + sodio + ", carboidrati=" + carboidrati + '}';
+    return "PiattoBean{"
+        + "nome='"
+        + nome
+        + '\''
+        + ", ingredienti='"
+        + ingredienti
+        + '\''
+        + ", portata='"
+        + portata
+        + '\''
+        + ", calorie="
+        + calorie
+        + ", proteine="
+        + proteine
+        + ", grassi="
+        + grassi
+        + ", sodio="
+        + sodio
+        + ", carboidrati="
+        + carboidrati
+        + '}';
   }
-
 }

@@ -9,12 +9,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import storage.manager.PiattoDao;
 
+import java.sql.SQLException;
+
 class PiattoServletTest {
   
   private PiattoServlet servlet = new PiattoServlet();
   private PiattoDao dao = new PiattoDao();
   private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private PiattoDao dao = new PiattoDao();
   
   @BeforeAll
   public static void beforeAll() {
@@ -120,12 +123,12 @@ class PiattoServletTest {
       assertDoesNotThrow(() -> servlet.doPost(request, response));
     } finally {
       try {
-        dao.doDelete(new PiattoBean("Testing", null, 0, 0, 0, 0, 0));
+        dao.doDelete(new PiattoBean("Testing", null, null, 0, 0, 0, 0, 0));
       } catch (SQLException e) {
         e.printStackTrace();
       }
     }
-    
+
   }
 
 }

@@ -14,6 +14,12 @@
 		<url-pattern>/prenotazione.jsp</url-pattern>
 	</filter-mapping>
 	<servlet>
+		<servlet-name>MenuServlet</servlet-name>
+		<display-name>MenuServlet</display-name>
+		<description></description>
+		<servlet-class>business.piatti.MenuServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>PrenotazioneServlet</servlet-name>
 		<display-name>PrenotazioneServlet</display-name>
 		<description></description>
@@ -44,6 +50,10 @@
 		<servlet-class>business.addetto.Pagamento</servlet-class>
 	</servlet>
 	<servlet-mapping>
+		<servlet-name>MenuServlet</servlet-name>
+		<url-pattern>/menu</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>PrenotazioneServlet</servlet-name>
 		<url-pattern>/prenotazione</url-pattern>
 	</servlet-mapping>
@@ -53,7 +63,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>PiattoServlet</servlet-name>
-		<url-pattern>/PiattoServlet</url-pattern>
+		<url-pattern>/piatto</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>GestioneIdentificativo</servlet-name>
