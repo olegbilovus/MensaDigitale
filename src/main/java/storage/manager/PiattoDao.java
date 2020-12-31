@@ -40,6 +40,7 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
       if (rs.next()) {
         bean.setNome(rs.getString("nome"));
         bean.setIngredienti(rs.getString("ingredienti"));
+        bean.setPortata(rs.getString("portata"));
         bean.setCalorie(rs.getInt("calorie"));
         bean.setProteine(rs.getInt("proteine"));
         bean.setGrassi(rs.getInt("grassi"));
@@ -88,6 +89,7 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
         PiattoBean bean = new PiattoBean();
         bean.setNome(rs.getString("nome"));
         bean.setIngredienti(rs.getString("ingredienti"));
+        bean.setPortata(rs.getString("portata"));
         bean.setCalorie(rs.getInt("calorie"));
         bean.setProteine(rs.getInt("proteine"));
         bean.setGrassi(rs.getInt("grassi"));
@@ -127,17 +129,18 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   public void doSave(PiattoBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSERT INTO piatto VALUES (?,?,?,?,?,?,?)";
+    String sql = "INSERT INTO piatto VALUES (?,?,?,?,?,?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       statement.setString(1, bean.getNome());
       statement.setString(2, bean.getIngredienti());
-      statement.setInt(3, bean.getCalorie());
-      statement.setInt(4, bean.getProteine());
-      statement.setInt(5, bean.getGrassi());
-      statement.setInt(6, bean.getSodio());
-      statement.setInt(7, bean.getCarboidrati());
+      statement.setString(3, bean.getPortata());
+      statement.setInt(4, bean.getCalorie());
+      statement.setInt(5, bean.getProteine());
+      statement.setInt(6, bean.getGrassi());
+      statement.setInt(7, bean.getSodio());
+      statement.setInt(8, bean.getCarboidrati());
       System.out.println("doSave=" + statement);
       statement.executeUpdate();
       con.commit();

@@ -26,47 +26,62 @@ public class PiattoServlet extends HttpServlet {
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
-    
+
+    String destination = request.getParameter("destination");
+    if (destination == null) {
+      destination = "index.jsp";
+    }
+
     String action = request.getParameter("action");
     PiattoDao dao = new PiattoDao();
     
     if (action != null) {
-      if (action.equals("aggiungiPiatto")) {
-        PiattoBean newPiatto = createNewPiatto(request, response);
-        try {
-          dao.doSave(newPiatto);
-        } catch (SQLException e) {
-          e.printStackTrace();
+      switch (action) {
+        case "aggiungiPiatto": {
+          PiattoBean newPiatto = createNewPiatto(request, response);
+          try {
+            dao.doSave(newPiatto);
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
+          break;
         }
-      } else if (action.equals("modificaPiatto")) {
-        PiattoBean newPiatto = createNewPiatto(request, response);
-        try {
-          dao.doUpdate(newPiatto);
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }        
-      } else if (action.equals("rimuoviPiatto")) {
-        PiattoBean newPiatto = createNewPiatto(request, response);
-        try {
-          dao.doDelete(newPiatto);
-        } catch (SQLException e) {
-          e.printStackTrace();
+        case "modificaPiatto": {
+          PiattoBean newPiatto = createNewPiatto(request, response);
+          try {
+            dao.doUpdate(newPiatto);
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
+          break;
         }
-      } else if (action.equals("getPiatto")) {
-        String nomePiatto = request.getParameter("nomePiatto");
-        try {
-          PiattoBean newPiatto = dao.doRetrieveByKey(nomePiatto);
-          request.setAttribute("piatto", newPiatto);
-        } catch (SQLException e) {
-          e.printStackTrace();
+        case "rimuoviPiatto": {
+          PiattoBean newPiatto = createNewPiatto(request, response);
+          try {
+            dao.doDelete(newPiatto);
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
+          break;
         }
-      } else if (action.equals("getTuttiPiatti")) {
-        try {
-          ArrayList<PiattoBean> list = new ArrayList<PiattoBean>(dao.doRetrieveAll());
-          request.setAttribute("tuttiPiatti", list);
-        } catch (SQLException e) {
-          e.printStackTrace();
-        }
+        case "getPiatto":
+          String nomePiatto = request.getParameter("nomePiatto");
+          try {
+            PiattoBean newPiatto = dao.doRetrieveByKey(nomePiatto);
+            request.setAttribute("piatto", newPiatto);
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
+          break;
+        case "getTuttiPiatti":
+          try {
+            ArrayList<PiattoBean> list = new ArrayList<PiattoBean>(dao.doRetrieveAll());
+            request.setAttribute("tuttiPiatti", list);
+            request.getRequestDispatcher(destination).forward(request, response);
+          } catch (SQLException e) {
+            e.printStackTrace();
+          }
+          break;
       }
     }
     
@@ -76,6 +91,7 @@ public class PiattoServlet extends HttpServlet {
       throws IOException {
     String nomePiatto = request.getParameter("nomePiatto");
     String ingredienti = request.getParameter("ingredienti");
+    String portata = request.getParameter("portata");
     int calorie = Integer.parseInt(request.getParameter("calorie"));
     int proteine = Integer.parseInt(request.getParameter("proteine"));
     int grassi = Integer.parseInt(request.getParameter("grassi"));
@@ -88,13 +104,13 @@ public class PiattoServlet extends HttpServlet {
         || sodio < 0 || carboidrati < 0) {
       throw new IllegalArgumentException();
     }
-    if (nomePiatto == null || nomePiatto.equals("")
-        || ingredienti.equals("")) {
+    if (nomePiatto == null || nomePiatto.trim().equals("")
+        || ingredienti.trim().equals("")) {
       response.sendError(HttpServletResponse.SC_BAD_REQUEST,
           "Errori nei parametri della richiesta!");
       return null;
     } else {
-      return new PiattoBean(nomePiatto, ingredienti, 
+      return new PiattoBean(nomePiatto, ingredienti, portata,
           calorie, proteine, grassi, sodio, carboidrati);
     }
   }

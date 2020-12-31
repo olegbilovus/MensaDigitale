@@ -4,6 +4,12 @@
 <web-app>
 	<display-name>mensadigitale</display-name>
 	<servlet>
+		<servlet-name>MenuServlet</servlet-name>
+		<display-name>MenuServlet</display-name>
+		<description></description>
+		<servlet-class>business.piatti.MenuServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>PrenotazioneServlet</servlet-name>
 		<display-name>PrenotazioneServlet</display-name>
 		<description></description>
@@ -22,6 +28,10 @@
 		<servlet-class>business.piatti.PiattoServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
+		<servlet-name>MenuServlet</servlet-name>
+		<url-pattern>/menu</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>PrenotazioneServlet</servlet-name>
 		<url-pattern>/prenotazione</url-pattern>
 	</servlet-mapping>
@@ -31,7 +41,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>PiattoServlet</servlet-name>
-		<url-pattern>/PiattoServlet</url-pattern>
+		<url-pattern>/piatto</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
