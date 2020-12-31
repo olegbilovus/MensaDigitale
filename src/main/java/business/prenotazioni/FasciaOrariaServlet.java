@@ -69,7 +69,7 @@ public class FasciaOrariaServlet extends HttpServlet {
           getServletContext().setAttribute("numFasceOrarie", numFasceOrarie);
         } else {
           /*
-           * La fascia oraria che si vuole inserire e' già presente, devo mandare un messaggio
+           * La fascia oraria che si vuole inserire e' gia' presente, devo mandare un messaggio
            * Lancio l'eccezione per i test
            */
           throw new IllegalArgumentException();
