@@ -8,9 +8,9 @@ public abstract class Utente {
   /**
    * Utente rappresenta l'utente generico del sistema.
    * 
-   * @param email è l'email dell'utente
-   * @param nome è il nome dell'utente
-   * @param cognome è il cognome dell'utente
+   * @param email e' l'email dell'utente
+   * @param nome e' il nome dell'utente
+   * @param cognome e' il cognome dell'utente
    */
   public Utente(String email, String nome, String cognome) {
     this.email = email;
