@@ -29,30 +29,52 @@ public class FasciaOrariaServlet extends HttpServlet {
     String fasciaOraria = request.getParameter("fasciaOraria");
     String action = request.getParameter("action"); // Inserimento o cancellazione
 
-    if (!(request.getSession().getAttribute("user") instanceof AdministratorBean)) {
-      response.sendError(HttpServletResponse.SC_FORBIDDEN);
+    if (fasciaOraria.length() != 5) {
+      throw new IllegalArgumentException();
     }
     
-    /*
-     * Rispettare il formato.
-     */
+    char f1 = fasciaOraria.charAt(0);
+    char f2 = fasciaOraria.charAt(1);
+    char f3 = fasciaOraria.charAt(2);
+    char f4 = fasciaOraria.charAt(3);
+    char f5 = fasciaOraria.charAt(4);
+
+    boolean f1_val = (Character.getNumericValue(f1) == 0
+        && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 9))
+        || (Character.getNumericValue(f1) == 1
+            && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 9))
+        || (Character.getNumericValue(f1) == 2
+            && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 3));
+    boolean f4_val = (Character.getNumericValue(f4) >= 0 && Character.getNumericValue(f4) <= 5);
+    boolean f5_val = (Character.getNumericValue(f5) >= 0 && Character.getNumericValue(f5) <= 9);
+    
+    if (!(Character.isDigit(f1)) || !(Character.isDigit(f2)) || f3 != ':'
+        || !(Character.isDigit(f4)) || !(Character.isDigit(f5))
+        || !f1_val || !f4_val || !f5_val) {
+
+      System.out.println("##");
+      throw new IllegalArgumentException();
+    }
+
+
 
     Collection<FasciaOrariaBean> fasceOrarieEsistenti;
     try {
       fasceOrarieEsistenti = (Collection<FasciaOrariaBean>) fasciaOrariaDao.doRetrieveAll();
-      int numFasceOrarie = ((int) request.getServletContext().getAttribute("numFasceOrarie"));
+      int numFasceOrarie = ((int) getServletContext().getAttribute("numFasceOrarie"));
       if (action.equals("inserisci")) {
         if (!presente(fasciaOraria, fasceOrarieEsistenti)) {
           int id = getNewId(fasceOrarieEsistenti);
           FasciaOrariaBean nuovaFasciaOraria = new FasciaOrariaBean(id, fasciaOraria);
           fasciaOrariaDao.doSave(nuovaFasciaOraria);
           numFasceOrarie++;
-          request.getServletContext().setAttribute("numFasceOrarie", numFasceOrarie);
+          getServletContext().setAttribute("numFasceOrarie", numFasceOrarie);
         } else {
           /*
-           * La fascia oraria che si vuole inserire è già presente, devo mandare un messaggio
+           * La fascia oraria che si vuole inserire è già presente, devo mandare un messaggio Lancio
+           * l'eccezione per i test
            */
-          System.out.println("#######Non lo so ancora");
+          throw new IllegalArgumentException();
         }
       } else if (action.equals("elimina")) {
         if (presente(fasciaOraria, fasceOrarieEsistenti)) {
@@ -63,8 +85,9 @@ public class FasciaOrariaServlet extends HttpServlet {
         } else {
           /*
            * La fascia oraria che si vuole eliminare non è presente, devo mandare un messaggio
+           * Lancio l'eccezione per i test
            */
-          System.out.println("#######Non lo so ancora");
+          throw new IllegalArgumentException();
         }
       } else {
         response.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -74,7 +97,7 @@ public class FasciaOrariaServlet extends HttpServlet {
     }
   }
 
-  private Boolean presente(String fasciaOraria, Collection<FasciaOrariaBean> list) {
+  private boolean presente(String fasciaOraria, Collection<FasciaOrariaBean> list) {
     /*
      * f = fasciaOraria: es. 11:00 - Durata 40 min Se x,y,z sono tre fasce e x < y < z allora y-x
      * >=40 e z-y >= 40
@@ -148,18 +171,19 @@ public class FasciaOrariaServlet extends HttpServlet {
         if (Math.abs(nuovaFascia.minuti - vecchiaFascia.minuti) < 40) {
           return true;
         }
-      }
-      if (nuovaFascia.ora > vecchiaFascia.ora) {
-        /*
-         * Se l'ora è diversa controllo se l'inizio della fascia con l'ora più alta è precedente
-         * alla fine dell'altra fascia
-         */
-        if (nuovaFascia.compareTo(vecchiaFascia.getFineFascia()) < 0) {
-          return true;
-        }
       } else {
-        if (nuovaFascia.getFineFascia().compareTo(vecchiaFascia) > 0) {
-          return true;
+        if (nuovaFascia.ora > vecchiaFascia.ora) {
+          /*
+           * Se l'ora è diversa controllo se l'inizio della fascia con l'ora più alta è precedente
+           * alla fine dell'altra fascia
+           */
+          if (nuovaFascia.compareTo(vecchiaFascia.getFineFascia()) < 0) {
+            return true;
+          }
+        } else {
+          if (nuovaFascia.getFineFascia().compareTo(vecchiaFascia) > 0) { //.
+            return true;
+          }
         }
       }
     }
@@ -167,7 +191,7 @@ public class FasciaOrariaServlet extends HttpServlet {
   }
 
   private int getNewId(Collection<FasciaOrariaBean> list) {
-    boolean[] array = new boolean[list.size() + 1]; //+1 è la posizione [0] che ignoriamo
+    boolean[] array = new boolean[list.size() + 1]; // +1 è la posizione [0] che ignoriamo
     array[0] = false; // Evitiamo di usare un id = 0
     for (int i = 1; i < array.length; i++) {
       array[i] = true;
