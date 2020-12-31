@@ -5,8 +5,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import storage.interfaces.ConsumatoreInterface;
 
 public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
@@ -314,5 +318,18 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
     }
     return listaRisultati;
   }
-
+  
+  private boolean fourteenDaysBetween(String data1, String data2) throws ParseException {
+    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    Date dataInizio = df.parse(data1);
+    Date dataPrenotazione = df.parse(data2);
+    Calendar c1 = Calendar.getInstance();
+    Calendar c2 = Calendar.getInstance();
+    c1.setTime(dataInizio);
+    c2.setTime(dataPrenotazione);
+    if (c2.before(c1)) {
+      return false;
+    }
+    return true;
+  }
 }

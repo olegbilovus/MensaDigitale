@@ -165,7 +165,8 @@ public class FasciaOrariaServlet extends HttpServlet {
       }
       if (nuovaFascia.ora == vecchiaFascia.ora) {
         /*
-         * Se l'ora e0 uguale controllo se la distanza tra le due fasce orarie è di meno di 40 minuti
+         * Se l'ora e0 uguale controllo se la distanza tra le due fasce orarie è di meno di 40
+         * minuti
          */
         if (Math.abs(nuovaFascia.minuti - vecchiaFascia.minuti) < 40) {
           return true;

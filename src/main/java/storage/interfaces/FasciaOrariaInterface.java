@@ -1,6 +1,7 @@
 package storage.interfaces;
 
 import java.sql.SQLException;
+import business.prenotazioni.FasciaOrariaBean;
 
 public interface FasciaOrariaInterface<T> extends ModelInterface<T> {
 
@@ -12,4 +13,6 @@ public interface FasciaOrariaInterface<T> extends ModelInterface<T> {
    * @throws SQLException Eccezione lanciata da SQL
    */
   public T doRetrieveByKey(int id) throws SQLException;
+
+  public FasciaOrariaBean doRetrieveByFascia(String fasciaOraria) throws SQLException;
 }
