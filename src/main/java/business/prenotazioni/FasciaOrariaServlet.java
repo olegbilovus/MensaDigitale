@@ -27,12 +27,12 @@ public class FasciaOrariaServlet extends HttpServlet {
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     String fasciaOraria = request.getParameter("fasciaOraria");
-    String action = request.getParameter("action"); // Inserimento o cancellazione
+    String action = request.getParameter("action");
 
     if (fasciaOraria.length() != 5) {
       throw new IllegalArgumentException();
     }
-    
+
     char f1 = fasciaOraria.charAt(0);
     char f2 = fasciaOraria.charAt(1);
     char f3 = fasciaOraria.charAt(2);
@@ -47,10 +47,9 @@ public class FasciaOrariaServlet extends HttpServlet {
             && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 3));
     boolean f4_val = (Character.getNumericValue(f4) >= 0 && Character.getNumericValue(f4) <= 5);
     boolean f5_val = (Character.getNumericValue(f5) >= 0 && Character.getNumericValue(f5) <= 9);
-    
+
     if (!(Character.isDigit(f1)) || !(Character.isDigit(f2)) || f3 != ':'
-        || !(Character.isDigit(f4)) || !(Character.isDigit(f5))
-        || !f1_val || !f4_val || !f5_val) {
+        || !(Character.isDigit(f4)) || !(Character.isDigit(f5)) || !f1_val || !f4_val || !f5_val) {
 
       System.out.println("##");
       throw new IllegalArgumentException();
@@ -71,8 +70,8 @@ public class FasciaOrariaServlet extends HttpServlet {
           getServletContext().setAttribute("numFasceOrarie", numFasceOrarie);
         } else {
           /*
-           * La fascia oraria che si vuole inserire è già presente, devo mandare un messaggio Lancio
-           * l'eccezione per i test
+           * La fascia oraria che si vuole inserire e' già presente, devo mandare un messaggio
+           * Lancio l'eccezione per i test
            */
           throw new IllegalArgumentException();
         }
@@ -84,7 +83,7 @@ public class FasciaOrariaServlet extends HttpServlet {
           request.getServletContext().setAttribute("numFasceOrarie", numFasceOrarie);
         } else {
           /*
-           * La fascia oraria che si vuole eliminare non è presente, devo mandare un messaggio
+           * La fascia oraria che si vuole eliminare non e' presente, devo mandare un messaggio
            * Lancio l'eccezione per i test
            */
           throw new IllegalArgumentException();
@@ -166,7 +165,7 @@ public class FasciaOrariaServlet extends HttpServlet {
       }
       if (nuovaFascia.ora == vecchiaFascia.ora) {
         /*
-         * Se l'ora è uguale controllo se la distanza tra le due fasce orarie è di meno di 40 minuti
+         * Se l'ora e0 uguale controllo se la distanza tra le due fasce orarie è di meno di 40 minuti
          */
         if (Math.abs(nuovaFascia.minuti - vecchiaFascia.minuti) < 40) {
           return true;
@@ -174,14 +173,14 @@ public class FasciaOrariaServlet extends HttpServlet {
       } else {
         if (nuovaFascia.ora > vecchiaFascia.ora) {
           /*
-           * Se l'ora è diversa controllo se l'inizio della fascia con l'ora più alta è precedente
+           * Se l'ora e' diversa controllo se l'inizio della fascia con l'ora più alta e' precedente
            * alla fine dell'altra fascia
            */
           if (nuovaFascia.compareTo(vecchiaFascia.getFineFascia()) < 0) {
             return true;
           }
         } else {
-          if (nuovaFascia.getFineFascia().compareTo(vecchiaFascia) > 0) { //.
+          if (nuovaFascia.getFineFascia().compareTo(vecchiaFascia) > 0) { // .
             return true;
           }
         }
@@ -191,7 +190,7 @@ public class FasciaOrariaServlet extends HttpServlet {
   }
 
   private int getNewId(Collection<FasciaOrariaBean> list) {
-    boolean[] array = new boolean[list.size() + 1]; // +1 è la posizione [0] che ignoriamo
+    boolean[] array = new boolean[list.size() + 1]; // +1 e' la posizione [0] che ignoriamo
     array[0] = false; // Evitiamo di usare un id = 0
     for (int i = 1; i < array.length; i++) {
       array[i] = true;
