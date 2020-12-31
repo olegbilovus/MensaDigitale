@@ -51,7 +51,6 @@ public class FasciaOrariaServlet extends HttpServlet {
     if (!(Character.isDigit(f1)) || !(Character.isDigit(f2)) || f3 != ':'
         || !(Character.isDigit(f4)) || !(Character.isDigit(f5)) || !f1_val || !f4_val || !f5_val) {
 
-      System.out.println("##");
       throw new IllegalArgumentException();
     }
 
@@ -165,7 +164,7 @@ public class FasciaOrariaServlet extends HttpServlet {
       }
       if (nuovaFascia.ora == vecchiaFascia.ora) {
         /*
-         * Se l'ora e0 uguale controllo se la distanza tra le due fasce orarie è di meno di 40
+         * Se l'ora e' uguale controllo se la distanza tra le due fasce orarie è di meno di 40
          * minuti
          */
         if (Math.abs(nuovaFascia.minuti - vecchiaFascia.minuti) < 40) {
