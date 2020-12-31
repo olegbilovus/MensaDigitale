@@ -2,9 +2,12 @@ package business.prenotazioni;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.consumatore.ConsumatoreBean;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.HashMap;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +18,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import business.consumatore.ConsumatoreBean;
 import storage.manager.ConsumatoreDao;
 import storage.manager.FasciaOrariaDao;
 import storage.manager.PrenotazioneDao;
@@ -27,11 +29,13 @@ class PrenotazioneServletTest {
       "tester", "tester", "tester", "tester", 0, 0, 0, 1);
   private ConsumatoreDao consumatoreDao = new ConsumatoreDao();
   private FasciaOrariaDao fasciaOrariaDao = new FasciaOrariaDao();
+  private static HashMap<Integer, HashMap<Integer, Boolean>> saleDisponibili = new HashMap<>();
+  private static HashMap<Integer, Integer> capienzaSale = new HashMap<>(5);
   private PrenotazioneDao prenotazioneDao = new PrenotazioneDao();
   private static HttpSession session = Mockito.mock(HttpSession.class);
   private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  private ServletContext ctx = Mockito.mock(ServletContext.class);
+  private static ServletContext ctx = Mockito.mock(ServletContext.class);
   private PrenotazioneServlet servlet = new PrenotazioneServlet() {
     public ServletContext getServletContext() {
       return ctx;
@@ -42,6 +46,24 @@ class PrenotazioneServletTest {
   public static void init() {
     Mockito.doReturn(tester).when(session).getAttribute("consumatore");
     Mockito.doReturn(session).when(request).getSession();
+    Mockito.doReturn("invia").when(request).getParameter("action");
+    Mockito.doReturn(100).when(ctx).getAttribute("numFasceOrarie");
+    
+    for (int i = 1; i <= 5; i++) {
+      HashMap<Integer, Boolean> fasceOrarie = new HashMap<>(5);
+      for (int j = 1; j <= 5; j++) {
+        fasceOrarie.put(j, true);
+      }
+      saleDisponibili.put(i, fasceOrarie);
+    }
+    Mockito.doReturn(saleDisponibili).when(ctx).getAttribute("saleDisponibili");
+    
+    capienzaSale.put(1, 300);
+    capienzaSale.put(2, 152);
+    capienzaSale.put(3, 106);
+    capienzaSale.put(4, 40);
+    capienzaSale.put(5, 15);
+    Mockito.doReturn(capienzaSale).when(ctx).getAttribute("capienzaSale");
   }
 
   @BeforeEach
@@ -62,7 +84,6 @@ class PrenotazioneServletTest {
     try {
       fasciaOrariaDao.doSave(fasciaOrariaBean);
       Mockito.doReturn(fasciaOraria).when(request).getParameter("fasciaOraria");
-      Mockito.doReturn(100).when(ctx).getAttribute("numFasceOrarie");
 
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
 
@@ -80,7 +101,6 @@ class PrenotazioneServletTest {
       fasciaOrariaDao.doSave(fasciaOrariaBean);
       Mockito.doReturn(fasciaOraria).when(request).getParameter("fasciaOraria");
       Mockito.doReturn("7").when(request).getParameter("sala");
-      Mockito.doReturn(100).when(ctx).getAttribute("numFasceOrarie");
 
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
 
@@ -98,7 +118,6 @@ class PrenotazioneServletTest {
       fasciaOrariaDao.doSave(fasciaOrariaBean);
       Mockito.doReturn(fasciaOraria).when(request).getParameter("fasciaOraria");
       Mockito.doReturn("3").when(request).getParameter("sala");
-      Mockito.doReturn(100).when(ctx).getAttribute("numFasceOrarie");
 
       servlet.doPost(request, response);
 

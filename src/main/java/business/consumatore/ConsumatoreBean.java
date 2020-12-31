@@ -1,9 +1,11 @@
 package business.consumatore;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class ConsumatoreBean {
+public class ConsumatoreBean implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private String email;
   private String nome;
   private String cognome;
@@ -27,6 +29,7 @@ public class ConsumatoreBean {
 
   /**
    * Costruttore del consumatore.
+   * 
    * @param email L'email del consumatore
    * @param nome Nome del consumatore
    * @param cognome Cognome del consumatore
@@ -44,11 +47,11 @@ public class ConsumatoreBean {
    * @param saldo Indica il saldo del consumatore
    * @param fasciaPagamento Fascia pagamento del consumatore
    */
-  
+
   public ConsumatoreBean(String email, String nome, String cognome, int statoServizi,
-      String codiceFiscale, Date dataDiNascita, String indirizzo, String telefono, 
-      String cellulare, String comuneNascita, String provinciaNascita, String cittadinanza,
-      int rifugiato, int residenzaNucleoFamiliare, int saldo, int fasciaPagamento) {
+      String codiceFiscale, Date dataDiNascita, String indirizzo, String telefono, String cellulare,
+      String comuneNascita, String provinciaNascita, String cittadinanza, int rifugiato,
+      int residenzaNucleoFamiliare, int saldo, int fasciaPagamento) {
     super();
     this.email = email;
     this.nome = nome;
@@ -155,7 +158,7 @@ public class ConsumatoreBean {
   public void setProvinciaNascita(String provinciaNascita) {
     this.provinciaNascita = provinciaNascita;
   }
-  
+
   public String getCittadinanza() {
     return cittadinanza;
   }
@@ -196,20 +199,21 @@ public class ConsumatoreBean {
     this.fasciaPagamento = fasciaPagamento;
   }
 
+  public boolean isDocente() {
+    return email.endsWith("@unisa.it");
+  }
+
   @Override
   public String toString() {
     return "ConsumatoreBean [email=" + email + ", nome=" + nome + ", cognome=" + cognome + ","
-      + " statoServizi=" + statoServizi + ", codiceFiscale=" + codiceFiscale + ","
-      + " dataDiNascita=" + dataDiNascita + ", indirizzo=" + indirizzo + ","
-      + " telefono=" + telefono + ", cellulare=" + cellulare + ", comuneNascita="
-      + comuneNascita + ", provinciaNascita=" + provinciaNascita + ", cittadinanza=" 
-      + cittadinanza + ", rifugiato=" + rifugiato + ", residenzaNucleoFamiliare="
-      + residenzaNucleoFamiliare + ", saldo=" + saldo + ", fasciaPagamento=" + fasciaPagamento
-      + "]";
+        + " statoServizi=" + statoServizi + ", codiceFiscale=" + codiceFiscale + ","
+        + " dataDiNascita=" + dataDiNascita + ", indirizzo=" + indirizzo + "," + " telefono="
+        + telefono + ", cellulare=" + cellulare + ", comuneNascita=" + comuneNascita
+        + ", provinciaNascita=" + provinciaNascita + ", cittadinanza=" + cittadinanza
+        + ", rifugiato=" + rifugiato + ", residenzaNucleoFamiliare=" + residenzaNucleoFamiliare
+        + ", saldo=" + saldo + ", fasciaPagamento=" + fasciaPagamento + "]";
   }
-  
-  
-  
-  
-  
+
+
+
 }

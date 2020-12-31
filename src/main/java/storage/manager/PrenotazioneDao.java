@@ -14,11 +14,6 @@ import storage.interfaces.PrenotazioneInterface;
 public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<String>> {
 
   /**
-   * Costruttore per PrenotazioneDao.
-   */
-  public PrenotazioneDao() {}
-
-  /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    *
    * @category Ricerca la prenotazione in base all'id della prenotazione
@@ -28,7 +23,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
   @Override
   public PrenotazioneBean<String> doRetrieveByKey(String id) throws SQLException {
-    PrenotazioneBean<String> bean = new PrenotazioneBean<String>();
+    PrenotazioneBean<String> bean = new PrenotazioneBean<>();
     Connection con = null;
     PreparedStatement statement = null;
     String sql = "SELECT * FROM prenotazione WHERE id=?";
@@ -44,6 +39,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
         bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
         bean.setSala(rs.getInt("sala"));
         bean.setFasciaOraria(rs.getInt("fasciaOraria"));
+        bean.setEntrato(rs.getBoolean("entrato"));
         return bean;
       }
     } catch (Exception e) {
@@ -77,22 +73,22 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
     Connection con = null;
     PreparedStatement statement = null;
     String sql = "SELECT * FROM prenotazione";
-    ArrayList<PrenotazioneBean<String>> collection = new ArrayList<PrenotazioneBean<String>>();
+    ArrayList<PrenotazioneBean<String>> collection = new ArrayList<>();
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       System.out.println("DoRetriveAll" + statement);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
-        PrenotazioneBean<String> bean = new PrenotazioneBean<String>();
+        PrenotazioneBean<String> bean = new PrenotazioneBean<>();
         bean.setIdentificativo(new QRCode(rs.getString("id")));
         bean.setEmail(rs.getString("email"));
         bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
         bean.setSala(rs.getInt("sala"));
         bean.setFasciaOraria(rs.getInt("fasciaOraria"));
+        bean.setEntrato(rs.getBoolean("entrato"));
         collection.add(bean);
       }
-      return collection;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -108,7 +104,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
       }
 
     }
-    return null;
+    return collection;
 
   }
 
@@ -124,7 +120,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   public void doSave(PrenotazioneBean<String> bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSERT INTO prenotazione VALUES(?,?,?,?,?)";
+    String sql = "INSERT INTO prenotazione VALUES(?,?,?,?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
@@ -133,6 +129,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
       statement.setDate(3, bean.getDataPrenotazione());
       statement.setInt(4, bean.getSala());
       statement.setInt(5, bean.getFasciaOraria());
+      statement.setBoolean(6, bean.isEntrato());
       System.out.println("doSave=" + statement);
       statement.executeUpdate();
       con.commit();
@@ -232,7 +229,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   @Override
   public PrenotazioneBean<String> doRetrieveByDateAndFascia(Date date, String email,
       int fasciaOraria) throws SQLException {
-    PrenotazioneBean<String> bean = new PrenotazioneBean<String>();
+    PrenotazioneBean<String> bean = new PrenotazioneBean<>();
     Connection con = null;
     PreparedStatement statement = null;
     String sql =
@@ -251,6 +248,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
         bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
         bean.setSala(rs.getInt("sala"));
         bean.setFasciaOraria(rs.getInt("fasciaOraria"));
+        bean.setEntrato(rs.getBoolean("entrato"));
         return bean;
       }
     } catch (Exception e) {
@@ -269,6 +267,51 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
     }
     return null;
+  }
+
+  @Override
+  public Collection<PrenotazioneBean<String>> doRetrieveByDateSalaFascia(Date date, int sala,
+      int fascia) throws SQLException {
+    Connection con = null;
+    PreparedStatement statement = null;
+    String sql =
+        "SELECT * FROM prenotazione WHERE dataPrenotazione=? and sala=? and fasciaOraria=?";
+    ArrayList<PrenotazioneBean<String>> collection = new ArrayList<>();
+    try {
+      con = DriverManagerConnectionPool.getConnection();
+      statement = con.prepareStatement(sql);
+      statement.setDate(1, date);
+      statement.setInt(2, sala);
+      statement.setInt(3, fascia);
+      System.out.println("doRetrieveByDateSalaFascia" + statement);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        PrenotazioneBean<String> bean = new PrenotazioneBean<>();
+        bean.setIdentificativo(new QRCode(rs.getString("id")));
+        bean.setEmail(rs.getString("email"));
+        bean.setDataPrenotazione(rs.getDate("dataPrenotazione"));
+        bean.setSala(rs.getInt("sala"));
+        bean.setFasciaOraria(rs.getInt("fasciaOraria"));
+        bean.setEntrato(rs.getBoolean("entrato"));
+        collection.add(bean);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+
+      try {
+
+        statement.close();
+        DriverManagerConnectionPool.releaseConnection(con);
+
+      } catch (SQLException e) {
+
+        e.printStackTrace();
+      }
+
+    }
+    return collection;
+
   }
 
 }

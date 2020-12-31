@@ -1,14 +1,17 @@
 package business.prenotazioni;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class PrenotazioneBean<T> {
+public class PrenotazioneBean<T> implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   private Date dataPrenotazione;
   private Identificativo<T> identificativo;
   private int sala;
   private int fasciaOraria;
   private String email;
+  private boolean entrato;
 
   public PrenotazioneBean() {
     super();
@@ -30,6 +33,7 @@ public class PrenotazioneBean<T> {
     this.sala = sala;
     this.fasciaOraria = fasciaOraria;
     this.email = email;
+    this.entrato = false;
   }
 
   public Date getDataPrenotazione() {
@@ -76,7 +80,25 @@ public class PrenotazioneBean<T> {
   public String toString() {
     return this.getClass().getName() + "[dataPrenotazione=" + dataPrenotazione + ", identificativo="
         + identificativo + ", sala=" + sala + ", fasciaOraria=" + fasciaOraria + ", email=" + email
-        + "]";
+        + ", entrato=" + entrato + "]";
+  }
+
+  public boolean isEntrato() {
+    return entrato;
+  }
+
+  public void setEntrato(boolean entrato) {
+    this.entrato = entrato;
+  }
+
+  @Override
+  public boolean equals(Object other) {
+    if (other == null || other.getClass() != getClass()) {
+      return false;
+    }
+    PrenotazioneBean<T> prenotazione = (PrenotazioneBean<T>) other;
+    return super.equals(prenotazione)
+        && getIdentificativo().equals(prenotazione.getIdentificativo());
   }
 
 }

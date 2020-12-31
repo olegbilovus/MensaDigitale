@@ -1,9 +1,21 @@
 package business.prenotazioni;
 
-public interface Identificativo<T> {
+import java.io.Serializable;
 
-  T getIdentificativo();
+public abstract class Identificativo<T> implements Serializable {
 
-  T setIdentificativo(T identificativo);
+  private static final long serialVersionUID = 1L;
 
+  public abstract T getIdentificativo();
+
+  public abstract T setIdentificativo(T identificativo);
+
+  @Override
+  public boolean equals(Object other) {
+    if (other == null || other.getClass() != getClass()) {
+      return false;
+    }
+    Identificativo<T> id = (Identificativo<T>) other;
+    return this.getIdentificativo().equals(id.getIdentificativo());
+  }
 }

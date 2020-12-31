@@ -1,7 +1,7 @@
 package business.piatti;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,6 +14,7 @@ import java.sql.SQLException;
 class PiattoServletTest {
   
   private PiattoServlet servlet = new PiattoServlet();
+  private PiattoDao dao = new PiattoDao();
   private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
   private PiattoDao dao = new PiattoDao();
