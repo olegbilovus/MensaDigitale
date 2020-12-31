@@ -19,7 +19,7 @@ public class ValutazioneBean {
    * @param email L'email del consumatore che effettua la valutazione
    * @param piatto Il piatto da valutare
    * @param recensione La recensione effettuata dal consumatore
-   * @param dataValutazione La data in cui è stata effettuata la valutazione
+   * @param dataValutazione La data in cui e' stata effettuata la valutazione
    */
 
   public ValutazioneBean(String email, String piatto, int recensione, Date dataValutazione) {

@@ -42,7 +42,7 @@ public class ConsumatoreBean implements Serializable {
    * @param comuneNascita Comune di nascita del consumatore
    * @param provinciaNascita Provincia di nascita del consumatore
    * @param cittadinanza Cittadinanza del consumatore
-   * @param rifugiato Indica se il consumatore è rifugiato
+   * @param rifugiato Indica se il consumatore e' rifugiato
    * @param residenzaNucleoFamiliare Indica la residenza
    * @param saldo Indica il saldo del consumatore
    * @param fasciaPagamento Fascia pagamento del consumatore

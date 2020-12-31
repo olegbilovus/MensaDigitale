@@ -13,7 +13,7 @@ import javax.servlet.ServletResponse;
 public class FilterResetSale implements Filter {
 
   /**
-   * Filtro per resettare la disponibilità delle sale.
+   * Filtro per resettare la disponibilita delle sale.
    */
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
