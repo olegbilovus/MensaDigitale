@@ -2,6 +2,7 @@ package business.prenotazioni;
 
 import business.consumatore.ConsumatoreBean;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collection;
@@ -10,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import storage.interfaces.ConsumatoreInterface;
 import storage.manager.ConsumatoreDao;
 
@@ -30,12 +33,30 @@ public class TracciamentoContattiServlet extends HttpServlet {
       throws ServletException, IOException {
     String codiceFiscale = request.getParameter("cf");
     /*
-     * I controlli sul codiceFiscale vengono fatti con javascript lato client
+     * I controlli sul codiceFiscale vengono fatti con javascript lato client o tramite filtro
      */
     Date today = new Date(System.currentTimeMillis());
-    Collection<ConsumatoreBean> listaTracciati =
+    Collection<String> listaTracciati =
         consumatoreDao.doRetrieveForTracciamento(codiceFiscale, getDataIniziale(today));
+    JSONArray jArray = new JSONArray();
+    int i = 0;
+    for (String s : listaTracciati) {
+      String[] splitted = s.split("\\|");
+      JSONObject jObj = new JSONObject();
+      jObj.put("nome", splitted[0]);
+      jObj.put("cognome", splitted[1]);
+      jObj.put("email", splitted[2]);
+      jObj.put("fascia", splitted[3]);
+      jObj.put("sala", splitted[4]);
+      jObj.put("dataPrenotazione", splitted[5]);
+
+      jArray.put(i, jObj);
+      i += 1;
+    }
     
+    PrintWriter pw = response.getWriter();
+    pw.print(jArray.toString());
+    pw.close();
   }
 
   /*
@@ -46,6 +67,6 @@ public class TracciamentoContattiServlet extends HttpServlet {
     Calendar c = Calendar.getInstance();
     c.setTime(oggi);
     c.add(Calendar.DATE, -14);
-    return df.format(c.getTime());    
+    return df.format(c.getTime());
   }
 }

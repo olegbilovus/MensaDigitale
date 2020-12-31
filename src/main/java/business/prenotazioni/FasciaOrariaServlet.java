@@ -32,6 +32,10 @@ public class FasciaOrariaServlet extends HttpServlet {
     if (!(request.getSession().getAttribute("user") instanceof AdministratorBean)) {
       response.sendError(HttpServletResponse.SC_FORBIDDEN);
     }
+    
+    /*
+     * Rispettare il formato.
+     */
 
     Collection<FasciaOrariaBean> fasceOrarieEsistenti;
     try {
