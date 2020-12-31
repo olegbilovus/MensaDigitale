@@ -17,7 +17,7 @@ class PiattoServletTest {
   private PiattoDao dao = new PiattoDao();
   private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  
+
   @BeforeAll
   public static void beforeAll() {
     Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
