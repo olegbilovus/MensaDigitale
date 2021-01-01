@@ -9,14 +9,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import storage.manager.PiattoDao;
 
-import java.sql.SQLException;
 
 class PiattoServletTest {
   
-  private PiattoServlet servlet = new PiattoServlet();
-  private PiattoDao dao = new PiattoDao();
-  private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-  private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private static final PiattoServlet servlet = new PiattoServlet();
+  private static final PiattoDao dao = new PiattoDao();
+  private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+  private static final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
 
   @BeforeAll
   public static void beforeAll() {
