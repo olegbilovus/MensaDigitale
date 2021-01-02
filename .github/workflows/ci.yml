@@ -23,10 +23,12 @@ jobs:
         sudo /etc/init.d/mysql start
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword < scriptDatabase/DB.sql
         echo "script done"
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "CREATE USER 'esame'@'%' IDENTIFIED WITH mysql_native_password BY 'esame';"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "CREATE USER 'esame'@'127.0.0.1' IDENTIFIED BY 'esame';"
         echo "user created"
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'%'; flush privileges;"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'127.0.0.1'; flush privileges;"
         echo "granted permissions"
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "select host, user from mysql.user"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "show grants for 'esame'@'127.0.0.1';"
+        
     - name: Build with Maven
       run: mvn --batch-mode --update-snapshots verify
