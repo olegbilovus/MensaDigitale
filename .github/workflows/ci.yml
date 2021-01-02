@@ -16,13 +16,13 @@ jobs:
     - name: MySql setup
       run: |
         apt-get update && apt-get install -y mysql-client
-        mysql --host mysql -uroot -ppassword < scriptDatabase/DB.sql
+        mysql --host localhost -uroot -ppassword < scriptDatabase/DB.sql
         echo "script done"
-        mysql --host mysql -uroot -ppassword -e "CREATE USER 'esame'@'localhost' IDENTIFIED BY 'esame';"
+        mysql --host localhost -uroot -ppassword -e "CREATE USER 'esame'@'localhost' IDENTIFIED BY 'esame';"
         echo "user created"
-        mysql --host mysql -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'localhost';"
+        mysql --host localhist -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'localhost';"
         echo "granted permissions"
-        mysql --host mysql -uroot -ppassword -e "select host, user from mysql.user"
+        mysql --host localhost -uroot -ppassword -e "select host, user from mysql.user"
     - name: Cache Maven packages 
       uses: actions/cache@v2
       with: 
