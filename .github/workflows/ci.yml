@@ -16,6 +16,7 @@ jobs:
     - name: MySql setup
       run: |
         apt-get update && apt-get install -y mysql-client
+        sudo service mysql start
         mysql --host localhost -uroot -ppassword < scriptDatabase/DB.sql
         echo "script done"
         mysql --host localhost -uroot -ppassword -e "CREATE USER 'esame'@'localhost' IDENTIFIED BY 'esame';"
