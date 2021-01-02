@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:8.0
+        image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: password
         ports: 
@@ -30,7 +30,7 @@ jobs:
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword < scriptDatabase/DB.sql
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'localhost';"
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;"
         
     - name: Cache Maven packages 
       uses: actions/cache@v2 
