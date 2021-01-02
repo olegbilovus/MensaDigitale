@@ -4,15 +4,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      mysql: 
+        image: mysql:8.0.22
+        env: 
+          MYSQL_ROOT_PASSWORD: password 
+        ports:
+        - 3306 
+      options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:        
     - uses: actions/checkout@v2
     - name: Set up JDK 14
       uses: actions/setup-java@v1.4.3
       with:
         java-version: 14
-    - uses: mirromutth/mysql-action@v1.1
-      with:
-        mysql root password: password
     - name: MySql setup
       run: |
         sudo /etc/init.d/mysql start
