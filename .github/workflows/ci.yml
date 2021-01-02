@@ -27,7 +27,7 @@ jobs:
     - name: MySql setup
       run: |
         sudo apt-get install -y mysql-client
-        mysql -uroot -ppassword < scriptDatabase/DB.sql
+        mysql -h localhost -u root -ppassword < scriptDatabase/DB.sql
         mysql -uroot -ppassword -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
         mysql -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'localhost';"
         mysql -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;"
