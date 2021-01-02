@@ -10,19 +10,25 @@ jobs:
         env:
           MYSQL_ROOT_PASSWORD: password
         ports: 
-          - 3360
+          - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         
-    steps:
-    - name: MySql setup
-      run: | 
-        sudo apt-get install -y mysql-client 
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "SHOW DATABASES"
+    steps:        
     - uses: actions/checkout@v2
     - name: Set up JDK 14
       uses: actions/setup-java@v1.4.3
       with:
         java-version: 14
+      env:
+        MYSQL_USER: ${{ secrets.MYSQL_USER }}
+        MYSQL_PASS: ${{ secrets.MYSQL_PASS }}
+    - name: MySql setup
+      run: |
+        sudo apt-get install -y mysql-client
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword < scriptDatabase/DB.sql
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'localhost';"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;"
     - name: Cache Maven packages 
       uses: actions/cache@v2 
       with: 
