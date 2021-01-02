@@ -1,0 +1,40 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ main ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        ports: 
+          - 3360
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+    - env:
+        MYSQL_USER: ${{ secrets.MYSQL_USER }}
+        MYSQL_PASS: ${{ secrets.MYSQL_PASS }}
+    - uses: actions/checkout@v2
+    - name: Set up JDK 14
+      uses: actions/setup-java@v1.4.3
+      with:
+        java-version: 14
+    - name: MySql setup
+      run: |
+        sudo apt-get install -y mysql-client
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u root < scriptDatabase/DB.sql- 
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u root -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u root -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'localhost';"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;
+        
+    - name: Cache Maven packages 
+      uses: actions/cache@v2 
+      with: 
+        path: ~/.m2 
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }} 
+        restore-keys: ${{ runner.os }}-m2
+    - name: Build with Maven
+      run: mvn --batch-mode --update-snapshots verify
