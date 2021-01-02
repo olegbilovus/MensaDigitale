@@ -38,24 +38,24 @@ public class TracciamentoContattiServlet extends HttpServlet {
     Date today = new Date(System.currentTimeMillis());
     Collection<String> listaTracciati =
         consumatoreDao.doRetrieveForTracciamento(codiceFiscale, getDataIniziale(today));
-    JSONArray jArray = new JSONArray();
+    JSONArray jsArray = new JSONArray();
     int i = 0;
     for (String s : listaTracciati) {
       String[] splitted = s.split("\\|");
-      JSONObject jObj = new JSONObject();
-      jObj.put("nome", splitted[0]);
-      jObj.put("cognome", splitted[1]);
-      jObj.put("email", splitted[2]);
-      jObj.put("fascia", splitted[3]);
-      jObj.put("sala", splitted[4]);
-      jObj.put("dataPrenotazione", splitted[5]);
+      JSONObject jsObj = new JSONObject();
+      jsObj.put("nome", splitted[0]);
+      jsObj.put("cognome", splitted[1]);
+      jsObj.put("email", splitted[2]);
+      jsObj.put("fascia", splitted[3]);
+      jsObj.put("sala", splitted[4]);
+      jsObj.put("dataPrenotazione", splitted[5]);
 
-      jArray.put(i, jObj);
+      jsArray.put(i, jsObj);
       i += 1;
     }
-    
+
     PrintWriter pw = response.getWriter();
-    pw.print(jArray.toString());
+    pw.print(jsArray.toString());
     pw.close();
   }
 

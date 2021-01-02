@@ -1,9 +1,9 @@
 package storage.interfaces;
 
+import business.richieste.RichiestaBean;
 import java.sql.SQLException;
-import storage.manager.RichiestaBean;
 
-public interface RichiestaInterface<T> extends ModelInterface<RichiestaBean>  {
+public interface RichiestaInterface<T> extends ModelInterface<RichiestaBean> {
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.

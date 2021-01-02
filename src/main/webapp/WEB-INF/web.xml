@@ -49,6 +49,12 @@
 		<description></description>
 		<servlet-class>business.addetto.Pagamento</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>SubmitRichiestaServlet</servlet-name>
+		<display-name>SubmitRichiestaServlet</display-name>
+		<description></description>
+		<servlet-class>business.richieste.SubmitRichiestaServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>MenuServlet</servlet-name>
 		<url-pattern>/menu</url-pattern>
@@ -72,6 +78,10 @@
 	<servlet-mapping>
 		<servlet-name>Pagamento</servlet-name>
 		<url-pattern>/pagamento</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SubmitRichiestaServlet</servlet-name>
+		<url-pattern>/SubmitRichiestaServlet</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

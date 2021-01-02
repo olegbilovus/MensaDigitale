@@ -1,5 +1,7 @@
 package storage.manager;
 
+
+import business.richieste.RichiestaBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +16,7 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
    * Costruttore per RichiestaDao.
    */
   public RichiestaDao() {}
-  
+
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    * 
