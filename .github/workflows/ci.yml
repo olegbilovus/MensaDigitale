@@ -11,7 +11,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: password 
         ports:
         - 3306 
-      options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:        
     - uses: actions/checkout@v2
     - name: Set up JDK 14
@@ -21,13 +21,13 @@ jobs:
     - name: MySql setup
       run: |
         sudo /etc/init.d/mysql start
-        mysql --host localhost -uroot -ppassword < scriptDatabase/DB.sql
+        mysql --host localhost --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword < scriptDatabase/DB.sql
         echo "script done"
-        mysql --host localhost -uroot -ppassword -e "CREATE USER 'esame'@'localhost' IDENTIFIED BY 'esame';"
+        mysql --host localhost --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "CREATE USER 'esame'@'localhost' IDENTIFIED BY 'esame';"
         echo "user created"
-        mysql --host localhist -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'localhost';"
+        mysql --host localhist --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'localhost';"
         echo "granted permissions"
-        mysql --host localhost -uroot -ppassword -e "select host, user from mysql.user"
+        mysql --host localhost --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "select host, user from mysql.user"
     - name: Cache Maven packages 
       uses: actions/cache@v2
       with: 
