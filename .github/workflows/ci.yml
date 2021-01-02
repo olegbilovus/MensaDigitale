@@ -31,7 +31,7 @@ jobs:
         echo "user created"
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'127.0.0.1';"
         echo "granted permissions"
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u$MYSQL_USER -p$MYSQL_PASS -e "USE MensaDigitale; SHOW tables;"
     - name: Cache Maven packages 
       uses: actions/cache@v2 
       with: 
