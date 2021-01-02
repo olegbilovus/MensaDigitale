@@ -15,7 +15,6 @@ jobs:
         mysql root password: password
     - name: MySql setup
       run: |
-        apt-get update && apt-get install -y mysql-client
         sudo /etc/init.d/mysql start
         mysql --host localhost -uroot -ppassword < scriptDatabase/DB.sql
         echo "script done"
