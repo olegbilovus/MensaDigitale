@@ -21,13 +21,13 @@ jobs:
     - name: MySql setup
       run: |
         sudo /etc/init.d/mysql start
-        mysql --host localhost --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword < scriptDatabase/DB.sql
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword < scriptDatabase/DB.sql
         echo "script done"
-        mysql --host localhost --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "CREATE USER 'esame'@'localhost' IDENTIFIED BY 'esame';"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "CREATE USER 'esame'@'localhost' IDENTIFIED BY 'esame';"
         echo "user created"
-        mysql --host localhist --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'localhost';"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'localhost';"
         echo "granted permissions"
-        mysql --host localhost --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "select host, user from mysql.user"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "select host, user from mysql.user"
     - name: Cache Maven packages 
       uses: actions/cache@v2
       with: 
