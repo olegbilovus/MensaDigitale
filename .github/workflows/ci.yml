@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:8.0
+        image: mysql:8.0.22
         env:
           MYSQL_ROOT_PASSWORD: password
         ports: 
@@ -29,7 +29,7 @@ jobs:
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'localhost';"
         echo "granted permissions"
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "select host, user from mysql.user"
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uesame -pesame -e "USE MensaDigitale; SHOW tables;"
+        mysql --host localhost --port ${{ job.services.mysql.ports['3306'] }} -uesame -pesame -e "USE MensaDigitale; SHOW tables;"
     - name: Cache Maven packages 
       uses: actions/cache@v2 
       with: 
