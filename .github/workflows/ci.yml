@@ -28,11 +28,5 @@ jobs:
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'%'; flush privileges;"
         echo "granted permissions"
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "select host, user from mysql.user"
-    - name: Cache Maven packages 
-      uses: actions/cache@v2
-      with: 
-        path: ~/.m2 
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }} 
-        restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: mvn --batch-mode --update-snapshots verify
