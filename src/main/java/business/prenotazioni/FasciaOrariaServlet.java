@@ -164,7 +164,7 @@ public class FasciaOrariaServlet extends HttpServlet {
       }
       if (nuovaFascia.ora == vecchiaFascia.ora) {
         /*
-         * Se l'ora e' uguale controllo se la distanza tra le due fasce orarie è di meno di 40
+         * Se l'ora e' uguale controllo se la distanza tra le due fasce orarie e' di meno di 40
          * minuti
          */
         if (Math.abs(nuovaFascia.minuti - vecchiaFascia.minuti) < 40) {
@@ -173,7 +173,7 @@ public class FasciaOrariaServlet extends HttpServlet {
       } else {
         if (nuovaFascia.ora > vecchiaFascia.ora) {
           /*
-           * Se l'ora e' diversa controllo se l'inizio della fascia con l'ora più alta e' precedente
+           * Se l'ora e' diversa controllo se l'inizio della fascia con l'ora piu' alta e' precedente
            * alla fine dell'altra fascia
            */
           if (nuovaFascia.compareTo(vecchiaFascia.getFineFascia()) < 0) {
