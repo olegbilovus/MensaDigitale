@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
         ports: 
           - 3360
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -25,9 +27,9 @@ jobs:
     - name: MySql setup
       run: |
         sudo apt-get install -y mysql-client
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u root < scriptDatabase/DB.sql- 
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u root -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u root -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'localhost';"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword < scriptDatabase/DB.sql- 
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'localhost';"
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;
         
     - name: Cache Maven packages 
