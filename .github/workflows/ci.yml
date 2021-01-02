@@ -24,9 +24,9 @@ jobs:
         sudo apt-get install -y mysql-client
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword < scriptDatabase/DB.sql
         echo "script done"
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "CREATE USER 'esame'@'127.0.0.1' IDENTIFIED BY 'esame';"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "CREATE USER 'esame'@'%' IDENTIFIED BY 'esame';"
         echo "user created"
-        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'127.0.0.1';"
+        mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'%';"
         echo "granted permissions"
         mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uesame -pesame -e "USE MensaDigitale; SHOW tables;"
     - name: Cache Maven packages 
