@@ -10,8 +10,6 @@ jobs:
         image: mysql:8.0.22
         env:
           MYSQL_ROOT_PASSWORD: password
-        ports: 
-          - 3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
         
     steps:        
@@ -23,13 +21,13 @@ jobs:
     - name: MySql setup
       run: |
         apt-get update && apt-get install -y mysql-client
-        mysql -uroot -ppassword < scriptDatabase/DB.sql
+        mysql --host mysql -uroot -ppassword < scriptDatabase/DB.sql
         echo "script done"
-        mysql -uroot -ppassword -e "CREATE USER 'esame'@'localhost' IDENTIFIED BY 'esame';"
+        mysql --host mysql -uroot -ppassword -e "CREATE USER 'esame'@'localhost' IDENTIFIED BY 'esame';"
         echo "user created"
-        mysql -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'localhost';"
+        mysql --host mysql -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to 'esame'@'localhost';"
         echo "granted permissions"
-        mysql -uroot -ppassword -e "select host, user from mysql.user"
+        mysql --host mysql -uroot -ppassword -e "select host, user from mysql.user"
     - name: Cache Maven packages 
       uses: actions/cache@v2 
       with: 
