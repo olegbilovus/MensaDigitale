@@ -1,41 +1,34 @@
-name: Java CI with Maven
-
 on:
   push:
-    branches: [ main ]
-    
 jobs:
-  build:
+  test-host:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Verify MySQL connection from host
+        run: |
+          sudo apt-get install -y mysql-client
+          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -ppassword -e "SHOW DATABASES"
+
+  test-container:
     runs-on: ubuntu-latest
     container: ubuntu
     services:
       mysql:
-        image: mysql:8.0
+        image: mysql:5.7
         env:
           MYSQL_ROOT_PASSWORD: password
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 14
-      uses: actions/setup-java@v1.4.3
-      with:
-        java-version: 14
-      env:
-        MYSQL_USER: ${{ secrets.MYSQL_USER }}
-        MYSQL_PASS: ${{ secrets.MYSQL_PASS }}
-    - name: MySql setup
-      run: |
-        apt-get update && apt-get install -y mysql-client
-        mysql -uroot -ppassword < scriptDatabase/DB.sql
-        mysql -uroot -ppassword -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
-        mysql -uroot -ppassword -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'localhost';"
-        mysql -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;
-        
-    - name: Cache Maven packages 
-      uses: actions/cache@v2 
-      with: 
-        path: ~/.m2 
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }} 
-        restore-keys: ${{ runner.os }}-m2
-    - name: Build with Maven
-      run: mvn --batch-mode --update-snapshots verify
+      - name: Verify MySQL connection from container
+        run: |
+          apt-get update && apt-get install -y mysql-client
+          mysql --host mysql -uroot -ppassword -e "SHOW DATABASES"
