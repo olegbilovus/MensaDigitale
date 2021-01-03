@@ -3,23 +3,16 @@ package business.utente;
 import business.addetto.AddettoBean;
 import business.admin.AdministratorBean;
 import business.consumatore.ConsumatoreBean;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import storage.manager.AddettoDao;
 import storage.manager.AdministratorDao;
 import storage.manager.ConsumatoreDao;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.sql.SQLException;
-import java.util.Collections;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginServlet extends HttpServlet {
 
@@ -50,8 +43,6 @@ public class LoginServlet extends HttpServlet {
       switch (action) {
 
         case "loginGoogle" -> loginGoogle(request, response);
-
-//        case "loginEmailPassword" -> loginEmailPassword(request, response);
 
         case "logOut" -> {
           request.getSession().removeAttribute("consumatore");
@@ -164,9 +155,8 @@ public class LoginServlet extends HttpServlet {
    * Responsabile della logica di business per gestire il login attraverso il dominio Google.
    * @param request la request http
    * @param response la response http
-   * @throws IOException
    */
-  private void loginGoogle(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  private void loginGoogle(HttpServletRequest request, HttpServletResponse response) {
 
     String email = request.getParameter("email");
 
@@ -185,12 +175,6 @@ public class LoginServlet extends HttpServlet {
     }
 
   }
-
-//  private void loginEmailPassword(HttpServletRequest request, HttpServletResponse response){
-//
-//    //TODO
-//
-//  }
 
   //TOO EASY
 
