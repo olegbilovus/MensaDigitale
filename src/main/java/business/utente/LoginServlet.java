@@ -70,7 +70,7 @@ public class LoginServlet extends HttpServlet {
     try {
       ConsumatoreBean consumatore = consumatoreDao.doRetrieveByKey(email);
 
-      if (consumatore.getEmail() == null) {
+      if (consumatore == null) {
         // login tentato da uno studente, ma l'indirizzo email non è presente nel db mensadigitale
         response.sendRedirect(response.encodeURL(request.getContextPath() + "/attivazione.jsp"));
 
@@ -98,7 +98,7 @@ public class LoginServlet extends HttpServlet {
     try {
       // e' un docente?
       ConsumatoreBean consumatore = consumatoreDao.doRetrieveByKey(email);
-      if (consumatore.getEmail() != null) {
+      if (consumatore != null) {
         // si, era un docente
         request.getSession().setAttribute("consumatore", consumatore);
         response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
@@ -126,7 +126,7 @@ public class LoginServlet extends HttpServlet {
 
       // e' un admin?
       AdministratorBean administratorBean = administratorDao.doRetrieveByKey(email);
-      if (administratorBean.getEmail() != null) {
+      if (administratorBean != null) {
         // si, e' un admin
         request.getSession().setAttribute("administrator", administratorBean);
         response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
@@ -134,7 +134,7 @@ public class LoginServlet extends HttpServlet {
       } else {
         // e' un addetto?
         AddettoBean addettoBean = addettoDao.doRetrieveByKey(email);
-        if (addettoBean.getEmail() != null) {
+        if (addettoBean != null) {
           // si, e' un addetto
           request.getSession().setAttribute("addetto", addettoBean);
           response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));

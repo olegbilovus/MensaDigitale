@@ -40,8 +40,8 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
         bean.setEmail(rs.getString("email"));
         bean.setNome(rs.getString("nome"));
         bean.setCognome(rs.getString("cognome"));
+        return bean;
       }
-      return bean;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {

@@ -42,8 +42,8 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
         bean.setNome(rs.getString("nome"));
         bean.setCognome(rs.getString("cognome"));
         bean.setLvlPermessi(rs.getInt("lvlPermessi"));
+        return bean;
       }
-      return bean;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -121,7 +121,7 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
   public void doSave(AddettoBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSER INTO addetto VALUES (?,?,?,?)";
+    String sql = "INSERT INTO addetto VALUES (?,?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
