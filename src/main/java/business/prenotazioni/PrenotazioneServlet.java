@@ -43,7 +43,7 @@ public class PrenotazioneServlet extends HttpServlet {
     int fasciaOraria = Integer.parseInt(request.getParameter("fasciaOraria"));
     int sala = Integer.parseInt(request.getParameter("sala"));
     String action = request.getParameter("action");
-
+    String saleDisponibili = "saleDisponibili";
 
     if (fasciaOraria >= 1
         && fasciaOraria <= (Integer) getServletContext().getAttribute("numFasceOrarie") && sala >= 1
@@ -51,7 +51,7 @@ public class PrenotazioneServlet extends HttpServlet {
       try {
         HashMap<Integer, HashMap<Integer, Boolean>> saleState =
             ((HashMap<Integer, HashMap<Integer, Boolean>>) getServletContext()
-                .getAttribute("saleDisponibili"));
+                .getAttribute(saleDisponibili));
         PrenotazioneBean<String> bean = prenotazioneDAO.doRetrieveByDateAndFascia(
             new Date(System.currentTimeMillis()), consumatore.getEmail(), fasciaOraria);
         if (action.equals("invia") && bean == null) {
@@ -73,14 +73,14 @@ public class PrenotazioneServlet extends HttpServlet {
 
             if (capienzaSale.get(sala) - postiOccupati - 1 < 1) {
               saleState.get(sala).put(fasciaOraria, false);
-              getServletContext().setAttribute("saleDisponibili", saleState);
+              getServletContext().setAttribute(saleDisponibili, saleState);
             }
           }
         } else if (action.equals("elimina") && bean != null) {
           prenotazioneDAO.doDelete(bean);
           request.getSession().removeAttribute("prenotazione");
           saleState.get(sala).put(fasciaOraria, true);
-          getServletContext().setAttribute("saleDisponibili", saleState);
+          getServletContext().setAttribute(saleDisponibili, saleState);
 
         }
       } catch (SQLException e) {

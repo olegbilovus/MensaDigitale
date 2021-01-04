@@ -54,7 +54,7 @@ public class QRCode extends Identificativo<String> {
       throws WriterException, IOException {
 
     Map<EncodeHintType, ErrorCorrectionLevel> hashMap =
-        new HashMap<EncodeHintType, ErrorCorrectionLevel>();
+        new HashMap<>();
     hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
 
     String charset = "UTF-8";
@@ -68,7 +68,7 @@ public class QRCode extends Identificativo<String> {
     MatrixToImageWriter.writeToPath(matrix, "png", file.toPath());
 
     byte[] dataByte = Files.readAllBytes(file.toPath());
-    file.delete();
+    Files.delete(file.toPath());
 
     return dataByte;
   }

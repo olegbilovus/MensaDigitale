@@ -75,7 +75,7 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
     Connection con = null;
     PreparedStatement statement = null;
     String sql = "SELECT * FROM addetto";
-    ArrayList<AddettoBean> collection = new ArrayList<AddettoBean>();
+    ArrayList<AddettoBean> collection = new ArrayList<>();
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
