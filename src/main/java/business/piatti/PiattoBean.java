@@ -27,15 +27,8 @@ public class PiattoBean implements Serializable {
    * @param sodio numero di sodio (in g/porzione)
    * @param carboidrati numero di carboidrati (in g/porzione)
    */
-  public PiattoBean(
-      String nome,
-      String ingredienti,
-      String portata,
-      int calorie,
-      int proteine,
-      int grassi,
-      int sodio,
-      int carboidrati) {
+  public PiattoBean(String nome, String ingredienti, String portata, int calorie, int proteine,
+      int grassi, int sodio, int carboidrati) {
     this.nome = nome;
     this.ingredienti = ingredienti;
     this.portata = portata;
@@ -111,59 +104,24 @@ public class PiattoBean implements Serializable {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof PiattoBean)) {
+  public boolean equals(Object obj) {
+    if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    PiattoBean that = (PiattoBean) o;
-    return getCalorie() == that.getCalorie()
-        && getProteine() == that.getProteine()
-        && getGrassi() == that.getGrassi()
-        && getSodio() == that.getSodio()
-        && getCarboidrati() == that.getCarboidrati()
-        && getNome().equals(that.getNome())
-        && getIngredienti().equals(that.getIngredienti())
-        && getPortata().equals(that.getPortata());
+    PiattoBean other = (PiattoBean) obj;
+    return super.equals(other);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        getNome(),
-        getIngredienti(),
-        getPortata(),
-        getCalorie(),
-        getProteine(),
-        getGrassi(),
-        getSodio(),
-        getCarboidrati());
+    return Objects.hash(getNome(), getIngredienti(), getPortata(), getCalorie(), getProteine(),
+        getGrassi(), getSodio(), getCarboidrati());
   }
 
   @Override
   public String toString() {
-    return "PiattoBean{"
-        + "nome='"
-        + nome
-        + '\''
-        + ", ingredienti='"
-        + ingredienti
-        + '\''
-        + ", portata='"
-        + portata
-        + '\''
-        + ", calorie="
-        + calorie
-        + ", proteine="
-        + proteine
-        + ", grassi="
-        + grassi
-        + ", sodio="
-        + sodio
-        + ", carboidrati="
-        + carboidrati
-        + '}';
+    return "PiattoBean{" + "nome='" + nome + '\'' + ", ingredienti='" + ingredienti + '\''
+        + ", portata='" + portata + '\'' + ", calorie=" + calorie + ", proteine=" + proteine
+        + ", grassi=" + grassi + ", sodio=" + sodio + ", carboidrati=" + carboidrati + '}';
   }
 }
