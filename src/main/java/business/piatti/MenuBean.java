@@ -113,38 +113,11 @@ public class MenuBean implements Serializable {
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass()) {
+    if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
     MenuBean other = (MenuBean) obj;
-    if (contorni == null) {
-      if (other.contorni != null) {
-        return false;
-      }
-    } else if (!contorni.equals(other.contorni)) {
-      return false;
-    }
-    if (primi == null) {
-      if (other.primi != null) {
-        return false;
-      }
-    } else if (!primi.equals(other.primi)) {
-      return false;
-    }
-    if (secondi == null) {
-      if (other.secondi != null) {
-        return false;
-      }
-    } else if (!secondi.equals(other.secondi)) {
-      return false;
-    }
-    return true;
+    return super.equals(other);
   }
 
   @Override
