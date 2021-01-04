@@ -1,13 +1,13 @@
 package business.addetto;
 
 public class AddettoBean {
-
+  
   private String email;
   private String nome;
   private String cognome;
   private int lvlPermessi;
 
-
+  
   public AddettoBean() {
     super();
   }
@@ -15,7 +15,6 @@ public class AddettoBean {
 
   /**
    * Costruttore della classe AddettoBean.
-   * 
    * @param email L'email dell'addetto
    * @param nome Nome dell'addetto
    * @param cognome Cognome dell'addetto
@@ -84,17 +83,47 @@ public class AddettoBean {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj == null || getClass() != obj.getClass()) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
       return false;
     }
     AddettoBean other = (AddettoBean) obj;
-    return super.equals(other);
+    if (cognome == null) {
+      if (other.cognome != null) {
+        return false;
+      }
+    } else if (!cognome.equals(other.cognome)) {
+      return false;
+    }
+    if (email == null) {
+      if (other.email != null) {
+        return false;
+      }
+    } else if (!email.equals(other.email)) {
+      return false;
+    }
+    if (lvlPermessi != other.lvlPermessi) {
+      return false;
+    }
+    if (nome == null) {
+      if (other.nome != null) {
+        return false;
+      }
+    } else if (!nome.equals(other.nome)) {
+      return false;
+    }
+    return true;
   }
 
   @Override
   public String toString() {
     return "AddettoBean [email=" + email + ", nome=" + nome + ", cognome=" + cognome
         + ", lvlPermessi=" + lvlPermessi + "]";
-  }
-
+  }  
+  
 }
