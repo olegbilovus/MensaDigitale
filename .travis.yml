@@ -4,6 +4,9 @@ jdk:
 cache: 
   directories: 
   - $HOME/.m2
+os: linux
+dist: focal
+arch: arm64
 before_install:
 - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
 - git lfs pull
