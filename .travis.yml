@@ -17,11 +17,3 @@ before_script:
 - mysql -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;"
 notifications: 
 - slack: progettois-2020:CCvmGg5hbeqP1azu8n956S4p
-jobs:
-  include:
-    - script: mvn -Dtest="business/prenotazioni/*" test
-      name: business.prenotazioni
-    - script: mvn -Dtest="business/piatti/*" test
-      name: business.piatti
-    - script: mvn -Dtest="business/utente/*" test
-      name: business.utente
