@@ -22,3 +22,5 @@ jobs:
       name: business.prenotazioni
     - script: mvn -Dtest="business/piatti/*" test
       name: business.piatti
+    - script: mvn -Dtest="business/utente/*" test
+      name: business.utente
