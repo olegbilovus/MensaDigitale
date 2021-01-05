@@ -105,7 +105,7 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
       }
 
     }
-    return null;
+    return collection;
 
   }
 

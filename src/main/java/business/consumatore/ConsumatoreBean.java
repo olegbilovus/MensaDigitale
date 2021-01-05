@@ -1,14 +1,12 @@
 package business.consumatore;
 
+import business.utente.Utente;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class ConsumatoreBean implements Serializable {
+public class ConsumatoreBean extends Utente implements Serializable {
 
   private static final long serialVersionUID = 1L;
-  private String email;
-  private String nome;
-  private String cognome;
   private int statoServizi;
   private String codiceFiscale;
   private Date dataDiNascita;
@@ -29,7 +27,7 @@ public class ConsumatoreBean implements Serializable {
 
   /**
    * Costruttore del consumatore.
-   * 
+   *
    * @param email L'email del consumatore
    * @param nome Nome del consumatore
    * @param cognome Cognome del consumatore
@@ -47,15 +45,24 @@ public class ConsumatoreBean implements Serializable {
    * @param saldo Indica il saldo del consumatore
    * @param fasciaPagamento Fascia pagamento del consumatore
    */
-
-  public ConsumatoreBean(String email, String nome, String cognome, int statoServizi,
-      String codiceFiscale, Date dataDiNascita, String indirizzo, String telefono, String cellulare,
-      String comuneNascita, String provinciaNascita, String cittadinanza, int rifugiato,
-      int residenzaNucleoFamiliare, int saldo, int fasciaPagamento) {
-    super();
-    this.email = email;
-    this.nome = nome;
-    this.cognome = cognome;
+  public ConsumatoreBean(
+      String email,
+      String nome,
+      String cognome,
+      int statoServizi,
+      String codiceFiscale,
+      Date dataDiNascita,
+      String indirizzo,
+      String telefono,
+      String cellulare,
+      String comuneNascita,
+      String provinciaNascita,
+      String cittadinanza,
+      int rifugiato,
+      int residenzaNucleoFamiliare,
+      int saldo,
+      int fasciaPagamento) {
+    super(email, nome, cognome);
     this.statoServizi = statoServizi;
     this.codiceFiscale = codiceFiscale;
     this.dataDiNascita = dataDiNascita;
@@ -69,30 +76,6 @@ public class ConsumatoreBean implements Serializable {
     this.residenzaNucleoFamiliare = residenzaNucleoFamiliare;
     this.saldo = saldo;
     this.fasciaPagamento = fasciaPagamento;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getNome() {
-    return nome;
-  }
-
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
-
-  public String getCognome() {
-    return cognome;
-  }
-
-  public void setCognome(String cognome) {
-    this.cognome = cognome;
   }
 
   public int getStatoServizi() {
@@ -200,20 +183,46 @@ public class ConsumatoreBean implements Serializable {
   }
 
   public boolean isDocente() {
-    return email.endsWith("@unisa.it");
+    return super.getEmail().endsWith("@unisa.it");
   }
 
   @Override
   public String toString() {
-    return "ConsumatoreBean [email=" + email + ", nome=" + nome + ", cognome=" + cognome + ","
-        + " statoServizi=" + statoServizi + ", codiceFiscale=" + codiceFiscale + ","
-        + " dataDiNascita=" + dataDiNascita + ", indirizzo=" + indirizzo + "," + " telefono="
-        + telefono + ", cellulare=" + cellulare + ", comuneNascita=" + comuneNascita
-        + ", provinciaNascita=" + provinciaNascita + ", cittadinanza=" + cittadinanza
-        + ", rifugiato=" + rifugiato + ", residenzaNucleoFamiliare=" + residenzaNucleoFamiliare
-        + ", saldo=" + saldo + ", fasciaPagamento=" + fasciaPagamento + "]";
+    return "ConsumatoreBean{"
+        + "statoServizi="
+        + statoServizi
+        + ", codiceFiscale='"
+        + codiceFiscale
+        + '\''
+        + ", dataDiNascita="
+        + dataDiNascita
+        + ", indirizzo='"
+        + indirizzo
+        + '\''
+        + ", telefono='"
+        + telefono
+        + '\''
+        + ", cellulare='"
+        + cellulare
+        + '\''
+        + ", comuneNascita='"
+        + comuneNascita
+        + '\''
+        + ", provinciaNascita='"
+        + provinciaNascita
+        + '\''
+        + ", cittadinanza='"
+        + cittadinanza
+        + '\''
+        + ", rifugiato="
+        + rifugiato
+        + ", residenzaNucleoFamiliare="
+        + residenzaNucleoFamiliare
+        + ", saldo="
+        + saldo
+        + ", fasciaPagamento="
+        + fasciaPagamento
+        + "} "
+        + super.toString();
   }
-
-
-
 }

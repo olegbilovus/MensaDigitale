@@ -34,8 +34,8 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
       if (rs.next()) {
         bean.setId(rs.getInt("id"));
         bean.setFascia(rs.getString("fascia"));
+        return bean;
       }
-      return bean;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -95,7 +95,7 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
       }
 
     }
-    return null;
+    return collection;
 
   }
 

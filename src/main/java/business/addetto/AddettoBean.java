@@ -1,10 +1,9 @@
 package business.addetto;
 
-public class AddettoBean {
+import business.utente.Utente;
+
+public class AddettoBean extends Utente {
   
-  private String email;
-  private String nome;
-  private String cognome;
   private int lvlPermessi;
 
   
@@ -22,42 +21,9 @@ public class AddettoBean {
    */
 
   public AddettoBean(String email, String nome, String cognome, int lvlPermessi) {
-    this.email = email;
-    this.nome = nome;
-    this.cognome = cognome;
+    super(email, nome, cognome);
     this.lvlPermessi = lvlPermessi;
   }
-
-
-  public String getEmail() {
-    return email;
-  }
-
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-
-  public String getNome() {
-    return nome;
-  }
-
-
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
-
-
-  public String getCognome() {
-    return cognome;
-  }
-
-
-  public void setCognome(String cognome) {
-    this.cognome = cognome;
-  }
-
 
   public int getLvlPermessi() {
     return lvlPermessi;

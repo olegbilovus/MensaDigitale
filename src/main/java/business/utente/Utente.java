@@ -1,9 +1,9 @@
 package business.utente;
 
 public abstract class Utente {
-  private String email;
-  private String nome;
-  private String cognome;
+  protected String email;
+  protected String nome;
+  protected String cognome;
 
   /**
    * Utente rappresenta l'utente generico del sistema.

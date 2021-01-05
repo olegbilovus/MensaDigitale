@@ -1,7 +1,7 @@
-<%@ page import="business.consumatore.ConsumatoreBean" %>
+<%@ page import="business.utente.Utente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ConsumatoreBean consumatore = (ConsumatoreBean) request.getSession().getAttribute("consumatore"); //TODO replace with Utente when ready
+    Utente consumatore = (Utente) request.getSession().getAttribute("utente");
 %>
 <html>
 <head>
@@ -30,8 +30,8 @@
     <p>Just to test: </p>
     <% if (consumatore != null) {%>
     <p>Nome: <%=consumatore.getNome()%></p>
+    <p>Cognome: <%=consumatore.getCognome()%></p>
     <p>Email: <%=consumatore.getEmail()%></p>
-    <p>Codice Fiscale: <%=consumatore.getCodiceFiscale()%></p>
     <form action="<%=response.encodeURL("login")%>" method="post">
         <input name="action" value="logOut" style="visibility:hidden;">
         <input type="submit" onclick="logOut()" value="Log Out">
