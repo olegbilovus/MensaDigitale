@@ -39,7 +39,19 @@ public class RichiestaBean {
     super();
     this.email = email;
     this.esito = 0;
-    this.valutatore = "";
+    this.valutatore = null;
+  }
+  
+  /**
+   * Costruttore della richiesta non ancora esitata ottenuta.
+   * @param id l'id della richiesta
+   * @param email l'email del richiedente
+   */
+  public RichiestaBean(int id, String email) {
+    this.id = id;
+    this.email = email;
+    this.esito = 0;
+    this.valutatore = null;
   }
 
 

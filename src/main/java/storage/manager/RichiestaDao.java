@@ -121,7 +121,7 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
   public void doSave(RichiestaBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSER INTO richiesta VALUES (?,?,?,?)";
+    String sql = "INSERT INTO richiesta VALUES (?,?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
@@ -223,6 +223,42 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
       }
 
     }
+  }
+
+  /**
+   * Metodo invocato per ottenere la lista delle richieste a cui non è ancora stato dato un esito.
+   * 
+   * @return collection di richieste in sospeso
+   */
+  public Collection<RichiestaBean> doRetrieveInSospeso() {
+    Connection con = null;
+    PreparedStatement statement = null;
+    Collection<RichiestaBean> listaRichieste = new ArrayList<RichiestaBean>();
+    String sql = "SELECT * FROM richiesta WHERE esito = 0";
+    try {
+      con = DriverManagerConnectionPool.getConnection();
+      statement = con.prepareStatement(sql);
+      ResultSet result = statement.executeQuery();
+      while (result.next()) {
+        int id = result.getInt("id");
+        String email = result.getString("email");
+
+        RichiestaBean richiesta = new RichiestaBean(id, email);
+        listaRichieste.add(richiesta);
+      }
+      return listaRichieste;
+      
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        statement.close();
+        DriverManagerConnectionPool.releaseConnection(con);
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    return listaRichieste;
   }
 
 }

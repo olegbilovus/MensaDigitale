@@ -1,17 +1,21 @@
 package business.richieste;
 
+import business.consumatore.ConsumatoreBean;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import storage.manager.FasciaOrariaDao;
+import storage.manager.ConsumatoreDao;
 import storage.manager.RichiestaDao;
 
 public class SubmitRichiestaServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   private static RichiestaDao richiestaDao = new RichiestaDao();
+  private static ConsumatoreDao consumatoreDao = new ConsumatoreDao();
   private final int annoInizio = 1900;
   private final int annoFine = 2020;
   private final String[] listaProvince = {"AG", "AL", "AN", "AO", "AR", "AP", "AT", "AV", "BA",
@@ -49,8 +53,8 @@ public class SubmitRichiestaServlet extends HttpServlet {
     String email = request.getParameter("email");
     String confermaEmail = request.getParameter("confermaEmail");
 
-    boolean prelazione = Boolean.getBoolean(request.getParameter("prelazione"));
-    boolean responsabilita = Boolean.getBoolean(request.getParameter("responsabilita"));
+    boolean prelazione = Boolean.valueOf(request.getParameter("prelazione"));
+    boolean responsabilita = Boolean.valueOf(request.getParameter("responsabilita"));
 
     boolean checkCognome = cognome != null && (cognome.length() >= 2 && cognome.length() <= 50)
         && onlyLetters(cognome);
@@ -85,9 +89,31 @@ public class SubmitRichiestaServlet extends HttpServlet {
     }
 
     try {
+      ConsumatoreBean studente = null;
+      studente = (ConsumatoreBean) request.getSession().getAttribute("utente");
+      if ((studente.isDocente())) {
+        return;
+      }
+      studente.setDataDiNascita(new SimpleDateFormat("yyyy/MM/dd").parse(dataDiNascita));
+      studente.setProvinciaNascita(provinciaDiNascita);
+      studente.setComuneNascita(comuneDiNascita);
+      studente.setCittadinanza(cittadinanza);
+      studente.setRifugiato(rifugiato);
+      studente.setResidenzaNucleoFamiliare(residenzaNucleo);
+      studente.setIndirizzo(indirizzo);
+      studente.setTelefono(telefono);
+      studente.setCellulare(cellulare);
+
+
       RichiestaBean nuovaRichiesta = new RichiestaBean(email);
+      if (consumatoreDao.doRetrieveByKey(studente.getEmail()) != null) {
+        consumatoreDao.doUpdate(studente);
+      } else {
+        consumatoreDao.doSave(studente);
+      }
+
       richiestaDao.doSave(nuovaRichiesta);
-    } catch (SQLException e) {
+    } catch (SQLException | ParseException e) {
       e.printStackTrace();
     }
   }

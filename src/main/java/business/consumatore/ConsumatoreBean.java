@@ -1,7 +1,7 @@
 package business.consumatore;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 public class ConsumatoreBean implements Serializable {
 
@@ -18,8 +18,8 @@ public class ConsumatoreBean implements Serializable {
   private String comuneNascita;
   private String provinciaNascita;
   private String cittadinanza;
-  private int rifugiato;
-  private int residenzaNucleoFamiliare;
+  private boolean rifugiato;
+  private boolean residenzaNucleoFamiliare;
   private int saldo;
   private int fasciaPagamento;
 
@@ -50,8 +50,8 @@ public class ConsumatoreBean implements Serializable {
 
   public ConsumatoreBean(String email, String nome, String cognome, int statoServizi,
       String codiceFiscale, Date dataDiNascita, String indirizzo, String telefono, String cellulare,
-      String comuneNascita, String provinciaNascita, String cittadinanza, int rifugiato,
-      int residenzaNucleoFamiliare, int saldo, int fasciaPagamento) {
+      String comuneNascita, String provinciaNascita, String cittadinanza, boolean rifugiato,
+      boolean residenzaNucleoFamiliare, int saldo, int fasciaPagamento) {
     super();
     this.email = email;
     this.nome = nome;
@@ -167,19 +167,19 @@ public class ConsumatoreBean implements Serializable {
     this.cittadinanza = cittadinanza;
   }
 
-  public int getRifugiato() {
+  public boolean getRifugiato() {
     return rifugiato;
   }
 
-  public void setRifugiato(int rifugiato) {
+  public void setRifugiato(boolean rifugiato) {
     this.rifugiato = rifugiato;
   }
 
-  public int getResidenzaNucleoFamiliare() {
+  public boolean getResidenzaNucleoFamiliare() {
     return residenzaNucleoFamiliare;
   }
 
-  public void setResidenzaNucleoFamiliare(int residenzaNucleoFamiliare) {
+  public void setResidenzaNucleoFamiliare(boolean residenzaNucleoFamiliare) {
     this.residenzaNucleoFamiliare = residenzaNucleoFamiliare;
   }
 

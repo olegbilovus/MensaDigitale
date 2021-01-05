@@ -13,4 +13,5 @@ public interface RichiestaInterface<T> extends ModelInterface<RichiestaBean> {
    * @throws SQLException Eccezione lanciata da SQL
    */
   public T doRetrieveByKey(int id) throws SQLException;
+  
 }
