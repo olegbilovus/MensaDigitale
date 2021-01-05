@@ -1,7 +1,6 @@
 package business.piatti;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class PiattoBean implements Serializable {
 

@@ -42,7 +42,7 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
         bean.setEmail(rs.getString("email"));
         bean.setEsito(rs.getInt("esito"));
         bean.setValutatore(rs.getString("valutatore"));
-      return bean;
+        return bean;
       }
     } catch (Exception e) {
       e.printStackTrace();
