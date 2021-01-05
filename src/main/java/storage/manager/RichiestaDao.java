@@ -40,8 +40,8 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
         bean.setEmail(rs.getString("email"));
         bean.setEsito(rs.getInt("esito"));
         bean.setValutatore(rs.getString("valutatore"));
-      }
       return bean;
+      }
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -103,7 +103,7 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
       }
 
     }
-    return null;
+    return collection;
 
   }
 
@@ -119,7 +119,7 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
   public void doSave(RichiestaBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSER INTO richiesta VALUES (?,?,?,?)";
+    String sql = "INSERT INTO richiesta VALUES (?,?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);

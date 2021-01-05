@@ -43,8 +43,8 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
         bean.setPiatto(rs.getString("piatto"));
         bean.setRecensione(rs.getInt("recensione"));
         bean.setDataValutazione(rs.getDate("dataValutazione"));
+        return bean;
       }
-      return bean;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -106,7 +106,7 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
       }
 
     }
-    return null;
+    return collection;
 
   }
 
@@ -122,7 +122,7 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
   public void doSave(ValutazioneBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSER INTO valutazione VALUES (?,?,?,?)";
+    String sql = "INSERT INTO valutazione VALUES (?,?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);

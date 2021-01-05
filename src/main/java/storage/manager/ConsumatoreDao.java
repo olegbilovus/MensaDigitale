@@ -132,7 +132,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
       }
 
     }
-    return null;
+    return collection;
 
   }
 

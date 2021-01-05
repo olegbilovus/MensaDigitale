@@ -1,8 +1,8 @@
-<%@ page import="business.consumatore.ConsumatoreBean" %>
+<%@ page import="business.utente.Utente" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ConsumatoreBean consumatore = (ConsumatoreBean) request.getSession().getAttribute("consumatore"); //TODO replace with Utente when ready
-    if (consumatore != null){
+    Utente utente = (Utente) request.getSession().getAttribute("utente");
+    if (utente != null){
       response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 %>

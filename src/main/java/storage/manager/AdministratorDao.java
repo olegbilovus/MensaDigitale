@@ -102,7 +102,7 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
       }
 
     }
-    return null;
+    return collection;
 
   }
 
@@ -118,7 +118,7 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
   public void doSave(AdministratorBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSER INTO administrator VALUES (?,?,?)";
+    String sql = "INSERT INTO administrator VALUES (?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
