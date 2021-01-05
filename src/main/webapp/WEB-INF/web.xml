@@ -72,6 +72,12 @@
 		<description></description>
 		<servlet-class>business.richieste.SubmitRichiestaServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ValutaRichiestaServlet</servlet-name>
+		<display-name>ValutaRichiestaServlet</display-name>
+		<description></description>
+		<servlet-class>business.richieste.ValutaRichiestaServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>MenuServlet</servlet-name>
 		<url-pattern>/menu</url-pattern>
@@ -103,6 +109,10 @@
 	<servlet-mapping>
 		<servlet-name>SubmitRichiestaServlet</servlet-name>
 		<url-pattern>/SubmitRichiestaServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ValutaRichiestaServlet</servlet-name>
+		<url-pattern>/ValutaRichiestaServlet</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

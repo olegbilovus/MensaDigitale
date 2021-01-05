@@ -162,12 +162,13 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
   public void doUpdate(RichiestaBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "UPDATE richiesta SET esito=? WHERE id=?";
+    String sql = "UPDATE richiesta SET esito=?, valutatore=? WHERE id=?";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       statement.setInt(1, bean.getEsito());
-      statement.setInt(2, bean.getId());
+      statement.setString(2, bean.getValutatore());
+      statement.setInt(3, bean.getId());
       System.out.println("doUpdate=" + statement);
       statement.executeUpdate();
       con.commit();
