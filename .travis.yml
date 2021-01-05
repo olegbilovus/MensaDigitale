@@ -9,6 +9,7 @@ before_install:
 - git lfs pull
 services:
 - mysql
+install: echo "skip install"
 before_script:
 - mysql -u root < scriptDatabase/DB.sql
 - mysql -u root -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
