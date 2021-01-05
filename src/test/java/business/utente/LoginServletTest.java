@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import storage.manager.ConsumatoreDao;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,8 +18,9 @@ public class LoginServletTest {
   private static final String badEmail = "yantcaccia@gmail.com";
 
   private static final ConsumatoreDao dao = new ConsumatoreDao();
-  private static final ConsumatoreBean testBean = new ConsumatoreBean("a.cacciapuoti3@studenti.unisa.it", "Antonio", "Cacciapuoti", 1, "CCCNTNT99999999X", null, null, null, null, null, null, null, 0, 0, 100, 1);
-
+  private static final ConsumatoreBean testBean =
+      new ConsumatoreBean("a.cacciapuoti3@studenti.unisa.it", "Antonio", "Cacciapuoti", 1,
+          "CCCNTNT99999999X", null, null, null, null, null, null, null, false, false, 100, 1);
   private static final LoginServlet servlet = new LoginServlet();
   private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private static final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);

@@ -58,8 +58,8 @@ public class ConsumatoreBean extends Utente implements Serializable {
       String comuneNascita,
       String provinciaNascita,
       String cittadinanza,
-      int rifugiato,
-      int residenzaNucleoFamiliare,
+      boolean rifugiato,
+      boolean residenzaNucleoFamiliare,
       int saldo,
       int fasciaPagamento) {
     super(email, nome, cognome);
