@@ -1,7 +1,7 @@
 package storage.interfaces;
 
 import java.sql.SQLException;
-import storage.manager.ValutazioneBean;
+import business.valutazioni.ValutazioneBean;
 
 public interface ValutazioneInterface<T> extends ModelInterface<ValutazioneBean> {
 

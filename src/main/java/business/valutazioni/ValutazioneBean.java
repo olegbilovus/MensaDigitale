@@ -1,4 +1,4 @@
-package storage.manager;
+package business.valutazioni;
 
 import java.sql.Date;
 
