@@ -91,14 +91,4 @@ public class PrenotazioneBean<T> implements Serializable {
     this.entrato = entrato;
   }
 
-  @Override
-  public boolean equals(Object other) {
-    if (other == null || other.getClass() != getClass()) {
-      return false;
-    }
-    PrenotazioneBean<T> prenotazione = (PrenotazioneBean<T>) other;
-    return super.equals(prenotazione)
-        && getIdentificativo().equals(prenotazione.getIdentificativo());
-  }
-
 }
