@@ -19,4 +19,6 @@ notifications:
 jobs:
   include:
     - stage: business.prenotazioni
-      script: mvn -Dtest="business.prenotazioni" test
+      script: mvn -Dtest=business.prenotazioni test
+      stage: business.piatti
+      script: mvn -Dtest=business.piatti test
