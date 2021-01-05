@@ -26,7 +26,7 @@ class PrenotazioneServletTest {
 
   private static ConsumatoreBean tester = new ConsumatoreBean("testerPrenotazione@unisa.it",
       "tester", "tester", 1, "tester", new Date(System.currentTimeMillis()), "tester", "tester",
-      "tester", "tester", "tester", "tester", 0, 0, 0, 1);
+      "tester", "tester", "tester", "tester", false, false, 0, 1);
   private ConsumatoreDao consumatoreDao = new ConsumatoreDao();
   private FasciaOrariaDao fasciaOrariaDao = new FasciaOrariaDao();
   private static HashMap<Integer, HashMap<Integer, Boolean>> saleDisponibili = new HashMap<>();

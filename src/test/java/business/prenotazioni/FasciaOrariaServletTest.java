@@ -1,6 +1,8 @@
 package business.prenotazioni;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletContext;
@@ -57,6 +59,9 @@ class FasciaOrariaServletTest {
 
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
+      if (fasciaOrariaDao.doRetrieveByFascia(fascia) != null) {
+        fasciaOrariaDao.doDelete(fasciaOrariaDao.doRetrieveByFascia(fascia));
+      }
     }
   }
 
@@ -68,6 +73,9 @@ class FasciaOrariaServletTest {
 
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
+      if (fasciaOrariaDao.doRetrieveByFascia(fascia) != null) {
+        fasciaOrariaDao.doDelete(fasciaOrariaDao.doRetrieveByFascia(fascia));
+      }
     }
   }
 

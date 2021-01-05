@@ -1,4 +1,4 @@
-package storage.manager;
+package business.richieste;
 
 public class RichiestaBean {
 
@@ -7,7 +7,7 @@ public class RichiestaBean {
   private int esito;
   private String valutatore;
 
-  
+
   public RichiestaBean() {
     super();
   }
@@ -15,6 +15,7 @@ public class RichiestaBean {
 
   /**
    * Costruttore della richiesta.
+   * 
    * @param email L'email dell'utente
    * @param id Identificatore della richiesta
    * @param esito Esito della richiesta
@@ -27,6 +28,30 @@ public class RichiestaBean {
     this.email = email;
     this.esito = esito;
     this.valutatore = valutatore;
+  }
+  
+  /**
+   * Costruttore della nuova richiesta da salvare su Database con chiave autogenerata.
+   * 
+   * @param email L'email dell'utente
+   */
+  public RichiestaBean(String email) {
+    super();
+    this.email = email;
+    this.esito = 0;
+    this.valutatore = null;
+  }
+  
+  /**
+   * Costruttore della richiesta non ancora esitata ottenuta.
+   * @param id l'id della richiesta
+   * @param email l'email del richiedente
+   */
+  public RichiestaBean(int id, String email) {
+    this.id = id;
+    this.email = email;
+    this.esito = 0;
+    this.valutatore = null;
   }
 
 
@@ -72,11 +97,10 @@ public class RichiestaBean {
 
   @Override
   public String toString() {
-    return "RichiestaBean [id=" + id + ", email=" + email + ", esito=" + esito
-      + ", valutatore=" + valutatore + "]";
+    return "RichiestaBean [id=" + id + ", email=" + email + ", esito=" + esito + ", valutatore="
+        + valutatore + "]";
   }
-  
 
-  
-  
+
+
 }

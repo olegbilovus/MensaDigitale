@@ -1,7 +1,8 @@
 package storage.interfaces;
 
-import java.sql.SQLException;
 import business.prenotazioni.FasciaOrariaBean;
+import java.sql.SQLException;
+
 
 public interface FasciaOrariaInterface<T> extends ModelInterface<T> {
 
