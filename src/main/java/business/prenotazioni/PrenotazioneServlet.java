@@ -59,11 +59,12 @@ public class PrenotazioneServlet extends HttpServlet {
     try {
       ConsumatoreBean consumatore = (ConsumatoreBean) request.getSession().getAttribute("utente");
       int fasciaOraria = Integer.parseInt(request.getParameter("fasciaOraria"));
-      int sala = Integer.parseInt(request.getParameter("sala"));
+      String salaS = request.getParameter("sala");
 
       if (fasciaOraria >= 1
           && fasciaOraria <= (Integer) getServletContext().getAttribute("numFasceOrarie")
-          && sala >= 1 && sala <= 5) {
+          && salaS.matches("[1-5]")) {
+        int sala = Integer.parseInt(salaS);
         HashMap<Integer, HashMap<Integer, Boolean>> saleState =
             ((HashMap<Integer, HashMap<Integer, Boolean>>) getServletContext()
                 .getAttribute(saleDisponibili));
