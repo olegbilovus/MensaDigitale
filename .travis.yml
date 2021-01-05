@@ -18,7 +18,7 @@ notifications:
 - slack: progettois-2020:CCvmGg5hbeqP1azu8n956S4p
 jobs:
   include:
-    - stage: business.prenotazioni
-      script: mvn -Dtest="business/prenotazioni/*" test
-    - stage: business.piatti
-      script: mvn -Dtest="business/piatti/*" test
+    - script: mvn -Dtest="business/prenotazioni/*" test
+      name: business.prenotazioni
+    - script: mvn -Dtest="business/piatti/*" test
+      name: business.piatti
