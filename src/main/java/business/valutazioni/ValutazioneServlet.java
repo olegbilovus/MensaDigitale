@@ -51,11 +51,12 @@ public class ValutazioneServlet extends HttpServlet {
       switch (action) {
         case "aggiungiValutazione" -> aggiungiValutazione(request, response);
         case "modificaValutazione" -> modificaValutazione(request, response);
-        case "rimuoviValutazione" -> rimuoviValutazione();
+        case "rimuoviValutazione" -> rimuoviValutazione(request, response);
         default -> response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
       }
 
     } else {
+      System.out.println("Piatto: " + piatto + "Email: " + email + "testFormatoPiatto: " + testFormatoPiatto(piatto));
       response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
       throw new IllegalArgumentException();
     }
@@ -71,6 +72,7 @@ public class ValutazioneServlet extends HttpServlet {
       try {
         valutazioneDao.doSave(
                 new ValutazioneBean(email, piatto, valutazione, new Date(System.currentTimeMillis())));
+        response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
       } catch (SQLException throwables) {
         throwables.printStackTrace();
       }
@@ -91,6 +93,7 @@ public class ValutazioneServlet extends HttpServlet {
       try {
         valutazioneDao.doUpdate(
             new ValutazioneBean(email, piatto, valutazione, new Date(System.currentTimeMillis())));
+        response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
       } catch (SQLException throwables) {
         throwables.printStackTrace();
       }
@@ -102,10 +105,11 @@ public class ValutazioneServlet extends HttpServlet {
 
   }
 
-  private void rimuoviValutazione() {
+  private void rimuoviValutazione(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
     try {
       valutazioneDao.doDelete(new ValutazioneBean(email, piatto, 0, null));
+      response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
