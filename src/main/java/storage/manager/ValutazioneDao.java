@@ -210,7 +210,7 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       statement.setString(1, bean.getEmail());
-      statement.setString(1, bean.getPiatto());
+      statement.setString(2, bean.getPiatto());
       System.out.println("doUpdate=" + statement);
       statement.executeUpdate();
       con.commit();
