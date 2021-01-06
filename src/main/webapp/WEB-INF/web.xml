@@ -66,6 +66,10 @@
 		<description></description>
 		<servlet-class>business.utente.LoginServlet</servlet-class>
 	</servlet>
+  <servlet>
+      <servlet-name>ValutazioneServlet</servlet-name>
+      <servlet-class>business.valutazioni.ValutazioneServlet</servlet-class>
+  </servlet>
 	<servlet>
 		<servlet-name>SubmitRichiestaServlet</servlet-name>
 		<display-name>SubmitRichiestaServlet</display-name>
@@ -101,6 +105,10 @@
 		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>ValutazioneServlet</servlet-name>
+		<url-pattern>/valutazione</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
 		<servlet-name>SubmitRichiestaServlet</servlet-name>
 		<url-pattern>/SubmitRichiestaServlet</url-pattern>
 	</servlet-mapping>

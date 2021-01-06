@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import business.valutazioni.ValutazioneBean;
 import storage.interfaces.ValutazioneInterface;
 
 
@@ -163,13 +165,14 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
   public void doUpdate(ValutazioneBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "UPDATE valutazione SET recensione=? WHERE email=? AND piatto=?";
+    String sql = "UPDATE valutazione SET recensione=?, dataValutazione=? WHERE email=? AND piatto=?";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       statement.setInt(1, bean.getRecensione());
-      statement.setString(2, bean.getEmail());
-      statement.setString(3, bean.getPiatto());
+      statement.setDate(2, bean.getDataValutazione());
+      statement.setString(3, bean.getEmail());
+      statement.setString(4, bean.getPiatto());
       System.out.println("doUpdate=" + statement);
       statement.executeUpdate();
       con.commit();
@@ -207,7 +210,7 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       statement.setString(1, bean.getEmail());
-      statement.setString(1, bean.getPiatto());
+      statement.setString(2, bean.getPiatto());
       System.out.println("doUpdate=" + statement);
       statement.executeUpdate();
       con.commit();
