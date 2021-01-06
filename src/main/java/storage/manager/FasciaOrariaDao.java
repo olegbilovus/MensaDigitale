@@ -212,7 +212,7 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
 
     }
   }
-  
+
   /**
    * Metodo utilizzato per trovare una fascia oraria identificata dalla fascia.
    * 
@@ -231,7 +231,9 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
       statement.setString(1, fasciaOraria);
       System.out.println("doRetrieveByFascia=" + statement);
       ResultSet results = statement.executeQuery();
-      results.next();
+      if (!results.next()) {
+        return null;
+      }
       result = new FasciaOrariaBean(results.getInt("id"), results.getString("fascia"));
     } catch (Exception e) {
       e.printStackTrace();
