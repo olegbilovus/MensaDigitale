@@ -1,8 +1,13 @@
+<%@page import="storage.manager.FasciaOrariaDao"%>
+<%@page import="business.prenotazioni.FasciaOrariaBean"%>
+<%@page import="java.util.Collection"%>
 <%@ page import="business.prenotazioni.PrenotazioneBean"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%
 PrenotazioneBean<String> prenotazione =
     (PrenotazioneBean<String>) request.getSession().getAttribute("prenotazione");
+
+FasciaOrariaDao fasceDao = new FasciaOrariaDao();
 %>
 
 
@@ -31,9 +36,8 @@ PrenotazioneBean<String> prenotazione =
 	Boolean error = (Boolean) request.getAttribute("error");
 	if (error != null && error) {
 	%>
-	<h1>error</h1><%
-	}
-	%>
+	<script>alert("ERRORE, RIPROVA PIU' TARDI")</script>
+	<%}%>
     <nav class="navbar navbar-light fixed-top text-dark" style="background-color: #FF9900;">
         <div class="container-fluid"><img class="img-fluid" src="assets/img/Logo.png" style="width: 255px;padding: 0px;margin: -29px;"><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div
@@ -58,7 +62,9 @@ PrenotazioneBean<String> prenotazione =
                 <div class="col-md-6" style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;">
                 <form action="<%=response.encodeURL("prenotazione")%>" method="post">
                     <div>
-                        <h1 style="font-family: Montserrat, sans-serif;">Scegli Fascia Oraria</h1><select name="fasciaOraria" style="font-family: Montserrat, sans-serif;"><optgroup label="Fasce Oraria"><option value="1" selected="">10:00 - 10:40</option><option value="2">10:40 - 11:20</option><option value="3">11:20 - 12:00</option><option value="4">12:00 - 12:40</option><option value="5">12:40 - 13:20</option></optgroup></select></div>
+                        <h1 style="font-family: Montserrat, sans-serif;">Scegli Fascia Oraria</h1>
+                        <select name="fasciaOraria" style="font-family: Montserrat, sans-serif;">
+                        <optgroup label="Fasce Oraria"><option value="1" selected="">10:00 - 10:40</option><option value="2">10:40 - 11:20</option><option value="3">11:20 - 12:00</option><option value="4">12:00 - 12:40</option><option value="5">12:40 - 13:20</option></optgroup></select></div>
                     <div>
                         <h1 style="font-family: Montserrat, sans-serif;">Scegli Sala</h1><select name="sala" style="font-family: Montserrat, sans-serif;"><optgroup label="Sala"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></optgroup></select></div>
                     <button
@@ -66,10 +72,12 @@ PrenotazioneBean<String> prenotazione =
                 </form>
                 </div>
                 <div class="col-md-6" style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;">
-                    <div></div><img id="qr" src=<%=response.encodeURL("qrcode?height=500&width=500")%> onerror="this.onerror=null; this.src='assets/img/defaultqrcode.png'">
+                    <div></div><img id="qr" src=<%=response.encodeURL("qrcode?height=500&width=500")%> onerror="this.onerror=null; this.src='assets/img/Logo.png'">
+                    <%if(prenotazione != null) {%>
                     <form action="<%=response.encodeURL("prenotazione")%>" method="get">
 							<button class="btn btn-primary" type="submit" style="background-color: #d2453c;">Annulla Prenotazione</button></div>
 					</form>
+					<%}%>
            </div>
         </div>
     </div>

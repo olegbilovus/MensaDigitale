@@ -33,8 +33,11 @@ public class PrenotazioneFilter implements Filter {
       req.setAttribute(error, true);
       System.out.println(getClass().getName());
       req.getRequestDispatcher(res.encodeURL("prenotazione.jsp")).forward(request, response);
+      return;
     }
+    chain.doFilter(request, response);
   }
+  
 
 
 }
