@@ -7,6 +7,8 @@ cache:
 os: linux
 dist: focal
 arch: arm64
+git:
+  quite: true
 before_install:
 - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
 - git lfs pull
