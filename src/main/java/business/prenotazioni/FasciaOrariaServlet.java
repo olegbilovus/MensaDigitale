@@ -39,17 +39,17 @@ public class FasciaOrariaServlet extends HttpServlet {
     char f4 = fasciaOraria.charAt(3);
     char f5 = fasciaOraria.charAt(4);
 
-    boolean f1_val = (Character.getNumericValue(f1) == 0
+    boolean f1val = (Character.getNumericValue(f1) == 0
         && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 9))
         || (Character.getNumericValue(f1) == 1
             && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 9))
         || (Character.getNumericValue(f1) == 2
             && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 3));
-    boolean f4_val = (Character.getNumericValue(f4) >= 0 && Character.getNumericValue(f4) <= 5);
-    boolean f5_val = (Character.getNumericValue(f5) >= 0 && Character.getNumericValue(f5) <= 9);
+    boolean f4val = (Character.getNumericValue(f4) >= 0 && Character.getNumericValue(f4) <= 5);
+    boolean f5val = (Character.getNumericValue(f5) >= 0 && Character.getNumericValue(f5) <= 9);
 
     if (!(Character.isDigit(f1)) || !(Character.isDigit(f2)) || f3 != ':'
-        || !(Character.isDigit(f4)) || !(Character.isDigit(f5)) || !f1_val || !f4_val || !f5_val) {
+        || !(Character.isDigit(f4)) || !(Character.isDigit(f5)) || !f1val || !f4val || !f5val) {
 
       throw new IllegalArgumentException();
     }
@@ -164,7 +164,7 @@ public class FasciaOrariaServlet extends HttpServlet {
       }
       if (nuovaFascia.ora == vecchiaFascia.ora) {
         /*
-         * Se l'ora e' uguale controllo se la distanza tra le due fasce orarie è di meno di 40
+         * Se l'ora e' uguale controllo se la distanza tra le due fasce orarie e' di meno di 40
          * minuti
          */
         if (Math.abs(nuovaFascia.minuti - vecchiaFascia.minuti) < 40) {
@@ -173,7 +173,7 @@ public class FasciaOrariaServlet extends HttpServlet {
       } else {
         if (nuovaFascia.ora > vecchiaFascia.ora) {
           /*
-           * Se l'ora e' diversa controllo se l'inizio della fascia con l'ora più alta e' precedente
+           * Se l'ora e' diversa controllo se l'inizio della fascia con l'ora piu' alta e' precedente
            * alla fine dell'altra fascia
            */
           if (nuovaFascia.compareTo(vecchiaFascia.getFineFascia()) < 0) {

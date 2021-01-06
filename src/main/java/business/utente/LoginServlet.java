@@ -70,13 +70,13 @@ public class LoginServlet extends HttpServlet {
     try {
       ConsumatoreBean consumatore = consumatoreDao.doRetrieveByKey(email);
 
-      if (consumatore.getEmail() == null) {
+      if (consumatore == null) {
         // login tentato da uno studente, ma l'indirizzo email non è presente nel db mensadigitale
         response.sendRedirect(response.encodeURL(request.getContextPath() + "/attivazione.jsp"));
 
       } else {
         // login effettuato con successo da parte di uno studente
-        request.getSession().setAttribute("consumatore", consumatore);
+        request.getSession().setAttribute("utente", consumatore);
         response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
       }
 
@@ -98,9 +98,9 @@ public class LoginServlet extends HttpServlet {
     try {
       // e' un docente?
       ConsumatoreBean consumatore = consumatoreDao.doRetrieveByKey(email);
-      if (consumatore.getEmail() != null) {
+      if (consumatore != null) {
         // si, era un docente
-        request.getSession().setAttribute("consumatore", consumatore);
+        request.getSession().setAttribute("utente", consumatore);
         response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
 
       } else {
@@ -126,17 +126,17 @@ public class LoginServlet extends HttpServlet {
 
       // e' un admin?
       AdministratorBean administratorBean = administratorDao.doRetrieveByKey(email);
-      if (administratorBean.getEmail() != null) {
+      if (administratorBean != null) {
         // si, e' un admin
-        request.getSession().setAttribute("administrator", administratorBean);
+        request.getSession().setAttribute("utente", administratorBean);
         response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
 
       } else {
         // e' un addetto?
         AddettoBean addettoBean = addettoDao.doRetrieveByKey(email);
-        if (addettoBean.getEmail() != null) {
+        if (addettoBean != null) {
           // si, e' un addetto
-          request.getSession().setAttribute("addetto", addettoBean);
+          request.getSession().setAttribute("utente", addettoBean);
           response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
 
         } else {

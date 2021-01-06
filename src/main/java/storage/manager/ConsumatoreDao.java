@@ -31,7 +31,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
 
   @Override
   public ConsumatoreBean doRetrieveByKey(String email) throws SQLException {
-    ConsumatoreBean bean = new ConsumatoreBean();
+    ConsumatoreBean bean = null;
     Connection con = null;
     PreparedStatement statement = null;
     String sql = "SELECT * FROM consumatore WHERE email=?";
@@ -42,6 +42,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
       System.out.println("DoRetrieveByKey" + statement);
       ResultSet rs = statement.executeQuery();
       if (rs.next()) {
+        bean = new ConsumatoreBean();
         bean.setEmail(rs.getString("email"));
         bean.setNome(rs.getString("nome"));
         bean.setCognome(rs.getString("cognome"));
@@ -54,12 +55,12 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
         bean.setComuneNascita(rs.getString("comuneNascita"));
         bean.setProvinciaNascita(rs.getString("provinciaNascita"));
         bean.setCittadinanza(rs.getString("cittadinanza"));
-        bean.setRifugiato(rs.getInt("rifugiato"));
-        bean.setResidenzaNucleoFamiliare(rs.getInt("residenzaNucleoFamiliare"));
+        bean.setRifugiato(rs.getBoolean("rifugiato"));
+        bean.setResidenzaNucleoFamiliare(rs.getBoolean("residenzaNucleoFamiliare"));
         bean.setSaldo(rs.getInt("saldo"));
         bean.setFasciaPagamento(rs.getInt("fasciaPagamento"));
-        return bean;
       }
+      return bean;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -111,8 +112,8 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
         bean.setComuneNascita(rs.getString("comuneNascita"));
         bean.setProvinciaNascita(rs.getString("provinciaNascita"));
         bean.setCittadinanza(rs.getString("cittadinanza"));
-        bean.setRifugiato(rs.getInt("rifugiato"));
-        bean.setResidenzaNucleoFamiliare(rs.getInt("residenzaNucleoFamiliare"));
+        bean.setRifugiato(rs.getBoolean("rifugiato"));
+        bean.setResidenzaNucleoFamiliare(rs.getBoolean("residenzaNucleoFamiliare"));
         bean.setSaldo(rs.getInt("saldo"));
         bean.setFasciaPagamento(rs.getInt("fasciaPagamento"));
       }
@@ -132,7 +133,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
       }
 
     }
-    return null;
+    return collection;
 
   }
 
@@ -157,15 +158,19 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
       statement.setString(3, bean.getCognome());
       statement.setInt(4, bean.getStatoServizi());
       statement.setString(5, bean.getCodiceFiscale());
-      statement.setDate(6, bean.getDataDiNascita());
+      if (bean.getDataDiNascita() != null) {
+        statement.setString(6, new SimpleDateFormat("yyyy-MM-dd").format(bean.getDataDiNascita()));
+      } else {
+        statement.setString(6, null);
+      }
       statement.setString(7, bean.getIndirizzo());
       statement.setString(8, bean.getTelefono());
       statement.setString(9, bean.getCellulare());
       statement.setString(10, bean.getComuneNascita());
       statement.setString(11, bean.getProvinciaNascita());
       statement.setString(12, bean.getCittadinanza());
-      statement.setInt(13, bean.getRifugiato());
-      statement.setInt(14, bean.getResidenzaNucleoFamiliare());
+      statement.setBoolean(13, bean.getRifugiato());
+      statement.setBoolean(14, bean.getResidenzaNucleoFamiliare());
       statement.setInt(15, bean.getSaldo());
       statement.setInt(16, bean.getFasciaPagamento());
       System.out.println("doSave=" + statement);
@@ -318,7 +323,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
     }
     return listaRisultati;
   }
-  
+
   private boolean fourteenDaysBetween(String data1, String data2) throws ParseException {
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
     Date dataInizio = df.parse(data1);

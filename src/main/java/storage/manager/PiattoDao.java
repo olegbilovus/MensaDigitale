@@ -46,8 +46,8 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
         bean.setGrassi(rs.getInt("grassi"));
         bean.setSodio(rs.getInt("sodio"));
         bean.setCarboidrati(rs.getInt("carboidrati"));
+        return bean;
       }
-      return bean;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -113,7 +113,7 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
       }
 
     }
-    return null;
+    return collection;
 
   }
 

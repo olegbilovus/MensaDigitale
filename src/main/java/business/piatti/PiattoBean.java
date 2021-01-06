@@ -111,38 +111,6 @@ public class PiattoBean implements Serializable {
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof PiattoBean)) {
-      return false;
-    }
-    PiattoBean that = (PiattoBean) o;
-    return getCalorie() == that.getCalorie()
-        && getProteine() == that.getProteine()
-        && getGrassi() == that.getGrassi()
-        && getSodio() == that.getSodio()
-        && getCarboidrati() == that.getCarboidrati()
-        && getNome().equals(that.getNome())
-        && getIngredienti().equals(that.getIngredienti())
-        && getPortata().equals(that.getPortata());
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(
-        getNome(),
-        getIngredienti(),
-        getPortata(),
-        getCalorie(),
-        getProteine(),
-        getGrassi(),
-        getSodio(),
-        getCarboidrati());
-  }
-
-  @Override
   public String toString() {
     return "PiattoBean{"
         + "nome='"

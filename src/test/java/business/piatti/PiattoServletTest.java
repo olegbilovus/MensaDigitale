@@ -102,7 +102,7 @@ class PiattoServletTest {
   }
   
   @Test
-  void tc_pm_1_8() {
+  void tc_pm_1_8() throws SQLException {
     try {
       String nome = "Testing";
       String ingredienti = "LATTE,FARINA";
@@ -120,11 +120,7 @@ class PiattoServletTest {
       Mockito.doReturn(carboidrati).when(request).getParameter("carboidrati");
       assertDoesNotThrow(() -> servlet.doPost(request, response));
     } finally {
-      try {
         dao.doDelete(new PiattoBean("Testing", null, null, 0, 0, 0, 0, 0));
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
     }
 
   }

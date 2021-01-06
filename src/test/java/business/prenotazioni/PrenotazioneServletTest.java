@@ -1,6 +1,5 @@
 package business.prenotazioni;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import business.consumatore.ConsumatoreBean;
@@ -17,6 +16,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import storage.manager.ConsumatoreDao;
 import storage.manager.FasciaOrariaDao;
@@ -26,7 +26,7 @@ class PrenotazioneServletTest {
 
   private static ConsumatoreBean tester = new ConsumatoreBean("testerPrenotazione@unisa.it",
       "tester", "tester", 1, "tester", new Date(System.currentTimeMillis()), "tester", "tester",
-      "tester", "tester", "tester", "tester", 0, 0, 0, 1);
+      "tester", "tester", "tester", "tester", false, false, 0, 1);
   private ConsumatoreDao consumatoreDao = new ConsumatoreDao();
   private FasciaOrariaDao fasciaOrariaDao = new FasciaOrariaDao();
   private static HashMap<Integer, HashMap<Integer, Boolean>> saleDisponibili = new HashMap<>();
@@ -44,11 +44,10 @@ class PrenotazioneServletTest {
 
   @BeforeAll
   public static void init() {
-    Mockito.doReturn(tester).when(session).getAttribute("consumatore");
+    Mockito.doReturn(tester).when(session).getAttribute("utente");
     Mockito.doReturn(session).when(request).getSession();
-    Mockito.doReturn("invia").when(request).getParameter("action");
     Mockito.doReturn(100).when(ctx).getAttribute("numFasceOrarie");
-    
+
     for (int i = 1; i <= 5; i++) {
       HashMap<Integer, Boolean> fasceOrarie = new HashMap<>(5);
       for (int j = 1; j <= 5; j++) {
@@ -57,7 +56,7 @@ class PrenotazioneServletTest {
       saleDisponibili.put(i, fasceOrarie);
     }
     Mockito.doReturn(saleDisponibili).when(ctx).getAttribute("saleDisponibili");
-    
+
     capienzaSale.put(1, 300);
     capienzaSale.put(2, 152);
     capienzaSale.put(3, 106);
@@ -81,29 +80,37 @@ class PrenotazioneServletTest {
     String fasciaOraria = "101";
     FasciaOrariaBean fasciaOrariaBean =
         new FasciaOrariaBean(Integer.parseInt(fasciaOraria), "11:30");
+    ArgumentCaptor<Boolean> arg = ArgumentCaptor.forClass(Boolean.class);
     try {
       fasciaOrariaDao.doSave(fasciaOrariaBean);
       Mockito.doReturn(fasciaOraria).when(request).getParameter("fasciaOraria");
 
-      assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+      Mockito.doNothing().when(request).setAttribute(Mockito.eq("error"), arg.capture());
 
+      servlet.doPost(request, response);
+    } catch (NullPointerException e) {
+      assertTrue(arg.getValue());
     } finally {
       fasciaOrariaDao.doDelete(fasciaOrariaBean);
     }
   }
-  
+
   @Test
   void tc_psr_1_2() throws ServletException, IOException, SQLException {
     String fasciaOraria = "99";
     FasciaOrariaBean fasciaOrariaBean =
         new FasciaOrariaBean(Integer.parseInt(fasciaOraria), "11:30");
+    ArgumentCaptor<Boolean> arg = ArgumentCaptor.forClass(Boolean.class);
     try {
       fasciaOrariaDao.doSave(fasciaOrariaBean);
       Mockito.doReturn(fasciaOraria).when(request).getParameter("fasciaOraria");
       Mockito.doReturn("7").when(request).getParameter("sala");
 
-      assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+      Mockito.doNothing().when(request).setAttribute(Mockito.eq("error"), arg.capture());
 
+      servlet.doPost(request, response);
+    } catch (NullPointerException e) {
+      assertTrue(arg.getValue());
     } finally {
       fasciaOrariaDao.doDelete(fasciaOrariaBean);
     }
@@ -114,15 +121,21 @@ class PrenotazioneServletTest {
     String fasciaOraria = "99";
     FasciaOrariaBean fasciaOrariaBean =
         new FasciaOrariaBean(Integer.parseInt(fasciaOraria), "11:30");
+    ArgumentCaptor<Boolean> arg = ArgumentCaptor.forClass(Boolean.class);
     try {
       fasciaOrariaDao.doSave(fasciaOrariaBean);
       Mockito.doReturn(fasciaOraria).when(request).getParameter("fasciaOraria");
       Mockito.doReturn("3").when(request).getParameter("sala");
 
+      Mockito.doNothing().when(request).setAttribute(Mockito.eq("error"), arg.capture());
+
       servlet.doPost(request, response);
 
       assertTrue(prenotazioneDao.doRetrieveByDateAndFascia(new Date(System.currentTimeMillis()),
-          tester.getEmail(), Integer.parseInt(fasciaOraria)) != null);
+          tester.getEmail(), Integer.parseInt(fasciaOraria)) != null && !arg.getValue());
+    } catch (NullPointerException e) {
+      assertTrue(prenotazioneDao.doRetrieveByDateAndFascia(new Date(System.currentTimeMillis()),
+          tester.getEmail(), Integer.parseInt(fasciaOraria)) != null && !arg.getValue());
     } finally {
       fasciaOrariaDao.doDelete(fasciaOrariaBean);
     }

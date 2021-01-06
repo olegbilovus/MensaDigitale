@@ -40,8 +40,8 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
         bean.setEmail(rs.getString("email"));
         bean.setNome(rs.getString("nome"));
         bean.setCognome(rs.getString("cognome"));
+        return bean;
       }
-      return bean;
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -102,7 +102,7 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
       }
 
     }
-    return null;
+    return collection;
 
   }
 
@@ -118,7 +118,7 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
   public void doSave(AdministratorBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "INSER INTO administrator VALUES (?,?,?)";
+    String sql = "INSERT INTO administrator VALUES (?,?,?)";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
