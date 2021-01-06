@@ -78,10 +78,10 @@
     </div>
     </div>
     <div class="footer-dark" style="margin-right: 0px;margin-bottom: 0px;margin-left: 0px;padding-bottom: 0px;">
-        <footer>
+          <footer>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6 col-md-3 item">
+                    <div class="col-sm-6 col-md-3 item footerNull" id="aziendaFooter">
                         <h3>L'Azienda</h3>
                         <ul>
                             <li><a href="#">Home Page</a></li>
@@ -89,7 +89,7 @@
                             <li><a href="#">Albo Pretorio On Line</a></li>
                         </ul>
                     </div>
-                    <div class="col-sm-6 col-md-3 item">
+                    <div class="col-sm-6 col-md-3 item footerNull" id="recapitiFooter">
                         <h3>Recapiti e Contatti</h3>
                         <ul>
                             <li><a href="#">Via Alcide de Gasperi n°45</a></li>
@@ -99,7 +99,7 @@
                             <li><a href="#">P.IVA: 08699411214</a></li>
                         </ul>
                     </div>
-                    <div class="col-md-6 item text" style="width: 300px;max-width: 35%;"><img src="assets/img/adisurclogo.png"></div>
+                    <div class="col-md-6 item text footerNull" id="logoFooter" style="width: 300px;max-width: 35%;"><img src="assets/img/adisurclogo.png"></div>
                 </div>
                 <p class="copyright">Azienda al Diritto dello Studio Universitario della Regione Campania © 2021</p>
             </div>
