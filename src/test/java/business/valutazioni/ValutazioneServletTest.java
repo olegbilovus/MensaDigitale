@@ -25,7 +25,7 @@ public class ValutazioneServletTest {
   private static final ConsumatoreDao consumatoreDao = new ConsumatoreDao();
 
   private static final PiattoBean piattoBean = new PiattoBean("PATATINE", "patate", null, 0, 0, 0, 0, 0);
-  private static final ConsumatoreBean consumatoreBean = new ConsumatoreBean("a.cacciapuoti3@studenti.unisa.it", "Antonio", "Cacciapuoti", 1, "CCCNTNT99999999X", null, null, null, null, null, null, null, 0, 0, 100, 1);
+  private static final ConsumatoreBean consumatoreBean = new ConsumatoreBean("a.cacciapuoti3@studenti.unisa.it", "Antonio", "Cacciapuoti", 1, "CCCNTNT99999999X", null, null, null, null, null, null, null, false, false, 100, 1);
 
   private static final ValutazioneServlet servlet = new ValutazioneServlet();
   private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
