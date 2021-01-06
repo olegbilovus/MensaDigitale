@@ -62,6 +62,7 @@ FasciaOrariaDao fasceDao = new FasciaOrariaDao();
                 <div class="col-md-6" style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;">
                 <form action="<%=response.encodeURL("prenotazione")%>" method="post">
                     <div>
+                    <%if (prenotazione == null) {%>
                         <h1 style="font-family: Montserrat, sans-serif;">Scegli Fascia Oraria</h1>
                         <select name="fasciaOraria" style="font-family: Montserrat, sans-serif;">
                         <optgroup label="Fasce Oraria"><option value="1" selected="">10:00 - 10:40</option><option value="2">10:40 - 11:20</option><option value="3">11:20 - 12:00</option><option value="4">12:00 - 12:40</option><option value="5">12:40 - 13:20</option></optgroup></select></div>
@@ -69,6 +70,13 @@ FasciaOrariaDao fasceDao = new FasciaOrariaDao();
                         <h1 style="font-family: Montserrat, sans-serif;">Scegli Sala</h1><select name="sala" style="font-family: Montserrat, sans-serif;"><optgroup label="Sala"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></optgroup></select></div>
                     <button
                         class="btn btn-primary" type="submit" style="background-color: rgb(66,160,22);">Prenota</button>
+                       <%} else { %>
+                       <h1 style="font-family: Montserrat, sans-serif;">Fascia Oraria</h1>
+                        <select name="fasciaOraria" style="font-family: Montserrat, sans-serif;">
+                        <optgroup label="Fasce Oraria"><option disabled value="1"><%= fasceDao.doRetrieveByKey(prenotazione.getFasciaOraria()).getFascia()%></option></optgroup></select></div>
+                    <div>
+                        <h1 style="font-family: Montserrat, sans-serif;">Sala</h1><select name="sala" style="font-family: Montserrat, sans-serif;"><optgroup label="Sala"><option disabled value="1"><%= prenotazione.getSala()%></option></optgroup></select></div>
+                       <%} %>
                 </form>
                 </div>
                 <div class="col-md-6" style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;">
