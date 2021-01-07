@@ -11,19 +11,6 @@
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
             crossorigin="anonymous"></script>
     <meta name="google-signin-client_id" content="112892589115-l441sfpsdcid969k4b23jva30fs8igod.apps.googleusercontent.com">
-    <script>
-        function logOut(){
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                console.log('User signed out.');
-            });
-        }
-        function onLoad() {
-            gapi.load('auth2', function() {
-                gapi.auth2.init();
-            });
-        }
-    </script>
 </head>
 <body>
 <div>
@@ -34,7 +21,7 @@
     <p>Email: <%=consumatore.getEmail()%></p>
     <form action="<%=response.encodeURL("login")%>" method="post">
         <input name="action" value="logOut" style="visibility:hidden;">
-        <input type="submit" onclick="logOut()" value="Log Out">
+        <input type="submit" value="Log Out">
     </form>
     <% } else { %>
     <p>null</p>
