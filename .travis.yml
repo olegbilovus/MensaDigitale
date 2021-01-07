@@ -22,8 +22,16 @@ before_script:
 - mysql -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;"
 notifications: 
 - slack: progettois-2020:CCvmGg5hbeqP1azu8n956S4p
-jobs:
-  include:
-    - stage: Test
-      script: mvn test -B jacoco:report
-      script: echo $TRAVIS_BUILD_DIR
+script:
+- mvn test -B jacoco:report
+- cd $TRAVIS_BUILD_DIR/target/site
+- mv jacoco docs
+- cp docs $TRAVIS_BUILD_DIR/..
+- cd $TRAVIS_BUILD_DIR
+- git checkout coverage
+- rm -rf docs
+- cd ..
+- cp docs $TRAVIS_BUILD_DIR
+- git add docs
+- git commit -am "updated coverage"
+- git push
