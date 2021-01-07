@@ -22,3 +22,7 @@ before_script:
 - mysql -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;"
 notifications: 
 - slack: progettois-2020:CCvmGg5hbeqP1azu8n956S4p
+jobs:
+  include:
+    - stage: Test
+      script: mvn test -B jacoco:report
