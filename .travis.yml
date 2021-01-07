@@ -22,3 +22,14 @@ before_script:
 - mysql -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;"
 notifications: 
 - slack: progettois-2020:CCvmGg5hbeqP1azu8n956S4p
+script:
+- mvn test -B jacoco:report
+- cd $TRAVIS_BUILD_DIR
+- rm -rf docs
+- mkdir docs
+- mv $TRAVIS_BUILD_DIR/target/site/jacoco/index.html ./docs
+- mv $TRAVIS_BUILD_DIR/target/site/jacoco/jacoco-resources ./docs
+- ls ./docs
+- git add docs
+- git commit -am "updated coverage"
+- git push origin HEAD:main
