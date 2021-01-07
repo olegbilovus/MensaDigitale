@@ -56,7 +56,6 @@ public class ValutazioneServlet extends HttpServlet {
       }
 
     } else {
-      System.out.println("Piatto: " + piatto + "Email: " + email + "testFormatoPiatto: " + testFormatoPiatto(piatto));
       response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
       throw new IllegalArgumentException();
     }
