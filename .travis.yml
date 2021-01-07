@@ -32,5 +32,5 @@ script:
 - mv $TRAVIS_BUILD_DIR/target/site/jacoco/jacoco-resources ./docs
 - ls ./docs
 - git add docs
-- git commit -am "travic-ci:updated coverage"
+- git commit -am "travic-ci:updated coverage" || true
 - git push origin HEAD:main
