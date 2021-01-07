@@ -16,13 +16,10 @@ PrenotazioneBean<String> prenotazione =
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
-    <link rel="stylesheet" href="assets/css/Footer-Dark.css">
+    <link rel="stylesheet" href="assets/css/Footer-Basic.css">
     <link rel="stylesheet" href="assets/css/Google-Style-Login.css">
     <link rel="stylesheet" href="assets/css/Header-Dark.css">
     <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
-    <link rel="stylesheet" href="assets/css/Login-Form-Clean.css">
-    <link rel="stylesheet" href="assets/css/Login-Form-Dark.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
@@ -73,33 +70,11 @@ PrenotazioneBean<String> prenotazione =
            </div>
         </div>
     </div>
-    <div class="footer-dark" style="margin-right: 0px;margin-bottom: 0px;margin-left: 0px;padding-bottom: 0px;">
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6 col-md-3 item footerNull" id="aziendaFooter">
-                        <h3>L'Azienda</h3>
-                        <ul>
-                            <li><a href="#">Home Page</a></li>
-                            <li><a href="#">Servizi On Line</a></li>
-                            <li><a href="#">Albo Pretorio On Line</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-sm-6 col-md-3 item footerNull" id="recapitiFooter">
-                        <h3>Recapiti e Contatti</h3>
-                        <ul>
-                            <li><a href="#">Via Alcide de Gasperi n°45</a></li>
-                            <li><a href="#">80133 Napoli (NA)</a></li>
-                            <li><a href="#">PEC:&nbsp; adisurc@pec.it</a></li>
-                            <li><a href="#">Centralino: 081 7603111</a></li>
-                            <li><a href="#">P.IVA: 08699411214</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6 item text footerNull" id="logoFooter" style="width: 300px;max-width: 35%;"><img src="assets/img/adisurclogo.png"></div>
-                </div>
-                <p class="copyright">Azienda al Diritto dello Studio Universitario della Regione Campania © 2021</p>
-            </div>
-        </footer>
+    <div style="min-height: 100px;"></div>
+    <div class="text-center footer-basic" style="margin: 0px;background-color: rgb(20,20,20);">
+        <figure class="figure"><img class="img-fluid figure-img" src="assets/img/adisurclogo.png">
+            <figcaption class="figure-caption">Agenzia per il Diritto allo Studio della Regione Campania © 2021<br></figcaption>
+        </figure>
     </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

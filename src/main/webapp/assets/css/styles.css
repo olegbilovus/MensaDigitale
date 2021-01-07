@@ -1,3 +1,61 @@
-.row.justify-content-center {
+@media (min-width: 300px) {
+  #qr {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .col-md-6 {
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 400px) {
+  .table td .table th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+#presentazioneDati {
+  max-width: 400px;
+}
+
+.col-md-6.col-main {
+  max-width: 48%;
+}
+
+.data-tabella {
+  display: none;
+}
+
+div {
+  height: auto;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+
+@media (min-width: 300px) {
+  .table-responsive {
+    min-width: 90%;
+  }
+}
+
+.table thead th {
+  padding-top: 10px;
+  padding-left: 0px;
+  padding-bottom: 10px;
+  padding-right: 2px;
+}
+
+@media (max-width: 400px) {
+  .table td, .table th {
+    padding-top: 10px;
+    padding-left: 0px;
+    padding-bottom: 0px;
+  }
 }
 
