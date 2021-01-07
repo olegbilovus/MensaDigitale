@@ -55,7 +55,7 @@
                 <div class="col-md-6" style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;">
                     <h1 style="font-family: Montserrat, sans-serif;">Database</h1>
                     <p style="font-family: Montserrat, sans-serif;">Seleziona i piatti da inserire nel menù</p>
-                    <form action="<%=response.encodeURL("menu")%>" method="post">
+                    
         			<%
 				            for (PiattoBean piatto : piatti){
 				              String nome = piatto.getNome();
@@ -64,16 +64,16 @@
 				        <%}%>
 				        <button class="btn btn-primary" type="button">Nuovo Piatto</button>
 				        <input name="action" value="aggiungiMenu" style="visibility: hidden">
-				        <button class="btn btn-primary" type="button">Nuovo Piatto</button>
-				        <input type="submit" value="Invia">
-				    </form>
+			    
                 </div>
                 <div class="col-md-6" style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;">
                     <h1 style="font-family: Montserrat, sans-serif;padding: 15px;">Menù Corrente</h1>
                     <p style="font-family: Montserrat, sans-serif;">Piatti Selezionati</p>
-                    <div><label style="font-family: Montserrat, sans-serif;"><strong>Pasta al Pomodoro</strong></label></div>
-                    <div><label style="font-family: Montserrat, sans-serif;"><strong>Patate</strong></label></div>
-                    <div><label style="font-family: Montserrat, sans-serif;"><strong>Carne al non so cosa</strong></label></div><button class="btn btn-primary" type="button" style="background-color: #42a016;">Conferma Menù</button></div>
+                    <form action="<%=response.encodeURL("menu")%>" method="post">
+	                    <div><label style="font-family: Montserrat, sans-serif;"><strong>Pasta al Pomodoro</strong></label></div>
+	                    <div><label style="font-family: Montserrat, sans-serif;"><strong>Patate</strong></label></div>
+	                    <div><label style="font-family: Montserrat, sans-serif;"><strong>Carne al non so cosa</strong></label></div><button class="btn btn-primary" type="submit" style="background-color: #42a016;">Conferma Menù</button></div>
+        			</form>
         </div>
     </div>
     </div>
