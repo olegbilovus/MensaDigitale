@@ -1,4 +1,5 @@
 language: java
+sudo: false
 jdk: 
 - oraclejdk14
 cache: 
@@ -7,6 +8,9 @@ cache:
 os: linux
 dist: focal
 arch: arm64
+env:
+  global:
+    - CODECOV_TOKEN=:uuid-repo-token
 git:
   quiet: true
 before_install:
@@ -20,5 +24,7 @@ before_script:
 - mysql -u root -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
 - mysql -u root -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'localhost';"
 - mysql -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;"
+after_success: 
+  - bash <(curl -s https://codecov.io/bash)
 notifications: 
 - slack: progettois-2020:CCvmGg5hbeqP1azu8n956S4p
