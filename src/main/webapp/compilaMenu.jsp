@@ -21,8 +21,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="assets/css/Footer-Basic.css">
-    <link rel="stylesheet" href="assets/css/Google-Style-Login.css">
-    <link rel="stylesheet" href="assets/css/Header-Dark.css">
     <link rel="stylesheet" href="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
