@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConsumatoreDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">storage.manager</a> &gt; <span class="el_source">ConsumatoreDao.java</span></div><h1>ConsumatoreDao.java</h1><pre class="source lang-java linenums">package storage.manager;
+
+import business.consumatore.ConsumatoreBean;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import storage.interfaces.ConsumatoreInterface;
+
+public class ConsumatoreDao implements ConsumatoreInterface&lt;ConsumatoreBean&gt; {
+
+
+  /**
+   * Costruttore per ConsumatoreDao.
+   */
+<span class="fc" id="L22">  public ConsumatoreDao() {}</span>
+
+  /**
+   * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
+   * 
+   * @category Ricerca il consumatore in base all'email del consumatore
+   * 
+   * @param email email del consumatore da ricercare
+   */
+
+  @Override
+  public ConsumatoreBean doRetrieveByKey(String email) throws SQLException {
+<span class="fc" id="L34">    ConsumatoreBean bean = null;</span>
+<span class="fc" id="L35">    Connection con = null;</span>
+<span class="fc" id="L36">    PreparedStatement statement = null;</span>
+<span class="fc" id="L37">    String sql = &quot;SELECT * FROM consumatore WHERE email=?&quot;;</span>
+    try {
+<span class="fc" id="L39">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L40">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L41">      statement.setString(1, email);</span>
+<span class="fc" id="L42">      System.out.println(&quot;DoRetrieveByKey&quot; + statement);</span>
+<span class="fc" id="L43">      ResultSet rs = statement.executeQuery();</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">      if (rs.next()) {</span>
+<span class="fc" id="L45">        bean = new ConsumatoreBean();</span>
+<span class="fc" id="L46">        bean.setEmail(rs.getString(&quot;email&quot;));</span>
+<span class="fc" id="L47">        bean.setNome(rs.getString(&quot;nome&quot;));</span>
+<span class="fc" id="L48">        bean.setCognome(rs.getString(&quot;cognome&quot;));</span>
+<span class="fc" id="L49">        bean.setStatoServizi(rs.getInt(&quot;statoServizi&quot;));</span>
+<span class="fc" id="L50">        bean.setCodiceFiscale(rs.getString(&quot;codiceFiscale&quot;));</span>
+<span class="fc" id="L51">        bean.setDataDiNascita(rs.getDate(&quot;dataDiNascita&quot;));</span>
+<span class="fc" id="L52">        bean.setIndirizzo(rs.getString(&quot;indirizzo&quot;));</span>
+<span class="fc" id="L53">        bean.setTelefono(rs.getString(&quot;telefono&quot;));</span>
+<span class="fc" id="L54">        bean.setCellulare(rs.getString(&quot;cellulare&quot;));</span>
+<span class="fc" id="L55">        bean.setComuneNascita(rs.getString(&quot;comuneNascita&quot;));</span>
+<span class="fc" id="L56">        bean.setProvinciaNascita(rs.getString(&quot;provinciaNascita&quot;));</span>
+<span class="fc" id="L57">        bean.setCittadinanza(rs.getString(&quot;cittadinanza&quot;));</span>
+<span class="fc" id="L58">        bean.setRifugiato(rs.getBoolean(&quot;rifugiato&quot;));</span>
+<span class="fc" id="L59">        bean.setResidenzaNucleoFamiliare(rs.getBoolean(&quot;residenzaNucleoFamiliare&quot;));</span>
+<span class="fc" id="L60">        bean.setSaldo(rs.getInt(&quot;saldo&quot;));</span>
+<span class="fc" id="L61">        bean.setFasciaPagamento(rs.getInt(&quot;fasciaPagamento&quot;));</span>
+      }
+<span class="fc" id="L63">      return bean;</span>
+<span class="nc" id="L64">    } catch (Exception e) {</span>
+<span class="nc" id="L65">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L70">        statement.close();</span>
+<span class="fc" id="L71">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L73">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L75">        e.printStackTrace();</span>
+<span class="fc" id="L76">      }</span>
+
+    }
+<span class="nc" id="L79">    return null;</span>
+
+  }
+
+  /**
+   * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
+   * 
+   * @category Ritorna tutti i consumatori
+   * 
+   */
+
+  @Override
+  public Collection&lt;ConsumatoreBean&gt; doRetrieveAll() throws SQLException {
+<span class="nc" id="L92">    Connection con = null;</span>
+<span class="nc" id="L93">    PreparedStatement statement = null;</span>
+<span class="nc" id="L94">    String sql = &quot;SELECT * FROM consumatore&quot;;</span>
+<span class="nc" id="L95">    ArrayList&lt;ConsumatoreBean&gt; collection = new ArrayList&lt;&gt;();</span>
+    try {
+<span class="nc" id="L97">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="nc" id="L98">      statement = con.prepareStatement(sql);</span>
+<span class="nc" id="L99">      System.out.println(&quot;DoRetriveAll&quot; + statement);</span>
+<span class="nc" id="L100">      ResultSet rs = statement.executeQuery();</span>
+<span class="nc bnc" id="L101" title="All 2 branches missed.">      while (rs.next()) {</span>
+<span class="nc" id="L102">        ConsumatoreBean bean = new ConsumatoreBean();</span>
+<span class="nc" id="L103">        bean.setEmail(rs.getString(&quot;email&quot;));</span>
+<span class="nc" id="L104">        bean.setNome(rs.getString(&quot;nome&quot;));</span>
+<span class="nc" id="L105">        bean.setCognome(rs.getString(&quot;cognome&quot;));</span>
+<span class="nc" id="L106">        bean.setStatoServizi(rs.getInt(&quot;statoServizi&quot;));</span>
+<span class="nc" id="L107">        bean.setCodiceFiscale(rs.getString(&quot;codiceFiscale&quot;));</span>
+<span class="nc" id="L108">        bean.setDataDiNascita(rs.getDate(&quot;dataDiNascita&quot;));</span>
+<span class="nc" id="L109">        bean.setIndirizzo(rs.getString(&quot;indirizzo&quot;));</span>
+<span class="nc" id="L110">        bean.setTelefono(rs.getString(&quot;telefono&quot;));</span>
+<span class="nc" id="L111">        bean.setCellulare(rs.getString(&quot;cellulare&quot;));</span>
+<span class="nc" id="L112">        bean.setComuneNascita(rs.getString(&quot;comuneNascita&quot;));</span>
+<span class="nc" id="L113">        bean.setProvinciaNascita(rs.getString(&quot;provinciaNascita&quot;));</span>
+<span class="nc" id="L114">        bean.setCittadinanza(rs.getString(&quot;cittadinanza&quot;));</span>
+<span class="nc" id="L115">        bean.setRifugiato(rs.getBoolean(&quot;rifugiato&quot;));</span>
+<span class="nc" id="L116">        bean.setResidenzaNucleoFamiliare(rs.getBoolean(&quot;residenzaNucleoFamiliare&quot;));</span>
+<span class="nc" id="L117">        bean.setSaldo(rs.getInt(&quot;saldo&quot;));</span>
+<span class="nc" id="L118">        bean.setFasciaPagamento(rs.getInt(&quot;fasciaPagamento&quot;));</span>
+<span class="nc" id="L119">      }</span>
+<span class="nc" id="L120">      return collection;</span>
+<span class="nc" id="L121">    } catch (Exception e) {</span>
+<span class="nc" id="L122">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="nc" id="L127">        statement.close();</span>
+<span class="nc" id="L128">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L130">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L132">        e.printStackTrace();</span>
+<span class="nc" id="L133">      }</span>
+
+    }
+<span class="nc" id="L136">    return collection;</span>
+
+  }
+
+  /**
+   * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
+   * 
+   * @category Salva una recensione nel database
+   * 
+   * @param bean Recensione da salvare
+   */
+
+  @Override
+  public void doSave(ConsumatoreBean bean) throws SQLException {
+<span class="fc" id="L150">    Connection con = null;</span>
+<span class="fc" id="L151">    PreparedStatement statement = null;</span>
+<span class="fc" id="L152">    String sql = &quot;INSERT INTO consumatore VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)&quot;;</span>
+    try {
+<span class="fc" id="L154">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L155">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L156">      statement.setString(1, bean.getEmail());</span>
+<span class="fc" id="L157">      statement.setString(2, bean.getNome());</span>
+<span class="fc" id="L158">      statement.setString(3, bean.getCognome());</span>
+<span class="fc" id="L159">      statement.setInt(4, bean.getStatoServizi());</span>
+<span class="fc" id="L160">      statement.setString(5, bean.getCodiceFiscale());</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">      if (bean.getDataDiNascita() != null) {</span>
+<span class="fc" id="L162">        statement.setString(6, new SimpleDateFormat(&quot;yyyy-MM-dd&quot;).format(bean.getDataDiNascita()));</span>
+      } else {
+<span class="fc" id="L164">        statement.setString(6, null);</span>
+      }
+<span class="fc" id="L166">      statement.setString(7, bean.getIndirizzo());</span>
+<span class="fc" id="L167">      statement.setString(8, bean.getTelefono());</span>
+<span class="fc" id="L168">      statement.setString(9, bean.getCellulare());</span>
+<span class="fc" id="L169">      statement.setString(10, bean.getComuneNascita());</span>
+<span class="fc" id="L170">      statement.setString(11, bean.getProvinciaNascita());</span>
+<span class="fc" id="L171">      statement.setString(12, bean.getCittadinanza());</span>
+<span class="fc" id="L172">      statement.setBoolean(13, bean.getRifugiato());</span>
+<span class="fc" id="L173">      statement.setBoolean(14, bean.getResidenzaNucleoFamiliare());</span>
+<span class="fc" id="L174">      statement.setInt(15, bean.getSaldo());</span>
+<span class="fc" id="L175">      statement.setInt(16, bean.getFasciaPagamento());</span>
+<span class="fc" id="L176">      System.out.println(&quot;doSave=&quot; + statement);</span>
+<span class="fc" id="L177">      statement.executeUpdate();</span>
+<span class="fc" id="L178">      con.commit();</span>
+<span class="nc" id="L179">    } catch (Exception e) {</span>
+<span class="nc" id="L180">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L185">        statement.close();</span>
+<span class="fc" id="L186">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L188">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L190">        e.printStackTrace();</span>
+<span class="fc" id="L191">      }</span>
+
+    }
+
+<span class="fc" id="L195">  }</span>
+
+  /**
+   * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
+   * 
+   * @category Aggiorna un consumatore
+   * 
+   * @param bean Consumatore con contenuto aggiornato
+   */
+
+  @Override
+  public void doUpdate(ConsumatoreBean bean) throws SQLException {
+<span class="fc" id="L207">    Connection con = null;</span>
+<span class="fc" id="L208">    PreparedStatement statement = null;</span>
+<span class="fc" id="L209">    String sql = &quot;UPDATE consumatore SET statoServizi=? WHERE email=?&quot;;</span>
+    try {
+<span class="fc" id="L211">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L212">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L213">      statement.setInt(1, bean.getStatoServizi());</span>
+<span class="fc" id="L214">      statement.setString(2, bean.getEmail());</span>
+<span class="fc" id="L215">      System.out.println(&quot;doUpdate=&quot; + statement);</span>
+<span class="fc" id="L216">      statement.executeUpdate();</span>
+<span class="fc" id="L217">      con.commit();</span>
+<span class="nc" id="L218">    } catch (Exception e) {</span>
+<span class="nc" id="L219">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L224">        statement.close();</span>
+<span class="fc" id="L225">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L227">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L229">        e.printStackTrace();</span>
+<span class="fc" id="L230">      }</span>
+
+    }
+<span class="fc" id="L233">  }</span>
+
+  /**
+   * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
+   * 
+   * @category Cancella un consumatore
+   * 
+   * @param bean Indica il bean da eliminare
+   */
+
+  @Override
+  public void doDelete(ConsumatoreBean bean) throws SQLException {
+<span class="fc" id="L245">    Connection con = null;</span>
+<span class="fc" id="L246">    PreparedStatement statement = null;</span>
+<span class="fc" id="L247">    String sql = &quot;DELETE FROM consumatore WHERE email=?&quot;;</span>
+    try {
+<span class="fc" id="L249">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L250">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L251">      statement.setString(1, bean.getEmail());</span>
+<span class="fc" id="L252">      System.out.println(&quot;doUpdate=&quot; + statement);</span>
+<span class="fc" id="L253">      statement.executeUpdate();</span>
+<span class="fc" id="L254">      con.commit();</span>
+<span class="nc" id="L255">    } catch (Exception e) {</span>
+<span class="nc" id="L256">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L261">        statement.close();</span>
+<span class="fc" id="L262">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L264">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L266">        e.printStackTrace();</span>
+<span class="fc" id="L267">      }</span>
+
+    }
+<span class="fc" id="L270">  }</span>
+
+  /**
+   * Metodo utilizzato per effettuare il tracciamento dei contatti.
+   * 
+   * @category Trova tutti i consumatori entrati in contatto con il consumatore di cui si cerca il
+   *           codice fiscale Il risultato e' una lista di stringhe della forma:
+   *           nome|cognome|email|fasciaoraria|sala|data
+   * 
+   * @param codiceFiscale e' il codice fiscale del consumatore
+   * @param dataIniziale e' la data (14gg antecedente a quella odierna)
+   */
+  public Collection&lt;String&gt; doRetrieveForTracciamento(String codiceFiscale, String dataIniziale) {
+<span class="nc" id="L283">    Connection con = null;</span>
+<span class="nc" id="L284">    PreparedStatement statement = null;</span>
+<span class="nc" id="L285">    ArrayList&lt;String&gt; listaRisultati = new ArrayList&lt;&gt;();</span>
+    // codicefiscale, data, fascia, boolean
+<span class="nc" id="L287">    String table = &quot;consumatore c1 JOIN prenotazione p1 ON p.email = c.email&quot;;</span>
+<span class="nc" id="L288">    String dateMalate =</span>
+        &quot;SELECT dataPrenotazione FROM &quot; + table + &quot; WHERE codicefiscale = ? AND entrato = true&quot;;
+<span class="nc" id="L290">    String table2 =</span>
+        &quot;(consumatore c2 JOIN prenotazione p2 on p.email = c.email) pr JOIN fasciaoraria f &quot;
+            + &quot;ON pr.fasciaoraria = f.id&quot;;
+<span class="nc" id="L293">    String consumatoriEntrati =</span>
+        &quot;SELECT email, nome, cognome, fascia, sala, dataPrenotazione, c2.entrato FROM &quot; + table2
+            + &quot; WHERE dataPrenotazione in (&quot; + dateMalate + &quot;)&quot;;
+    try {
+<span class="nc" id="L297">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="nc" id="L298">      statement = con.prepareStatement(consumatoriEntrati);</span>
+<span class="nc" id="L299">      statement.setString(1, codiceFiscale);</span>
+<span class="nc" id="L300">      ResultSet results = statement.executeQuery();</span>
+<span class="nc" id="L301">      System.out.println(&quot;doRetrieveForTracciamento=&quot; + statement);</span>
+<span class="nc bnc" id="L302" title="All 2 branches missed.">      while (results.next()) {</span>
+<span class="nc" id="L303">        String dataPrenotazione = results.getString(&quot;dataPrenotazione&quot;);</span>
+<span class="nc bnc" id="L304" title="All 2 branches missed.">        if (fourteenDaysBetween(dataIniziale, dataPrenotazione)) {</span>
+<span class="nc bnc" id="L305" title="All 2 branches missed.">          if (results.getBoolean(&quot;c2.entrato&quot;)) {</span>
+<span class="nc" id="L306">            String risultato =</span>
+<span class="nc" id="L307">                String.join(&quot;|&quot;, results.getString(&quot;nome&quot;), results.getString(&quot;cognome&quot;),</span>
+<span class="nc" id="L308">                    results.getString(&quot;email&quot;), results.getString(&quot;fascia&quot;),</span>
+<span class="nc" id="L309">                    results.getString(&quot;sala&quot;), results.getString(&quot;dataPrenotazione&quot;));</span>
+<span class="nc" id="L310">            listaRisultati.add(risultato);</span>
+          }
+        }
+<span class="nc" id="L313">      }</span>
+<span class="nc" id="L314">    } catch (Exception e) {</span>
+<span class="nc" id="L315">      e.printStackTrace();</span>
+    } finally {
+      try {
+<span class="nc" id="L318">        statement.close();</span>
+<span class="nc" id="L319">        DriverManagerConnectionPool.releaseConnection(con);</span>
+<span class="nc" id="L320">      } catch (SQLException e) {</span>
+<span class="nc" id="L321">        e.printStackTrace();</span>
+<span class="nc" id="L322">      }</span>
+    }
+<span class="nc" id="L324">    return listaRisultati;</span>
+  }
+
+  private boolean fourteenDaysBetween(String data1, String data2) throws ParseException {
+<span class="nc" id="L328">    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L329">    Date dataInizio = df.parse(data1);</span>
+<span class="nc" id="L330">    Date dataPrenotazione = df.parse(data2);</span>
+<span class="nc" id="L331">    Calendar c1 = Calendar.getInstance();</span>
+<span class="nc" id="L332">    Calendar c2 = Calendar.getInstance();</span>
+<span class="nc" id="L333">    c1.setTime(dataInizio);</span>
+<span class="nc" id="L334">    c2.setTime(dataPrenotazione);</span>
+<span class="nc bnc" id="L335" title="All 2 branches missed.">    if (c2.before(c1)) {</span>
+<span class="nc" id="L336">      return false;</span>
+    }
+<span class="nc" id="L338">    return true;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
