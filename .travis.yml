@@ -26,3 +26,4 @@ jobs:
   include:
     - stage: Test
       script: mvn test -B jacoco:report
+      script: echo $TRAVIS_BUILD_DIR
