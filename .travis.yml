@@ -10,7 +10,7 @@ dist: focal
 arch: arm64
 env:
   global:
-    - CODECOV_TOKEN=:uuid-repo-token
+    - CODECOV_TOKEN=$CODECOV_UUID_REPO
 git:
   quiet: true
 before_install:
