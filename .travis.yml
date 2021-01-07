@@ -24,14 +24,9 @@ notifications:
 - slack: progettois-2020:CCvmGg5hbeqP1azu8n956S4p
 script:
 - mvn test -B jacoco:report
-- cd $TRAVIS_BUILD_DIR/target/site
-- mv jacoco docs
-- cp docs $TRAVIS_BUILD_DIR/..
 - cd $TRAVIS_BUILD_DIR
-- git checkout coverage
+- mv $TRAVIS_BUILD_DIR/target/site/jacoco .
 - rm -rf docs
-- cd ..
-- cp docs $TRAVIS_BUILD_DIR
 - git add docs
 - git commit -am "updated coverage"
 - git push
