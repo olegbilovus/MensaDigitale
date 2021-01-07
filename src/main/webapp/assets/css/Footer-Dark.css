@@ -108,18 +108,6 @@ div {
 }
 
 @media (min-width: 300px) {
-  body {
-    min-height: 100vh;
-  }
-}
-
-@media (min-width: 576px) {
-  body {
-    min-height: 120vh;
-  }
-}
-
-@media (min-width: 300px) {
   #qr {
     max-width: 100%;
   }
@@ -143,9 +131,81 @@ div {
   }
 }
 
+@media (min-width: 300px) {
+  .col-md-6 {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 500px) {
+  .data-tabella {
+    display: none;
+  }
+}
+
+@media (min-width: 342px) {
+  .table-responsive {
+    min-width: 90%;
+  }
+}
+
+.col-md-6 {
+}
+
+.col-md-6 {
+  max-width: 95%;
+}
+
+@media (max-width: 400px) {
+  .table thead th {
+    padding-top: 10px;
+    padding-left: 0px;
+    padding-bottom: 10px;
+    padding-right: 2px;
+  }
+}
+
+@media (max-width: 400px) {
+  .table td, .table th {
+    padding-top: 10px;
+    padding-left: 0px;
+    padding-bottom: 10px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .col-md-6.col_main {
+    max-width: 48%;
+  }
+}
+
+@media (min-width: 300px) {
+  body {
+    min-height: 110vh;
+  }
+}
+
+@media (min-width: 576px) {
+  body {
+    min-height: 105vh;
+  }
+}
+
 @media (min-width: 768px) {
   body {
     min-height: 130vh;
+  }
+}
+
+@media (min-width: 992px) {
+  body {
+    min-height: 125vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  body {
+    min-height: 99vh;
   }
 }
 
