@@ -31,4 +31,4 @@ script:
 - ls
 - git add docs
 - git commit -am "updated coverage"
-- git push
+- git push origin HEAD:main
