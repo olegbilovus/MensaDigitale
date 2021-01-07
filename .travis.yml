@@ -25,11 +25,12 @@ notifications:
 script:
 - mvn test -B jacoco:report
 - cd $TRAVIS_BUILD_DIR
+- git pull origin HEAD:main
 - rm -rf docs
 - mkdir docs
 - mv $TRAVIS_BUILD_DIR/target/site/jacoco/index.html ./docs
 - mv $TRAVIS_BUILD_DIR/target/site/jacoco/jacoco-resources ./docs
 - ls ./docs
 - git add docs
-- git commit -am "updated coverage"
+- git commit -am "travic-ci:updated coverage"
 - git push origin HEAD:main
