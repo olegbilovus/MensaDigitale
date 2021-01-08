@@ -27,7 +27,7 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
 
   @Override
   public RichiestaBean doRetrieveByKey(int id) throws SQLException {
-    RichiestaBean bean = new RichiestaBean();
+    RichiestaBean bean = null;
     Connection con = null;
     PreparedStatement statement = null;
     String sql = "SELECT * FROM richiesta WHERE id=?";
@@ -38,6 +38,7 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
       System.out.println("DoRetrieveByKey" + statement);
       ResultSet rs = statement.executeQuery();
       if (rs.next()) {
+        bean = new RichiestaBean();
         bean.setId(rs.getInt("id"));
         bean.setEmail(rs.getString("email"));
         bean.setEsito(rs.getInt("esito"));
