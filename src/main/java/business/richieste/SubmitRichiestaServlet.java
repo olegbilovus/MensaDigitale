@@ -2,6 +2,7 @@ package business.richieste;
 
 import business.consumatore.ConsumatoreBean;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -113,6 +114,22 @@ public class SubmitRichiestaServlet extends HttpServlet {
       }
 
       richiestaDao.doSave(nuovaRichiesta);
+
+      /*
+       * Check if correct
+       */
+      if (response.getWriter() != null) {
+        PrintWriter out = response.getWriter();
+        if (richiestaDao.doRetrieveByKey(nuovaRichiesta.getId()) != null) {
+          out.println("<script type=\"text/javascript\">");
+          out.println("alert(\"La richiesta è stata inoltrata con successo\")");
+          out.println("</script>");
+        } else {
+          out.println("<script type=\"text/javascript\">");
+          out.println("alert(\"Inoltro della richiesta fallito. Ritentare più tardi\")");
+          out.println("</script>");
+        }
+      }
     } catch (SQLException | ParseException e) {
       e.printStackTrace();
     }
