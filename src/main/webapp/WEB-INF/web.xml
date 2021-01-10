@@ -106,6 +106,12 @@
 		<description></description>
 		<servlet-class>business.richieste.ValutaRichiestaServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ValutaRichiesta</servlet-name>
+		<display-name>ValutaRichiesta</display-name>
+		<description></description>
+		<servlet-class>business.richieste.ValutaRichiesta</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>MenuServlet</servlet-name>
 		<url-pattern>/menu</url-pattern>
@@ -145,6 +151,10 @@
 	<servlet-mapping>
 		<servlet-name>ValutaRichiestaServlet</servlet-name>
 		<url-pattern>/ValutaRichiestaServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ValutaRichiesta</servlet-name>
+		<url-pattern>/ValutaRichiesta</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
