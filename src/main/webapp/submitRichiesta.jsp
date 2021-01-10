@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form method="post"
-		action="<%=response.encodeUrl("/SubmitRichiestaServlet")%>">
+		action="<%=response.encodeURL("/SubmitRichiestaServlet")%>">
 		<div>
 			Cognome: <input type="text" id="inCognome" name="cognome">
 		</div>
