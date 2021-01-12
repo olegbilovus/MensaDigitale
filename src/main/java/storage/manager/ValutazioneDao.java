@@ -165,7 +165,8 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
   public void doUpdate(ValutazioneBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "UPDATE valutazione SET recensione=?, dataValutazione=? WHERE email=? AND piatto=?";
+    String sql =
+        "UPDATE valutazione SET recensione=?, dataValutazione=? WHERE email=? AND piatto=?";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);

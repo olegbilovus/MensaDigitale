@@ -116,6 +116,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
         bean.setResidenzaNucleoFamiliare(rs.getBoolean("residenzaNucleoFamiliare"));
         bean.setSaldo(rs.getInt("saldo"));
         bean.setFasciaPagamento(rs.getInt("fasciaPagamento"));
+        collection.add(bean);
       }
       return collection;
     } catch (Exception e) {
