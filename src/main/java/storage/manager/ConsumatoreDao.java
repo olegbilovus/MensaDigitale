@@ -56,7 +56,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
         bean.setCittadinanza(rs.getString("cittadinanza"));
         bean.setRifugiato(rs.getInt("rifugiato"));
         bean.setResidenzaNucleoFamiliare(rs.getInt("residenzaNucleoFamiliare"));
-        bean.setSaldo(rs.getInt("saldo"));
+        bean.setSaldo(rs.getFloat("saldo"));
         bean.setFasciaPagamento(rs.getInt("fasciaPagamento"));
         return bean;
       }
@@ -113,7 +113,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
         bean.setCittadinanza(rs.getString("cittadinanza"));
         bean.setRifugiato(rs.getInt("rifugiato"));
         bean.setResidenzaNucleoFamiliare(rs.getInt("residenzaNucleoFamiliare"));
-        bean.setSaldo(rs.getInt("saldo"));
+        bean.setSaldo(rs.getFloat("saldo"));
         bean.setFasciaPagamento(rs.getInt("fasciaPagamento"));
       }
       return collection;
@@ -166,7 +166,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
       statement.setString(12, bean.getCittadinanza());
       statement.setInt(13, bean.getRifugiato());
       statement.setInt(14, bean.getResidenzaNucleoFamiliare());
-      statement.setInt(15, bean.getSaldo());
+      statement.setFloat(15, bean.getSaldo());
       statement.setInt(16, bean.getFasciaPagamento());
       System.out.println("doSave=" + statement);
       statement.executeUpdate();
