@@ -1,16 +1,19 @@
 package storage.manager;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.sql.Date;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import business.admin.AdministratorBean;
+import business.consumatore.ConsumatoreBean;
 
-class AdministratorDaoTest {
+class ConsumatoreDaoTest {
 
-  private AdministratorDao dao = new AdministratorDao();
-  private AdministratorBean bean = new AdministratorBean("testerA@unisa.it", "tester", "tester");
+  private ConsumatoreDao dao = new ConsumatoreDao();
+  private ConsumatoreBean bean = new ConsumatoreBean("testerP@unisa.it", "tester", "tester", 1,
+      "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",
+      "tester", "tester", false, false, 0, 1);
 
   @BeforeEach
   public void initEach() throws SQLException {
@@ -34,7 +37,9 @@ class AdministratorDaoTest {
 
   @Test
   void testDoSave() throws SQLException {
-    AdministratorBean bean2 = new AdministratorBean("testerA2@unisa.it", "tester", "tester");
+    ConsumatoreBean bean2 = new ConsumatoreBean("testerP2@unisa.it", "tester", "tester", 1,
+        "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",
+        "tester", "tester", false, false, 0, 1);
     try {
       dao.doSave(bean2);
       assertTrue(dao.doRetrieveByKey(bean2.getEmail()) != null);
@@ -45,15 +50,17 @@ class AdministratorDaoTest {
 
   @Test
   void testDoUpdate() throws SQLException {
-    String nome = "tester3A";
-    bean.setNome(nome);
+    int statoPervizi = 3;
+    bean.setStatoServizi(statoPervizi);;
     dao.doUpdate(bean);
-    assertTrue(dao.doRetrieveByKey(bean.getEmail()).getNome().equals(nome));
+    assertTrue(dao.doRetrieveByKey(bean.getEmail()).getStatoServizi() == statoPervizi);
   }
-  
+
   @Test
   void testDoDelete() throws SQLException {
-    AdministratorBean bean2 = new AdministratorBean("testerA2@unisa.it", "tester", "tester");
+    ConsumatoreBean bean2 = new ConsumatoreBean("testerP2@unisa.it", "tester", "tester", 1,
+        "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",
+        "tester", "tester", false, false, 0, 1);
     dao.doSave(bean2);
     dao.doDelete(bean2);
     assertTrue(dao.doRetrieveByKey(bean2.getEmail()) == null);

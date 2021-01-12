@@ -5,12 +5,12 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import business.admin.AdministratorBean;
+import business.prenotazioni.FasciaOrariaBean;
 
-class AdministratorDaoTest {
+class FasciaOrariaDaoTest {
 
-  private AdministratorDao dao = new AdministratorDao();
-  private AdministratorBean bean = new AdministratorBean("testerA@unisa.it", "tester", "tester");
+  private FasciaOrariaDao dao = new FasciaOrariaDao();
+  private FasciaOrariaBean bean = new FasciaOrariaBean(98, "11:40");
 
   @BeforeEach
   public void initEach() throws SQLException {
@@ -24,7 +24,7 @@ class AdministratorDaoTest {
 
   @Test
   void testDoRetrieveByKey() throws SQLException {
-    assertTrue(dao.doRetrieveByKey(bean.getEmail()) != null);
+    assertTrue(dao.doRetrieveByKey(bean.getId()) != null);
   }
 
   @Test
@@ -34,10 +34,10 @@ class AdministratorDaoTest {
 
   @Test
   void testDoSave() throws SQLException {
-    AdministratorBean bean2 = new AdministratorBean("testerA2@unisa.it", "tester", "tester");
+    FasciaOrariaBean bean2 = new FasciaOrariaBean(97, "11:40");
     try {
       dao.doSave(bean2);
-      assertTrue(dao.doRetrieveByKey(bean2.getEmail()) != null);
+      assertTrue(dao.doRetrieveByKey(bean2.getId()) != null);
     } finally {
       dao.doDelete(bean2);
     }
@@ -45,18 +45,19 @@ class AdministratorDaoTest {
 
   @Test
   void testDoUpdate() throws SQLException {
-    String nome = "tester3A";
-    bean.setNome(nome);
+    String fascia = "11:00";
+    bean.setFascia(fascia);
     dao.doUpdate(bean);
-    assertTrue(dao.doRetrieveByKey(bean.getEmail()).getNome().equals(nome));
+    assertTrue(dao.doRetrieveByKey(bean.getId()).getFascia().equals(fascia));
   }
-  
+
   @Test
   void testDoDelete() throws SQLException {
-    AdministratorBean bean2 = new AdministratorBean("testerA2@unisa.it", "tester", "tester");
+    FasciaOrariaBean bean2 = new FasciaOrariaBean(97, "11:40");
     dao.doSave(bean2);
     dao.doDelete(bean2);
-    assertTrue(dao.doRetrieveByKey(bean2.getEmail()) == null);
+    assertTrue(dao.doRetrieveByKey(bean2.getId()) == null);
   }
+
 
 }
