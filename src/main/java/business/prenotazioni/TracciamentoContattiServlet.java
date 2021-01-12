@@ -43,10 +43,9 @@ public class TracciamentoContattiServlet extends HttpServlet {
     for (String s : listaTracciati) {
       String[] splitted = s.split("\\|");
       JSONObject jsObj = new JSONObject();
-      jsObj.put("nome", splitted[0]);
-      jsObj.put("cognome", splitted[1]);
+      jsObj.put("nome", splitted[0] + " " + splitted[1]);
       jsObj.put("email", splitted[2]);
-      jsObj.put("fascia", splitted[3]);
+      jsObj.put("ora", splitted[3]);
       jsObj.put("sala", splitted[4]);
       jsObj.put("dataPrenotazione", splitted[5]);
 
