@@ -84,14 +84,25 @@ class PrenotazioneDaoTest {
   }
 
   @Test
-  void testDoRetrieveByDateAndFascia() throws SQLException {
+  void testDoRetrieveByDateAndFascia1() throws SQLException {
     assertTrue(dao.doRetrieveByDateAndFascia(bean.getDataPrenotazione(), bean.getEmail(),
         bean.getFasciaOraria()) != null);
   }
+  
+  @Test
+  void testDoRetrieveByDateAndFascia2() throws SQLException {
+    assertTrue(dao.doRetrieveByDateAndFascia(bean.getDataPrenotazione(), "",
+        bean.getFasciaOraria()) == null);
+  }
 
   @Test
-  void testDoRetrieveByDateAndMail() throws SQLException {
+  void testDoRetrieveByDateAndMail1() throws SQLException {
     assertTrue(dao.doRetrieveByDateAndMail(bean.getDataPrenotazione(), bean.getEmail()) != null);
+  }
+  
+  @Test
+  void testDoRetrieveByDateAndMail2() throws SQLException {
+    assertTrue(dao.doRetrieveByDateAndMail(bean.getDataPrenotazione(), "") == null);
   }
 
   @Test
