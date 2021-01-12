@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import business.consumatore.ConsumatoreBean;
 /**
  * Servlet implementation class RicaricaSaldo
  */
@@ -31,10 +32,10 @@ public class RicaricaSaldo extends HttpServlet {
 	  PrintWriter out = response.getWriter();      
 	  String transactionId=request.getParameter("transaction_id");
 	  float importo= Float.parseFloat(request.getParameter("amount"));
-	  String email ="null";
+	  var email = request.getSession().getAttribute("email");
 	  System.out.println("l'importo è" + importo);
 	  System.out.println("\n l'id è" + transactionId);
-        
+	  
 	  try {
 	    Class.forName("com.mysql.jdbc.Driver");
 	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mensadigitale?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "esame", "esame");
