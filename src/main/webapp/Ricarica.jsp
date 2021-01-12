@@ -36,9 +36,7 @@
 	<!-- Add the checkout buttons, set up the order and approve the order -->
 
 	<div id="paypal-button-container"></div>
-	<script
-		src="https://www.paypal.com/sdk/js?client-id=ASmzurgdl5tJiqNKlv73MgpFOg3XRbu4Dau8g_wDUXbrZwaEBW4LfZgUIkmAYz34NGgTF2zSsSxlbmMs&currency=EUR&disable-funding=sofort,mybank"></script>
-
+	<script src="https://www.paypal.com/sdk/js?client-id=ASmzurgdl5tJiqNKlv73MgpFOg3XRbu4Dau8g_wDUXbrZwaEBW4LfZgUIkmAYz34NGgTF2zSsSxlbmMs&currency=EUR&disable-funding=sofort,mybank"></script>
 
 
 	<script>
