@@ -1,5 +1,6 @@
 package business.prenotazioni;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import business.consumatore.ConsumatoreBean;

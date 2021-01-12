@@ -285,14 +285,14 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
     PreparedStatement statement = null;
     ArrayList<String> listaRisultati = new ArrayList<>();
     // codicefiscale, data, fascia, boolean
-    String table = "consumatore c1 JOIN prenotazione p1 ON p.email = c.email";
+    String table = "consumatore c1 JOIN prenotazione p1 ON p1.email = c1.email";
     String dateMalate =
         "SELECT dataPrenotazione FROM " + table + " WHERE codicefiscale = ? AND entrato = true";
     String table2 =
-        "(consumatore c2 JOIN prenotazione p2 on p.email = c.email) pr JOIN fasciaoraria f "
-            + "ON pr.fasciaoraria = f.id";
+        "(consumatore c2 JOIN prenotazione p2 on p2.email = c2.email) JOIN fasciaoraria f "
+            + "ON p2.fasciaoraria = f.id";
     String consumatoriEntrati =
-        "SELECT email, nome, cognome, fascia, sala, dataPrenotazione, c2.entrato FROM " + table2
+        "SELECT c2.email, nome, cognome, fascia, sala, dataPrenotazione, p2.entrato FROM " + table2
             + " WHERE dataPrenotazione in (" + dateMalate + ")";
     try {
       con = DriverManagerConnectionPool.getConnection();
@@ -303,7 +303,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
       while (results.next()) {
         String dataPrenotazione = results.getString("dataPrenotazione");
         if (fourteenDaysBetween(dataIniziale, dataPrenotazione)) {
-          if (results.getBoolean("c2.entrato")) {
+          if (results.getBoolean("p2.entrato")) {
             String risultato =
                 String.join("|", results.getString("nome"), results.getString("cognome"),
                     results.getString("email"), results.getString("fascia"),
