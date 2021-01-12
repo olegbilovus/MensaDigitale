@@ -1,8 +1,9 @@
 package storage.manager;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,8 +22,9 @@ class PrenotazioneDaoTest {
       "tester", "tester", false, false, 0, 1);
   private FasciaOrariaBean fascia = new FasciaOrariaBean(98, "11:40");
   private PrenotazioneBean<String> bean =
-      new PrenotazioneBean<>(new Date(System.currentTimeMillis()), new QRCode("abc"), 2,
-          fascia.getId(), consumatore.getEmail());
+      new PrenotazioneBean<>(new Date(System.currentTimeMillis()),
+          new QRCode(UUID.randomUUID().toString().replace("-", "")), 2, fascia.getId(),
+          consumatore.getEmail());
 
   @BeforeEach
   public void initEach() throws SQLException {
@@ -51,10 +53,12 @@ class PrenotazioneDaoTest {
 
   @Test
   void testDoSave() throws SQLException {
-    FasciaOrariaBean bean2 = new FasciaOrariaBean(97, "11:40");
+    PrenotazioneBean<String> bean2 = new PrenotazioneBean<>(new Date(System.currentTimeMillis()),
+        new QRCode(UUID.randomUUID().toString().replace("-", "")), 2, fascia.getId(),
+        consumatore.getEmail());
     try {
       dao.doSave(bean2);
-      assertTrue(dao.doRetrieveByKey(bean2.getId()) != null);
+      assertTrue(dao.doRetrieveByKey(bean2.getIdentificativo().getIdentificativo()) != null);
     } finally {
       dao.doDelete(bean2);
     }
@@ -62,18 +66,39 @@ class PrenotazioneDaoTest {
 
   @Test
   void testDoUpdate() throws SQLException {
-    String fascia = "11:00";
-    bean.setFascia(fascia);
+    Long data = System.currentTimeMillis() + 10368000000L;
+    bean.setDataPrenotazione(new Date(data));
     dao.doUpdate(bean);
-    assertTrue(dao.doRetrieveByKey(bean.getId()).getFascia().equals(fascia));
+    assertTrue(dao.doRetrieveByKey(bean.getIdentificativo().getIdentificativo())
+        .getDataPrenotazione().toString().equals(new Date(data).toString()));
   }
 
   @Test
   void testDoDelete() throws SQLException {
-    FasciaOrariaBean bean2 = new FasciaOrariaBean(97, "11:40");
+    PrenotazioneBean<String> bean2 = new PrenotazioneBean<>(new Date(System.currentTimeMillis()),
+        new QRCode(UUID.randomUUID().toString().replace("-", "")), 2, fascia.getId(),
+        consumatore.getEmail());
     dao.doSave(bean2);
     dao.doDelete(bean2);
-    assertTrue(dao.doRetrieveByKey(bean2.getId()) == null);
+    assertTrue(dao.doRetrieveByKey(bean2.getIdentificativo().getIdentificativo()) == null);
   }
+
+  @Test
+  void testDoRetrieveByDateAndFascia() throws SQLException {
+    assertTrue(dao.doRetrieveByDateAndFascia(bean.getDataPrenotazione(), bean.getEmail(),
+        bean.getFasciaOraria()) != null);
+  }
+
+  @Test
+  void testDoRetrieveByDateAndMail() throws SQLException {
+    assertTrue(dao.doRetrieveByDateAndMail(bean.getDataPrenotazione(), bean.getEmail()) != null);
+  }
+
+  @Test
+  void testDoRetrieveByDateSalaFascia() throws SQLException {
+    assertTrue(dao.doRetrieveByDateSalaFascia(bean.getDataPrenotazione(), bean.getSala(),
+        bean.getFasciaOraria()) != null);
+  }
+
 
 }

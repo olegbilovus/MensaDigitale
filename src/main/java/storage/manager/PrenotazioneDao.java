@@ -280,6 +280,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       statement.setDate(1, date);
+      statement.setString(2, email);
       System.out.println("doRetrieveByDateAndMail" + statement);
       ResultSet rs = statement.executeQuery();
       if (rs.next()) {
