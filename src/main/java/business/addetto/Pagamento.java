@@ -47,7 +47,6 @@ public class Pagamento extends HttpServlet {
         ConsumatoreBean consumatore = consumatoreDao.doRetrieveByKey(prenotazione.getEmail());
         if (consumatore.getSaldo() - costo >= 0) {
           updateSaldo(json, consumatore, costo);
-          json.put(res, "200");
         } else {
           if (consumatore.isDocente()) {
             updateSaldo(json, consumatore, costo);
