@@ -207,12 +207,13 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
   public void doUpdate(ConsumatoreBean bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "UPDATE consumatore SET statoServizi=? WHERE email=?";
+    String sql = "UPDATE consumatore SET statoServizi=?, saldo=? WHERE email=?";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       statement.setInt(1, bean.getStatoServizi());
-      statement.setString(2, bean.getEmail());
+      statement.setInt(2, bean.getSaldo());
+      statement.setString(3, bean.getEmail());
       System.out.println("doUpdate=" + statement);
       statement.executeUpdate();
       con.commit();
