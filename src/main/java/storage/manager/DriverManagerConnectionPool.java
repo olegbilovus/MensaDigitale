@@ -9,6 +9,7 @@ import java.util.List;
 
 public class DriverManagerConnectionPool {
   private static List<Connection> freeDbConnections;
+  
 
   static {
     freeDbConnections = new LinkedList<>();
@@ -18,6 +19,10 @@ public class DriverManagerConnectionPool {
       System.out.println("DB driver not found:" + e.getMessage());
       e.printStackTrace();
     }
+  }
+  
+  public static List<Connection> getFreeDbConnections() {
+    return freeDbConnections;
   }
 
   private static synchronized Connection createDbConnection() throws SQLException {
@@ -41,9 +46,9 @@ public class DriverManagerConnectionPool {
 
   public static synchronized Connection getConnection() throws SQLException {
     Connection connection;
-    if (!freeDbConnections.isEmpty()) {
-      connection = freeDbConnections.get(0);
-      freeDbConnections.remove(0);
+    if (!getFreeDbConnections().isEmpty()) {
+      connection = getFreeDbConnections().get(0);
+      getFreeDbConnections().remove(0);
       try {
         if (connection.isClosed()) {
           connection = getConnection();
@@ -64,7 +69,7 @@ public class DriverManagerConnectionPool {
 
   public static synchronized void releaseConnection(Connection connection) {
     if (connection != null) {
-      freeDbConnections.add(connection);
+      getFreeDbConnections().add(connection);
     }
   }
 

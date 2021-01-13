@@ -1,6 +1,5 @@
 package business.prenotazioni;
 
-import business.admin.AdministratorBean;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
@@ -173,8 +172,8 @@ public class FasciaOrariaServlet extends HttpServlet {
       } else {
         if (nuovaFascia.ora > vecchiaFascia.ora) {
           /*
-           * Se l'ora e' diversa controllo se l'inizio della fascia con l'ora piu' alta e' precedente
-           * alla fine dell'altra fascia
+           * Se l'ora e' diversa controllo se l'inizio della fascia con l'ora piu' alta e'
+           * precedente alla fine dell'altra fascia
            */
           if (nuovaFascia.compareTo(vecchiaFascia.getFineFascia()) < 0) {
             return true;

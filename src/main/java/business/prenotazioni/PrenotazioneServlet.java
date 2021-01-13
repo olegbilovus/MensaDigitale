@@ -1,5 +1,6 @@
 package business.prenotazioni;
 
+import business.consumatore.ConsumatoreBean;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -9,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import business.consumatore.ConsumatoreBean;
 import storage.interfaces.PrenotazioneInterface;
 import storage.manager.PrenotazioneDao;
 

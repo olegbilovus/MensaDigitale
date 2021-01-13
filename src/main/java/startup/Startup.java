@@ -1,6 +1,7 @@
 package startup;
 
 import business.prenotazioni.FasciaOrariaBean;
+import business.richieste.RichiesteInSospeso;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -58,6 +59,12 @@ public class Startup implements ServletContextListener {
     ctx.setAttribute("dataSaleReset", new Date(System.currentTimeMillis()));
     
 
+    populateRichiesteInSospeso();
+  }
+  
+  private void populateRichiesteInSospeso() {
+    RichiesteInSospeso ris = RichiesteInSospeso.getInstance();
+    ris.load();
   }
 
 }
