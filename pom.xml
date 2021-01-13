@@ -38,11 +38,7 @@
 						<phase>test</phase>						
 						<goals>							
 							<goal>report</goal>						
-						</goals>
-						<configuration>
-							<title>MensaDigitale coverage</title>
-							<footer>${maven.build.timestamp}</footer>
-						</configuration>				
+						</goals>					
 					</execution>				
 				</executions>			
 			</plugin>
