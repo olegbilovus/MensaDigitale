@@ -28,8 +28,7 @@ script:
 - git pull origin HEAD:main
 - rm -rf docs
 - mkdir docs
-- mv $TRAVIS_BUILD_DIR/target/site/jacoco/index.html ./docs
-- mv $TRAVIS_BUILD_DIR/target/site/jacoco/jacoco-resources ./docs
+- mv $TRAVIS_BUILD_DIR/target/site/jacoco ./docs
 - ls ./docs
 - TZ=Europe/Rome date >> ./docs/index.html
 - mv ./docs/index.html ./docs/"$(TZ=Europe/Rome date)".html
