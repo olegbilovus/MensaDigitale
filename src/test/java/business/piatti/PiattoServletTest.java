@@ -1,15 +1,17 @@
 package business.piatti;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import java.io.IOException;
 import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import storage.manager.PiattoDao;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class PiattoServletTest {
@@ -18,14 +20,16 @@ class PiattoServletTest {
   private static final PiattoDao dao = new PiattoDao();
   private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private static final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private static final RequestDispatcher reqdisp = Mockito.mock(RequestDispatcher.class);
 
   @BeforeAll
   public static void beforeAll() {
-    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
+    Mockito.doReturn(reqdisp).when(request).getRequestDispatcher("index.jsp");
   }
 
   @Test
   void tc_pm_1_1() {
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
     String ingredienti = "abc";
     Mockito.doReturn(ingredienti).when(request).getParameter("ingredienti");
     assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
@@ -33,6 +37,7 @@ class PiattoServletTest {
 
   @Test
   void tc_pm_1_2() {
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
     String ingredienti = "latte,farina";
     Mockito.doReturn(ingredienti).when(request).getParameter("ingredienti");
     assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
@@ -40,6 +45,7 @@ class PiattoServletTest {
 
   @Test
   void tc_pm_1_3() {
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
     String ingredienti = "LATTE,FARINA";
     String calorie = "-1";
     Mockito.doReturn(ingredienti).when(request).getParameter("ingredienti");
@@ -49,6 +55,7 @@ class PiattoServletTest {
 
   @Test
   void tc_pm_1_4() {
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
     String ingredienti = "LATTE,FARINA";
     String calorie = "1";
     String proteine = "-1";
@@ -60,6 +67,7 @@ class PiattoServletTest {
 
   @Test
   void tc_pm_1_5() {
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
     String ingredienti = "LATTE,FARINA";
     String calorie = "1";
     String proteine = "1";
@@ -73,6 +81,7 @@ class PiattoServletTest {
 
   @Test
   void tc_pm_1_6() {
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
     String ingredienti = "LATTE,FARINA";
     String calorie = "1";
     String proteine = "1";
@@ -88,6 +97,7 @@ class PiattoServletTest {
 
   @Test
   void tc_pm_1_7() {
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
     String ingredienti = "LATTE,FARINA";
     String calorie = "1";
     String proteine = "1";
@@ -105,6 +115,7 @@ class PiattoServletTest {
 
   @Test
   void tc_pm_1_8() throws SQLException {
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
     try {
       String nome = "Testing";
       String ingredienti = "LATTE,FARINA";
@@ -123,6 +134,95 @@ class PiattoServletTest {
       assertDoesNotThrow(() -> servlet.doPost(request, response));
     } finally {
       dao.doDelete(new PiattoBean("Testing", null, null, 0, 0, 0, 0, 0));
+    }
+
+  }
+
+  @Test
+  void testModificaPiatto() throws SQLException {
+
+    Mockito.doReturn("modificaPiatto").when(request).getParameter("action");
+    String nome = "Testing";
+    String ingredienti = "LATTE,FARINA";
+    String calorie = "1";
+    String proteine = "1";
+    String grassi = "1";
+    String sodio = "1";
+    String carboidrati = "1";
+    PiattoBean tmp = new PiattoBean(nome, ingredienti, null, Integer.parseInt(calorie), Integer.parseInt(proteine), Integer.parseInt(grassi), Integer.parseInt(sodio), Integer.parseInt(carboidrati));
+    dao.doSave(tmp);
+    Mockito.doReturn(nome).when(request).getParameter("nomePiatto");
+    Mockito.doReturn("NUOVI,INGREDIENTI").when(request).getParameter("ingredienti");
+    Mockito.doReturn(calorie).when(request).getParameter("calorie");
+    Mockito.doReturn(proteine).when(request).getParameter("proteine");
+    Mockito.doReturn(grassi).when(request).getParameter("grassi");
+    Mockito.doReturn(sodio).when(request).getParameter("sodio");
+    Mockito.doReturn(carboidrati).when(request).getParameter("carboidrati");
+    try {
+      assertDoesNotThrow(()->servlet.doPost(request, response));
+    }
+    finally{
+      dao.doDelete(tmp);
+    }
+
+  }
+
+  @Test
+  void testRemovePiatto() throws SQLException {
+
+    Mockito.doReturn("rimuoviPiatto").when(request).getParameter("action");
+    String nome = "Testing";
+    String ingredienti = "LATTE,FARINA";
+    String calorie = "1";
+    String proteine = "1";
+    String grassi = "1";
+    String sodio = "1";
+    String carboidrati = "1";
+    Mockito.doReturn(nome).when(request).getParameter("nomePiatto");
+    Mockito.doReturn(ingredienti).when(request).getParameter("ingredienti");
+    Mockito.doReturn(calorie).when(request).getParameter("calorie");
+    Mockito.doReturn(proteine).when(request).getParameter("proteine");
+    Mockito.doReturn(grassi).when(request).getParameter("grassi");
+    Mockito.doReturn(sodio).when(request).getParameter("sodio");
+    Mockito.doReturn(carboidrati).when(request).getParameter("carboidrati");
+    PiattoBean tmp = new PiattoBean(nome, ingredienti, null, Integer.parseInt(calorie), Integer.parseInt(proteine), Integer.parseInt(grassi), Integer.parseInt(sodio), Integer.parseInt(carboidrati));
+    dao.doSave(tmp);
+    try {
+      assertDoesNotThrow(()->servlet.doPost(request, response));
+    }
+    finally{
+      dao.doDelete(tmp);
+    }
+
+  }
+
+  @Test
+  void testGetPiatto() throws SQLException, ServletException, IOException {
+
+    String nome = "Testing";
+    Mockito.doReturn("getPiatto").when(request).getParameter("action");
+    Mockito.doReturn(nome).when(request).getParameter("nomePiatto");
+    PiattoBean tmp = new PiattoBean(nome, "test", null, 0, 0, 0, 0, 0);
+    dao.doSave(tmp);
+    try {
+      assertDoesNotThrow(()->servlet.doPost(request, response));
+    } finally {
+      dao.doDelete(tmp);
+    }
+
+  }
+
+  @Test
+  void testGetTuttiPiatti() throws SQLException, ServletException, IOException {
+
+    String nome = "Testing";
+    Mockito.doReturn("getTuttiPiatti").when(request).getParameter("action");
+    PiattoBean tmp = new PiattoBean(nome, "test", null, 0, 0, 0, 0, 0);
+    dao.doSave(tmp);
+    try {
+      assertDoesNotThrow(()->servlet.doPost(request, response));
+    } finally {
+      dao.doDelete(tmp);
     }
 
   }

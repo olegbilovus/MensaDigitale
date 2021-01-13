@@ -64,24 +64,28 @@ public class PiattoServlet extends HttpServlet {
           }
           break;
         }
-        case "getPiatto":
-          String nomePiatto = request.getParameter("nomePiatto");
-          try {
-            PiattoBean newPiatto = dao.doRetrieveByKey(nomePiatto);
-            request.setAttribute("piatto", newPiatto);
-          } catch (SQLException e) {
-            e.printStackTrace();
+        case "getPiatto": {
+            String nomePiatto = request.getParameter("nomePiatto");
+            try {
+              PiattoBean newPiatto = dao.doRetrieveByKey(nomePiatto);
+              request.setAttribute("piatto", newPiatto);
+            } catch (SQLException e) {
+              e.printStackTrace();
+            }
+            break;
           }
-          break;
-        case "getTuttiPiatti":
-          try {
-            ArrayList<PiattoBean> list = new ArrayList<PiattoBean>(dao.doRetrieveAll());
-            request.setAttribute("tuttiPiatti", list);
-            request.getRequestDispatcher(destination).forward(request, response);
-          } catch (SQLException e) {
-            e.printStackTrace();
+        case "getTuttiPiatti": {
+            try {
+              ArrayList<PiattoBean> list = new ArrayList<PiattoBean>(dao.doRetrieveAll());
+              request.setAttribute("tuttiPiatti", list);
+              request.getRequestDispatcher(destination).forward(request, response);
+            } catch (SQLException e) {
+              e.printStackTrace();
+            }
+            break;
           }
-          break;
+        default:
+          throw new IllegalArgumentException();
       }
     }
     
