@@ -132,13 +132,28 @@ class PrenotazioneServletTest {
 
       servlet.doPost(request, response);
 
-      assertTrue(prenotazioneDao.doRetrieveByDateAndFascia(new Date(System.currentTimeMillis()),
-          tester.getEmail(), Integer.parseInt(fasciaOraria)) != null && !arg.getValue());
     } catch (NullPointerException e) {
       assertTrue(prenotazioneDao.doRetrieveByDateAndFascia(new Date(System.currentTimeMillis()),
           tester.getEmail(), Integer.parseInt(fasciaOraria)) != null && !arg.getValue());
     } finally {
       fasciaOrariaDao.doDelete(fasciaOrariaBean);
+    }
+  }
+  
+  @Test
+  void testDoPost1() throws ServletException, IOException, SQLException {
+    String fasciaOraria = "-4";;
+    ArgumentCaptor<Boolean> arg = ArgumentCaptor.forClass(Boolean.class);
+    try {
+      Mockito.doReturn(fasciaOraria).when(request).getParameter("fasciaOraria");
+      Mockito.doReturn("1").when(request).getParameter("sala");
+
+      Mockito.doNothing().when(request).setAttribute(Mockito.eq("error"), arg.capture());
+
+      servlet.doPost(request, response);
+
+    } catch (NullPointerException e) {
+      assertTrue(arg.getValue());
     }
   }
 
