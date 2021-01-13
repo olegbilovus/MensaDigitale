@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.SQLException;
 
-@WebServlet(name = "MenuServlet")
 public class MenuServlet extends HttpServlet {
 
   private File myFile;
@@ -18,9 +17,13 @@ public class MenuServlet extends HttpServlet {
   private MenuBean menu;
   private final PiattoDao dao = new PiattoDao();
 
-  public MenuServlet() throws IOException {
+  public MenuServlet() {
     myFile = new File("menuSerializzato.txt");
-    myFile.createNewFile();
+    try {
+      myFile.createNewFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -40,13 +43,15 @@ public class MenuServlet extends HttpServlet {
           outputStream.close();
           break;
         case "modificaMenu":
-          apriStreamsOutput();
+          apriStreamsInput();
           try {
             menu = (MenuBean) inputStream.readObject();
             /* Rimuovo piatti vecchi */
             String[] piattiDaRimuovere = request.getParameterValues("piattiDaRimuovere");
             rimuoviPiatti(piattiDaRimuovere, menu);
+            inputStream.close();
             /* Aggiungo i nuovi piatti */
+            apriStreamsOutput();
             String[] piattiDaAggiungere = request.getParameterValues("piattiDaAggiungere");
             aggiungiPiatti(piattiDaAggiungere, menu);
           } catch (ClassNotFoundException e) {
