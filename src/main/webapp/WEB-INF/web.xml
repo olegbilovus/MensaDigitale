@@ -118,6 +118,12 @@
 		<description></description>
 		<servlet-class>business.richieste.ValutaRichiesta</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>RicaricaSaldo</servlet-name>
+		<display-name>RicaricaSaldo</display-name>
+		<description></description>
+		<servlet-class>storage.manager.RicaricaSaldo</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>MenuServlet</servlet-name>
 		<url-pattern>/menu</url-pattern>
@@ -165,6 +171,10 @@
 	<servlet-mapping>
 		<servlet-name>ValutaRichiesta</servlet-name>
 		<url-pattern>/ValutaRichiesta</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>
+		<servlet-name>RicaricaSaldo</servlet-name>
+		<url-pattern>/RicaricaSaldo</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

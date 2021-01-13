@@ -57,7 +57,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
         bean.setCittadinanza(rs.getString("cittadinanza"));
         bean.setRifugiato(rs.getBoolean("rifugiato"));
         bean.setResidenzaNucleoFamiliare(rs.getBoolean("residenzaNucleoFamiliare"));
-        bean.setSaldo(rs.getInt("saldo"));
+        bean.setSaldo(rs.getFloat("saldo"));
         bean.setFasciaPagamento(rs.getInt("fasciaPagamento"));
       }
       return bean;
@@ -114,7 +114,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
         bean.setCittadinanza(rs.getString("cittadinanza"));
         bean.setRifugiato(rs.getBoolean("rifugiato"));
         bean.setResidenzaNucleoFamiliare(rs.getBoolean("residenzaNucleoFamiliare"));
-        bean.setSaldo(rs.getInt("saldo"));
+        bean.setSaldo(rs.getFloat("saldo"));
         bean.setFasciaPagamento(rs.getInt("fasciaPagamento"));
         collection.add(bean);
       }
@@ -172,7 +172,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
       statement.setString(12, bean.getCittadinanza());
       statement.setBoolean(13, bean.getRifugiato());
       statement.setBoolean(14, bean.getResidenzaNucleoFamiliare());
-      statement.setInt(15, bean.getSaldo());
+      statement.setFloat(15, bean.getSaldo());
       statement.setInt(16, bean.getFasciaPagamento());
       System.out.println("doSave=" + statement);
       statement.executeUpdate();
@@ -212,7 +212,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       statement.setInt(1, bean.getStatoServizi());
-      statement.setInt(2, bean.getSaldo());
+      statement.setFloat(2, bean.getSaldo());
       statement.setString(3, bean.getEmail());
       System.out.println("doUpdate=" + statement);
       statement.executeUpdate();

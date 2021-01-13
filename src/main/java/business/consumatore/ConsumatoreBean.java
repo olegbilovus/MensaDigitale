@@ -18,7 +18,7 @@ public class ConsumatoreBean extends Utente implements Serializable {
   private String cittadinanza;
   private boolean rifugiato;
   private boolean residenzaNucleoFamiliare;
-  private int saldo;
+  private float saldo;
   private int fasciaPagamento;
 
   public ConsumatoreBean() {
@@ -60,7 +60,7 @@ public class ConsumatoreBean extends Utente implements Serializable {
       String cittadinanza,
       boolean rifugiato,
       boolean residenzaNucleoFamiliare,
-      int saldo,
+      float saldo,
       int fasciaPagamento) {
     super(email, nome, cognome);
     this.statoServizi = statoServizi;
@@ -166,12 +166,12 @@ public class ConsumatoreBean extends Utente implements Serializable {
     this.residenzaNucleoFamiliare = residenzaNucleoFamiliare;
   }
 
-  public int getSaldo() {
+  public float getSaldo() {
     return saldo;
   }
 
-  public void setSaldo(int saldo) {
-    this.saldo = saldo;
+  public void setSaldo(float f) {
+    this.saldo = f;
   }
 
   public int getFasciaPagamento() {
