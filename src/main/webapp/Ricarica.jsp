@@ -3,8 +3,11 @@
 	pageEncoding="ISO-8859-1"%>
 <%
     ConsumatoreBean consumatore = (ConsumatoreBean) request.getSession().getAttribute("consumatore"); //TODO replace with Utente when ready
-    if (consumatore != null){
+    if (consumatore == null){
+      
       response.sendRedirect(request.getContextPath() + "/index.jsp");
+      
+      return;
     }
 %>
 <!DOCTYPE html>

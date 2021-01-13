@@ -32,7 +32,7 @@ public class RicaricaSaldo extends HttpServlet {
 	  PrintWriter out = response.getWriter();      
 	  String transactionId=request.getParameter("transaction_id");
 	  float importo= Float.parseFloat(request.getParameter("amount"));
-	  var email = request.getSession().getAttribute("email");
+	  ConsumatoreBean consumatore = (ConsumatoreBean) request.getSession().getAttribute("utente");
 	  System.out.println("l'importo è" + importo);
 	  System.out.println("\n l'id è" + transactionId);
 	  
@@ -40,7 +40,7 @@ public class RicaricaSaldo extends HttpServlet {
 	    Class.forName("com.mysql.jdbc.Driver");
 	    Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/mensadigitale?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "esame", "esame");
 	    Statement st = conn.createStatement();
-        st.executeUpdate("UPDATE `mensadigitale`.`consumatore` SET `saldo` = \""+importo+"\" WHERE (`email` = \""+email+"\");");
+        st.executeUpdate("UPDATE `mensadigitale`.`consumatore` SET `saldo` = \""+importo+"\" WHERE (`email` = \""+consumatore.getEmail()+"\");");
 	  }
         catch (ClassNotFoundException | SQLException e) {
           // TODO Auto-generated catch block
