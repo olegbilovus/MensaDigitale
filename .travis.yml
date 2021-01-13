@@ -31,6 +31,7 @@ script:
 - mv $TRAVIS_BUILD_DIR/target/site/jacoco/index.html ./docs
 - mv $TRAVIS_BUILD_DIR/target/site/jacoco/jacoco-resources ./docs
 - ls ./docs
+- TZ=Europe/Rome date >> ./docs/index.html
 - mv ./docs/index.html ./docs/"$(TZ=Europe/Rome date)".html
 - ls ./docs
 - git add docs
