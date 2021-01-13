@@ -79,7 +79,7 @@ public class PrenotazioneServlet extends HttpServlet {
 
           PrenotazioneBean<String> prenotazione =
               new PrenotazioneBean<>(new Date(System.currentTimeMillis()), identificativo, sala,
-                  fasciaOraria, consumatore.getEmail());
+                   fasciaOraria, consumatore.getEmail());
 
           prenotazioneDAO.doSave(prenotazione);
           request.getSession().setAttribute("prenotazione", prenotazione);

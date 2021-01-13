@@ -31,7 +31,6 @@ public class PrenotazioneFilter implements Filter {
     if (consumatore == null || (req.getMethod().equals("POST") && prenotazione != null)
         || (req.getMethod().equals("GET") && prenotazione == null)) {
       req.setAttribute(error, true);
-      System.out.println(getClass().getName());
       req.getRequestDispatcher(res.encodeURL("prenotazione.jsp")).forward(request, response);
       return;
     }

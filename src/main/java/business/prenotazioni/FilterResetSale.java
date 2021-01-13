@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.UUID;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import business.consumatore.ConsumatoreBean;
 import storage.manager.PrenotazioneDao;
 
@@ -40,6 +42,20 @@ public class FilterResetSale implements Filter {
     }
 
     HttpServletRequest req = (HttpServletRequest) request;
+    req.getSession().setAttribute("utente", new ConsumatoreBean("testerPrenotazione@unisa.it",
+      "tester", "tester", 1, "tester", new Date(System.currentTimeMillis()), "tester", "tester",
+      "tester", "tester", "tester", "tester", false, false, 0, 1));
+    
+    Identificativo<String> identificativo =
+        new QRCode(UUID.randomUUID().toString().replace("-", ""));
+
+    PrenotazioneBean<String> prenotazione2 =
+        new PrenotazioneBean<>(new Date(System.currentTimeMillis()), identificativo, 1,
+            1, "testerPrenotazione@unisa.it");
+    
+    req.getSession().setAttribute("prenotazione", prenotazione2);
+    
+    HttpServletResponse res = (HttpServletResponse) response;
     ConsumatoreBean consuamtore = (ConsumatoreBean) req.getSession().getAttribute("utente");
     if (consuamtore != null) {
       PrenotazioneBean<String> prenotazione = null;
@@ -50,7 +66,11 @@ public class FilterResetSale implements Filter {
         e.printStackTrace();
       }
       req.getSession().setAttribute("prenotazione", prenotazione);
+    } else {
+      req.getRequestDispatcher(res.encodeURL("index.jsp")).forward(request, response);
+
     }
+
     chain.doFilter(request, response);
   }
 

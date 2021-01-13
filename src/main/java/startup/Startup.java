@@ -56,6 +56,7 @@ public class Startup implements ServletContextListener {
 
     ctx.setAttribute("saleDisponibili", saleDisponibili);
     ctx.setAttribute("dataSaleReset", new Date(System.currentTimeMillis()));
+    
 
   }
 
