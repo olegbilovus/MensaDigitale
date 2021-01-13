@@ -45,15 +45,18 @@ public class GestioneIdentificativo extends HttpServlet {
     String res = "response";
     try {
       PrenotazioneBean<String> prenotazione = prenotazioneDao.doRetrieveByKey(identificativo);
-      if (prenotazione != null) {
+       if (prenotazione != null) {
         json.put(res, "200");
         if (action.equals("controllo")) {
           ConsumatoreBean consumatore = consumatoreDao.doRetrieveByKey(prenotazione.getEmail());
-          json.put("prenotazione", prenotazione);
-          json.put("consumatore", consumatore);
+          json.put("prenotazione", new JSONObject(prenotazione));
+          json.put("consumatore", new JSONObject(consumatore));
         } else if (action.equals("segnala")) {
           prenotazione.setEntrato(true);
           prenotazioneDao.doUpdate(prenotazione);
+        }
+        else {
+          json.put(res, "400");
         }
       } else {
         json.put(res, "404");
