@@ -163,12 +163,13 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   public void doUpdate(PrenotazioneBean<String> bean) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
-    String sql = "UPDATE prenotazione SET dataPrenotazione=? WHERE id=?";
+    String sql = "UPDATE prenotazione SET dataPrenotazione=?, entrato = ? WHERE id=?";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(sql);
       statement.setDate(1, bean.getDataPrenotazione());
-      statement.setString(2, bean.getIdentificativo().getIdentificativo());
+      statement.setBoolean(2, bean.isEntrato());
+      statement.setString(3, bean.getIdentificativo().getIdentificativo());
       System.out.println("doUpdate=" + statement);
       statement.executeUpdate();
       con.commit();

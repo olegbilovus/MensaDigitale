@@ -26,8 +26,7 @@ public class FilterResetSale implements Filter {
     Date vecchiaData = (Date) request.getServletContext().getAttribute("dataSaleReset");
     Date oggi = new Date(System.currentTimeMillis());
 
-    if (vecchiaData.getDay() != oggi.getDay() || vecchiaData.getMonth() != oggi.getMonth()
-        || vecchiaData.getYear() != oggi.getYear()) {
+    if (!vecchiaData.toString().equals(oggi.toString())) {
       int numFasceOrarie = (Integer) request.getServletContext().getAttribute("numFasceOrarie");
       HashMap<Integer, HashMap<Integer, Boolean>> saleDisponibili = new HashMap<>(5);
       for (int i = 1; i <= 5; i++) {
@@ -55,7 +54,7 @@ public class FilterResetSale implements Filter {
       req.getSession().setAttribute("prenotazione", prenotazione);
     } else {
       req.getRequestDispatcher(res.encodeURL("index.jsp")).forward(request, response);
-
+      return;
     }
 
     chain.doFilter(request, response);
