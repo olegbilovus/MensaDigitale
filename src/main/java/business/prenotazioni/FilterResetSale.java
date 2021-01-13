@@ -41,20 +41,7 @@ public class FilterResetSale implements Filter {
       request.getServletContext().setAttribute("dataSaleReset", oggi);
     }
 
-    HttpServletRequest req = (HttpServletRequest) request;
-    req.getSession().setAttribute("utente", new ConsumatoreBean("testerPrenotazione@unisa.it",
-      "tester", "tester", 1, "tester", new Date(System.currentTimeMillis()), "tester", "tester",
-      "tester", "tester", "tester", "tester", false, false, 0, 1));
-    
-    Identificativo<String> identificativo =
-        new QRCode(UUID.randomUUID().toString().replace("-", ""));
-
-    PrenotazioneBean<String> prenotazione2 =
-        new PrenotazioneBean<>(new Date(System.currentTimeMillis()), identificativo, 1,
-            1, "testerPrenotazione@unisa.it");
-    
-    req.getSession().setAttribute("prenotazione", prenotazione2);
-    
+    HttpServletRequest req = (HttpServletRequest) request;    
     HttpServletResponse res = (HttpServletResponse) response;
     ConsumatoreBean consuamtore = (ConsumatoreBean) req.getSession().getAttribute("utente");
     if (consuamtore != null) {
