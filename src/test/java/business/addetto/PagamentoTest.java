@@ -55,7 +55,7 @@ class PagamentoTest {
   @Test
   void testDoPostHttpServletRequestHttpServletResponse1()
       throws SQLException, ServletException, IOException {
-    int saldoIniziale = consumatore.getSaldo();
+    float saldoIniziale = consumatore.getSaldo();
     String costo = "5";
     try {
       daoF.doSave(fascia);
@@ -77,7 +77,7 @@ class PagamentoTest {
   @Test
   void testDoPostHttpServletRequestHttpServletResponse2()
       throws SQLException, ServletException, IOException {
-    int saldoIniziale = consumatore.getSaldo();
+    float saldoIniziale = consumatore.getSaldo();
     String costo = "5";
     try {
       daoF.doSave(fascia);
@@ -96,7 +96,7 @@ class PagamentoTest {
   @Test
   void testDoPostHttpServletRequestHttpServletResponse3()
       throws SQLException, ServletException, IOException {
-    int saldoIniziale = consumatore.getSaldo();
+    float saldoIniziale = consumatore.getSaldo();
     String costo = "51";
     try {
       daoF.doSave(fascia);
@@ -118,7 +118,7 @@ class PagamentoTest {
   @Test
   void testDoPostHttpServletRequestHttpServletResponse4()
       throws SQLException, ServletException, IOException {
-    int saldoIniziale = consumatore.getSaldo();
+    float saldoIniziale = consumatore.getSaldo();
     consumatore.setEmail("tester@studente.unisa.it");
     prenotazione.setEmail(consumatore.getEmail());
     String costo = "51";
