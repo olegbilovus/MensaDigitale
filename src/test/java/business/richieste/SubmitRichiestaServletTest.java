@@ -30,11 +30,7 @@ class SubmitRichiestaServletTest {
   private static ConsumatoreDao consumatoreDao = new ConsumatoreDao();
 
   private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  private SubmitRichiestaServlet servlet = new SubmitRichiestaServlet() {
-    public ServletContext getServletContext() {
-      return ctx;
-    }
-  };
+  private SubmitRichiestaServlet servlet = new SubmitRichiestaServlet() {};
 
   @BeforeAll
   public static void init() throws SQLException {
@@ -701,5 +697,121 @@ class SubmitRichiestaServletTest {
     }
   }
 
+  @Test
+  void coverage_1() throws SQLException, IOException, ServletException {
+    Mockito.doReturn("false").when(request).getParameter("responsabilita");
 
+
+    String cognome = "Rossi";
+    String nome = "Mario";
+    String dataDiNascita = "20/02/1999";
+    String provinciaDiNascita = "NA";
+    String comuneDiNascita = "Napoli";
+    String codiceFiscale = "RSSMRA99B20F839J";
+    String cittadinanza = "Italiana";
+    String indirizzo = "via Roma 123";
+    String telefono = "0815849942";
+    String cellulare = "393338597471";
+    String email = "m.rossi999@studenti.unisa.it";
+    String confermaEmail = "m.rossi999@studenti.unisa.it";
+    try {
+      Mockito.doReturn(cognome).when(request).getParameter("cognome");
+      Mockito.doReturn(nome).when(request).getParameter("nome");
+      Mockito.doReturn(dataDiNascita).when(request).getParameter("dataDiNascita");
+      Mockito.doReturn(provinciaDiNascita).when(request).getParameter("provinciaDiNascita");
+      Mockito.doReturn(comuneDiNascita).when(request).getParameter("comuneDiNascita");
+      Mockito.doReturn(codiceFiscale).when(request).getParameter("codiceFiscale");
+      Mockito.doReturn(cittadinanza).when(request).getParameter("cittadinanza");
+      Mockito.doReturn(indirizzo).when(request).getParameter("indirizzo");
+      Mockito.doReturn(telefono).when(request).getParameter("telefono");
+      Mockito.doReturn(cellulare).when(request).getParameter("cellulare");
+      Mockito.doReturn(email).when(request).getParameter("email");
+      Mockito.doReturn(confermaEmail).when(request).getParameter("confermaEmail");
+
+      assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+    } finally {
+      for (RichiestaBean r : richiestaDao.doRetrieveAll()) {
+        richiestaDao.doDelete(r);
+      }
+      nRichieste = 0;
+    }
+  }
+
+  @Test
+  void coverage_2() throws SQLException, IOException, ServletException {
+    Mockito.doReturn("true").when(request).getParameter("responsabilita");
+    ConsumatoreBean docente = new ConsumatoreBean("m.rossi999@unisa.it", "Mario", "Rossi", 1, "",
+        null, "", "", "", "", "", "", false, false, 0, 0);
+    Mockito.doReturn(docente).when(session).getAttribute("utente");
+
+    String cognome = "Rossi";
+    String nome = "Mario";
+    String dataDiNascita = "20/02/1999";
+    String provinciaDiNascita = "NA";
+    String comuneDiNascita = "Napoli";
+    String codiceFiscale = "RSSMRA99B20F839J";
+    String cittadinanza = "Italiana";
+    String indirizzo = "via Roma 123";
+    String telefono = "0815849942";
+    String cellulare = "393338597471";
+    String email = "m.rossi999@studenti.unisa.it";
+    String confermaEmail = "m.rossi999@studenti.unisa.it";
+    try {
+      Mockito.doReturn(cognome).when(request).getParameter("cognome");
+      Mockito.doReturn(nome).when(request).getParameter("nome");
+      Mockito.doReturn(dataDiNascita).when(request).getParameter("dataDiNascita");
+      Mockito.doReturn(provinciaDiNascita).when(request).getParameter("provinciaDiNascita");
+      Mockito.doReturn(comuneDiNascita).when(request).getParameter("comuneDiNascita");
+      Mockito.doReturn(codiceFiscale).when(request).getParameter("codiceFiscale");
+      Mockito.doReturn(cittadinanza).when(request).getParameter("cittadinanza");
+      Mockito.doReturn(indirizzo).when(request).getParameter("indirizzo");
+      Mockito.doReturn(telefono).when(request).getParameter("telefono");
+      Mockito.doReturn(cellulare).when(request).getParameter("cellulare");
+      Mockito.doReturn(email).when(request).getParameter("email");
+      Mockito.doReturn(confermaEmail).when(request).getParameter("confermaEmail");
+
+      assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+    } finally {
+      System.out.println("Terminato coverage_2");
+    }
+  }
+
+  @Test
+  void coverage_3() throws SQLException, IOException, ServletException {
+    ConsumatoreBean studente = new ConsumatoreBean("m.rossi998@studenti.unisa.it", "Mario", "Rossi", 1, "",
+        null, "", "", "", "", "", "", false, false, 0, 0);
+    Mockito.doReturn(studente).when(session).getAttribute("utente");
+
+    String cognome = "Rossi";
+    String nome = "Mario";
+    String dataDiNascita = "20/02/1999";
+    String provinciaDiNascita = "NA";
+    String comuneDiNascita = "Napoli";
+    String codiceFiscale = "RSSMRA99B20F839J";
+    String cittadinanza = "Italiana";
+    String indirizzo = "via Roma 123";
+    String telefono = "0815849942";
+    String cellulare = "393338597471";
+    String email = "m.rossi999@studenti.unisa.it";
+    String confermaEmail = "m.rossi999@studenti.unisa.it";
+    try {
+      Mockito.doReturn(cognome).when(request).getParameter("cognome");
+      Mockito.doReturn(nome).when(request).getParameter("nome");
+      Mockito.doReturn(dataDiNascita).when(request).getParameter("dataDiNascita");
+      Mockito.doReturn(provinciaDiNascita).when(request).getParameter("provinciaDiNascita");
+      Mockito.doReturn(comuneDiNascita).when(request).getParameter("comuneDiNascita");
+      Mockito.doReturn(codiceFiscale).when(request).getParameter("codiceFiscale");
+      Mockito.doReturn(cittadinanza).when(request).getParameter("cittadinanza");
+      Mockito.doReturn(indirizzo).when(request).getParameter("indirizzo");
+      Mockito.doReturn(telefono).when(request).getParameter("telefono");
+      Mockito.doReturn(cellulare).when(request).getParameter("cellulare");
+      Mockito.doReturn(email).when(request).getParameter("email");
+      Mockito.doReturn(confermaEmail).when(request).getParameter("confermaEmail");
+
+      servlet.doPost(request, response);
+      assertTrue((richiestaDao.doRetrieveAll()).size() > nRichieste);
+    } finally {
+      System.out.println("Terminato coverage_3");
+    }
+  }
 }

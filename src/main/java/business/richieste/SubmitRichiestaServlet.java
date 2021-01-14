@@ -93,7 +93,7 @@ public class SubmitRichiestaServlet extends HttpServlet {
       ConsumatoreBean studente = null;
       studente = (ConsumatoreBean) request.getSession().getAttribute("utente");
       if ((studente.isDocente())) {
-        return;
+        throw new IllegalArgumentException();
       }
       studente.setDataDiNascita(new SimpleDateFormat("yyyy/MM/dd").parse(dataDiNascita));
       studente.setProvinciaNascita(provinciaDiNascita);
