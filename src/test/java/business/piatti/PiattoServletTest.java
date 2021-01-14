@@ -115,6 +115,7 @@ class PiattoServletTest {
 
   @Test
   void tc_pm_1_8() throws SQLException {
+
     Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
     try {
       String nome = "Testing";
@@ -226,6 +227,116 @@ class PiattoServletTest {
     }
 
   }
+
+  @Test
+  void actionDefault() {
+
+    Mockito.doReturn("nonPrevisto").when(request).getParameter("action");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+
+  }
+
+  @Test
+  void actionNull() {
+
+    Mockito.doReturn(null).when(request).getParameter("action");
+    assertDoesNotThrow(() -> servlet.doPost(request, response));
+
+  }
+
+  @Test
+  void destinationNotNull() {
+
+    Mockito.doReturn(null).when(request).getParameter("action");
+    Mockito.doReturn("index.jsp").when(request).getParameter("destination");
+    assertDoesNotThrow(() -> servlet.doPost(request, response));
+
+  }
+
+  @Test
+  void testNomePiattoVuoto() {
+
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
+    String nome = "";
+    String ingredienti = "LATTE,FARINA";
+    String calorie = "1";
+    String proteine = "1";
+    String grassi = "1";
+    String sodio = "1";
+    String carboidrati = "1";
+    Mockito.doReturn(nome).when(request).getParameter("nomePiatto");
+    Mockito.doReturn(ingredienti).when(request).getParameter("ingredienti");
+    Mockito.doReturn(calorie).when(request).getParameter("calorie");
+    Mockito.doReturn(proteine).when(request).getParameter("proteine");
+    Mockito.doReturn(grassi).when(request).getParameter("grassi");
+    Mockito.doReturn(sodio).when(request).getParameter("sodio");
+    Mockito.doReturn(carboidrati).when(request).getParameter("carboidrati");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+
+  }
+
+  @Test
+  void testIngredientiVuoto() {
+
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
+    String nome = "Testing";
+    String ingredienti = " ";
+    String calorie = "1";
+    String proteine = "1";
+    String grassi = "1";
+    String sodio = "1";
+    String carboidrati = "1";
+    Mockito.doReturn(nome).when(request).getParameter("nomePiatto");
+    Mockito.doReturn(ingredienti).when(request).getParameter("ingredienti");
+    Mockito.doReturn(calorie).when(request).getParameter("calorie");
+    Mockito.doReturn(proteine).when(request).getParameter("proteine");
+    Mockito.doReturn(grassi).when(request).getParameter("grassi");
+    Mockito.doReturn(sodio).when(request).getParameter("sodio");
+    Mockito.doReturn(carboidrati).when(request).getParameter("carboidrati");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+
+  }
+
+  @Test
+  void testTroppeCalorie() {
+
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
+    String nome = "Testing";
+    String ingredienti = "LATTE,FARINA";
+    String calorie = "2001";
+    String proteine = "1";
+    String grassi = "1";
+    String sodio = "1";
+    String carboidrati = "1";
+    Mockito.doReturn(nome).when(request).getParameter("nomePiatto");
+    Mockito.doReturn(ingredienti).when(request).getParameter("ingredienti");
+    Mockito.doReturn(calorie).when(request).getParameter("calorie");
+    Mockito.doReturn(proteine).when(request).getParameter("proteine");
+    Mockito.doReturn(grassi).when(request).getParameter("grassi");
+    Mockito.doReturn(sodio).when(request).getParameter("sodio");
+    Mockito.doReturn(carboidrati).when(request).getParameter("carboidrati");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+
+  }
+
+  @Test
+  void testIngredientiNull() {
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
+    Mockito.doReturn(null).when(request).getParameter("ingredienti");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+  }
+
+  @Test
+  void testTroppiIngredienti() {
+    Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
+    /*260 caratteri*/
+    String veryLong = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    Mockito.doReturn(veryLong).when(request).getParameter("ingredienti");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+
+  }
+
+
 
 }
 
