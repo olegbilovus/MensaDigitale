@@ -108,11 +108,10 @@ public class PiattoServlet extends HttpServlet {
         || sodio < 0 || carboidrati < 0) {
       throw new IllegalArgumentException();
     }
-    if (nomePiatto == null || nomePiatto.trim().equals("")
-        || ingredienti.trim().equals("")) {
+    if (nomePiatto == null || nomePiatto.trim().equals("")) {
       response.sendError(HttpServletResponse.SC_BAD_REQUEST,
           "Errori nei parametri della richiesta!");
-      return null;
+      throw new IllegalArgumentException();
     } else {
       return new PiattoBean(nomePiatto, ingredienti, portata,
           calorie, proteine, grassi, sodio, carboidrati);
