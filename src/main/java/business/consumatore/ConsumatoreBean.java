@@ -77,6 +77,10 @@ public class ConsumatoreBean extends Utente implements Serializable {
     this.saldo = saldo;
     this.fasciaPagamento = fasciaPagamento;
   }
+  
+  public ConsumatoreBean(String email) {
+    this.email = email;
+  }
 
   public int getStatoServizi() {
     return statoServizi;

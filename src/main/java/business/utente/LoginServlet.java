@@ -70,8 +70,9 @@ public class LoginServlet extends HttpServlet {
 
       if (consumatore == null) {
         // login tentato da uno studente, ma l'indirizzo email non è presente nel db mensadigitale
-        response.sendRedirect(response.encodeURL(request.getContextPath() + "/attivazione.jsp"));
-
+        request.getSession().setAttribute("utente", new ConsumatoreBean(email));
+        response.sendRedirect(response.encodeURL(request.getContextPath() + "/submitRichiesta.jsp"));
+        
       } else {
         // login effettuato con successo da parte di uno studente
         request.getSession().setAttribute("utente", consumatore);

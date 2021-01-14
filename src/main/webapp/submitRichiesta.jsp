@@ -1,3 +1,4 @@
+<%@page import="business.consumatore.ConsumatoreBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -7,13 +8,16 @@
 <title>Titolo</title>
 </head>
 <body>
+	<%
+	ConsumatoreBean c = (ConsumatoreBean) request.getSession().getAttribute("utente");
+	%>
 	<form method="post"
-		action="<%=response.encodeURL("/SubmitRichiestaServlet")%>">
+		action="<%=response.encodeURL("./SubmitRichiestaServlet")%>">
 		<div>
-			Cognome: <input type="text" id="inCognome" name="cognome">
+			Cognome: <input type="text" id="inCognome" name="cognome" <%if(c.getCognome() != null){ %>value="<%=c.getCognome()%>" <%} %>>
 		</div>
 		<div>
-			Nome: <input type="text" id="inNome" name="nome">
+			Nome: <input type="text" id="inNome" name="nome" <%if(c.getNome() != null){ %>value="<%=c.getNome()%>" <%} %>>
 		</div>
 		<div>
 			Data di nascita: <input type="text" id="inData" name="dataDiNascita"
@@ -21,19 +25,19 @@
 		</div>
 		<div>
 			Provincia di nascita: <input type="text" id="inProvincia"
-				name="provinciaDiNascita" maxlength="10">
+				name="provinciaDiNascita" maxlength="10" placeholder="es. SA" <%if(c.getProvinciaNascita() != null){ %>value="<%=c.getProvinciaNascita()%>" <%} %>>
 		</div>
 		<div>
 			Comune di nascita: <input type="text" id="inComune"
-				name="comuneDiNascita">
+				name="comuneDiNascita" <%if(c.getComuneNascita() != null){ %>value="<%=c.getComuneNascita()%>" <%} %>>
 		</div>
 		<div>
 			Codice fiscale: <input type="text" id="inCodice" name="codiceFiscale"
-				maxlenght="16">
+				maxlength="16" <%if(c.getCodiceFiscale() != null){ %>value="<%=c.getCodiceFiscale()%>" <%} %>>
 		</div>
 		<div>
 			Cittadinanza: <input type="text" id="inCittadinanza"
-				name="cittadinanza">
+				name="cittadinanza" <%if(c.getCittadinanza() != null){ %>value="<%=c.getCittadinanza()%>" <%} %>>
 		</div>
 		<div>
 			Studente rifugiato: <input type="radio" id="inRifugiatoT"
