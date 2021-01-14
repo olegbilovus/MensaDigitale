@@ -68,7 +68,7 @@ class ValutaRichiestaServletTest {
 
     assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
   }
-  
+
   @Test
   void tc_ars_2_2() throws SQLException, ServletException, IOException {
     /*
@@ -77,7 +77,20 @@ class ValutaRichiestaServletTest {
     int esito = 1;
     Mockito.doReturn(String.valueOf(esito)).when(request).getParameter("esito");
     Mockito.doReturn(String.valueOf(richiesta.getId())).when(request).getParameter("idRichiesta");
-    
+
+    servlet.doPost(request, response);
+    assertEquals(esito, richiestaDao.doRetrieveByKey(richiesta.getId()).getEsito());
+  }
+
+  @Test
+  void coverage_1() throws SQLException, ServletException, IOException {
+    /*
+     * Valore esito ok
+     */
+    int esito = 2;
+    Mockito.doReturn(String.valueOf(esito)).when(request).getParameter("esito");
+    Mockito.doReturn(String.valueOf(richiesta.getId())).when(request).getParameter("idRichiesta");
+
     servlet.doPost(request, response);
     assertEquals(esito, richiestaDao.doRetrieveByKey(richiesta.getId()).getEsito());
   }

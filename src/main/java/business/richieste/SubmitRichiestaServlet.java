@@ -96,7 +96,7 @@ public class SubmitRichiestaServlet extends HttpServlet {
       ConsumatoreBean studente = null;
       studente = (ConsumatoreBean) request.getSession().getAttribute("utente");
       if ((studente.isDocente())) {
-        return;
+        throw new IllegalArgumentException();
       }
       studente.setNome(nome);
       studente.setCognome(cognome);
