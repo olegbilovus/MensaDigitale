@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class PiattoFilterTest {
 
-  private static HttpSession session = Mockito.mock(HttpSession.class);
+  private static final HttpSession session = Mockito.mock(HttpSession.class);
   private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private static final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
   private static final FilterChain chain = Mockito.mock(FilterChain.class);

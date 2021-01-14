@@ -155,13 +155,16 @@ public class SubmitRichiestaServlet extends HttpServlet {
     if (year < annoInizio || year > annoFine) {
       return false;
     }
-    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10
-        || month == 12) { // mese di 31
-      if (!(day >= 1 && day <= 31)) {
-        return false;
-      }
-    } else if (month == 11 || month == 4 || month == 6 || month == 9) { // mese di 30
-      if (!(day >= 1 && day <= 30)) {
+//    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10
+//        || month == 12) { // mese di 31
+//      if (!(day >= 1 && day <= 31)) {
+//        return false;
+//      }
+    if (String.valueOf(month).matches("^([13578]{1}[02]{0,1})$")) {
+//    } else if (month == 11 || month == 4 || month == 6 || month == 9) { // mese di 30
+    } else if (String.valueOf(month).matches("^([1469]{1}[1]{0,1})$")) { // mese di 30
+//      if (!(day >= 1 && day <= 30)) {
+      if (!String.valueOf(day).matches("^([1-9]{1}|([12]{1}[0-9]{1})|30)$")) {
         return false;
       }
     } else if (month == 2) { // mese == febbraio
@@ -170,6 +173,7 @@ public class SubmitRichiestaServlet extends HttpServlet {
           return false;
         }
       } else {
+//        if (!(day >= 1 && day <= 28)) {
         if (!(day >= 1 && day <= 28)) {
           return false;
         }
