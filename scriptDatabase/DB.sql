@@ -81,7 +81,7 @@ CREATE TABLE prenotazione (
 );
 
 CREATE TABLE richiesta (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT PRIMARY KEY,
     email VARCHAR(150) NOT NULL,
     esito INT DEFAULT 0,
     valutatore VARCHAR(150),

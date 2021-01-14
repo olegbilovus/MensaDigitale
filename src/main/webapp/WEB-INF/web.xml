@@ -27,6 +27,24 @@
 		<filter-name>ValutazioneFilter</filter-name>
 		<filter-class>business.valutazioni.ValutazioneFilter</filter-class>
 	</filter>
+	<filter>
+		<filter-name>AdministratorFilter</filter-name>
+		<display-name>AdministratorFilter</display-name>
+		<description></description>
+		<filter-class>business.admin.AdministratorFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>StudenteFilter</filter-name>
+		<display-name>StudenteFilter</display-name>
+		<description></description>
+		<filter-class>business.consumatore.StudenteFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>AddettoFilter</filter-name>
+		<display-name>AddettoFilter</display-name>
+		<description></description>
+		<filter-class>business.addetto.AddettoFilter</filter-class>
+	</filter>
 	<filter-mapping>
 		<filter-name>FilterResetSale</filter-name>
 		<url-pattern>/prenotazione.jsp</url-pattern>
@@ -47,6 +65,24 @@
 	<filter-mapping>
 		<filter-name>ValutazioneFilter</filter-name>
 		<url-pattern>/valutazione</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AdministratorFilter</filter-name>
+		<url-pattern>/TracciamentoContattiServlet</url-pattern>
+		<url-pattern>/FasciaOrariaServlet</url-pattern>
+		<url-pattern>/tracciamentoContatti.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>StudenteFilter</filter-name>
+		<url-pattern>/submitRichiesta.jsp</url-pattern>
+		<url-pattern>/SubmitRichiestaServlet</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>AddettoFilter</filter-name>
+		<url-pattern>/visualizzaRichiesta.jsp</url-pattern>
+		<url-pattern>/visualizzaRichiesteInSospeso.jsp</url-pattern>
+		<url-pattern>/ValutaRichiesta</url-pattern>
+		<url-pattern>/ValutaRichiesteServlet</url-pattern>
 	</filter-mapping>
 	<servlet>
 		<servlet-name>MenuServlet</servlet-name>

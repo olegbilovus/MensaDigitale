@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -73,9 +75,10 @@ public class SubmitRichiestaServlet extends HttpServlet {
         && (cittadinanza.length() >= 2 && cittadinanza.length() <= 50) && onlyLetters(cittadinanza);
     boolean checkIndirizzo =
         indirizzo != null && (indirizzo.length() >= 4 && indirizzo.length() <= 100);
-    boolean checkTelefono = telefono == null || (telefono.length() >= 6 && telefono.length() <= 20);
-    boolean checkCellulare =
-        cellulare == null || (cellulare.length() >= 6 && cellulare.length() <= 20);
+    boolean checkTelefono = telefono == null || telefono.equals("")
+        || (telefono.length() >= 6 && telefono.length() <= 20);
+    boolean checkCellulare = cellulare == null || cellulare.equals("")
+        || (cellulare.length() >= 6 && cellulare.length() <= 20);
     boolean checkEmail =
         email != null && validateEmail(email) && email.equalsIgnoreCase(confermaEmail);
 
@@ -95,7 +98,12 @@ public class SubmitRichiestaServlet extends HttpServlet {
       if ((studente.isDocente())) {
         return;
       }
-      studente.setDataDiNascita(new SimpleDateFormat("yyyy/MM/dd").parse(dataDiNascita));
+      studente.setNome(nome);
+      studente.setCognome(cognome);
+      Date ddn = new SimpleDateFormat("dd/MM/yyyy").parse(dataDiNascita);
+      studente.setDataDiNascita(
+          new SimpleDateFormat("yyyy/MM/dd").parse(new SimpleDateFormat("yyyy/MM/dd").format(ddn)));
+      studente.setCodiceFiscale(codiceFiscale);
       studente.setProvinciaNascita(provinciaDiNascita);
       studente.setComuneNascita(comuneDiNascita);
       studente.setCittadinanza(cittadinanza);
@@ -105,8 +113,8 @@ public class SubmitRichiestaServlet extends HttpServlet {
       studente.setTelefono(telefono);
       studente.setCellulare(cellulare);
 
-
-      RichiestaBean nuovaRichiesta = new RichiestaBean(email);
+      int idRichiesta = generateIdRichiesta();
+      RichiestaBean nuovaRichiesta = new RichiestaBean(idRichiesta, email);
       if (consumatoreDao.doRetrieveByKey(studente.getEmail()) != null) {
         consumatoreDao.doUpdate(studente);
       } else {
@@ -122,13 +130,14 @@ public class SubmitRichiestaServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         if (richiestaDao.doRetrieveByKey(nuovaRichiesta.getId()) != null) {
           out.println("<script type=\"text/javascript\">");
-          out.println("alert(\"La richiesta è stata inoltrata con successo\")");
-          out.println("</script>");
+          out.println("alert(\"La richiesta si trova ora in attesa di approvazione!\")");
         } else {
           out.println("<script type=\"text/javascript\">");
           out.println("alert(\"Inoltro della richiesta fallito. Ritentare più tardi\")");
-          out.println("</script>");
         }
+        out.println("window.location.href = \"index.jsp\"");
+        out.println("</script>");
+        
       }
     } catch (SQLException | ParseException e) {
       e.printStackTrace();
@@ -227,6 +236,23 @@ public class SubmitRichiestaServlet extends HttpServlet {
     }
 
     return true;
+  }
+
+  private int generateIdRichiesta() throws SQLException {
+    Collection<RichiestaBean> richieste = richiestaDao.doRetrieveAll();
+    boolean[] ids = new boolean[richieste.size()];
+    for (RichiestaBean r : richieste) {
+      if (r.getId() < ids.length) {
+        ids[r.getId()] = true;
+      }
+    }
+
+    for (int i = 0; i < ids.length; i++) {
+      if (!ids[i]) {
+        return i;
+      }
+    }
+    return ids.length;
   }
 
 }
