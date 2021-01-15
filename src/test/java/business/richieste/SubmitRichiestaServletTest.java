@@ -60,7 +60,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(cognome).when(request).getParameter("cognome");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -74,7 +73,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(cognome).when(request).getParameter("cognome");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -90,7 +88,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(nome).when(request).getParameter("nome");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -106,7 +103,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(nome).when(request).getParameter("nome");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -125,7 +121,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(dataDiNascita).when(request).getParameter("dataDiNascita");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -146,7 +141,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(provinciaDiNascita).when(request).getParameter("provinciaDiNascita");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -167,7 +161,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(provinciaDiNascita).when(request).getParameter("provinciaDiNascita");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -191,7 +184,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(comuneDiNascita).when(request).getParameter("comuneDiNascita");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -215,7 +207,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(comuneDiNascita).when(request).getParameter("comuneDiNascita");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -241,7 +232,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(codiceFiscale).when(request).getParameter("codiceFiscale");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -270,7 +260,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(cittadinanza).when(request).getParameter("cittadinanza");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -299,7 +288,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(cittadinanza).when(request).getParameter("cittadinanza");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -330,7 +318,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(indirizzo).when(request).getParameter("indirizzo");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -364,7 +351,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(telefono).when(request).getParameter("telefono");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -400,7 +386,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(cellulare).when(request).getParameter("cellulare");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -475,7 +460,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(email).when(request).getParameter("email");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -515,7 +499,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(confermaEmail).when(request).getParameter("confermaEmail");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
