@@ -438,7 +438,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(email).when(request).getParameter("email");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println();
     }
   }
 
@@ -773,7 +772,6 @@ class SubmitRichiestaServletTest {
 
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("Terminato coverage_2");
     }
   }
 
@@ -813,7 +811,6 @@ class SubmitRichiestaServletTest {
       servlet.doPost(request, response);
       assertTrue((richiestaDao.doRetrieveAll()).size() > nRichieste);
     } finally {
-      System.out.println("Terminato coverage_3");
     }
   }
 }
