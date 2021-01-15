@@ -4,6 +4,11 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Collection;
 
+/**
+ * Interfaccia per il dao.
+ *
+ * @param <T> type dell'identificativo
+ */
 public interface PrenotazioneInterface<T> extends ModelInterface<T> {
 
   /**

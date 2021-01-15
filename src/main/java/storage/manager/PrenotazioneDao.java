@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import storage.interfaces.PrenotazioneInterface;
 
+/**
+ * Dao per la prenotazione.
+ */
 public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<String>> {
 
   /**

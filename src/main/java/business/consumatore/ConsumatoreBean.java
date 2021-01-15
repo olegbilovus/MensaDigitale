@@ -4,6 +4,9 @@ import business.utente.Utente;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Bean per il consumatore.
+ */
 public class ConsumatoreBean extends Utente implements Serializable {
 
   private static final long serialVersionUID = 1L;

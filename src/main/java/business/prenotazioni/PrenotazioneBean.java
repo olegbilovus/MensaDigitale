@@ -3,6 +3,11 @@ package business.prenotazioni;
 import java.io.Serializable;
 import java.sql.Date;
 
+/**
+ * Bean per la prenotazione.
+ *
+ * @param <T> type dell'identificativo
+ */
 public class PrenotazioneBean<T> implements Serializable {
 
   private static final long serialVersionUID = 1L;

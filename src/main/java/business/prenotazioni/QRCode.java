@@ -13,7 +13,10 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
-public class QRCode extends Identificativo<String> {
+/**
+ * Classe che implementa {@link Identificativo}.
+ */
+public class QRCode implements Identificativo<String> {
 
   private String identificativo;
 

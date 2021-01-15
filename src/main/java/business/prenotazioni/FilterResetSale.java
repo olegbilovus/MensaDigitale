@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import storage.manager.PrenotazioneDao;
 
+/**
+ * Filtro per il reset delle sale disponibili e il controllo di una prenotazione esistente.
+ */
 public class FilterResetSale implements Filter {
 
   /**
