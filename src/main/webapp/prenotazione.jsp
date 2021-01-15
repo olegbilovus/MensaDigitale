@@ -121,8 +121,7 @@ var sale = {};
 			<div class="row">
 				<div class="col-md-6"
 					style="background-color: rgba(255, 255, 255, 0.92); padding-bottom: 15px; padding-top: 15px;">
-					<form action="<%=response.encodeURL("prenotazione")%>"
-						method="post">
+					<form action="<%=response.encodeURL("prenotazione")%>" method="post">
 						<div>
 							<%
 							if (prenotazione == null) {
@@ -207,8 +206,8 @@ var sale = {};
 				<%
 				}
 				%>
-				</form>
 			</div>
+			</form>
 			<div class="col-md-6"
 				style="background-color: rgba(255, 255, 255, 0.92); padding-bottom: 15px; padding-top: 15px;">
 				<div></div>
@@ -228,10 +227,11 @@ var sale = {};
 			%>
 		</div>
 	</div>
+	<div style="min-height: 300px;"></div>
 	</div>
-	<div style="min-height: 100px;"></div>
+	</div>
     <div class="text-center footer-basic" style="margin: 0px;background-color: rgb(20,20,20);">
-        <figure class="figure"><img class="img-fluid figure-img" src="assets/img/adisurclogo.png">
+        <figure class="figure"><img class="img-fluid figure-img" src="assets/img/adisurclogo.png" style="margin-top:50px;">
             <figcaption class="figure-caption">Agenzia per il Diritto allo Studio della Regione Campania © 2021<br></figcaption>
         </figure>
     </div>
