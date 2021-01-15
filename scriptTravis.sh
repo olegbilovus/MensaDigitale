@@ -9,5 +9,5 @@ mv $TRAVIS_BUILD_DIR/target/site/jacoco/jacoco-resources ./docs
 ls ./docs
 TZ=Europe/Rome date >> ./docs/index.html
 git add docs
-git git commit -am "travis-ci:updated coverage" || echo "no changes in docs"
+git commit -am "travis-ci:updated coverage" || echo "no changes in docs"
 git push origin HEAD:main
