@@ -1,6 +1,5 @@
 package storage.manager;
 
-
 import business.richieste.RichiestaBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,16 +14,15 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
   /*
    * Costruttore per RichiestaDao.
    */
-  public RichiestaDao() {}
+  public RichiestaDao() {
+  }
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
-   * 
-   * @category Ricerca la richiesta in base all'id della richiesta
-   * 
+   *
    * @param id id della richiesta da ricercare
+   * @category Ricerca la richiesta in base all'id della richiesta
    */
-
   @Override
   public RichiestaBean doRetrieveByKey(int id) throws SQLException {
     RichiestaBean bean = null;
@@ -58,19 +56,15 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
 
         e.printStackTrace();
       }
-
     }
     return null;
-
   }
 
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
-   * 
+   *
    * @category Ritorna tutte le richieste
-   * 
    */
-
   @Override
   public Collection<RichiestaBean> doRetrieveAll() throws SQLException {
     Connection con = null;
@@ -104,20 +98,16 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
 
         e.printStackTrace();
       }
-
     }
     return collection;
-
   }
 
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
-   * 
-   * @category Salva una richiesta nel database
-   * 
+   *
    * @param bean Richiesta da salvare
+   * @category Salva una richiesta nel database
    */
-
   @Override
   public void doSave(RichiestaBean bean) throws SQLException {
     Connection con = null;
@@ -146,19 +136,15 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
 
         e.printStackTrace();
       }
-
     }
-
   }
 
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
-   * 
-   * @category Aggiorna una richiesta
-   * 
+   *
    * @param bean Richiesta con contenuto aggiornato
+   * @category Aggiorna una richiesta
    */
-
   @Override
   public void doUpdate(RichiestaBean bean) throws SQLException {
     Connection con = null;
@@ -186,18 +172,15 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
 
         e.printStackTrace();
       }
-
     }
   }
 
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
-   * 
-   * @category Cancella una richiesta
-   * 
+   *
    * @param bean Indica il bean da eliminare
+   * @category Cancella una richiesta
    */
-
   @Override
   public void doDelete(RichiestaBean bean) throws SQLException {
     Connection con = null;
@@ -223,13 +206,12 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
 
         e.printStackTrace();
       }
-
     }
   }
 
   /**
-   * Metodo invocato per ottenere la lista delle richieste a cui non è ancora stato dato un esito.
-   * 
+   * Metodo invocato per ottenere la lista delle richieste a cui non ï¿½ ancora stato dato un esito.
+   *
    * @return collection di richieste in sospeso
    */
   public Collection<RichiestaBean> doRetrieveInSospeso() {
@@ -249,7 +231,7 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
         listaRichieste.add(richiesta);
       }
       return listaRichieste;
-      
+
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -262,5 +244,4 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
     }
     return listaRichieste;
   }
-
 }

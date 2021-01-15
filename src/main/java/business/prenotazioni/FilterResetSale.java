@@ -1,10 +1,10 @@
 package business.prenotazioni;
 
+import business.consumatore.ConsumatoreBean;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.UUID;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -12,9 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import business.consumatore.ConsumatoreBean;
 import storage.manager.PrenotazioneDao;
-
 
 public class FilterResetSale implements Filter {
 
@@ -40,14 +38,16 @@ public class FilterResetSale implements Filter {
       request.getServletContext().setAttribute("dataSaleReset", oggi);
     }
 
-    HttpServletRequest req = (HttpServletRequest) request;    
+    HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse res = (HttpServletResponse) response;
     ConsumatoreBean consuamtore = (ConsumatoreBean) req.getSession().getAttribute("utente");
     if (consuamtore != null) {
       PrenotazioneBean<String> prenotazione = null;
       try {
-        prenotazione = new PrenotazioneDao()
-            .doRetrieveByDateAndMail(new Date(System.currentTimeMillis()), consuamtore.getEmail());
+        prenotazione =
+            new PrenotazioneDao()
+                .doRetrieveByDateAndMail(
+                    new Date(System.currentTimeMillis()), consuamtore.getEmail());
       } catch (SQLException e) {
         e.printStackTrace();
       }
@@ -59,6 +59,4 @@ public class FilterResetSale implements Filter {
 
     chain.doFilter(request, response);
   }
-
-
 }

@@ -16,11 +16,9 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    *
-   * @category Ricerca la prenotazione in base all'id della prenotazione
-   *
    * @param id id della prenotazione da ricercare
+   * @category Ricerca la prenotazione in base all'id della prenotazione
    */
-
   @Override
   public PrenotazioneBean<String> doRetrieveByKey(String id) throws SQLException {
     PrenotazioneBean<String> bean = new PrenotazioneBean<>();
@@ -55,19 +53,15 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
         e.printStackTrace();
       }
-
     }
     return null;
-
   }
 
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
    *
    * @category Ritorna tutte le prenotazioni
-   *
    */
-
   @Override
   public Collection<PrenotazioneBean<String>> doRetrieveAll() throws SQLException {
     Connection con = null;
@@ -102,20 +96,16 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
         e.printStackTrace();
       }
-
     }
     return collection;
-
   }
 
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
    *
-   * @category Salva una prenotazione nel database
-   *
    * @param bean Prenotazione da salvare
+   * @category Salva una prenotazione nel database
    */
-
   @Override
   public void doSave(PrenotazioneBean<String> bean) throws SQLException {
     Connection con = null;
@@ -146,19 +136,15 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
         e.printStackTrace();
       }
-
     }
-
   }
 
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
    *
-   * @category Aggiorna una prenotazione
-   *
    * @param bean Prenotazione con contenuto aggiornato
+   * @category Aggiorna una prenotazione
    */
-
   @Override
   public void doUpdate(PrenotazioneBean<String> bean) throws SQLException {
     Connection con = null;
@@ -186,18 +172,15 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
         e.printStackTrace();
       }
-
     }
   }
 
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
    *
-   * @category Cancella una prenotazione
-   *
    * @param bean Indica il bean da eliminare
+   * @category Cancella una prenotazione
    */
-
   @Override
   public void doDelete(PrenotazioneBean<String> bean) throws SQLException {
     Connection con = null;
@@ -223,13 +206,12 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
         e.printStackTrace();
       }
-
     }
   }
 
   @Override
-  public PrenotazioneBean<String> doRetrieveByDateAndFascia(Date date, String email,
-      int fasciaOraria) throws SQLException {
+  public PrenotazioneBean<String> doRetrieveByDateAndFascia(
+      Date date, String email, int fasciaOraria) throws SQLException {
     PrenotazioneBean<String> bean = new PrenotazioneBean<>();
     Connection con = null;
     PreparedStatement statement = null;
@@ -265,7 +247,6 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
         e.printStackTrace();
       }
-
     }
     return null;
   }
@@ -306,14 +287,13 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
         e.printStackTrace();
       }
-
     }
     return null;
   }
 
   @Override
-  public Collection<PrenotazioneBean<String>> doRetrieveByDateSalaFascia(Date date, int sala,
-      int fascia) throws SQLException {
+  public Collection<PrenotazioneBean<String>> doRetrieveByDateSalaFascia(
+      Date date, int sala, int fascia) throws SQLException {
     Connection con = null;
     PreparedStatement statement = null;
     String sql =
@@ -350,10 +330,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
 
         e.printStackTrace();
       }
-
     }
     return collection;
-
   }
-
 }

@@ -14,11 +14,11 @@ public class AdministratorBean extends Utente {
 
   /**
    * Costruttore dell'admin.
-   * @param email L'email dell'admin
-   * @param nome Nome dell'admin
+   *
+   * @param email   L'email dell'admin
+   * @param nome    Nome dell'admin
    * @param cognome Cognome dell'admin
    */
-  
   public AdministratorBean(String email, String nome, String cognome) {
     super(email, nome, cognome);
   }
@@ -26,6 +26,5 @@ public class AdministratorBean extends Utente {
   @Override
   public String toString() {
     return "AdministratorBean [email=" + email + ", nome=" + nome + ", cognome=" + cognome + "]";
-  } 
-  
+  }
 }

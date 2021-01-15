@@ -1,16 +1,15 @@
 package business.valutazioni;
 
 import business.piatti.PiattoBean;
-import storage.manager.PiattoDao;
-import storage.manager.ValutazioneDao;
-
+import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Date;
-import java.sql.SQLException;
+import storage.manager.PiattoDao;
+import storage.manager.ValutazioneDao;
 
 public class ValutazioneServlet extends HttpServlet {
 
@@ -41,7 +40,8 @@ public class ValutazioneServlet extends HttpServlet {
         PiattoBean tmp = piattoDao.doRetrieveByKey(piatto);
         if (tmp == null) {
           // il piatto non esiste in DB
-          response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
+          response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+              "Errore nei parametri della richiesta!");
           throw new IllegalArgumentException();
         }
       } catch (SQLException throwables) {
@@ -52,42 +52,47 @@ public class ValutazioneServlet extends HttpServlet {
         case "aggiungiValutazione" -> aggiungiValutazione(request, response);
         case "modificaValutazione" -> modificaValutazione(request, response);
         case "rimuoviValutazione" -> rimuoviValutazione(request, response);
-        default -> response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
+        default -> response
+            .sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
       }
 
     } else {
-      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
+      response
+          .sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
       throw new IllegalArgumentException();
     }
 
   }
 
-  private void aggiungiValutazione(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  private void aggiungiValutazione(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
 
     int valutazione = Integer.parseInt(request.getParameter("valutazione"));
 
-    if (testValutazione(valutazione)){
+    if (testValutazione(valutazione)) {
 
       try {
         valutazioneDao.doSave(
-                new ValutazioneBean(email, piatto, valutazione, new Date(System.currentTimeMillis())));
+            new ValutazioneBean(email, piatto, valutazione, new Date(System.currentTimeMillis())));
         response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
       } catch (SQLException throwables) {
         throwables.printStackTrace();
       }
 
     } else {
-      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
+      response
+          .sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
       throw new IllegalArgumentException();
     }
 
   }
 
-  private void modificaValutazione(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  private void modificaValutazione(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
 
     int valutazione = Integer.parseInt(request.getParameter("valutazione"));
 
-    if (testValutazione(valutazione)){
+    if (testValutazione(valutazione)) {
 
       try {
         valutazioneDao.doUpdate(
@@ -98,13 +103,15 @@ public class ValutazioneServlet extends HttpServlet {
       }
 
     } else {
-      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
+      response
+          .sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
       throw new IllegalArgumentException();
     }
 
   }
 
-  private void rimuoviValutazione(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  private void rimuoviValutazione(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
 
     try {
       valutazioneDao.doDelete(new ValutazioneBean(email, piatto, 0, null));
@@ -114,11 +121,11 @@ public class ValutazioneServlet extends HttpServlet {
     }
   }
 
-  private boolean testFormatoPiatto(String piatto){
+  private boolean testFormatoPiatto(String piatto) {
     return piatto.matches("^([A-Z])+$");
   }
 
-  private boolean testValutazione(int valutazione){
+  private boolean testValutazione(int valutazione) {
     return (valutazione >= 1 && valutazione <= 5);
   }
 

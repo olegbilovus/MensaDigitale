@@ -1,27 +1,28 @@
 package storage.manager;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.consumatore.ConsumatoreBean;
+import business.prenotazioni.FasciaOrariaBean;
+import business.prenotazioni.PrenotazioneBean;
+import business.prenotazioni.QRCode;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import business.consumatore.ConsumatoreBean;
-import business.prenotazioni.FasciaOrariaBean;
-import business.prenotazioni.PrenotazioneBean;
-import business.prenotazioni.QRCode;
 
 class PrenotazioneDaoTest {
 
-  private PrenotazioneDao dao = new PrenotazioneDao();
-  private FasciaOrariaDao daoF = new FasciaOrariaDao();
-  private ConsumatoreDao daoC = new ConsumatoreDao();
-  private ConsumatoreBean consumatore = new ConsumatoreBean("testerP8@unisa.it", "tester", "tester",
-      1, "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",
-      "tester", "tester", false, false, 0, 1);
-  private FasciaOrariaBean fascia = new FasciaOrariaBean(98, "11:40");
-  private PrenotazioneBean<String> bean =
+  private final PrenotazioneDao dao = new PrenotazioneDao();
+  private final FasciaOrariaDao daoF = new FasciaOrariaDao();
+  private final ConsumatoreDao daoC = new ConsumatoreDao();
+  private final ConsumatoreBean consumatore = new ConsumatoreBean("testerP8@unisa.it", "tester",
+      "tester", 1, "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester",
+      "tester", "tester", "tester", false, false, 0, 1);
+  private final FasciaOrariaBean fascia = new FasciaOrariaBean(98, "11:40");
+  private final PrenotazioneBean<String> bean =
       new PrenotazioneBean<>(new Date(System.currentTimeMillis()),
           new QRCode(UUID.randomUUID().toString().replace("-", "")), 2, fascia.getId(),
           consumatore.getEmail());
@@ -88,7 +89,7 @@ class PrenotazioneDaoTest {
     assertTrue(dao.doRetrieveByDateAndFascia(bean.getDataPrenotazione(), bean.getEmail(),
         bean.getFasciaOraria()) != null);
   }
-  
+
   @Test
   void testDoRetrieveByDateAndFascia2() throws SQLException {
     assertTrue(dao.doRetrieveByDateAndFascia(bean.getDataPrenotazione(), "",
@@ -99,7 +100,7 @@ class PrenotazioneDaoTest {
   void testDoRetrieveByDateAndMail1() throws SQLException {
     assertTrue(dao.doRetrieveByDateAndMail(bean.getDataPrenotazione(), bean.getEmail()) != null);
   }
-  
+
   @Test
   void testDoRetrieveByDateAndMail2() throws SQLException {
     assertTrue(dao.doRetrieveByDateAndMail(bean.getDataPrenotazione(), "") == null);

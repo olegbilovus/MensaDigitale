@@ -18,7 +18,11 @@ import storage.manager.PrenotazioneDao;
  * Servlet implementation class ControlloIdentificativo.
  */
 public class GestioneIdentificativo extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
+  private static final PrenotazioneInterface<PrenotazioneBean<String>> prenotazioneDao =
+      new PrenotazioneDao();
+  private static final ConsumatoreInterface<ConsumatoreBean> consumatoreDao = new ConsumatoreDao();
 
   public GestioneIdentificativo() {
     super();
@@ -30,11 +34,6 @@ public class GestioneIdentificativo extends HttpServlet {
     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
   }
 
-
-  private static PrenotazioneInterface<PrenotazioneBean<String>> prenotazioneDao =
-      new PrenotazioneDao();
-  private static ConsumatoreInterface<ConsumatoreBean> consumatoreDao = new ConsumatoreDao();
-
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -45,7 +44,7 @@ public class GestioneIdentificativo extends HttpServlet {
     String res = "response";
     try {
       PrenotazioneBean<String> prenotazione = prenotazioneDao.doRetrieveByKey(identificativo);
-       if (prenotazione != null) {
+      if (prenotazione != null) {
         json.put(res, "200");
         if (action.equals("controllo")) {
           ConsumatoreBean consumatore = consumatoreDao.doRetrieveByKey(prenotazione.getEmail());
@@ -54,14 +53,12 @@ public class GestioneIdentificativo extends HttpServlet {
         } else if (action.equals("segnala")) {
           prenotazione.setEntrato(true);
           prenotazioneDao.doUpdate(prenotazione);
-        }
-        else {
+        } else {
           json.put(res, "400");
         }
       } else {
         json.put(res, "404");
       }
-
 
     } catch (SQLException e) {
       json.put(res, "500");
@@ -69,5 +66,4 @@ public class GestioneIdentificativo extends HttpServlet {
     }
     response.getWriter().println(json.toString());
   }
-
 }

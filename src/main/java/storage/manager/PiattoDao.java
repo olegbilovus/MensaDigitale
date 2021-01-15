@@ -11,20 +11,18 @@ import storage.interfaces.PiattoInterface;
 
 public class PiattoDao implements PiattoInterface<PiattoBean> {
 
-
   /*
    * Costruttore per PiattoDao.
    */
-  public PiattoDao() {}
+  public PiattoDao() {
+  }
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
-   * 
-   * @category Ricerca il piatto in base al nome del piatto
-   * 
+   *
    * @param nome Nome del piatto da ricercare
+   * @category Ricerca il piatto in base al nome del piatto
    */
-
   @Override
   public PiattoBean doRetrieveByKey(String nome) throws SQLException {
     PiattoBean bean = new PiattoBean();
@@ -61,19 +59,15 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
 
         e.printStackTrace();
       }
-
     }
     return null;
-
   }
 
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
-   * 
+   *
    * @category Ritorna tutte i piatti
-   * 
    */
-
   @Override
   public Collection<PiattoBean> doRetrieveAll() throws SQLException {
     Connection con = null;
@@ -111,20 +105,16 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
 
         e.printStackTrace();
       }
-
     }
     return collection;
-
   }
 
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
-   * 
-   * @category Salva un piatto nel database
-   * 
+   *
    * @param bean Piatto da salvare
+   * @category Salva un piatto nel database
    */
-
   @Override
   public void doSave(PiattoBean bean) throws SQLException {
     Connection con = null;
@@ -157,19 +147,15 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
 
         e.printStackTrace();
       }
-
     }
-
   }
 
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
-   * 
-   * @category Aggiorna un piatto
-   * 
+   *
    * @param bean Piatto con contenuto aggiornato
+   * @category Aggiorna un piatto
    */
-
   @Override
   public void doUpdate(PiattoBean bean) throws SQLException {
     Connection con = null;
@@ -196,18 +182,15 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
 
         e.printStackTrace();
       }
-
     }
   }
 
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
-   * 
-   * @category Cancella un piatto
-   * 
+   *
    * @param bean Indica il bean da eliminare
+   * @category Cancella un piatto
    */
-
   @Override
   public void doDelete(PiattoBean bean) throws SQLException {
     Connection con = null;
@@ -233,8 +216,6 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
 
         e.printStackTrace();
       }
-
     }
   }
-
 }

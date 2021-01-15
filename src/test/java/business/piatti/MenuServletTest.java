@@ -1,20 +1,15 @@
 package business.piatti;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
+import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import storage.manager.PiattoDao;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.lang.reflect.Array;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class MenuServletTest {
 
@@ -44,7 +39,7 @@ public class MenuServletTest {
     piatti[0] = nome;
     Mockito.doReturn(piatti).when(request).getParameterValues("piatti");
     try {
-     assertDoesNotThrow(() -> servlet.doPost(request, response));
+      assertDoesNotThrow(() -> servlet.doPost(request, response));
     } finally {
       dao.doDelete(tmp);
     }

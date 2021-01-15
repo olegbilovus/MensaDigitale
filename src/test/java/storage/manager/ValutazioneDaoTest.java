@@ -1,26 +1,29 @@
 package storage.manager;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.consumatore.ConsumatoreBean;
+import business.piatti.PiattoBean;
+import business.valutazioni.ValutazioneBean;
 import java.sql.Date;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import business.consumatore.ConsumatoreBean;
-import business.piatti.PiattoBean;
-import business.valutazioni.ValutazioneBean;
 
 class ValutazioneDaoTest {
 
-  private ValutazioneDao dao = new ValutazioneDao();
-  private PiattoDao daoP = new PiattoDao();
-  private ConsumatoreDao daoC = new ConsumatoreDao();
-  private ConsumatoreBean consumatore = new ConsumatoreBean("testerP8@unisa.it", "tester", "tester",
-      1, "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",
-      "tester", "tester", false, false, 0, 1);
-  private PiattoBean piatto = new PiattoBean("testerAb1", "av", "primo", 0, 0, 0, 0, 0);
-  private ValutazioneBean bean = new ValutazioneBean(consumatore.getEmail(), piatto.getNome(), 2,
-      new Date(System.currentTimeMillis()));
+  private final ValutazioneDao dao = new ValutazioneDao();
+  private final PiattoDao daoP = new PiattoDao();
+  private final ConsumatoreDao daoC = new ConsumatoreDao();
+  private final ConsumatoreBean consumatore =
+      new ConsumatoreBean("testerP8@unisa.it", "tester", "tester",
+          1, "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",
+          "tester", "tester", false, false, 0, 1);
+  private final PiattoBean piatto = new PiattoBean("testerAb1", "av", "primo", 0, 0, 0, 0, 0);
+  private final ValutazioneBean bean =
+      new ValutazioneBean(consumatore.getEmail(), piatto.getNome(), 2,
+          new Date(System.currentTimeMillis()));
 
   @BeforeEach
   public void initEach() throws SQLException {
@@ -65,7 +68,7 @@ class ValutazioneDaoTest {
   @Test
   void testDoUpdate() throws SQLException {
     int recensione = 4;
-    bean.setRecensione(recensione);;
+    bean.setRecensione(recensione);
     dao.doUpdate(bean);
     assertTrue(
         dao.doRetrieveByKey(bean.getEmail(), bean.getPiatto()).getRecensione() == recensione);

@@ -1,6 +1,11 @@
 package business.addetto;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.consumatore.ConsumatoreBean;
+import business.prenotazioni.FasciaOrariaBean;
+import business.prenotazioni.PrenotazioneBean;
+import business.prenotazioni.QRCode;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -13,26 +18,22 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import business.consumatore.ConsumatoreBean;
-import business.prenotazioni.FasciaOrariaBean;
-import business.prenotazioni.PrenotazioneBean;
-import business.prenotazioni.QRCode;
 import storage.manager.ConsumatoreDao;
 import storage.manager.FasciaOrariaDao;
 import storage.manager.PrenotazioneDao;
 
 class PagamentoTest {
 
-  private PrenotazioneDao dao = new PrenotazioneDao();
-  private FasciaOrariaDao daoF = new FasciaOrariaDao();
-  private ConsumatoreDao daoC = new ConsumatoreDao();
+  private static final HttpSession session = Mockito.mock(HttpSession.class);
+  private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private static ConsumatoreBean consumatore = null;
   private static FasciaOrariaBean fascia = null;
   private static PrenotazioneBean<String> prenotazione = null;
-  private static HttpSession session = Mockito.mock(HttpSession.class);
-  private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-  private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  private Pagamento servlet = new Pagamento();
+  private final PrenotazioneDao dao = new PrenotazioneDao();
+  private final FasciaOrariaDao daoF = new FasciaOrariaDao();
+  private final ConsumatoreDao daoC = new ConsumatoreDao();
+  private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private final Pagamento servlet = new Pagamento();
 
   @BeforeAll
   public static void init() throws IOException, ServletException {
@@ -114,7 +115,7 @@ class PagamentoTest {
       daoC.doDelete(consumatore);
     }
   }
-  
+
   @Test
   void testDoPostHttpServletRequestHttpServletResponse4()
       throws SQLException, ServletException, IOException {

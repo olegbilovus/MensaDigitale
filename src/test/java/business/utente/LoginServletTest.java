@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -74,7 +73,8 @@ public class LoginServletTest {
 
   @Test
   public void testDocenteEsistente() throws SQLException {
-    ConsumatoreBean negro = new ConsumatoreBean("anegro@unisa.it", "Alberto", "Negro", 0, "NGRLBR999999999X", null, null, null, null, null, null, null, false, false, 100, 1);
+    ConsumatoreBean negro = new ConsumatoreBean("anegro@unisa.it", "Alberto", "Negro", 0,
+        "NGRLBR999999999X", null, null, null, null, null, null, null, false, false, 100, 1);
     consumatoreDao.doSave(negro);
     Mockito.doReturn("anegro@unisa.it").when(request).getParameter("email");
     assertDoesNotThrow(() -> servlet.doPost(request, response));

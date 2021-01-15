@@ -2,16 +2,20 @@ package business.valutazioni;
 
 import business.consumatore.ConsumatoreBean;
 import business.utente.Utente;
-
-import javax.servlet.*;
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class ValutazioneFilter implements Filter {
 
   @Override
-  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+      throws ServletException, IOException {
 
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse resp = (HttpServletResponse) response;
@@ -29,7 +33,5 @@ public class ValutazioneFilter implements Filter {
     }
 
     chain.doFilter(request, response);
-
   }
-
 }

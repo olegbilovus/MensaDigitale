@@ -6,9 +6,9 @@ import java.util.List;
 
 public class MenuBean implements Serializable {
 
-  private List<PiattoBean> primi;
-  private List<PiattoBean> secondi;
-  private List<PiattoBean> contorni;
+  private final List<PiattoBean> primi;
+  private final List<PiattoBean> secondi;
+  private final List<PiattoBean> contorni;
 
   /**
    * Costruttore per la classe MenuBean. Inizializza le liste che rappresentano i primi, i secondi e
@@ -86,21 +86,26 @@ public class MenuBean implements Serializable {
     contorni.remove(contorno);
   }
 
-  /** Rimuove tutti i piatti dalla lista dei primi. */
+  /**
+   * Rimuove tutti i piatti dalla lista dei primi.
+   */
   public void clearPrimi() {
     primi.clear();
   }
 
-  /** Rimuove tutti i piatti dalla lista dei secondi. */
+  /**
+   * Rimuove tutti i piatti dalla lista dei secondi.
+   */
   public void clearSecondi() {
     secondi.clear();
   }
 
-  /** Rimuove tutti i piatti dalla lista dei contorni. */
+  /**
+   * Rimuove tutti i piatti dalla lista dei contorni.
+   */
   public void clearContorni() {
     contorni.clear();
   }
-
 
   @Override
   public String toString() {

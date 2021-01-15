@@ -1,21 +1,25 @@
 package business.piatti;
 
-import storage.manager.PiattoDao;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.sql.SQLException;
+import storage.manager.PiattoDao;
 
 public class MenuServlet extends HttpServlet {
 
-  private File myFile;
+  private final PiattoDao dao = new PiattoDao();
+  private final File myFile;
   private ObjectInputStream inputStream;
   private ObjectOutputStream outputStream;
   private MenuBean menu;
-  private final PiattoDao dao = new PiattoDao();
 
   public MenuServlet() {
     myFile = new File("menuSerializzato.txt");

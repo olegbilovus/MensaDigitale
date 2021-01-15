@@ -1,18 +1,16 @@
 package business.piatti;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import business.addetto.AddettoBean;
 import business.admin.AdministratorBean;
 import business.consumatore.ConsumatoreBean;
-import business.utente.LoginFilter;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class PiattoFilterTest {
 
@@ -27,7 +25,7 @@ public class PiattoFilterTest {
 
     Mockito.doReturn(session).when(request).getSession();
     Mockito.doReturn(null).when(session).getAttribute("utente");
-    assertDoesNotThrow(()->servlet.doFilter(request, response, chain));
+    assertDoesNotThrow(() -> servlet.doFilter(request, response, chain));
 
   }
 
@@ -35,8 +33,9 @@ public class PiattoFilterTest {
   public void utenteAddetto() {
 
     Mockito.doReturn(session).when(request).getSession();
-    Mockito.doReturn(new AddettoBean("addetto@gmail.com", "Ad", "Etto", 1)).when(session).getAttribute("utente");
-    assertDoesNotThrow(()->servlet.doFilter(request, response, chain));
+    Mockito.doReturn(new AddettoBean("addetto@gmail.com", "Ad", "Etto", 1)).when(session)
+        .getAttribute("utente");
+    assertDoesNotThrow(() -> servlet.doFilter(request, response, chain));
 
   }
 
@@ -44,8 +43,9 @@ public class PiattoFilterTest {
   public void utenteAdmin() {
 
     Mockito.doReturn(session).when(request).getSession();
-    Mockito.doReturn(new AdministratorBean("admin@gmail.com", "Ad", "Min")).when(session).getAttribute("utente");
-    assertDoesNotThrow(()->servlet.doFilter(request, response, chain));
+    Mockito.doReturn(new AdministratorBean("admin@gmail.com", "Ad", "Min")).when(session)
+        .getAttribute("utente");
+    assertDoesNotThrow(() -> servlet.doFilter(request, response, chain));
 
   }
 
@@ -53,8 +53,11 @@ public class PiattoFilterTest {
   public void utenteStudente() {
 
     Mockito.doReturn(session).when(request).getSession();
-    Mockito.doReturn(new ConsumatoreBean("lol@gmail.com", "Cons", "Umatore", 0, "CCCNTN999999999X", null, null, null, null, null, null, null, false, false, 100, 1)).when(session).getAttribute("utente");
-    assertDoesNotThrow(()->servlet.doFilter(request, response, chain));
+    Mockito.doReturn(
+        new ConsumatoreBean("lol@gmail.com", "Cons", "Umatore", 0, "CCCNTN999999999X", null, null,
+            null, null, null, null, null, false, false, 100, 1)).when(session)
+        .getAttribute("utente");
+    assertDoesNotThrow(() -> servlet.doFilter(request, response, chain));
 
   }
 

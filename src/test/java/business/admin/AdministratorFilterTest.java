@@ -1,18 +1,17 @@
 package business.admin;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import business.consumatore.ConsumatoreBean;
 import business.utente.Utente;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
+import java.sql.Date;
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class AdministratorFilterTest {
 
@@ -31,23 +30,23 @@ public class AdministratorFilterTest {
   public void testNonAdmin() {
 
     Utente tmp =
-            new ConsumatoreBean(
-                    "testerPrenotazione@studenti.unisa.it",
-                    "tester",
-                    "tester",
-                    1,
-                    "tester",
-                    new Date(System.currentTimeMillis()),
-                    "tester",
-                    "tester",
-                    "tester",
-                    "tester",
-                    "tester",
-                    "tester",
-                    false,
-                    false,
-                    0,
-                    1);
+        new ConsumatoreBean(
+            "testerPrenotazione@studenti.unisa.it",
+            "tester",
+            "tester",
+            1,
+            "tester",
+            new Date(System.currentTimeMillis()),
+            "tester",
+            "tester",
+            "tester",
+            "tester",
+            "tester",
+            "tester",
+            false,
+            false,
+            0,
+            1);
     Mockito.doReturn(tmp).when(session).getAttribute("utente");
     assertDoesNotThrow(() -> servlet.doFilter(request, response, chain));
 

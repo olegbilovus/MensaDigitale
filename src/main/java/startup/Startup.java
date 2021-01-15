@@ -14,7 +14,6 @@ import storage.manager.FasciaOrariaDao;
 
 /**
  * Application Lifecycle Listener implementation class Startup.
- *
  */
 @WebListener
 public class Startup implements ServletContextListener {
@@ -45,7 +44,6 @@ public class Startup implements ServletContextListener {
 
     ctx.setAttribute("capienzaSale", capienzaSale);
 
-
     HashMap<Integer, HashMap<Integer, Boolean>> saleDisponibili = new HashMap<>(5);
     for (int i = 1; i <= 5; i++) {
       HashMap<Integer, Boolean> fasceOrarie = new HashMap<>(numFasceOrarie);
@@ -57,14 +55,12 @@ public class Startup implements ServletContextListener {
 
     ctx.setAttribute("saleDisponibili", saleDisponibili);
     ctx.setAttribute("dataSaleReset", new Date(System.currentTimeMillis()));
-    
 
     populateRichiesteInSospeso();
   }
-  
+
   private void populateRichiesteInSospeso() {
     RichiesteInSospeso ris = RichiesteInSospeso.getInstance();
     ris.load();
   }
-
 }

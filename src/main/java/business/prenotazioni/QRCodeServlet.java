@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class QRCodeServlet.
  */
 public class QRCodeServlet extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
 
   @Override
@@ -21,9 +22,11 @@ public class QRCodeServlet extends HttpServlet {
     PrenotazioneBean<String> prenotazione =
         (PrenotazioneBean<String>) request.getSession().getAttribute("prenotazione");
     try {
-      byte[] qr = QRCode.createQR(prenotazione.getIdentificativo().getIdentificativo(),
-          Integer.parseInt(request.getParameter("height")),
-          Integer.parseInt(request.getParameter("width")));
+      byte[] qr =
+          QRCode.createQR(
+              prenotazione.getIdentificativo().getIdentificativo(),
+              Integer.parseInt(request.getParameter("height")),
+              Integer.parseInt(request.getParameter("width")));
       response.setContentLength(qr.length);
       response.getOutputStream().write(qr);
     } catch (WriterException | IOException e) {
@@ -36,5 +39,4 @@ public class QRCodeServlet extends HttpServlet {
       throws ServletException, IOException {
     doGet(request, response);
   }
-
 }

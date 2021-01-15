@@ -1,16 +1,17 @@
 package storage.manager;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.addetto.AddettoBean;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import business.addetto.AddettoBean;
 
 class AddettoDaoTest {
 
-  private AddettoDao dao = new AddettoDao();
-  private AddettoBean bean = new AddettoBean("tester@unisa.it", "tester", "tester", 1);
+  private final AddettoDao dao = new AddettoDao();
+  private final AddettoBean bean = new AddettoBean("tester@unisa.it", "tester", "tester", 1);
 
   @BeforeEach
   public void initEach() throws SQLException {

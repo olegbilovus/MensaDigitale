@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddettoFilter implements Filter {
+
   /**
    * Filtro per le servlet il cui accesso deve essere consentito unicamente all'addetto.
    */

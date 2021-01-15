@@ -18,14 +18,15 @@ import org.mockito.Mockito;
 import storage.manager.FasciaOrariaDao;
 
 class FasciaOrariaServletTest {
-  private static FasciaOrariaBean fascia_test1 = new FasciaOrariaBean(1, "13:00");
-  private static FasciaOrariaBean fascia_test2 = new FasciaOrariaBean(2, "14:20");
-  private static FasciaOrariaDao fasciaOrariaDao = new FasciaOrariaDao();
-  private static HttpSession session = Mockito.mock(HttpSession.class);
-  private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-  private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  private static ServletContext ctx = Mockito.mock(ServletContext.class);
-  private FasciaOrariaServlet servlet = new FasciaOrariaServlet() {
+
+  private static final FasciaOrariaBean fascia_test1 = new FasciaOrariaBean(1, "13:00");
+  private static final FasciaOrariaBean fascia_test2 = new FasciaOrariaBean(2, "14:20");
+  private static final FasciaOrariaDao fasciaOrariaDao = new FasciaOrariaDao();
+  private static final HttpSession session = Mockito.mock(HttpSession.class);
+  private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+  private static final ServletContext ctx = Mockito.mock(ServletContext.class);
+  private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private final FasciaOrariaServlet servlet = new FasciaOrariaServlet() {
     public ServletContext getServletContext() {
       return ctx;
     }

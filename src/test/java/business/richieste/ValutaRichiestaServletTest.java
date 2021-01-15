@@ -21,20 +21,22 @@ import storage.manager.ConsumatoreDao;
 import storage.manager.RichiestaDao;
 
 class ValutaRichiestaServletTest {
-  private static RichiestaDao richiestaDao = new RichiestaDao();
-  private static ServletContext ctx = Mockito.mock(ServletContext.class);
-  private static HttpSession session = Mockito.mock(HttpSession.class);
-  private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-  private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  private static AddettoBean addetto =
-      new AddettoBean("addetto@unisa.it", "Addetto", "Lavorante", 1);
-  private static RichiestaBean richiesta = new RichiestaBean(1, "m.rossi999@studenti.unisa.it");
-  private static ConsumatoreBean studente = new ConsumatoreBean("m.rossi999@studenti.unisa.it",
-      "Mario", "Rossi", 1, "", null, "", "", "", "", "", "", false, false, 0, 0);
-  private static AddettoDao addettoDao = new AddettoDao();
-  private static ConsumatoreDao consumatoreDao = new ConsumatoreDao();
 
-  private ValutaRichiestaServlet servlet = new ValutaRichiestaServlet() {
+  private static final RichiestaDao richiestaDao = new RichiestaDao();
+  private static final ServletContext ctx = Mockito.mock(ServletContext.class);
+  private static final HttpSession session = Mockito.mock(HttpSession.class);
+  private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+  private static final AddettoBean addetto =
+      new AddettoBean("addetto@unisa.it", "Addetto", "Lavorante", 1);
+  private static final RichiestaBean richiesta =
+      new RichiestaBean(1, "m.rossi999@studenti.unisa.it");
+  private static final ConsumatoreBean studente =
+      new ConsumatoreBean("m.rossi999@studenti.unisa.it",
+          "Mario", "Rossi", 1, "", null, "", "", "", "", "", "", false, false, 0, 0);
+  private static final AddettoDao addettoDao = new AddettoDao();
+  private static final ConsumatoreDao consumatoreDao = new ConsumatoreDao();
+  private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private final ValutaRichiestaServlet servlet = new ValutaRichiestaServlet() {
     public ServletContext getServletContext() {
       return ctx;
     }

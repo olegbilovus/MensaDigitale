@@ -1,16 +1,17 @@
 package storage.manager;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.prenotazioni.FasciaOrariaBean;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import business.prenotazioni.FasciaOrariaBean;
 
 class FasciaOrariaDaoTest {
 
-  private FasciaOrariaDao dao = new FasciaOrariaDao();
-  private FasciaOrariaBean bean = new FasciaOrariaBean(98, "11:40");
+  private final FasciaOrariaDao dao = new FasciaOrariaDao();
+  private final FasciaOrariaBean bean = new FasciaOrariaBean(98, "11:40");
 
   @BeforeEach
   public void initEach() throws SQLException {

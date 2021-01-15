@@ -11,8 +11,10 @@ import storage.interfaces.FasciaOrariaInterface;
 import storage.manager.FasciaOrariaDao;
 
 public class FasciaOrariaServlet extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
-  private static FasciaOrariaInterface<FasciaOrariaBean> fasciaOrariaDao = new FasciaOrariaDao();
+  private static final FasciaOrariaInterface<FasciaOrariaBean> fasciaOrariaDao =
+      new FasciaOrariaDao();
 
   public FasciaOrariaServlet() {
     super();
@@ -38,26 +40,31 @@ public class FasciaOrariaServlet extends HttpServlet {
     char f4 = fasciaOraria.charAt(3);
     char f5 = fasciaOraria.charAt(4);
 
-    boolean f1val = (Character.getNumericValue(f1) == 0
-        && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 9))
-        || (Character.getNumericValue(f1) == 1
+    boolean f1val =
+        (Character.getNumericValue(f1) == 0
             && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 9))
-        || (Character.getNumericValue(f1) == 2
+            || (Character.getNumericValue(f1) == 1
+            && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 9))
+            || (Character.getNumericValue(f1) == 2
             && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 3));
     boolean f4val = (Character.getNumericValue(f4) >= 0 && Character.getNumericValue(f4) <= 5);
     boolean f5val = (Character.getNumericValue(f5) >= 0 && Character.getNumericValue(f5) <= 9);
 
-    if (!(Character.isDigit(f1)) || !(Character.isDigit(f2)) || f3 != ':'
-        || !(Character.isDigit(f4)) || !(Character.isDigit(f5)) || !f1val || !f4val || !f5val) {
+    if (!(Character.isDigit(f1))
+        || !(Character.isDigit(f2))
+        || f3 != ':'
+        || !(Character.isDigit(f4))
+        || !(Character.isDigit(f5))
+        || !f1val
+        || !f4val
+        || !f5val) {
 
       throw new IllegalArgumentException();
     }
 
-
-
     Collection<FasciaOrariaBean> fasceOrarieEsistenti;
     try {
-      fasceOrarieEsistenti = (Collection<FasciaOrariaBean>) fasciaOrariaDao.doRetrieveAll();
+      fasceOrarieEsistenti = fasciaOrariaDao.doRetrieveAll();
       int numFasceOrarie = ((int) getServletContext().getAttribute("numFasceOrarie"));
       if (action.equals("inserisci")) {
         if (!presente(fasciaOraria, fasceOrarieEsistenti)) {
@@ -101,8 +108,9 @@ public class FasciaOrariaServlet extends HttpServlet {
      */
 
     class Ora {
-      private int ora;
-      private int minuti;
+
+      private final int ora;
+      private final int minuti;
 
       public Ora(int ora, int minuti) {
         this.ora = ora;
@@ -110,15 +118,12 @@ public class FasciaOrariaServlet extends HttpServlet {
       }
 
       public boolean equals(Ora anotherOra) {
-        if (this.ora == anotherOra.ora && this.minuti == anotherOra.minuti) {
-          return true;
-        }
-        return false;
+        return this.ora == anotherOra.ora && this.minuti == anotherOra.minuti;
       }
 
       /**
        * Confronta due orari.
-       * 
+       *
        * @return 1 se this > anotherOra
        * @return 0 se this == anotherOra
        * @return -1 se this < anotherOra
@@ -150,12 +155,15 @@ public class FasciaOrariaServlet extends HttpServlet {
       }
     }
 
-    Ora nuovaFascia = new Ora(Integer.parseInt(fasciaOraria.subSequence(0, 2).toString()),
-        Integer.parseInt(fasciaOraria.subSequence(3, 5).toString()));
+    Ora nuovaFascia =
+        new Ora(
+            Integer.parseInt(fasciaOraria.subSequence(0, 2).toString()),
+            Integer.parseInt(fasciaOraria.subSequence(3, 5).toString()));
 
     for (FasciaOrariaBean oldFascia : list) {
       Ora vecchiaFascia =
-          new Ora(Integer.parseInt(oldFascia.getFascia().subSequence(0, 2).toString()),
+          new Ora(
+              Integer.parseInt(oldFascia.getFascia().subSequence(0, 2).toString()),
               Integer.parseInt(oldFascia.getFascia().subSequence(3, 5).toString()));
 
       if (nuovaFascia.equals(vecchiaFascia)) {
@@ -206,5 +214,4 @@ public class FasciaOrariaServlet extends HttpServlet {
     }
     return array.length;
   }
-
 }

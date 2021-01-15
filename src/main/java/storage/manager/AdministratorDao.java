@@ -14,16 +14,15 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
   /*
    * Costruttore per AdministratorDao.
    */
-  public AdministratorDao() {}
+  public AdministratorDao() {
+  }
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
-   * 
-   * @category Ricerca un amministratore in base all'email dell'amministratore
-   * 
+   *
    * @param email email dell'amministratore da ricercare
+   * @category Ricerca un amministratore in base all'email dell'amministratore
    */
-
   @Override
   public AdministratorBean doRetrieveByKey(String email) throws SQLException {
     AdministratorBean bean = new AdministratorBean();
@@ -55,19 +54,15 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
 
         e.printStackTrace();
       }
-
     }
     return null;
-
   }
 
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
-   * 
+   *
    * @category Ritorna tutti gli administrator
-   * 
    */
-
   @Override
   public Collection<AdministratorBean> doRetrieveAll() throws SQLException {
     Connection con = null;
@@ -100,20 +95,16 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
 
         e.printStackTrace();
       }
-
     }
     return collection;
-
   }
 
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
-   * 
-   * @category Salva un amministratore nel database
-   * 
+   *
    * @param bean Amministratore da salvare
+   * @category Salva un amministratore nel database
    */
-
   @Override
   public void doSave(AdministratorBean bean) throws SQLException {
     Connection con = null;
@@ -141,19 +132,15 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
 
         e.printStackTrace();
       }
-
     }
-
   }
 
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
-   * 
-   * @category Aggiorna un amministratore
-   * 
+   *
    * @param bean Amministratore con contenuto aggiornato
+   * @category Aggiorna un amministratore
    */
-
   @Override
   public void doUpdate(AdministratorBean bean) throws SQLException {
     Connection con = null;
@@ -180,18 +167,15 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
 
         e.printStackTrace();
       }
-
     }
   }
 
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
-   * 
-   * @category Cancella un amministratore
-   * 
+   *
    * @param bean Indica il bean da eliminare
+   * @category Cancella un amministratore
    */
-
   @Override
   public void doDelete(AdministratorBean bean) throws SQLException {
     Connection con = null;
@@ -217,7 +201,6 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
 
         e.printStackTrace();
       }
-
     }
   }
 }

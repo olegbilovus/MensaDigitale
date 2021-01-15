@@ -13,12 +13,10 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
-   * 
-   * @category Ricerca la fascia oraria in base all'id della fascia oraria
-   * 
+   *
    * @param id id della fascia oraria da ricercare
+   * @category Ricerca la fascia oraria in base all'id della fascia oraria
    */
-
   @Override
   public FasciaOrariaBean doRetrieveByKey(int id) throws SQLException {
     FasciaOrariaBean bean = new FasciaOrariaBean();
@@ -49,19 +47,15 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
 
         e.printStackTrace();
       }
-
     }
     return null;
-
   }
 
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
-   * 
+   *
    * @category Ritorna tutte le fasce orarie
-   * 
    */
-
   @Override
   public Collection<FasciaOrariaBean> doRetrieveAll() throws SQLException {
     Connection con = null;
@@ -93,20 +87,16 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
 
         e.printStackTrace();
       }
-
     }
     return collection;
-
   }
 
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
-   * 
-   * @category Salva una fascia oraria nel database
-   * 
+   *
    * @param bean Fascia oraria da salvare
+   * @category Salva una fascia oraria nel database
    */
-
   @Override
   public void doSave(FasciaOrariaBean bean) throws SQLException {
     Connection con = null;
@@ -133,19 +123,15 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
 
         e.printStackTrace();
       }
-
     }
-
   }
 
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
-   * 
-   * @category Aggiorna una fascia oraria
-   * 
+   *
    * @param bean Fascia oraria con contenuto aggiornato
+   * @category Aggiorna una fascia oraria
    */
-
   @Override
   public void doUpdate(FasciaOrariaBean bean) throws SQLException {
     Connection con = null;
@@ -172,18 +158,15 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
 
         e.printStackTrace();
       }
-
     }
   }
 
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
-   * 
-   * @category Cancella una fascia oraria
-   * 
+   *
    * @param bean Indica il bean da eliminare
+   * @category Cancella una fascia oraria
    */
-
   @Override
   public void doDelete(FasciaOrariaBean bean) throws SQLException {
     Connection con = null;
@@ -209,16 +192,14 @@ public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> 
 
         e.printStackTrace();
       }
-
     }
   }
 
   /**
    * Metodo utilizzato per trovare una fascia oraria identificata dalla fascia.
-   * 
-   * @category Restituisce una fascia oraria
-   * 
+   *
    * @param fasciaOraria indica la fascia oraria da cercare
+   * @category Restituisce una fascia oraria
    */
   public FasciaOrariaBean doRetrieveByFascia(String fasciaOraria) throws SQLException {
     Connection con = null;

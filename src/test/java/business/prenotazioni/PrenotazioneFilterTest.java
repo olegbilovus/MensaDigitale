@@ -2,6 +2,8 @@ package business.prenotazioni;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.consumatore.ConsumatoreBean;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.UUID;
@@ -15,21 +17,20 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.mockito.exceptions.base.MockitoException;
-import business.consumatore.ConsumatoreBean;
 
 class PrenotazioneFilterTest {
 
-  private static ConsumatoreBean tester = new ConsumatoreBean("testerPrenotazione@unisa.it",
+  private static final ConsumatoreBean tester = new ConsumatoreBean("testerPrenotazione@unisa.it",
       "tester", "tester", 1, "tester", new Date(System.currentTimeMillis()), "tester", "tester",
       "tester", "tester", "tester", "tester", false, false, 0, 1);
-  private PrenotazioneBean<String> prenotazione =
+  private static final HttpSession session = Mockito.mock(HttpSession.class);
+  private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+  private static final FilterChain chain = Mockito.mock(FilterChain.class);
+  private final PrenotazioneBean<String> prenotazione =
       new PrenotazioneBean<>(new Date(System.currentTimeMillis()),
           new QRCode(UUID.randomUUID().toString().replace("-", "")), 2, 99, tester.getEmail());
-  private static HttpSession session = Mockito.mock(HttpSession.class);
-  private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-  private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  private PrenotazioneFilter servlet = new PrenotazioneFilter();
-  private static FilterChain chain = Mockito.mock(FilterChain.class);
+  private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private final PrenotazioneFilter servlet = new PrenotazioneFilter();
 
   @BeforeAll
   public static void init() throws IOException, ServletException {

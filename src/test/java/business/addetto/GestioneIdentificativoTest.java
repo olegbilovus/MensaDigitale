@@ -1,6 +1,11 @@
 package business.addetto;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.consumatore.ConsumatoreBean;
+import business.prenotazioni.FasciaOrariaBean;
+import business.prenotazioni.PrenotazioneBean;
+import business.prenotazioni.QRCode;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
@@ -15,26 +20,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import business.consumatore.ConsumatoreBean;
-import business.prenotazioni.FasciaOrariaBean;
-import business.prenotazioni.PrenotazioneBean;
-import business.prenotazioni.QRCode;
 import storage.manager.ConsumatoreDao;
 import storage.manager.FasciaOrariaDao;
 import storage.manager.PrenotazioneDao;
 
 class GestioneIdentificativoTest {
 
-  private PrenotazioneDao dao = new PrenotazioneDao();
-  private FasciaOrariaDao daoF = new FasciaOrariaDao();
-  private ConsumatoreDao daoC = new ConsumatoreDao();
+  private static final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private static final PrintWriter writer = Mockito.mock(PrintWriter.class);
+  private final PrenotazioneDao dao = new PrenotazioneDao();
+  private final FasciaOrariaDao daoF = new FasciaOrariaDao();
+  private final ConsumatoreDao daoC = new ConsumatoreDao();
+  private final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+  private final GestioneIdentificativo servlet = new GestioneIdentificativo();
   private ConsumatoreBean consumatore;
   private FasciaOrariaBean fascia = new FasciaOrariaBean(98, "11:40");
   private PrenotazioneBean<String> bean;
-  private HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-  private static HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  private GestioneIdentificativo servlet = new GestioneIdentificativo();
-  private static PrintWriter writer = Mockito.mock(PrintWriter.class);
 
   @BeforeAll
   public static void init() throws IOException {
@@ -105,7 +106,7 @@ class GestioneIdentificativoTest {
       daoC.doDelete(consumatore);
     }
   }
-  
+
   @Test
   void testDoPostHttpServletRequestHttpServletResponse3()
       throws SQLException, ServletException, IOException {
@@ -124,7 +125,7 @@ class GestioneIdentificativoTest {
 
       JSONObject json = new JSONObject();
       json.put("response", "400");
-      
+
       assertTrue(json.toString().equals(jsonS.getValue()));
 
     } finally {
@@ -133,7 +134,7 @@ class GestioneIdentificativoTest {
       daoC.doDelete(consumatore);
     }
   }
-  
+
   @Test
   void testDoPostHttpServletRequestHttpServletResponse4()
       throws SQLException, ServletException, IOException {
@@ -149,7 +150,7 @@ class GestioneIdentificativoTest {
 
       JSONObject json = new JSONObject();
       json.put("response", "404");
-      
+
       assertTrue(json.toString().equals(jsonS.getValue()));
 
     } finally {

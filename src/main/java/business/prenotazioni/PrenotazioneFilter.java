@@ -28,7 +28,8 @@ public class PrenotazioneFilter implements Filter {
         (PrenotazioneBean<String>) req.getSession().getAttribute("prenotazione");
     String error = "error";
 
-    if (consumatore == null || (req.getMethod().equals("POST") && prenotazione != null)
+    if (consumatore == null
+        || (req.getMethod().equals("POST") && prenotazione != null)
         || (req.getMethod().equals("GET") && prenotazione == null)) {
       req.setAttribute(error, true);
       req.getRequestDispatcher(res.encodeURL("prenotazione.jsp")).forward(request, response);
@@ -36,7 +37,4 @@ public class PrenotazioneFilter implements Filter {
     }
     chain.doFilter(request, response);
   }
-  
-
-
 }

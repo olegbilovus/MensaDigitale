@@ -1,16 +1,17 @@
 package storage.manager;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.piatti.PiattoBean;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import business.piatti.PiattoBean;
 
 class PiattoDaoTest {
 
-  private PiattoDao dao = new PiattoDao();
-  private PiattoBean bean = new PiattoBean("tester", "tester", "primo", 0, 0, 0, 0, 0);
+  private final PiattoDao dao = new PiattoDao();
+  private final PiattoBean bean = new PiattoBean("tester", "tester", "primo", 0, 0, 0, 0, 0);
 
   @BeforeEach
   public void initEach() throws SQLException {
@@ -46,7 +47,7 @@ class PiattoDaoTest {
   @Test
   void testDoUpdate() throws SQLException {
     String ingredienti = "a, b, c";
-    bean.setIngredienti(ingredienti);;
+    bean.setIngredienti(ingredienti);
     dao.doUpdate(bean);
     assertTrue(dao.doRetrieveByKey(bean.getNome()).getIngredienti().equals(ingredienti));
   }
