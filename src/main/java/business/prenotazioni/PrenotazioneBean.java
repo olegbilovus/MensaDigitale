@@ -3,6 +3,11 @@ package business.prenotazioni;
 import java.io.Serializable;
 import java.sql.Date;
 
+/**
+ * Bean per la prenotazione.
+ *
+ * @param <T> type dell'identificativo
+ */
 public class PrenotazioneBean<T> implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -19,15 +24,19 @@ public class PrenotazioneBean<T> implements Serializable {
 
   /**
    * Bean della prenotazione.
-   * 
+   *
    * @param dataPrenotazione la data della prenotazione
-   * @param identificativo l'identificativo della prenotazione
-   * @param sala la sala della prenotazione
-   * @param fasciaOraria la fascia oraria della prenotazione
-   * @param email l'email del prenotante
+   * @param identificativo   l'identificativo della prenotazione
+   * @param sala             la sala della prenotazione
+   * @param fasciaOraria     la fascia oraria della prenotazione
+   * @param email            l'email del prenotante
    */
-  public PrenotazioneBean(Date dataPrenotazione, Identificativo<T> identificativo, int sala,
-      int fasciaOraria, String email) {
+  public PrenotazioneBean(
+      Date dataPrenotazione,
+      Identificativo<T> identificativo,
+      int sala,
+      int fasciaOraria,
+      String email) {
     this.dataPrenotazione = dataPrenotazione;
     this.identificativo = identificativo;
     this.sala = sala;
@@ -78,9 +87,20 @@ public class PrenotazioneBean<T> implements Serializable {
 
   @Override
   public String toString() {
-    return this.getClass().getName() + "[dataPrenotazione=" + dataPrenotazione + ", identificativo="
-        + identificativo + ", sala=" + sala + ", fasciaOraria=" + fasciaOraria + ", email=" + email
-        + ", entrato=" + entrato + "]";
+    return this.getClass().getName()
+        + "[dataPrenotazione="
+        + dataPrenotazione
+        + ", identificativo="
+        + identificativo
+        + ", sala="
+        + sala
+        + ", fasciaOraria="
+        + fasciaOraria
+        + ", email="
+        + email
+        + ", entrato="
+        + entrato
+        + "]";
   }
 
   public boolean isEntrato() {
@@ -90,5 +110,4 @@ public class PrenotazioneBean<T> implements Serializable {
   public void setEntrato(boolean entrato) {
     this.entrato = entrato;
   }
-
 }

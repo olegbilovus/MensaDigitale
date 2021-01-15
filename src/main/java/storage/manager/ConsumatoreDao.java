@@ -13,22 +13,23 @@ import java.util.Collection;
 import java.util.Date;
 import storage.interfaces.ConsumatoreInterface;
 
+/**
+ * Dao per il consumatore.
+ */
 public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
-
 
   /**
    * Costruttore per ConsumatoreDao.
    */
-  public ConsumatoreDao() {}
+  public ConsumatoreDao() {
+  }
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
-   * 
-   * @category Ricerca il consumatore in base all'email del consumatore
-   * 
+   *
    * @param email email del consumatore da ricercare
+   * @category Ricerca il consumatore in base all'email del consumatore
    */
-
   @Override
   public ConsumatoreBean doRetrieveByKey(String email) throws SQLException {
     ConsumatoreBean bean = null;
@@ -74,19 +75,15 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
 
         e.printStackTrace();
       }
-
     }
     return null;
-
   }
 
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
-   * 
+   *
    * @category Ritorna tutti i consumatori
-   * 
    */
-
   @Override
   public Collection<ConsumatoreBean> doRetrieveAll() throws SQLException {
     Connection con = null;
@@ -132,20 +129,16 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
 
         e.printStackTrace();
       }
-
     }
     return collection;
-
   }
 
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
-   * 
-   * @category Salva una recensione nel database
-   * 
+   *
    * @param bean Recensione da salvare
+   * @category Salva una recensione nel database
    */
-
   @Override
   public void doSave(ConsumatoreBean bean) throws SQLException {
     Connection con = null;
@@ -190,19 +183,15 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
 
         e.printStackTrace();
       }
-
     }
-
   }
 
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
-   * 
-   * @category Aggiorna un consumatore
-   * 
+   *
    * @param bean Consumatore con contenuto aggiornato
+   * @category Aggiorna un consumatore
    */
-
   @Override
   public void doUpdate(ConsumatoreBean bean) throws SQLException {
     Connection con = null;
@@ -230,18 +219,15 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
 
         e.printStackTrace();
       }
-
     }
   }
 
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
-   * 
-   * @category Cancella un consumatore
-   * 
+   *
    * @param bean Indica il bean da eliminare
+   * @category Cancella un consumatore
    */
-
   @Override
   public void doDelete(ConsumatoreBean bean) throws SQLException {
     Connection con = null;
@@ -267,19 +253,17 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
 
         e.printStackTrace();
       }
-
     }
   }
 
   /**
    * Metodo utilizzato per effettuare il tracciamento dei contatti.
-   * 
-   * @category Trova tutti i consumatori entrati in contatto con il consumatore di cui si cerca il
-   *           codice fiscale Il risultato e' una lista di stringhe della forma:
-   *           nome|cognome|email|fasciaoraria|sala|data
-   * 
+   *
    * @param codiceFiscale e' il codice fiscale del consumatore
-   * @param dataIniziale e' la data (14gg antecedente a quella odierna)
+   * @param dataIniziale  e' la data (14gg antecedente a quella odierna)
+   * @category Trova tutti i consumatori entrati in contatto con il consumatore di cui si cerca il
+   * codice fiscale Il risultato e' una lista di stringhe della forma:
+   * nome|cognome|email|fasciaoraria|sala|data
    */
   public Collection<String> doRetrieveForTracciamento(String codiceFiscale, String dataIniziale) {
     Connection con = null;
@@ -293,8 +277,11 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
         "(consumatore c2 JOIN prenotazione p2 on p2.email = c2.email) JOIN fasciaoraria f "
             + "ON p2.fasciaoraria = f.id";
     String consumatoriEntrati =
-        "SELECT c2.email, nome, cognome, fascia, sala, dataPrenotazione, p2.entrato FROM " + table2
-            + " WHERE dataPrenotazione in (" + dateMalate + ")";
+        "SELECT c2.email, nome, cognome, fascia, sala, dataPrenotazione, p2.entrato FROM "
+            + table2
+            + " WHERE dataPrenotazione in ("
+            + dateMalate
+            + ")";
     try {
       con = DriverManagerConnectionPool.getConnection();
       statement = con.prepareStatement(consumatoriEntrati);
@@ -306,9 +293,14 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
         if (fourteenDaysBetween(dataIniziale, dataPrenotazione)) {
           if (results.getBoolean("p2.entrato")) {
             String risultato =
-                String.join("|", results.getString("nome"), results.getString("cognome"),
-                    results.getString("email"), results.getString("fascia"),
-                    results.getString("sala"), results.getString("dataPrenotazione"));
+                String.join(
+                    "|",
+                    results.getString("nome"),
+                    results.getString("cognome"),
+                    results.getString("email"),
+                    results.getString("fascia"),
+                    results.getString("sala"),
+                    results.getString("dataPrenotazione"));
             listaRisultati.add(risultato);
           }
         }
@@ -334,9 +326,6 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
     Calendar c2 = Calendar.getInstance();
     c1.setTime(dataInizio);
     c2.setTime(dataPrenotazione);
-    if (c2.before(c1)) {
-      return false;
-    }
-    return true;
+    return !c2.before(c1);
   }
 }

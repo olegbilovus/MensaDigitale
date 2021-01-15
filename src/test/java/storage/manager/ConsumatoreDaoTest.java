@@ -12,13 +12,15 @@ import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import storage.interfaces.ConsumatoreInterface;
 
 class ConsumatoreDaoTest {
 
-  private ConsumatoreDao dao = new ConsumatoreDao();
-  private ConsumatoreBean bean = new ConsumatoreBean("testerP@unisa.it", "tester", "tester", 1,
-      "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",
-      "tester", "tester", false, false, 0, 1);
+  private final ConsumatoreInterface<ConsumatoreBean> dao = new ConsumatoreDao();
+  private final ConsumatoreBean bean =
+      new ConsumatoreBean("testerP@unisa.it", "tester", "tester", 1,
+          "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",
+          "tester", "tester", false, false, 0, 1);
 
   @BeforeEach
   public void initEach() throws SQLException {
@@ -56,7 +58,7 @@ class ConsumatoreDaoTest {
   @Test
   void testDoUpdate() throws SQLException {
     int statoPervizi = 3;
-    bean.setStatoServizi(statoPervizi);;
+    bean.setStatoServizi(statoPervizi);
     dao.doUpdate(bean);
     assertTrue(dao.doRetrieveByKey(bean.getEmail()).getStatoServizi() == statoPervizi);
   }

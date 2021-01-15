@@ -4,6 +4,9 @@ import business.utente.Utente;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Bean per il consumatore.
+ */
 public class ConsumatoreBean extends Utente implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -28,22 +31,22 @@ public class ConsumatoreBean extends Utente implements Serializable {
   /**
    * Costruttore del consumatore.
    *
-   * @param email L'email del consumatore
-   * @param nome Nome del consumatore
-   * @param cognome Cognome del consumatore
-   * @param statoServizi Lo stato dei servizi
-   * @param codiceFiscale Codice Fiscale consumaore
-   * @param dataDiNascita Data di nascita del consumatore
-   * @param indirizzo Indirizzo del consumatore
-   * @param telefono Telefono del consumatore
-   * @param cellulare Cellulare del consumatore
-   * @param comuneNascita Comune di nascita del consumatore
-   * @param provinciaNascita Provincia di nascita del consumatore
-   * @param cittadinanza Cittadinanza del consumatore
-   * @param rifugiato Indica se il consumatore e' rifugiato
+   * @param email                    L'email del consumatore
+   * @param nome                     Nome del consumatore
+   * @param cognome                  Cognome del consumatore
+   * @param statoServizi             Lo stato dei servizi
+   * @param codiceFiscale            Codice Fiscale consumaore
+   * @param dataDiNascita            Data di nascita del consumatore
+   * @param indirizzo                Indirizzo del consumatore
+   * @param telefono                 Telefono del consumatore
+   * @param cellulare                Cellulare del consumatore
+   * @param comuneNascita            Comune di nascita del consumatore
+   * @param provinciaNascita         Provincia di nascita del consumatore
+   * @param cittadinanza             Cittadinanza del consumatore
+   * @param rifugiato                Indica se il consumatore e' rifugiato
    * @param residenzaNucleoFamiliare Indica la residenza
-   * @param saldo Indica il saldo del consumatore
-   * @param fasciaPagamento Fascia pagamento del consumatore
+   * @param saldo                    Indica il saldo del consumatore
+   * @param fasciaPagamento          Fascia pagamento del consumatore
    */
   public ConsumatoreBean(
       String email,
@@ -77,7 +80,7 @@ public class ConsumatoreBean extends Utente implements Serializable {
     this.saldo = saldo;
     this.fasciaPagamento = fasciaPagamento;
   }
-  
+
   public ConsumatoreBean(String email) {
     this.email = email;
   }

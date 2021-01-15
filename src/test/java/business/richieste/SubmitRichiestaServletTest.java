@@ -20,17 +20,19 @@ import storage.manager.ConsumatoreDao;
 import storage.manager.RichiestaDao;
 
 class SubmitRichiestaServletTest {
-  private static RichiestaDao richiestaDao = new RichiestaDao();
-  private static ServletContext ctx = Mockito.mock(ServletContext.class);
-  private static HttpSession session = Mockito.mock(HttpSession.class);
-  private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-  private static int nRichieste;
-  private static ConsumatoreBean studente = new ConsumatoreBean("m.rossi999@studenti.unisa.it",
-      "Mario", "Rossi", 1, "", null, "", "", "", "", "", "", false, false, 0, 0);
-  private static ConsumatoreDao consumatoreDao = new ConsumatoreDao();
 
-  private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  private SubmitRichiestaServlet servlet = new SubmitRichiestaServlet() {};
+  private static final RichiestaDao richiestaDao = new RichiestaDao();
+  private static final ServletContext ctx = Mockito.mock(ServletContext.class);
+  private static final HttpSession session = Mockito.mock(HttpSession.class);
+  private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+  private static final ConsumatoreBean studente =
+      new ConsumatoreBean("m.rossi999@studenti.unisa.it",
+          "Mario", "Rossi", 1, "", null, "", "", "", "", "", "", false, false, 0, 0);
+  private static final ConsumatoreDao consumatoreDao = new ConsumatoreDao();
+  private static int nRichieste;
+  private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private final SubmitRichiestaServlet servlet = new SubmitRichiestaServlet() {
+  };
 
   @BeforeAll
   public static void init() throws SQLException {
@@ -58,7 +60,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(cognome).when(request).getParameter("cognome");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -72,7 +73,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(cognome).when(request).getParameter("cognome");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -88,7 +88,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(nome).when(request).getParameter("nome");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -104,7 +103,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(nome).when(request).getParameter("nome");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -123,7 +121,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(dataDiNascita).when(request).getParameter("dataDiNascita");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -144,7 +141,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(provinciaDiNascita).when(request).getParameter("provinciaDiNascita");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -165,7 +161,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(provinciaDiNascita).when(request).getParameter("provinciaDiNascita");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -189,7 +184,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(comuneDiNascita).when(request).getParameter("comuneDiNascita");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -213,7 +207,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(comuneDiNascita).when(request).getParameter("comuneDiNascita");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -239,7 +232,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(codiceFiscale).when(request).getParameter("codiceFiscale");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -268,7 +260,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(cittadinanza).when(request).getParameter("cittadinanza");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -297,7 +288,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(cittadinanza).when(request).getParameter("cittadinanza");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -328,7 +318,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(indirizzo).when(request).getParameter("indirizzo");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -362,7 +351,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(telefono).when(request).getParameter("telefono");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -398,7 +386,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(cellulare).when(request).getParameter("cellulare");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -436,7 +423,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(email).when(request).getParameter("email");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -474,7 +460,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(email).when(request).getParameter("email");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -514,7 +499,6 @@ class SubmitRichiestaServletTest {
       Mockito.doReturn(confermaEmail).when(request).getParameter("confermaEmail");
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("");
     }
   }
 
@@ -701,7 +685,6 @@ class SubmitRichiestaServletTest {
   void coverage_1() throws SQLException, IOException, ServletException {
     Mockito.doReturn("false").when(request).getParameter("responsabilita");
 
-
     String cognome = "Rossi";
     String nome = "Mario";
     String dataDiNascita = "20/02/1999";
@@ -772,13 +755,13 @@ class SubmitRichiestaServletTest {
 
       assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
-      System.out.println("Terminato coverage_2");
     }
   }
 
   @Test
   void coverage_3() throws SQLException, IOException, ServletException {
-    ConsumatoreBean studente = new ConsumatoreBean("m.rossi998@studenti.unisa.it", "Mario", "Rossi", 1, "",
+    ConsumatoreBean studente = new ConsumatoreBean("m.rossi998@studenti.unisa.it", "Mario", "Rossi",
+        1, "",
         null, "", "", "", "", "", "", false, false, 0, 0);
     Mockito.doReturn(studente).when(session).getAttribute("utente");
 
@@ -811,7 +794,6 @@ class SubmitRichiestaServletTest {
       servlet.doPost(request, response);
       assertTrue((richiestaDao.doRetrieveAll()).size() > nRichieste);
     } finally {
-      System.out.println("Terminato coverage_3");
     }
   }
 }

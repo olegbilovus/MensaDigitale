@@ -11,20 +11,18 @@ import storage.interfaces.AddettoInterface;
 
 public class AddettoDao implements AddettoInterface<AddettoBean> {
 
-  
   /*
    * Costruttore per AddettoDao.
    */
-  public AddettoDao() {}
+  public AddettoDao() {
+  }
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
-   * 
-   * @category Ricerca l'addetto in base all'email dell'addetto
-   * 
+   *
    * @param email email dell'addettoda ricercare
+   * @category Ricerca l'addetto in base all'email dell'addetto
    */
-
   @Override
   public AddettoBean doRetrieveByKey(String email) throws SQLException {
     AddettoBean bean = new AddettoBean();
@@ -57,19 +55,15 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
 
         e.printStackTrace();
       }
-
     }
     return null;
-
   }
 
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
-   * 
+   *
    * @category Ritorna tutti gli addetti
-   * 
    */
-
   @Override
   public Collection<AddettoBean> doRetrieveAll() throws SQLException {
     Connection con = null;
@@ -103,20 +97,16 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
 
         e.printStackTrace();
       }
-
     }
     return collection;
-
   }
 
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
-   * 
-   * @category Salva un addetto nel database
-   * 
+   *
    * @param bean Addetto da salvare
+   * @category Salva un addetto nel database
    */
-
   @Override
   public void doSave(AddettoBean bean) throws SQLException {
     Connection con = null;
@@ -145,19 +135,15 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
 
         e.printStackTrace();
       }
-
     }
-
   }
 
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
-   * 
-   * @category Aggiorna un addetto
-   * 
+   *
    * @param bean Addetto con contenuto aggiornato
+   * @category Aggiorna un addetto
    */
-
   @Override
   public void doUpdate(AddettoBean bean) throws SQLException {
     Connection con = null;
@@ -184,18 +170,15 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
 
         e.printStackTrace();
       }
-
     }
   }
 
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
-   * 
-   * @category Cancella un addetto
-   * 
+   *
    * @param bean Indica il bean da eliminare
+   * @category Cancella un addetto
    */
-
   @Override
   public void doDelete(AddettoBean bean) throws SQLException {
     Connection con = null;
@@ -221,7 +204,6 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
 
         e.printStackTrace();
       }
-
     }
   }
 }

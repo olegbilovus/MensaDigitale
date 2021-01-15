@@ -13,7 +13,9 @@ import storage.manager.ConsumatoreDao;
  * Servlet implementation class RicaricaSaldo
  */
 public class RicaricaSaldo extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
+  private static final ConsumatoreDao dao = new ConsumatoreDao();
 
   /**
    * @see HttpServlet#HttpServlet()
@@ -23,16 +25,14 @@ public class RicaricaSaldo extends HttpServlet {
     // TODO Auto-generated constructor stub
   }
 
-  private static ConsumatoreDao dao = new ConsumatoreDao();
-
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     PrintWriter out = response.getWriter();
     String transactionId = request.getParameter("transaction_id");
     float importo = Float.parseFloat(request.getParameter("amount"));
     ConsumatoreBean consumatore = (ConsumatoreBean) request.getSession().getAttribute("utente");
-    System.out.println("l'importo è" + importo);
-    System.out.println("\n l'id è" + transactionId);
+    System.out.println("l'importo ï¿½" + importo);
+    System.out.println("\n l'id ï¿½" + transactionId);
 
     consumatore.setSaldo(consumatore.getSaldo() + importo);
 
@@ -41,11 +41,5 @@ public class RicaricaSaldo extends HttpServlet {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
   }
-
-
-
 }
-
-

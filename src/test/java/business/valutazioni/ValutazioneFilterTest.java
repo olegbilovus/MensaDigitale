@@ -3,23 +3,16 @@ package business.valutazioni;
 import business.admin.AdministratorBean;
 import business.consumatore.ConsumatoreBean;
 import business.utente.Utente;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.mockito.internal.matchers.Null;
-
+import java.io.IOException;
+import java.sql.Date;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.io.IOException;
-import java.sql.Date;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class ValutazioneFilterTest {
 
@@ -61,7 +54,7 @@ public class ValutazioneFilterTest {
     } catch (NullPointerException e) {
 
     }
-}
+  }
 
   @Test
   public void testUtenteNull() throws ServletException, IOException {

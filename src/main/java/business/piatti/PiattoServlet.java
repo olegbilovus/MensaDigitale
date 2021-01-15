@@ -13,6 +13,7 @@ import storage.manager.PiattoDao;
  * Servlet implementation class PiattoServlet.
  */
 public class PiattoServlet extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
 
   public PiattoServlet() {
@@ -34,7 +35,7 @@ public class PiattoServlet extends HttpServlet {
 
     String action = request.getParameter("action");
     PiattoDao dao = new PiattoDao();
-    
+
     if (action != null) {
       switch (action) {
         case "aggiungiPiatto": {
@@ -65,32 +66,31 @@ public class PiattoServlet extends HttpServlet {
           break;
         }
         case "getPiatto": {
-            String nomePiatto = request.getParameter("nomePiatto");
-            try {
-              PiattoBean newPiatto = dao.doRetrieveByKey(nomePiatto);
-              request.setAttribute("piatto", newPiatto);
-            } catch (SQLException e) {
-              e.printStackTrace();
-            }
-            break;
+          String nomePiatto = request.getParameter("nomePiatto");
+          try {
+            PiattoBean newPiatto = dao.doRetrieveByKey(nomePiatto);
+            request.setAttribute("piatto", newPiatto);
+          } catch (SQLException e) {
+            e.printStackTrace();
           }
+          break;
+        }
         case "getTuttiPiatti": {
-            try {
-              ArrayList<PiattoBean> list = new ArrayList<PiattoBean>(dao.doRetrieveAll());
-              request.setAttribute("tuttiPiatti", list);
-              request.getRequestDispatcher(destination).forward(request, response);
-            } catch (SQLException e) {
-              e.printStackTrace();
-            }
-            break;
+          try {
+            ArrayList<PiattoBean> list = new ArrayList<PiattoBean>(dao.doRetrieveAll());
+            request.setAttribute("tuttiPiatti", list);
+            request.getRequestDispatcher(destination).forward(request, response);
+          } catch (SQLException e) {
+            e.printStackTrace();
           }
+          break;
+        }
         default:
           throw new IllegalArgumentException();
       }
     }
-    
   }
-  
+
   private PiattoBean createNewPiatto(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
     String nomePiatto = request.getParameter("nomePiatto");
@@ -101,21 +101,25 @@ public class PiattoServlet extends HttpServlet {
     int grassi = Integer.parseInt(request.getParameter("grassi"));
     int sodio = Integer.parseInt(request.getParameter("sodio"));
     int carboidrati = Integer.parseInt(request.getParameter("carboidrati"));
-    if (ingredienti == null || ingredienti.length() < 4 || ingredienti.length() > 200
+    if (ingredienti == null
+        || ingredienti.length() < 4
+        || ingredienti.length() > 200
         || !ingredienti.matches("^([A-Z,])+$")
-        || calorie < 1 || calorie > 2000
-        || proteine < 0 || grassi < 0
-        || sodio < 0 || carboidrati < 0) {
+        || calorie < 1
+        || calorie > 2000
+        || proteine < 0
+        || grassi < 0
+        || sodio < 0
+        || carboidrati < 0) {
       throw new IllegalArgumentException();
     }
     if (nomePiatto == null || nomePiatto.trim().equals("")) {
-      response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-          "Errori nei parametri della richiesta!");
+      response.sendError(
+          HttpServletResponse.SC_BAD_REQUEST, "Errori nei parametri della richiesta!");
       throw new IllegalArgumentException();
     } else {
-      return new PiattoBean(nomePiatto, ingredienti, portata,
-          calorie, proteine, grassi, sodio, carboidrati);
+      return new PiattoBean(
+          nomePiatto, ingredienti, portata, calorie, proteine, grassi, sodio, carboidrati);
     }
   }
-
 }

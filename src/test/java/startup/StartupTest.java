@@ -1,21 +1,23 @@
 package startup;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.prenotazioni.FasciaOrariaBean;
 import java.sql.SQLException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import business.prenotazioni.FasciaOrariaBean;
+import storage.interfaces.FasciaOrariaInterface;
 import storage.manager.FasciaOrariaDao;
 
 class StartupTest {
 
-  private Startup startup = new Startup();
-  private ServletContextEvent sce = Mockito.mock(ServletContextEvent.class);
-  private ServletContext ctx = Mockito.mock(ServletContext.class);
-  private FasciaOrariaDao daoF = new FasciaOrariaDao();
+  private final Startup startup = new Startup();
+  private final ServletContextEvent sce = Mockito.mock(ServletContextEvent.class);
+  private final ServletContext ctx = Mockito.mock(ServletContext.class);
+  private final FasciaOrariaInterface<FasciaOrariaBean> daoF = new FasciaOrariaDao();
 
   @Test
   void testContextInitialized() throws SQLException {

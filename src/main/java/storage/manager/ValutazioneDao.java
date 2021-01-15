@@ -9,23 +9,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import storage.interfaces.ValutazioneInterface;
 
-
 public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
-
 
   /*
    * Costruttore per ValutazioneDao.
    */
-  public ValutazioneDao() {}
+  public ValutazioneDao() {
+  }
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
-   * 
-   * @category Ricerca la valutazione in base all'email dell'utente
-   * 
+   *
    * @param email email dell'utente da ricercare
+   * @category Ricerca la valutazione in base all'email dell'utente
    */
-
   @Override
   public ValutazioneBean doRetrieveByKey(String email, String piatto) throws SQLException {
     ValutazioneBean bean = new ValutazioneBean();
@@ -59,19 +56,15 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
 
         e.printStackTrace();
       }
-
     }
     return null;
-
   }
 
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
-   * 
+   *
    * @category Ritorna tutte le valutazioni
-   * 
    */
-
   @Override
   public Collection<ValutazioneBean> doRetrieveAll() throws SQLException {
     Connection con = null;
@@ -105,20 +98,16 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
 
         e.printStackTrace();
       }
-
     }
     return collection;
-
   }
 
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
-   * 
-   * @category Salva una recensione nel database
-   * 
+   *
    * @param bean Recensione da salvare
+   * @category Salva una recensione nel database
    */
-
   @Override
   public void doSave(ValutazioneBean bean) throws SQLException {
     Connection con = null;
@@ -147,19 +136,15 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
 
         e.printStackTrace();
       }
-
     }
-
   }
 
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
-   * 
-   * @category Aggiorna una recensione
-   * 
+   *
    * @param bean Recensione con contenuto aggiornato
+   * @category Aggiorna una recensione
    */
-
   @Override
   public void doUpdate(ValutazioneBean bean) throws SQLException {
     Connection con = null;
@@ -189,18 +174,15 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
 
         e.printStackTrace();
       }
-
     }
   }
 
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
-   * 
-   * @category Cancella una recensione
-   * 
+   *
    * @param bean Indica il bean da eliminare
+   * @category Cancella una recensione
    */
-
   @Override
   public void doDelete(ValutazioneBean bean) throws SQLException {
     Connection con = null;
@@ -227,9 +209,6 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
 
         e.printStackTrace();
       }
-
     }
   }
-
 }
-

@@ -4,8 +4,9 @@ import java.util.Collection;
 import storage.manager.RichiestaDao;
 
 public class RichiesteInSospeso {
-  private Collection<RichiestaBean> listaRichieste;
+
   private static RichiesteInSospeso instance = null;
+  private Collection<RichiestaBean> listaRichieste;
 
   private RichiesteInSospeso() {
     this.listaRichieste = null;
@@ -14,7 +15,7 @@ public class RichiesteInSospeso {
 
   /**
    * Metodo per ottenere l'unica instanza del Singleton RichiesteInSospeso.
-   * 
+   *
    * @return l'unica instanza di RichiesteInSospeso
    */
   public static RichiesteInSospeso getInstance() {
@@ -33,5 +34,4 @@ public class RichiesteInSospeso {
     RichiestaDao richiestaDao = new RichiestaDao();
     this.listaRichieste = richiestaDao.doRetrieveInSospeso();
   }
-
 }

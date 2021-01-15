@@ -1,15 +1,16 @@
 package business.utente;
 
 public abstract class Utente {
+
   protected String email;
   protected String nome;
   protected String cognome;
 
   /**
    * Utente rappresenta l'utente generico del sistema.
-   * 
-   * @param email e' l'email dell'utente
-   * @param nome e' il nome dell'utente
+   *
+   * @param email   e' l'email dell'utente
+   * @param nome    e' il nome dell'utente
    * @param cognome e' il cognome dell'utente
    */
   public Utente(String email, String nome, String cognome) {
@@ -45,5 +46,4 @@ public abstract class Utente {
   public void setCognome(String cognome) {
     this.cognome = cognome;
   }
-
 }

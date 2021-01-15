@@ -1,17 +1,18 @@
 package business.richieste;
 
+import business.utente.Utente;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import business.utente.Utente;
 import storage.manager.RichiestaDao;
 
 public class ValutaRichiestaServlet extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
-  private RichiestaDao richiestaDao = new RichiestaDao();
+  private final RichiestaDao richiestaDao = new RichiestaDao();
 
   public ValutaRichiestaServlet() {
     super();
@@ -32,7 +33,6 @@ public class ValutaRichiestaServlet extends HttpServlet {
       throw new IllegalArgumentException();
     }
 
-
     try {
       RichiestaBean richiesta = richiestaDao.doRetrieveByKey(id);
       richiesta.setEsito(esito);
@@ -42,5 +42,4 @@ public class ValutaRichiestaServlet extends HttpServlet {
       e.printStackTrace();
     }
   }
-
 }

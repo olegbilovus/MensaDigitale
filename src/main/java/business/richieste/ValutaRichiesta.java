@@ -12,9 +12,10 @@ import storage.manager.ConsumatoreDao;
 import storage.manager.RichiestaDao;
 
 public class ValutaRichiesta extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
-  private RichiestaDao richiestaDao = new RichiestaDao();
-  private ConsumatoreDao consumatoreDao = new ConsumatoreDao();
+  private final RichiestaDao richiestaDao = new RichiestaDao();
+  private final ConsumatoreDao consumatoreDao = new ConsumatoreDao();
 
   public ValutaRichiesta() {
     super();
@@ -47,14 +48,12 @@ public class ValutaRichiesta extends HttpServlet {
       request.setAttribute("rCellulare", c.getCellulare());
       request.setAttribute("rEmail", c.getEmail());
 
-      RequestDispatcher rd = request.getRequestDispatcher(
-          response.encodeURL(request.getContextPath() + "/visualizzaRichiesta.jsp"));
+      RequestDispatcher rd =
+          request.getRequestDispatcher(
+              response.encodeURL(request.getContextPath() + "/visualizzaRichiesta.jsp"));
       rd.forward(request, response);
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
-
   }
-
 }

@@ -1,7 +1,13 @@
 package business.valutazioni;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import business.consumatore.ConsumatoreBean;
 import business.piatti.PiattoBean;
+import java.sql.SQLException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -10,22 +16,17 @@ import storage.manager.ConsumatoreDao;
 import storage.manager.PiattoDao;
 import storage.manager.ValutazioneDao;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.sql.SQLException;
-
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public class ValutazioneServletTest {
 
   private static final ValutazioneDao valutazioneDao = new ValutazioneDao();
   private static final PiattoDao piattoDao = new PiattoDao();
   private static final ConsumatoreDao consumatoreDao = new ConsumatoreDao();
 
-  private static final PiattoBean piattoBean = new PiattoBean("PATATINE", "patate", null, 0, 0, 0, 0, 0);
-  private static final ConsumatoreBean consumatoreBean = new ConsumatoreBean("a.cacciapuoti3@studenti.unisa.it", "Antonio", "Cacciapuoti", 1, "CCCNTNT99999999X", null, null, null, null, null, null, null, false, false, 100, 1);
+  private static final PiattoBean piattoBean = new PiattoBean("PATATINE", "patate", null, 0, 0, 0,
+      0, 0);
+  private static final ConsumatoreBean consumatoreBean = new ConsumatoreBean(
+      "a.cacciapuoti3@studenti.unisa.it", "Antonio", "Cacciapuoti", 1, "CCCNTNT99999999X", null,
+      null, null, null, null, null, null, false, false, 100, 1);
 
   private static final ValutazioneServlet servlet = new ValutazioneServlet();
   private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
@@ -102,8 +103,6 @@ public class ValutazioneServletTest {
 
     String email = "a.cacciapuoti3@studenti.unisa.it";
     Mockito.doReturn(email).when(request).getParameter("email");
-
-
 
     assertDoesNotThrow(() -> servlet.doPost(request, response));
 

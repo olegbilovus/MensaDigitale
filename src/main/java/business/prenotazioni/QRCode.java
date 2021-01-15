@@ -13,17 +13,56 @@ import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
-public class QRCode extends Identificativo<String> {
+/**
+ * Classe che implementa {@link Identificativo}.
+ */
+public class QRCode implements Identificativo<String> {
 
   private String identificativo;
 
   /**
    * Costruttore utilizzato per la creazione del QRCode.
-   * 
+   *
    * @param identificativo la stringa che rappresente l'identificativo
    */
   public QRCode(String identificativo) {
     this.identificativo = identificativo;
+  }
+
+  /**
+   * Create a QRCode and get the bytes.
+   *
+   * @param height l'altezza del QRCode
+   * @param width  la largezza del QRCode
+   * @return array di byte del QRCode
+   * @throws WriterException errore nella scrittura
+   * @throws IOException     errore di IO
+   * @post InputStream.string = identificativo
+   */
+  public static byte[] createQR(String identificativo, int height, int width)
+      throws WriterException, IOException {
+
+    Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<>();
+    hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+
+    String charset = "UTF-8";
+
+    BitMatrix matrix =
+        new MultiFormatWriter()
+            .encode(
+                new String(identificativo.getBytes(charset), charset),
+                BarcodeFormat.QR_CODE,
+                width,
+                height);
+
+    File file = new File(identificativo);
+
+    MatrixToImageWriter.writeToPath(matrix, "png", file.toPath());
+
+    byte[] dataByte = Files.readAllBytes(file.toPath());
+    Files.delete(file.toPath());
+
+    return dataByte;
   }
 
   public String getIdentificativo() {
@@ -39,38 +78,4 @@ public class QRCode extends Identificativo<String> {
   public String toString() {
     return this.getClass().getName() + "[identificativo=" + identificativo + "]";
   }
-
-  /**
-   * Create a QRCode and get the bytes.
-   * 
-   * @param height l'altezza del QRCode
-   * @param width la largezza del QRCode
-   * @return array di byte del QRCode
-   * @throws WriterException errore nella scrittura
-   * @throws IOException errore di IO
-   * @post InputStream.string = identificativo
-   */
-  public static byte[] createQR(String identificativo, int height, int width)
-      throws WriterException, IOException {
-
-    Map<EncodeHintType, ErrorCorrectionLevel> hashMap =
-        new HashMap<>();
-    hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-
-    String charset = "UTF-8";
-
-    BitMatrix matrix =
-        new MultiFormatWriter().encode(new String(identificativo.getBytes(charset), charset),
-            BarcodeFormat.QR_CODE, width, height);
-
-    File file = new File(identificativo);
-
-    MatrixToImageWriter.writeToPath(matrix, "png", file.toPath());
-
-    byte[] dataByte = Files.readAllBytes(file.toPath());
-    Files.delete(file.toPath());
-
-    return dataByte;
-  }
-
 }

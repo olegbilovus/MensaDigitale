@@ -1,5 +1,8 @@
 package business.piatti;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
@@ -10,8 +13,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import storage.manager.PiattoDao;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class PiattoServletTest {
@@ -150,7 +151,9 @@ class PiattoServletTest {
     String grassi = "1";
     String sodio = "1";
     String carboidrati = "1";
-    PiattoBean tmp = new PiattoBean(nome, ingredienti, null, Integer.parseInt(calorie), Integer.parseInt(proteine), Integer.parseInt(grassi), Integer.parseInt(sodio), Integer.parseInt(carboidrati));
+    PiattoBean tmp = new PiattoBean(nome, ingredienti, null, Integer.parseInt(calorie),
+        Integer.parseInt(proteine), Integer.parseInt(grassi), Integer.parseInt(sodio),
+        Integer.parseInt(carboidrati));
     dao.doSave(tmp);
     Mockito.doReturn(nome).when(request).getParameter("nomePiatto");
     Mockito.doReturn("NUOVI,INGREDIENTI").when(request).getParameter("ingredienti");
@@ -160,9 +163,8 @@ class PiattoServletTest {
     Mockito.doReturn(sodio).when(request).getParameter("sodio");
     Mockito.doReturn(carboidrati).when(request).getParameter("carboidrati");
     try {
-      assertDoesNotThrow(()->servlet.doPost(request, response));
-    }
-    finally{
+      assertDoesNotThrow(() -> servlet.doPost(request, response));
+    } finally {
       dao.doDelete(tmp);
     }
 
@@ -186,12 +188,13 @@ class PiattoServletTest {
     Mockito.doReturn(grassi).when(request).getParameter("grassi");
     Mockito.doReturn(sodio).when(request).getParameter("sodio");
     Mockito.doReturn(carboidrati).when(request).getParameter("carboidrati");
-    PiattoBean tmp = new PiattoBean(nome, ingredienti, null, Integer.parseInt(calorie), Integer.parseInt(proteine), Integer.parseInt(grassi), Integer.parseInt(sodio), Integer.parseInt(carboidrati));
+    PiattoBean tmp = new PiattoBean(nome, ingredienti, null, Integer.parseInt(calorie),
+        Integer.parseInt(proteine), Integer.parseInt(grassi), Integer.parseInt(sodio),
+        Integer.parseInt(carboidrati));
     dao.doSave(tmp);
     try {
-      assertDoesNotThrow(()->servlet.doPost(request, response));
-    }
-    finally{
+      assertDoesNotThrow(() -> servlet.doPost(request, response));
+    } finally {
       dao.doDelete(tmp);
     }
 
@@ -206,7 +209,7 @@ class PiattoServletTest {
     PiattoBean tmp = new PiattoBean(nome, "test", null, 0, 0, 0, 0, 0);
     dao.doSave(tmp);
     try {
-      assertDoesNotThrow(()->servlet.doPost(request, response));
+      assertDoesNotThrow(() -> servlet.doPost(request, response));
     } finally {
       dao.doDelete(tmp);
     }
@@ -221,7 +224,7 @@ class PiattoServletTest {
     PiattoBean tmp = new PiattoBean(nome, "test", null, 0, 0, 0, 0, 0);
     dao.doSave(tmp);
     try {
-      assertDoesNotThrow(()->servlet.doPost(request, response));
+      assertDoesNotThrow(() -> servlet.doPost(request, response));
     } finally {
       dao.doDelete(tmp);
     }
@@ -330,12 +333,12 @@ class PiattoServletTest {
   void testTroppiIngredienti() {
     Mockito.doReturn("aggiungiPiatto").when(request).getParameter("action");
     /*260 caratteri*/
-    String veryLong = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    String veryLong =
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     Mockito.doReturn(veryLong).when(request).getParameter("ingredienti");
     assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
 
   }
-
 
 
 }

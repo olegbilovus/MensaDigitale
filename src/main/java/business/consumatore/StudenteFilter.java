@@ -10,7 +10,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 public class StudenteFilter implements Filter {
 
   /**
@@ -21,7 +20,8 @@ public class StudenteFilter implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse res = (HttpServletResponse) response;
     Utente utente = (Utente) req.getSession().getAttribute("utente");
-    if (utente == null || !(utente.getClass() == ConsumatoreBean.class
+    if (utente == null
+        || !(utente.getClass() == ConsumatoreBean.class
         && !((ConsumatoreBean) utente).isDocente())) {
       res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     }

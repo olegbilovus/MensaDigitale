@@ -1,16 +1,19 @@
 package storage.manager;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.admin.AdministratorBean;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import business.admin.AdministratorBean;
+import storage.interfaces.AdministratorInterface;
 
 class AdministratorDaoTest {
 
-  private AdministratorDao dao = new AdministratorDao();
-  private AdministratorBean bean = new AdministratorBean("testerA@unisa.it", "tester", "tester");
+  private final AdministratorInterface<AdministratorBean> dao = new AdministratorDao();
+  private final AdministratorBean bean =
+      new AdministratorBean("testerA@unisa.it", "tester", "tester");
 
   @BeforeEach
   public void initEach() throws SQLException {
@@ -50,7 +53,7 @@ class AdministratorDaoTest {
     dao.doUpdate(bean);
     assertTrue(dao.doRetrieveByKey(bean.getEmail()).getNome().equals(nome));
   }
-  
+
   @Test
   void testDoDelete() throws SQLException {
     AdministratorBean bean2 = new AdministratorBean("testerA2@unisa.it", "tester", "tester");

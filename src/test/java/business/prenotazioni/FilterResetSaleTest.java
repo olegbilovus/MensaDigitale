@@ -1,5 +1,6 @@
 package business.prenotazioni;
 
+import business.consumatore.ConsumatoreBean;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -13,19 +14,19 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import business.consumatore.ConsumatoreBean;
+import storage.interfaces.ConsumatoreInterface;
 import storage.manager.ConsumatoreDao;
 
 class FilterResetSaleTest {
 
-  private ConsumatoreDao dao = new ConsumatoreDao();
+  private static final HttpSession session = Mockito.mock(HttpSession.class);
+  private static final ServletContext ctx = Mockito.mock(ServletContext.class);
+  private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+  private static final FilterChain chain = Mockito.mock(FilterChain.class);
   private static ConsumatoreBean tester;
-  private static HttpSession session = Mockito.mock(HttpSession.class);
-  private static ServletContext ctx = Mockito.mock(ServletContext.class);
-  private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-  private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  private FilterResetSale servlet = new FilterResetSale();
-  private static FilterChain chain = Mockito.mock(FilterChain.class);
+  private final ConsumatoreInterface<ConsumatoreBean> dao = new ConsumatoreDao();
+  private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private final FilterResetSale servlet = new FilterResetSale();
 
   @BeforeAll
   public static void init() {

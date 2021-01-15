@@ -17,13 +17,14 @@ import storage.manager.PrenotazioneDao;
  * Servlet implementation class PrenotazioneServlet.
  */
 public class PrenotazioneServlet extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
 
-  private static PrenotazioneInterface<PrenotazioneBean<String>> prenotazioneDAO =
+  private static final PrenotazioneInterface<PrenotazioneBean<String>> prenotazioneDAO =
       new PrenotazioneDao();
 
-  private static String saleDisponibili = "saleDisponibili";
-  private static String error = "error";
+  private static final String saleDisponibili = "saleDisponibili";
+  private static final String error = "error";
 
   public PrenotazioneServlet() {
     super();
@@ -33,16 +34,17 @@ public class PrenotazioneServlet extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     HashMap<Integer, HashMap<Integer, Boolean>> saleState =
-        ((HashMap<Integer, HashMap<Integer, Boolean>>) getServletContext()
-            .getAttribute(saleDisponibili));
+        ((HashMap<Integer, HashMap<Integer, Boolean>>)
+            getServletContext().getAttribute(saleDisponibili));
     PrenotazioneBean<String> bean =
         (PrenotazioneBean<String>) request.getSession().getAttribute("prenotazione");
     try {
       prenotazioneDAO.doDelete(bean);
     } catch (SQLException e) {
       request.setAttribute(error, true);
-      request.getRequestDispatcher(response.encodeURL("prenotazione.jsp")).forward(request,
-          response);
+      request
+          .getRequestDispatcher(response.encodeURL("prenotazione.jsp"))
+          .forward(request, response);
       return;
     }
     request.getSession().removeAttribute("prenotazione");
@@ -66,11 +68,13 @@ public class PrenotazioneServlet extends HttpServlet {
           && salaS.matches("[1-5]")) {
         int sala = Integer.parseInt(salaS);
         HashMap<Integer, HashMap<Integer, Boolean>> saleState =
-            ((HashMap<Integer, HashMap<Integer, Boolean>>) getServletContext()
-                .getAttribute(saleDisponibili));
-        int postiOccupati = prenotazioneDAO
-            .doRetrieveByDateSalaFascia(new Date(System.currentTimeMillis()), sala, fasciaOraria)
-            .size();
+            ((HashMap<Integer, HashMap<Integer, Boolean>>)
+                getServletContext().getAttribute(saleDisponibili));
+        int postiOccupati =
+            prenotazioneDAO
+                .doRetrieveByDateSalaFascia(
+                    new Date(System.currentTimeMillis()), sala, fasciaOraria)
+                .size();
         HashMap<Integer, Integer> capienzaSale =
             (HashMap<Integer, Integer>) getServletContext().getAttribute("capienzaSale");
         if (capienzaSale.get(sala) - postiOccupati > 0) {
@@ -78,8 +82,12 @@ public class PrenotazioneServlet extends HttpServlet {
               new QRCode(UUID.randomUUID().toString().replace("-", ""));
 
           PrenotazioneBean<String> prenotazione =
-              new PrenotazioneBean<>(new Date(System.currentTimeMillis()), identificativo, sala,
-                   fasciaOraria, consumatore.getEmail());
+              new PrenotazioneBean<>(
+                  new Date(System.currentTimeMillis()),
+                  identificativo,
+                  sala,
+                  fasciaOraria,
+                  consumatore.getEmail());
 
           prenotazioneDAO.doSave(prenotazione);
           request.getSession().setAttribute("prenotazione", prenotazione);
@@ -98,6 +106,4 @@ public class PrenotazioneServlet extends HttpServlet {
     }
     request.getRequestDispatcher(response.encodeURL("prenotazione.jsp")).forward(request, response);
   }
-
-
 }

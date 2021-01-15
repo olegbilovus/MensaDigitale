@@ -6,10 +6,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public class DriverManagerConnectionPool {
-  private static List<Connection> freeDbConnections;
-  
+
+  private static final List<Connection> freeDbConnections;
 
   static {
     freeDbConnections = new LinkedList<>();
@@ -20,7 +19,7 @@ public class DriverManagerConnectionPool {
       e.printStackTrace();
     }
   }
-  
+
   public static List<Connection> getFreeDbConnections() {
     return freeDbConnections;
   }
@@ -32,8 +31,17 @@ public class DriverManagerConnectionPool {
     String db = "MensaDigitale";
     String username = "esame";
     String password = "esame";
-    newConnection = DriverManager.getConnection("jdbc:mysql://" + ip + ":" + port + "/" + db
-        + "?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true", username, password);
+    newConnection =
+        DriverManager.getConnection(
+            "jdbc:mysql://"
+                + ip
+                + ":"
+                + port
+                + "/"
+                + db
+                + "?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true",
+            username,
+            password);
     System.out.println("Create a new DB connection");
     newConnection.setAutoCommit(false);
     return newConnection;
@@ -42,8 +50,6 @@ public class DriverManagerConnectionPool {
   /**
    * Creazione di una connessione.
    */
-
-
   public static synchronized Connection getConnection() throws SQLException {
     Connection connection;
     if (!getFreeDbConnections().isEmpty()) {
@@ -66,11 +72,9 @@ public class DriverManagerConnectionPool {
   /**
    * Rilascio connessione.
    */
-
   public static synchronized void releaseConnection(Connection connection) {
     if (connection != null) {
       getFreeDbConnections().add(connection);
     }
   }
-
 }

@@ -18,7 +18,11 @@ import storage.manager.PrenotazioneDao;
  * Servlet implementation class Pagamento.
  */
 public class Pagamento extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
+  private static final PrenotazioneInterface<PrenotazioneBean<String>> prenotazioneDao =
+      new PrenotazioneDao();
+  private static final ConsumatoreInterface<ConsumatoreBean> consumatoreDao = new ConsumatoreDao();
 
   public Pagamento() {
     super();
@@ -29,10 +33,6 @@ public class Pagamento extends HttpServlet {
       throws ServletException, IOException {
     response.setStatus(HttpServletResponse.SC_FORBIDDEN);
   }
-
-  private static PrenotazioneInterface<PrenotazioneBean<String>> prenotazioneDao =
-      new PrenotazioneDao();
-  private static ConsumatoreInterface<ConsumatoreBean> consumatoreDao = new ConsumatoreDao();
 
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -71,5 +71,4 @@ public class Pagamento extends HttpServlet {
     consumatoreDao.doUpdate(consumatore);
     json.put("response", "200");
   }
-
 }

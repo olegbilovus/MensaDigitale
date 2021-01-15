@@ -1,25 +1,30 @@
 package storage.manager;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import business.addetto.AddettoBean;
+import business.consumatore.ConsumatoreBean;
+import business.richieste.RichiestaBean;
 import java.sql.Date;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import business.addetto.AddettoBean;
-import business.consumatore.ConsumatoreBean;
-import business.richieste.RichiestaBean;
+import storage.interfaces.AddettoInterface;
+import storage.interfaces.ConsumatoreInterface;
 
 class RichiestaDaoTest {
 
-  private RichiestaDao dao = new RichiestaDao();
-  private AddettoDao daoA = new AddettoDao();
-  private AddettoBean addetto = new AddettoBean("testerAd@unisa.it", "tester", "tester", 1);
-  private ConsumatoreDao daoC = new ConsumatoreDao();
-  private ConsumatoreBean consumatore = new ConsumatoreBean("testerP8@unisa.it", "tester", "tester",
-      1, "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",
-      "tester", "tester", false, false, 0, 1);
-  private RichiestaBean bean = new RichiestaBean(-1, consumatore.getEmail(), 0, addetto.getEmail());
+  private final RichiestaDao dao = new RichiestaDao();
+  private final AddettoInterface<AddettoBean> daoA = new AddettoDao();
+  private final AddettoBean addetto = new AddettoBean("testerAd@unisa.it", "tester", "tester", 1);
+  private final ConsumatoreInterface<ConsumatoreBean> daoC = new ConsumatoreDao();
+  private final ConsumatoreBean consumatore =
+      new ConsumatoreBean("testerP8@unisa.it", "tester", "tester",
+          1, "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",
+          "tester", "tester", false, false, 0, 1);
+  private final RichiestaBean bean =
+      new RichiestaBean(-1, consumatore.getEmail(), 0, addetto.getEmail());
 
   @BeforeEach
   public void initEach() throws SQLException {

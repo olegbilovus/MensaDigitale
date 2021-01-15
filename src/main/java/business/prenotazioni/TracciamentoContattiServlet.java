@@ -17,8 +17,9 @@ import storage.interfaces.ConsumatoreInterface;
 import storage.manager.ConsumatoreDao;
 
 public class TracciamentoContattiServlet extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
-  private ConsumatoreInterface<ConsumatoreBean> consumatoreDao = new ConsumatoreDao();
+  private final ConsumatoreInterface<ConsumatoreBean> consumatoreDao = new ConsumatoreDao();
 
   public TracciamentoContattiServlet() {
     super();

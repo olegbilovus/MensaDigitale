@@ -1,6 +1,5 @@
 package business.prenotazioni;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import business.consumatore.ConsumatoreBean;
@@ -19,25 +18,30 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import storage.interfaces.ConsumatoreInterface;
+import storage.interfaces.FasciaOrariaInterface;
+import storage.interfaces.PrenotazioneInterface;
 import storage.manager.ConsumatoreDao;
 import storage.manager.FasciaOrariaDao;
 import storage.manager.PrenotazioneDao;
 
 class PrenotazioneServletTest {
 
-  private static ConsumatoreBean tester = new ConsumatoreBean("testerPrenotazione@unisa.it",
+  private static final ConsumatoreBean tester = new ConsumatoreBean("testerPrenotazione@unisa.it",
       "tester", "tester", 1, "tester", new Date(System.currentTimeMillis()), "tester", "tester",
       "tester", "tester", "tester", "tester", false, false, 0, 1);
-  private ConsumatoreDao consumatoreDao = new ConsumatoreDao();
-  private FasciaOrariaDao fasciaOrariaDao = new FasciaOrariaDao();
-  private static HashMap<Integer, HashMap<Integer, Boolean>> saleDisponibili = new HashMap<>();
-  private static HashMap<Integer, Integer> capienzaSale = new HashMap<>(5);
-  private PrenotazioneDao prenotazioneDao = new PrenotazioneDao();
-  private static HttpSession session = Mockito.mock(HttpSession.class);
-  private static HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
-  private HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  private static ServletContext ctx = Mockito.mock(ServletContext.class);
-  private PrenotazioneServlet servlet = new PrenotazioneServlet() {
+  private static final HashMap<Integer, HashMap<Integer, Boolean>> saleDisponibili =
+      new HashMap<>();
+  private static final HashMap<Integer, Integer> capienzaSale = new HashMap<>(5);
+  private static final HttpSession session = Mockito.mock(HttpSession.class);
+  private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+  private static final ServletContext ctx = Mockito.mock(ServletContext.class);
+  private final ConsumatoreInterface<ConsumatoreBean> consumatoreDao = new ConsumatoreDao();
+  private final FasciaOrariaInterface<FasciaOrariaBean> fasciaOrariaDao = new FasciaOrariaDao();
+  private final PrenotazioneInterface<PrenotazioneBean<String>> prenotazioneDao =
+      new PrenotazioneDao();
+  private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private final PrenotazioneServlet servlet = new PrenotazioneServlet() {
     public ServletContext getServletContext() {
       return ctx;
     }
@@ -139,10 +143,10 @@ class PrenotazioneServletTest {
       fasciaOrariaDao.doDelete(fasciaOrariaBean);
     }
   }
-  
+
   @Test
   void testDoPost1() throws ServletException, IOException, SQLException {
-    String fasciaOraria = "-4";;
+    String fasciaOraria = "-4";
     ArgumentCaptor<Boolean> arg = ArgumentCaptor.forClass(Boolean.class);
     try {
       Mockito.doReturn(fasciaOraria).when(request).getParameter("fasciaOraria");

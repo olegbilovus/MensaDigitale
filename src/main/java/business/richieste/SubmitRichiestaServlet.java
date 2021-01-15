@@ -16,19 +16,27 @@ import storage.manager.ConsumatoreDao;
 import storage.manager.RichiestaDao;
 
 public class SubmitRichiestaServlet extends HttpServlet {
+
   private static final long serialVersionUID = 1L;
-  private static RichiestaDao richiestaDao = new RichiestaDao();
-  private static ConsumatoreDao consumatoreDao = new ConsumatoreDao();
+  private static final RichiestaDao richiestaDao = new RichiestaDao();
+  private static final ConsumatoreDao consumatoreDao = new ConsumatoreDao();
   private final int annoInizio = 1900;
   private final int annoFine = 2020;
-  private final String[] listaProvince = {"AG", "AL", "AN", "AO", "AR", "AP", "AT", "AV", "BA",
-      "BT", "BL", "BN", "BG", "BI", "BO", "BZ", "BS", "BR", "CA", "CL", "CB", "CE", "CT", "CZ",
-      "CH", "CO", "CS", "CR", "KR", "CN", "EN", "FM", "FE", "FI", "FG", "FC", "FR", "GE", "GO",
-      "GR", "IM", "IS", "AQ", "SP", "LT", "LE", "LC", "LI", "LO", "LU", "MC", "MN", "MS", "MT",
-      "ME", "MI", "MO", "MB", "NA", "NO", "NU", "OR", "PA", "PD", "PR", "PV", "PG", "PU", "PE",
-      "PC", "PI", "PT", "PN", "PZ", "PO", "RC", "RG", "RA", "RE", "RI", "RN", "RM", "RO", "SA",
-      "SS", "SV", "SI", "SR", "SO", "SU", "TA", "TE", "TR", "TO", "TP", "TN", "TV", "TS", "UD",
-      "VA", "VE", "VB", "VC", "VR", "VV", "VI", "VT"};
+  private final String[] listaProvince = {
+      "AG", "AL", "AN", "AO", "AR", "AP", "AT", "AV", "BA", "BT", "BL", "BN", "BG", "BI", "BO",
+      "BZ",
+      "BS", "BR", "CA", "CL", "CB", "CE", "CT", "CZ", "CH", "CO", "CS", "CR", "KR", "CN", "EN",
+      "FM",
+      "FE", "FI", "FG", "FC", "FR", "GE", "GO", "GR", "IM", "IS", "AQ", "SP", "LT", "LE", "LC",
+      "LI",
+      "LO", "LU", "MC", "MN", "MS", "MT", "ME", "MI", "MO", "MB", "NA", "NO", "NU", "OR", "PA",
+      "PD",
+      "PR", "PV", "PG", "PU", "PE", "PC", "PI", "PT", "PN", "PZ", "PO", "RC", "RG", "RA", "RE",
+      "RI",
+      "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", "SO", "SU", "TA", "TE", "TR", "TO", "TP",
+      "TN",
+      "TV", "TS", "UD", "VA", "VE", "VB", "VC", "VR", "VV", "VI", "VT"
+  };
 
   public SubmitRichiestaServlet() {
     super();
@@ -59,8 +67,10 @@ public class SubmitRichiestaServlet extends HttpServlet {
     boolean prelazione = Boolean.valueOf(request.getParameter("prelazione"));
     boolean responsabilita = Boolean.valueOf(request.getParameter("responsabilita"));
 
-    boolean checkCognome = cognome != null && (cognome.length() >= 2 && cognome.length() <= 50)
-        && onlyLetters(cognome);
+    boolean checkCognome =
+        cognome != null
+            && (cognome.length() >= 2 && cognome.length() <= 50)
+            && onlyLetters(cognome);
     boolean checkNome =
         nome != null && (nome.length() >= 2 && nome.length() <= 50) && onlyLetters(nome);
     boolean checkDataDiNascita =
@@ -68,23 +78,38 @@ public class SubmitRichiestaServlet extends HttpServlet {
     boolean checkProvinciaDiNascita =
         provinciaDiNascita != null && validateProvincia(provinciaDiNascita);
     boolean checkComuneDiNascita =
-        comuneDiNascita != null && (comuneDiNascita.length() >= 2 && comuneDiNascita.length() <= 50)
+        comuneDiNascita != null
+            && (comuneDiNascita.length() >= 2 && comuneDiNascita.length() <= 50)
             && onlyLetters(comuneDiNascita);
     boolean checkCodiceFiscale = codiceFiscale != null && validateCodiceFiscale(codiceFiscale);
-    boolean checkCittadinanza = cittadinanza != null
-        && (cittadinanza.length() >= 2 && cittadinanza.length() <= 50) && onlyLetters(cittadinanza);
+    boolean checkCittadinanza =
+        cittadinanza != null
+            && (cittadinanza.length() >= 2 && cittadinanza.length() <= 50)
+            && onlyLetters(cittadinanza);
     boolean checkIndirizzo =
         indirizzo != null && (indirizzo.length() >= 4 && indirizzo.length() <= 100);
-    boolean checkTelefono = telefono == null || telefono.equals("")
-        || (telefono.length() >= 6 && telefono.length() <= 20);
-    boolean checkCellulare = cellulare == null || cellulare.equals("")
-        || (cellulare.length() >= 6 && cellulare.length() <= 20);
+    boolean checkTelefono =
+        telefono == null
+            || telefono.equals("")
+            || (telefono.length() >= 6 && telefono.length() <= 20);
+    boolean checkCellulare =
+        cellulare == null
+            || cellulare.equals("")
+            || (cellulare.length() >= 6 && cellulare.length() <= 20);
     boolean checkEmail =
         email != null && validateEmail(email) && email.equalsIgnoreCase(confermaEmail);
 
-    if (!(checkCognome && checkNome && checkDataDiNascita && checkProvinciaDiNascita
-        && checkComuneDiNascita && checkCodiceFiscale && checkCittadinanza && checkIndirizzo
-        && checkTelefono && checkCellulare && checkEmail)) {
+    if (!(checkCognome
+        && checkNome
+        && checkDataDiNascita
+        && checkProvinciaDiNascita
+        && checkComuneDiNascita
+        && checkCodiceFiscale
+        && checkCittadinanza
+        && checkIndirizzo
+        && checkTelefono
+        && checkCellulare
+        && checkEmail)) {
       throw new IllegalArgumentException();
     }
 
@@ -133,11 +158,10 @@ public class SubmitRichiestaServlet extends HttpServlet {
           out.println("alert(\"La richiesta si trova ora in attesa di approvazione!\")");
         } else {
           out.println("<script type=\"text/javascript\">");
-          out.println("alert(\"Inoltro della richiesta fallito. Ritentare più tardi\")");
+          out.println("alert(\"Inoltro della richiesta fallito. Ritentare piï¿½ tardi\")");
         }
         out.println("window.location.href = \"index.jsp\"");
         out.println("</script>");
-        
       }
     } catch (SQLException | ParseException e) {
       e.printStackTrace();
@@ -164,28 +188,22 @@ public class SubmitRichiestaServlet extends HttpServlet {
     if (year < annoInizio || year > annoFine) {
       return false;
     }
-//    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10
-//        || month == 12) { // mese di 31
-//      if (!(day >= 1 && day <= 31)) {
-//        return false;
-//      }
+    //    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10
+    //        || month == 12) { // mese di 31
+    //      if (!(day >= 1 && day <= 31)) {
+    //        return false;
+    //      }
     if (String.valueOf(month).matches("^([13578]{1}[02]{0,1})$")) {
-//    } else if (month == 11 || month == 4 || month == 6 || month == 9) { // mese di 30
+      //    } else if (month == 11 || month == 4 || month == 6 || month == 9) { // mese di 30
     } else if (String.valueOf(month).matches("^([1469]{1}[1]{0,1})$")) { // mese di 30
-//      if (!(day >= 1 && day <= 30)) {
-      if (!String.valueOf(day).matches("^([1-9]{1}|([12]{1}[0-9]{1})|30)$")) {
-        return false;
-      }
+      //      if (!(day >= 1 && day <= 30)) {
+      return String.valueOf(day).matches("^([1-9]{1}|([12]{1}[0-9]{1})|30)$");
     } else if (month == 2) { // mese == febbraio
       if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) { // anno bisestile
-        if (!(day >= 1 && day <= 29)) {
-          return false;
-        }
+        return day >= 1 && day <= 29;
       } else {
-//        if (!(day >= 1 && day <= 28)) {
-        if (!(day >= 1 && day <= 28)) {
-          return false;
-        }
+        //        if (!(day >= 1 && day <= 28)) {
+        return day >= 1 && day <= 28;
       }
     } else {
       return false;
@@ -227,19 +245,12 @@ public class SubmitRichiestaServlet extends HttpServlet {
       s += n;
     }
 
-    if (s % 26 + 'A' != cf.charAt(15)) {
-      return false;
-    }
-    return true;
+    return s % 26 + 'A' == cf.charAt(15);
   }
 
   private boolean validateEmail(String email) {
     String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-    if (!(email.matches(regex))) {
-      return false;
-    }
-
-    return true;
+    return email.matches(regex);
   }
 
   private int generateIdRichiesta() throws SQLException {
@@ -258,5 +269,4 @@ public class SubmitRichiestaServlet extends HttpServlet {
     }
     return ids.length;
   }
-
 }
