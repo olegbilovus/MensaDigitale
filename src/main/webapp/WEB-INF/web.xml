@@ -158,7 +158,7 @@
 		<servlet-name>RicaricaSaldo</servlet-name>
 		<display-name>RicaricaSaldo</display-name>
 		<description></description>
-		<servlet-class>storage.manager.RicaricaSaldo</servlet-class>
+		<servlet-class>business.consumatore.RicaricaSaldo</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MenuServlet</servlet-name>
