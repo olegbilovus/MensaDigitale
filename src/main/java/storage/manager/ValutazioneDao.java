@@ -1,13 +1,12 @@
 package storage.manager;
 
+import business.valutazioni.ValutazioneBean;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import business.valutazioni.ValutazioneBean;
 import storage.interfaces.ValutazioneInterface;
 
 

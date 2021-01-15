@@ -153,7 +153,6 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
    * 
    * @param bean Amministratore con contenuto aggiornato
    */
-
   @Override
   public void doUpdate(AdministratorBean bean) throws SQLException {
     Connection con = null;
