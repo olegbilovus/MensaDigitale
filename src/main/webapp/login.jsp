@@ -15,10 +15,7 @@
             crossorigin="anonymous"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="112892589115-l441sfpsdcid969k4b23jva30fs8igod.apps.googleusercontent.com">
-</head>
-<body>
-
-    <script>
+        <script>
         function onSignIn(googleUser) {
             // 1. manda richiesta a Google
             // 2. ottiene email da Google
@@ -31,6 +28,10 @@
             $("#formGoogle").submit();
         }
     </script>
+</head>
+<body>
+
+
 
     <%-- Login con Google --%>
     <form id="formGoogle" action="<%=response.encodeURL("login")%>" method="post">
