@@ -44,13 +44,11 @@ public class FilterResetSale implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse res = (HttpServletResponse) response;
     ConsumatoreBean consuamtore = (ConsumatoreBean) req.getSession().getAttribute("utente");
-    if (consuamtore != null) {
+    if (consuamtore != null && consuamtore.getStatoServizi() == 1) {
       PrenotazioneBean<String> prenotazione = null;
       try {
-        prenotazione =
-            new PrenotazioneDao()
-                .doRetrieveByDateAndMail(
-                    new Date(System.currentTimeMillis()), consuamtore.getEmail());
+        prenotazione = new PrenotazioneDao()
+            .doRetrieveByDateAndMail(new Date(System.currentTimeMillis()), consuamtore.getEmail());
       } catch (SQLException e) {
         e.printStackTrace();
       }

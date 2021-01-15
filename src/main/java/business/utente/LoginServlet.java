@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
         case "loginGoogle" -> loginGoogle(request, response);
 
         case "logOut" -> {
-          request.getSession().removeAttribute("utente");
+          request.getSession().invalidate();
           response.sendRedirect(request.getContextPath() + "/index.jsp");
         }
 
