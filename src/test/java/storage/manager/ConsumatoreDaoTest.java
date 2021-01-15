@@ -12,10 +12,11 @@ import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import storage.interfaces.ConsumatoreInterface;
 
 class ConsumatoreDaoTest {
 
-  private final ConsumatoreDao dao = new ConsumatoreDao();
+  private final ConsumatoreInterface<ConsumatoreBean> dao = new ConsumatoreDao();
   private final ConsumatoreBean bean =
       new ConsumatoreBean("testerP@unisa.it", "tester", "tester", 1,
           "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",

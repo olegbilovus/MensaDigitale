@@ -18,6 +18,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import storage.interfaces.ConsumatoreInterface;
+import storage.interfaces.FasciaOrariaInterface;
+import storage.interfaces.PrenotazioneInterface;
 import storage.manager.ConsumatoreDao;
 import storage.manager.FasciaOrariaDao;
 import storage.manager.PrenotazioneDao;
@@ -33,9 +36,10 @@ class PrenotazioneServletTest {
   private static final HttpSession session = Mockito.mock(HttpSession.class);
   private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private static final ServletContext ctx = Mockito.mock(ServletContext.class);
-  private final ConsumatoreDao consumatoreDao = new ConsumatoreDao();
-  private final FasciaOrariaDao fasciaOrariaDao = new FasciaOrariaDao();
-  private final PrenotazioneDao prenotazioneDao = new PrenotazioneDao();
+  private final ConsumatoreInterface<ConsumatoreBean> consumatoreDao = new ConsumatoreDao();
+  private final FasciaOrariaInterface<FasciaOrariaBean> fasciaOrariaDao = new FasciaOrariaDao();
+  private final PrenotazioneInterface<PrenotazioneBean<String>> prenotazioneDao =
+      new PrenotazioneDao();
   private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
   private final PrenotazioneServlet servlet = new PrenotazioneServlet() {
     public ServletContext getServletContext() {

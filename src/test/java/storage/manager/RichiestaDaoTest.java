@@ -10,13 +10,15 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import storage.interfaces.AddettoInterface;
+import storage.interfaces.ConsumatoreInterface;
 
 class RichiestaDaoTest {
 
   private final RichiestaDao dao = new RichiestaDao();
-  private final AddettoDao daoA = new AddettoDao();
+  private final AddettoInterface<AddettoBean> daoA = new AddettoDao();
   private final AddettoBean addetto = new AddettoBean("testerAd@unisa.it", "tester", "tester", 1);
-  private final ConsumatoreDao daoC = new ConsumatoreDao();
+  private final ConsumatoreInterface<ConsumatoreBean> daoC = new ConsumatoreDao();
   private final ConsumatoreBean consumatore =
       new ConsumatoreBean("testerP8@unisa.it", "tester", "tester",
           1, "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester", "tester",

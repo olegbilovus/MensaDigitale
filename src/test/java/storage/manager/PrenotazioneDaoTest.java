@@ -12,12 +12,15 @@ import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import storage.interfaces.ConsumatoreInterface;
+import storage.interfaces.FasciaOrariaInterface;
+import storage.interfaces.PrenotazioneInterface;
 
 class PrenotazioneDaoTest {
 
-  private final PrenotazioneDao dao = new PrenotazioneDao();
-  private final FasciaOrariaDao daoF = new FasciaOrariaDao();
-  private final ConsumatoreDao daoC = new ConsumatoreDao();
+  private final PrenotazioneInterface<PrenotazioneBean<String>> dao = new PrenotazioneDao();
+  private final FasciaOrariaInterface<FasciaOrariaBean> daoF = new FasciaOrariaDao();
+  private final ConsumatoreInterface<ConsumatoreBean> daoC = new ConsumatoreDao();
   private final ConsumatoreBean consumatore = new ConsumatoreBean("testerP8@unisa.it", "tester",
       "tester", 1, "tester", new Date(System.currentTimeMillis()), "tester", "tester", "tester",
       "tester", "tester", "tester", false, false, 0, 1);

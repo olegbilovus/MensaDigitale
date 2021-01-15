@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import storage.interfaces.ConsumatoreInterface;
 import storage.manager.ConsumatoreDao;
 
 class FilterResetSaleTest {
@@ -23,7 +24,7 @@ class FilterResetSaleTest {
   private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private static final FilterChain chain = Mockito.mock(FilterChain.class);
   private static ConsumatoreBean tester;
-  private final ConsumatoreDao dao = new ConsumatoreDao();
+  private final ConsumatoreInterface<ConsumatoreBean> dao = new ConsumatoreDao();
   private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
   private final FilterResetSale servlet = new FilterResetSale();
 

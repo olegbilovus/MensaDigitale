@@ -20,6 +20,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import storage.interfaces.ConsumatoreInterface;
+import storage.interfaces.FasciaOrariaInterface;
+import storage.interfaces.PrenotazioneInterface;
 import storage.manager.ConsumatoreDao;
 import storage.manager.FasciaOrariaDao;
 import storage.manager.PrenotazioneDao;
@@ -28,9 +31,9 @@ class GestioneIdentificativoTest {
 
   private static final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
   private static final PrintWriter writer = Mockito.mock(PrintWriter.class);
-  private final PrenotazioneDao dao = new PrenotazioneDao();
-  private final FasciaOrariaDao daoF = new FasciaOrariaDao();
-  private final ConsumatoreDao daoC = new ConsumatoreDao();
+  private final PrenotazioneInterface<PrenotazioneBean<String>> dao = new PrenotazioneDao();
+  private final FasciaOrariaInterface<FasciaOrariaBean> daoF = new FasciaOrariaDao();
+  private final ConsumatoreInterface<ConsumatoreBean> daoC = new ConsumatoreDao();
   private final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private final GestioneIdentificativo servlet = new GestioneIdentificativo();
   private ConsumatoreBean consumatore;

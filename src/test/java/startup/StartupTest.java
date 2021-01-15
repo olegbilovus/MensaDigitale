@@ -9,6 +9,7 @@ import javax.servlet.ServletContextEvent;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import storage.interfaces.FasciaOrariaInterface;
 import storage.manager.FasciaOrariaDao;
 
 class StartupTest {
@@ -16,7 +17,7 @@ class StartupTest {
   private final Startup startup = new Startup();
   private final ServletContextEvent sce = Mockito.mock(ServletContextEvent.class);
   private final ServletContext ctx = Mockito.mock(ServletContext.class);
-  private final FasciaOrariaDao daoF = new FasciaOrariaDao();
+  private final FasciaOrariaInterface<FasciaOrariaBean> daoF = new FasciaOrariaDao();
 
   @Test
   void testContextInitialized() throws SQLException {

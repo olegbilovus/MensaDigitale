@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import storage.interfaces.AdministratorInterface;
 
 class AdministratorDaoTest {
 
-  private final AdministratorDao dao = new AdministratorDao();
+  private final AdministratorInterface<AdministratorBean> dao = new AdministratorDao();
   private final AdministratorBean bean =
       new AdministratorBean("testerA@unisa.it", "tester", "tester");
 

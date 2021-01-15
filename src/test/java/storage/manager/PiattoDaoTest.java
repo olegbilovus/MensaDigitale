@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import storage.interfaces.PiattoInterface;
 
 class PiattoDaoTest {
 
-  private final PiattoDao dao = new PiattoDao();
+  private final PiattoInterface<PiattoBean> dao = new PiattoDao();
   private final PiattoBean bean = new PiattoBean("tester", "tester", "primo", 0, 0, 0, 0, 0);
 
   @BeforeEach

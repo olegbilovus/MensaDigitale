@@ -18,6 +18,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import storage.interfaces.ConsumatoreInterface;
+import storage.interfaces.FasciaOrariaInterface;
+import storage.interfaces.PrenotazioneInterface;
 import storage.manager.ConsumatoreDao;
 import storage.manager.FasciaOrariaDao;
 import storage.manager.PrenotazioneDao;
@@ -29,9 +32,9 @@ class PagamentoTest {
   private static ConsumatoreBean consumatore = null;
   private static FasciaOrariaBean fascia = null;
   private static PrenotazioneBean<String> prenotazione = null;
-  private final PrenotazioneDao dao = new PrenotazioneDao();
-  private final FasciaOrariaDao daoF = new FasciaOrariaDao();
-  private final ConsumatoreDao daoC = new ConsumatoreDao();
+  private final PrenotazioneInterface<PrenotazioneBean<String>> dao = new PrenotazioneDao();
+  private final FasciaOrariaInterface<FasciaOrariaBean> daoF = new FasciaOrariaDao();
+  private final ConsumatoreInterface<ConsumatoreBean> daoC = new ConsumatoreDao();
   private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
   private final Pagamento servlet = new Pagamento();
 

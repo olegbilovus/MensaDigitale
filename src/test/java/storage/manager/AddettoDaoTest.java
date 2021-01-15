@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import storage.interfaces.AddettoInterface;
 
 class AddettoDaoTest {
 
-  private final AddettoDao dao = new AddettoDao();
+  private final AddettoInterface<AddettoBean> dao = new AddettoDao();
   private final AddettoBean bean = new AddettoBean("tester@unisa.it", "tester", "tester", 1);
 
   @BeforeEach

@@ -7,10 +7,11 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import storage.interfaces.FasciaOrariaInterface;
 
 class FasciaOrariaDaoTest {
 
-  private final FasciaOrariaDao dao = new FasciaOrariaDao();
+  private final FasciaOrariaInterface<FasciaOrariaBean> dao = new FasciaOrariaDao();
   private final FasciaOrariaBean bean = new FasciaOrariaBean(98, "11:40");
 
   @BeforeEach
