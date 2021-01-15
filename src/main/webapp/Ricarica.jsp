@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%
-    ConsumatoreBean consumatore = (ConsumatoreBean) request.getSession().getAttribute("consumatore"); //TODO replace with Utente when ready
+    ConsumatoreBean consumatore = (ConsumatoreBean) request.getSession().getAttribute("utente"); //TODO replace with Utente when ready
     if (consumatore == null){
       
       response.sendRedirect(request.getContextPath() + "/index.jsp");
