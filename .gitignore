@@ -178,6 +178,7 @@ build/
 Profiles/
 katalon/.gitignore
 katalon/cookie
+katalon/settings/internal/com.kms.katalon.composer.testcase.properties
 
 # End of https://www.gitignore.io/api/git,java,maven,eclipse,windows
 src/main/webapp/WEB-INF/web.xml
