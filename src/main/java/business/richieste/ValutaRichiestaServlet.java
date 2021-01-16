@@ -3,6 +3,7 @@ package business.richieste;
 import business.consumatore.ConsumatoreBean;
 import business.utente.Utente;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,6 +46,13 @@ public class ValutaRichiestaServlet extends HttpServlet {
       richiesta.setValutatore(((Utente) request.getSession().getAttribute("utente")).getEmail());
       richiestaDao.doUpdate(richiesta);
       consumatoreDao.doUpdate(consumatore);
+      if (response.getWriter() != null) {
+        PrintWriter out = response.getWriter();
+        out.println("<script type=\"text/javascript\">");
+        out.println("alert(\"Esito della richiesta memorizzato correttamente.\")");
+        out.println("window.location.href = \"visualizzaRichiesteInSospeso.jsp\"");
+        out.println("</script>");
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     }
