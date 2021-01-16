@@ -211,4 +211,43 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
       }
     }
   }
+
+
+  public Collection<ValutazioneBean> doRetrieveByEmail(String email) throws SQLException {
+    Connection con = null;
+    PreparedStatement statement = null;
+    String sql = "SELECT * FROM valutazione WHERE email=?";
+    ArrayList<ValutazioneBean> collection = new ArrayList<ValutazioneBean>();
+    try {
+      con = DriverManagerConnectionPool.getConnection();
+      statement = con.prepareStatement(sql);
+      statement.setString(1, email);
+      System.out.println("DoRetriveByEmail" + statement);
+      ResultSet rs = statement.executeQuery();
+      while (rs.next()) {
+        ValutazioneBean bean = new ValutazioneBean();
+        bean.setEmail(rs.getString("email"));
+        bean.setPiatto(rs.getString("piatto"));
+        bean.setRecensione(rs.getInt("recensione"));
+        bean.setDataValutazione(rs.getDate("dataValutazione"));
+        collection.add(bean);
+      }
+      return collection;
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+
+      try {
+
+        statement.close();
+        DriverManagerConnectionPool.releaseConnection(con);
+
+      } catch (SQLException e) {
+
+        e.printStackTrace();
+      }
+    }
+    return collection;
+  }
+
 }

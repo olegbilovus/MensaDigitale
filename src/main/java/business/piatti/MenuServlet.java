@@ -78,6 +78,9 @@ public class MenuServlet extends HttpServlet {
             System.out.println(menu);
             request.setAttribute("menu", menu);
             inputStream.close();
+            String destination = request.getParameter("destination");
+            request.getRequestDispatcher(request.getContextPath() + destination).forward(request, response);
+            return;
           } catch (ClassNotFoundException e) {
             e.printStackTrace();
           }

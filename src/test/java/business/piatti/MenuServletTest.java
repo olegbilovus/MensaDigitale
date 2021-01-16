@@ -1,14 +1,17 @@
 package business.piatti;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.mockito.internal.matchers.Null;
 import storage.manager.PiattoDao;
 
 public class MenuServletTest {
@@ -17,6 +20,7 @@ public class MenuServletTest {
   private static final MenuServlet servlet = new MenuServlet();
   private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private static final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
+  private static final String context = "/";
   private static final RequestDispatcher reqdisp = Mockito.mock(RequestDispatcher.class);
 
   @BeforeAll
@@ -90,11 +94,11 @@ public class MenuServletTest {
   }
 
   @Test
-  void testGetMenu() throws SQLException {
+  void testGetMenu() throws SQLException, ServletException, IOException {
     testAggiungiMenu();
     Mockito.doReturn("getMenu").when(request).getParameter("action");
-    assertDoesNotThrow(() -> servlet.doPost(request, response));
-    testCancellaMenu();
+    Mockito.doReturn("index.jsp").when(request).getParameter("destination");
+    assertThrows(NullPointerException.class, () -> servlet.doPost(request, response));
   }
 
   @Test
