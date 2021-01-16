@@ -68,7 +68,7 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>AdministratorFilter</filter-name>
-		<url-pattern>/tracciamentContatti.jsp</url-pattern>
+		<url-pattern>/tracciamentoContatti.jsp</url-pattern>
 		<url-pattern>/TracciamentoContattiServlet</url-pattern>
 		<url-pattern>/FasciaOrariaServlet</url-pattern>
 	</filter-mapping>

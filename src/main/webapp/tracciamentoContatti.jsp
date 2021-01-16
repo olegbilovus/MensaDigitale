@@ -18,7 +18,54 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     
     <script src="assets/js/jquery.min.js"></script>
-	<script>
+	
+</head>
+
+<body style="background-image: url(&quot;assets/img/food.jpg&quot;);height: auto;width: auto;max-height: none;">
+    <nav class="navbar navbar-light fixed-top text-dark" style="background-color: #FF9900;">
+        <div class="container-fluid"><img class="img-fluid" src="assets/img/Logo.png" style="width: 255px;padding: 0px;margin: -29px;"><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse text-right float-right" id="navcol-1">
+                <ul class="nav navbar-nav mx-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Login</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Consulta Menù</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Inserisci Menù</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Valuta Servizio</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Prenotazione</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Servizi Ristorazione</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li class="nav-item" role="presentation"></li>
+                </ul>
+        </div>
+        </div>
+    </nav>
+    <div style="margin-top: 150px;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6" style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;max-width: 95%;width: 357px;">
+                    <div>
+                        <h1 class="text-center" style="font-family: Montserrat, sans-serif;">Inserisci codice fiscale</h1>
+                        <div class="text-center"><input type="text" maxlength="16" name="cf" id="cf" placeholder="Codice Fiscale" style="margin-right: 20px;"><button class="btn btn-warning" onclick="sendCF()">Cerca</button></div>
+                    </div>
+                           <div>
+                    			<div id="date"></div>
+								<div id="divPrenotazioni"></div>
+							</div>
+                	</div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 440px;"></div>
+    <div class="text-center footer-basic" style="margin: 0px;background-color: rgb(20,20,20);">
+        <figure class="figure"><img class="img-fluid figure-img" src="assets/img/adisurclogo.png">
+            <figcaption class="figure-caption">Agenzia per il Diritto allo Studio della Regione Campania © 2021<br></figcaption>
+        </figure>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
+    <script>
 		var array = {}
 		function sendCF() {
 			var inputText = document.getElementById("cf").value;
@@ -173,52 +220,6 @@
 		}
 	
 	</script>
-</head>
-
-<body style="background-image: url(&quot;assets/img/food.jpg&quot;);height: auto;width: auto;max-height: none;">
-    <nav class="navbar navbar-light fixed-top text-dark" style="background-color: #FF9900;">
-        <div class="container-fluid"><img class="img-fluid" src="assets/img/Logo.png" style="width: 255px;padding: 0px;margin: -29px;"><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div
-                class="collapse navbar-collapse text-right float-right" id="navcol-1">
-                <ul class="nav navbar-nav mx-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Login</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Consulta Menù</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Inserisci Menù</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Valuta Servizio</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Prenotazione</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Servizi Ristorazione</a></li>
-                </ul>
-                <ul class="nav navbar-nav">
-                    <li class="nav-item" role="presentation"></li>
-                </ul>
-        </div>
-        </div>
-    </nav>
-    <div style="margin-top: 150px;">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6" style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;max-width: 95%;width: 357px;">
-                    <div>
-                        <h1 class="text-center" style="font-family: Montserrat, sans-serif;">Inserisci codice fiscale</h1>
-                        <div class="text-center"><input type="text" maxlength="16" name="cf" id="cf" placeholder="Codice Fiscale" style="margin-right: 20px;"><button class="btn btn-warning" onclick="sendCF()">Cerca</button></div>
-                    </div>
-                           <div>
-                    			<div id="date"></div>
-								<div id="divPrenotazioni"></div>
-							</div>
-                	</div>
-            </div>
-        </div>
-    </div>
-    <div style="height: 440px;"></div>
-    <div class="text-center footer-basic" style="margin: 0px;background-color: rgb(20,20,20);">
-        <figure class="figure"><img class="img-fluid figure-img" src="assets/img/adisurclogo.png">
-            <figcaption class="figure-caption">Agenzia per il Diritto allo Studio della Regione Campania © 2021<br></figcaption>
-        </figure>
-    </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
 </body>
 
 </html>
