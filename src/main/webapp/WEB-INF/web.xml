@@ -161,6 +161,12 @@
 		<description></description>
 		<servlet-class>business.consumatore.RicaricaSaldo</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>FasciaOrariaServlet</servlet-name>
+		<display-name>FasciaOrariaServlet</display-name>
+		<description></description>
+		<servlet-class>business.prenotazioni.FasciaOrariaServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>MenuServlet</servlet-name>
 		<url-pattern>/menu</url-pattern>
@@ -212,6 +218,10 @@
 	<servlet-mapping>
 		<servlet-name>RicaricaSaldo</servlet-name>
 		<url-pattern>/RicaricaSaldo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FasciaOrariaServlet</servlet-name>
+		<url-pattern>/FasciaOrariaServlet</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>

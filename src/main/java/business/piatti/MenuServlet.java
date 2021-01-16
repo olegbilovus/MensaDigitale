@@ -71,6 +71,7 @@ public class MenuServlet extends HttpServlet {
           outputStream.writeObject(new MenuBean());
           request.setAttribute("menu", menu);
           outputStream.close();
+          response.sendRedirect("./visualizzaMenu.jsp");
           break;
         case "getMenu":
           try {
