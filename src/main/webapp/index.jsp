@@ -1,11 +1,10 @@
 <%@ page import="business.utente.Utente" %>
+<%@ page import="business.addetto.AddettoBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Utente consumatore = (Utente) request.getSession().getAttribute("utente");
 %>
-<%
-    Utente utente = (Utente) request.getSession().getAttribute("utente");
-%>
+
 <!DOCTYPE html>
 <html style="height: auto;width: auto;">
 
@@ -29,20 +28,7 @@
 </head>
 
 <body style="background-image: url(&quot;assets/img/food.jpg&quot;);height: auto;width: auto;max-height: none;">
-    <nav class="navbar navbar-light fixed-top text-dark" style="background-color: #FF9900;">
-        <div class="container-fluid"><img class="img-fluid" src="assets/img/Logo.png" style="width: 255px;padding: 0px;margin: -29px;"><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse text-right float-right" id="navcol-1">
-                <ul class="nav navbar-nav mx-auto">
-                	<li class="nav-item" role="presentation"><a class="nav-link active" href="#">Login</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Consulta Menù</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Inserisci Menù</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Valuta Servizio</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Prenotazione</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Servizi Ristorazione</a></li>
-                </ul>     
-            </div>        
-        </div>
-    </nav>
+    <jsp:include page="navbar.jsp" />
     <div style="height: 750px;"></div>
     <div class="text-center footer-basic" style="margin: 0px;background-color: rgb(20,20,20);">
         <figure class="figure"><img class="img-fluid figure-img" src="assets/img/adisurclogo.png">
