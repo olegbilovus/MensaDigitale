@@ -43,7 +43,7 @@
             </div>        
         </div>
     </nav>
-    <div style="height: 1080px; margin-top:200px"></div>
+    <div style="height: 750px;"></div>
     <div class="text-center footer-basic" style="margin: 0px;background-color: rgb(20,20,20);">
         <figure class="figure"><img class="img-fluid figure-img" src="assets/img/adisurclogo.png">
             <figcaption class="figure-caption">Agenzia per il Diritto allo Studio della Regione Campania © 2021<br></figcaption>
