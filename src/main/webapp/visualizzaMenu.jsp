@@ -2,6 +2,16 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="business.utente.Utente" %>
 <%@ page import="business.addetto.AddettoBean" %>
+<%@ page import="business.piatti.MenuBean" %>
+<%@ page import="business.piatti.PiattoBean" %>
+<%
+    MenuBean menu = (MenuBean) request.getAttribute("menu");
+    if (menu == null) {
+        String destination = "/visualizzaMenu.jsp";
+        request.getRequestDispatcher("menu?action=getMenu&destination=" + destination).forward(request, response);
+        return;
+    }
+%>
 <!DOCTYPE html>
 <html style="height: auto;width: auto;">
 
@@ -46,21 +56,33 @@
                     <h1 class="text-center" style="font-family: Montserrat, sans-serif;margin-top: 15px;">Menù del Giorno</h1>
                     <div>
                         <p class="text-left" style="font-family: Montserrat, sans-serif;font-size: 22px;">Primi</p>
-                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;">Label</label></div>
-                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;">Label</label></div>
-                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;">Label</label></div>
+                        <%
+                            for (PiattoBean p : menu.getPrimi()){
+                        %>
+                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;"><%=p.getNome()%></label></div>
+                        <%
+                            }
+                        %>
                     </div>
                     <div>
                         <p class="text-left" style="font-family: Montserrat, sans-serif;font-size: 22px;">Secondi</p>
-                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;">Label</label></div>
-                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;">Label</label></div>
-                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;">Label</label></div>
+                        <%
+                            for (PiattoBean p : menu.getSecondi()){
+                        %>
+                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;"><%=p.getNome()%></label></div>
+                        <%
+                            }
+                        %>
                     </div>
                     <div>
                         <p class="text-left" style="font-family: Montserrat, sans-serif;font-size: 22px;">Contorni</p>
-                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;">Label</label></div>
-                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;">Label</label></div>
-                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;">Label</label></div>
+                        <%
+                            for (PiattoBean p : menu.getContorni()){
+                        %>
+                        <div><label style="font-family: Montserrat, sans-serif;font-size: 18px;"><%=p.getNome()%></label></div>
+                        <%
+                            }
+                        %>
                     </div>
                     
                     <%
