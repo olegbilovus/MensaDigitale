@@ -23,6 +23,7 @@ public class StudenteFilter implements Filter {
     if (utente == null
         || !(utente.getClass() == ConsumatoreBean.class
         && !((ConsumatoreBean) utente).isDocente())) {
+      System.out.println("#Log: StudenteFilter negato per: " + utente);
       res.sendError(HttpServletResponse.SC_UNAUTHORIZED);
     }
 

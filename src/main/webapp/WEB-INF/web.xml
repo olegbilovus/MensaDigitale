@@ -83,7 +83,6 @@
 	<filter-mapping>
 		<filter-name>StudenteFilter</filter-name>
 		<url-pattern>/attivazione.jsp</url-pattern>
-		<url-pattern>/submitRichiesta.jsp</url-pattern>
 		<url-pattern>/SubmitRichiestaServlet</url-pattern>
 	</filter-mapping>
 	<servlet>
