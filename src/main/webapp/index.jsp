@@ -5,9 +5,6 @@
 %>
 <%
     Utente utente = (Utente) request.getSession().getAttribute("utente");
-    if (utente != null){
-      response.sendRedirect(request.getContextPath() + "/index.jsp");
-    }
 %>
 <!DOCTYPE html>
 <html style="height: auto;width: auto;">
@@ -29,21 +26,6 @@
             src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
             crossorigin="anonymous"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="112892589115-l441sfpsdcid969k4b23jva30fs8igod.apps.googleusercontent.com">
-    <script>
-        function onSignIn(googleUser) {
-            // 1. manda richiesta a Google
-            // 2. ottiene email da Google
-            // 3. imposta il value dell'input name 'email' di 'formGoogle' uguale all'email restituita da Google
-            // 4. esegue il submit della form
-            let profile = googleUser.getBasicProfile();
-            let email = profile.getEmail();
-            googleUser.disconnect();
-            $("#emailGoogle").val(email);
-            $("#formGoogle").submit();
-        }
-</script>
 </head>
 
 <body style="background-image: url(&quot;assets/img/food.jpg&quot;);height: auto;width: auto;max-height: none;">
