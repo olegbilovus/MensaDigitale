@@ -44,7 +44,10 @@ public class FilterResetSale implements Filter {
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse res = (HttpServletResponse) response;
     ConsumatoreBean consuamtore = (ConsumatoreBean) req.getSession().getAttribute("utente");
-    if (consuamtore != null && consuamtore.getStatoServizi() == 1) {
+    if (consuamtore != null) {
+      if (consuamtore.getStatoServizi() != 1) {
+        res.sendRedirect(res.encodeURL(req.getContextPath() + "/attivazione.jsp"));
+      }
       PrenotazioneBean<String> prenotazione = null;
       try {
         prenotazione = new PrenotazioneDao()
@@ -58,7 +61,7 @@ public class FilterResetSale implements Filter {
         req.getSession().setAttribute("prenotazione", prenotazione);
       }
     } else {
-      res.sendRedirect(res.encodeURL(req.getContextPath() + "/index.jsp"));
+      res.sendRedirect(res.encodeURL(req.getContextPath() + "/login.jsp"));
       return;
     }
 

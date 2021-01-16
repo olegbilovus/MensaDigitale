@@ -70,7 +70,7 @@ public class LoginServlet extends HttpServlet {
       ConsumatoreBean consumatore = consumatoreDao.doRetrieveByKey(email);
 
       if (consumatore == null) {
-        // login tentato da uno studente, ma l'indirizzo email non è presente nel db mensadigitale
+        // login tentato da uno studente, ma l'indirizzo email non e' presente nel db mensadigitale
         request.getSession().setAttribute("utente", new ConsumatoreBean(email));
         response
             .sendRedirect(response.encodeURL(request.getContextPath() + "/attivazione.jsp"));
