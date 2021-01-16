@@ -158,7 +158,7 @@ public class SubmitRichiestaServlet extends HttpServlet {
           out.println("alert(\"La richiesta si trova ora in attesa di approvazione!\")");
         } else {
           out.println("<script type=\"text/javascript\">");
-          out.println("alert(\"Inoltro della richiesta fallito. Ritentare pi� tardi\")");
+          out.println("alert(\"Inoltro della richiesta fallito. Ritentare successivamente\")");
         }
         out.println("window.location.href = \"index.jsp\"");
         out.println("</script>");

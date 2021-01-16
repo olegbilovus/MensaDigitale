@@ -41,6 +41,5 @@ public class MensaDigitale {
 		WebUI.waitForElementNotPresent(findTestObject('Page_Login/span_Sign in'), 20)
 
 		WebUI.verifyElementNotPresent(findTestObject('Page_Login/span_Sign in'), 0)
-		
 	}
 }

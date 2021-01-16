@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>Prenotazione_1</name>
+   <name>TC_ARS_1_16</name>
    <tag></tag>
    <comment></comment>
    <testCaseGuid>c9460f8c-52f8-4f35-b7db-88e378580fe4</testCaseGuid>
