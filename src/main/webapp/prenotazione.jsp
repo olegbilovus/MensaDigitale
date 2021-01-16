@@ -51,19 +51,22 @@ var sale = {};
 	    }
 	  }	
 	}%>
-
+console.log(sale)
 </script>
 <script type="text/javascript">
-		function changeSale(){
+		function changeSala(){
 			var sala = document.getElementById("salaS").value;
-			var fasceopt = document.getElementById("fasceOpt");
-			for(let i = 0; i < fasceopt.childNodes.length; i++){
-				fasceopt.childNodes[i].remove();
-			}
+			console.log(sala)
+			document.getElementById("fasceOpt").remove();
+			var fasceopt = document.createElement("optgroup")
+			fasceopt.id = "fasceOpt";
+			fasceopt.label = "Fasce Oraria";
+			document.getElementById("fasciaS").appendChild(fasceopt);
 			var fasce = sale["sala" + sala];
+			console.log(fasce)
 			for(let i = 0; i < fasce.length; i++){
 				let op = document.createElement("option");
-				op.appendChild(document.createTextNode(fasce[i].fascia));
+				op.appendChild(document.createTextNode(fasce[i].str));
 				op.value = fasce[i].id;
 				fasceopt.appendChild(op);
 			}
@@ -129,7 +132,7 @@ var sale = {};
 							<h1 style="font-family: Montserrat, sans-serif;">Scegli
 								Fascia Oraria</h1>
 							<select name="fasciaOraria"
-								style="font-family: Montserrat, sans-serif;">
+								style="font-family: Montserrat, sans-serif;" id="fasciaS">
 								<optgroup label="Fasce Oraria" id="fasceOpt">
 								<%
 								for (int sala2 : saleDisponibili.keySet()){

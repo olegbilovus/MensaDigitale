@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Bean per il consumatore.
  */
-public class ConsumatoreBean extends Utente implements Serializable {
+public class ConsumatoreBean extends Utente{
 
   private static final long serialVersionUID = 1L;
   private int statoServizi;

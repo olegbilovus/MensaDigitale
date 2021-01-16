@@ -52,9 +52,13 @@ public class FilterResetSale implements Filter {
       } catch (SQLException e) {
         e.printStackTrace();
       }
-      req.getSession().setAttribute("prenotazione", prenotazione);
+      if (prenotazione == null || prenotazione.isEntrato()) {
+        req.getSession().setAttribute("prenotazione", null);
+      } else {
+        req.getSession().setAttribute("prenotazione", prenotazione);
+      }
     } else {
-      req.getRequestDispatcher(res.encodeURL("index.jsp")).forward(request, response);
+      res.sendRedirect(res.encodeURL(req.getContextPath() + "/index.jsp"));
       return;
     }
 

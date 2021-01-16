@@ -4,6 +4,7 @@ import business.utente.Utente;
 
 public class AddettoBean extends Utente {
 
+  private static final long serialVersionUID = 1L;
   private int lvlPermessi;
 
   public AddettoBean() {
