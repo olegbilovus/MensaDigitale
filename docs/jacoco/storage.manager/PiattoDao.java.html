@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PiattoDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">storage.manager</a> &gt; <span class="el_source">PiattoDao.java</span></div><h1>PiattoDao.java</h1><pre class="source lang-java linenums">package storage.manager;
+
+import business.piatti.PiattoBean;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import storage.interfaces.PiattoInterface;
+
+public class PiattoDao implements PiattoInterface&lt;PiattoBean&gt; {
+
+  /*
+   * Costruttore per PiattoDao.
+   */
+<span class="fc" id="L17">  public PiattoDao() {</span>
+<span class="fc" id="L18">  }</span>
+
+  /**
+   * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
+   *
+   * @param nome Nome del piatto da ricercare
+   * @category Ricerca il piatto in base al nome del piatto
+   */
+  @Override
+  public PiattoBean doRetrieveByKey(String nome) throws SQLException {
+<span class="fc" id="L28">    PiattoBean bean = new PiattoBean();</span>
+<span class="fc" id="L29">    Connection con = null;</span>
+<span class="fc" id="L30">    PreparedStatement statement = null;</span>
+<span class="fc" id="L31">    String sql = &quot;SELECT * FROM piatto WHERE nome=?&quot;;</span>
+    try {
+<span class="fc" id="L33">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L34">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L35">      statement.setString(1, nome);</span>
+<span class="fc" id="L36">      System.out.println(&quot;DoRetrieveByKey&quot; + statement);</span>
+<span class="fc" id="L37">      ResultSet rs = statement.executeQuery();</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">      if (rs.next()) {</span>
+<span class="fc" id="L39">        bean.setNome(rs.getString(&quot;nome&quot;));</span>
+<span class="fc" id="L40">        bean.setIngredienti(rs.getString(&quot;ingredienti&quot;));</span>
+<span class="fc" id="L41">        bean.setPortata(rs.getString(&quot;portata&quot;));</span>
+<span class="fc" id="L42">        bean.setCalorie(rs.getInt(&quot;calorie&quot;));</span>
+<span class="fc" id="L43">        bean.setProteine(rs.getInt(&quot;proteine&quot;));</span>
+<span class="fc" id="L44">        bean.setGrassi(rs.getInt(&quot;grassi&quot;));</span>
+<span class="fc" id="L45">        bean.setSodio(rs.getInt(&quot;sodio&quot;));</span>
+<span class="fc" id="L46">        bean.setCarboidrati(rs.getInt(&quot;carboidrati&quot;));</span>
+<span class="fc" id="L47">        return bean;</span>
+      }
+<span class="nc" id="L49">    } catch (Exception e) {</span>
+<span class="nc" id="L50">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L55">        statement.close();</span>
+<span class="fc" id="L56">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L58">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L60">        e.printStackTrace();</span>
+<span class="fc" id="L61">      }</span>
+    }
+<span class="fc" id="L63">    return null;</span>
+  }
+
+  /**
+   * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
+   *
+   * @category Ritorna tutte i piatti
+   */
+  @Override
+  public Collection&lt;PiattoBean&gt; doRetrieveAll() throws SQLException {
+<span class="fc" id="L73">    Connection con = null;</span>
+<span class="fc" id="L74">    PreparedStatement statement = null;</span>
+<span class="fc" id="L75">    String sql = &quot;SELECT * FROM piatto&quot;;</span>
+<span class="fc" id="L76">    ArrayList&lt;PiattoBean&gt; collection = new ArrayList&lt;PiattoBean&gt;();</span>
+    try {
+<span class="fc" id="L78">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L79">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L80">      System.out.println(&quot;DoRetriveAll&quot; + statement);</span>
+<span class="fc" id="L81">      ResultSet rs = statement.executeQuery();</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">      while (rs.next()) {</span>
+<span class="fc" id="L83">        PiattoBean bean = new PiattoBean();</span>
+<span class="fc" id="L84">        bean.setNome(rs.getString(&quot;nome&quot;));</span>
+<span class="fc" id="L85">        bean.setIngredienti(rs.getString(&quot;ingredienti&quot;));</span>
+<span class="fc" id="L86">        bean.setPortata(rs.getString(&quot;portata&quot;));</span>
+<span class="fc" id="L87">        bean.setCalorie(rs.getInt(&quot;calorie&quot;));</span>
+<span class="fc" id="L88">        bean.setProteine(rs.getInt(&quot;proteine&quot;));</span>
+<span class="fc" id="L89">        bean.setGrassi(rs.getInt(&quot;grassi&quot;));</span>
+<span class="fc" id="L90">        bean.setSodio(rs.getInt(&quot;sodio&quot;));</span>
+<span class="fc" id="L91">        bean.setCarboidrati(rs.getInt(&quot;carboidrati&quot;));</span>
+<span class="fc" id="L92">        collection.add(bean);</span>
+<span class="fc" id="L93">      }</span>
+<span class="fc" id="L94">      return collection;</span>
+<span class="nc" id="L95">    } catch (Exception e) {</span>
+<span class="nc" id="L96">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L101">        statement.close();</span>
+<span class="fc" id="L102">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L104">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L106">        e.printStackTrace();</span>
+<span class="fc" id="L107">      }</span>
+    }
+<span class="nc" id="L109">    return collection;</span>
+  }
+
+  /**
+   * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
+   *
+   * @param bean Piatto da salvare
+   * @category Salva un piatto nel database
+   */
+  @Override
+  public void doSave(PiattoBean bean) throws SQLException {
+<span class="fc" id="L120">    Connection con = null;</span>
+<span class="fc" id="L121">    PreparedStatement statement = null;</span>
+<span class="fc" id="L122">    String sql = &quot;INSERT INTO piatto VALUES (?,?,?,?,?,?,?,?)&quot;;</span>
+    try {
+<span class="fc" id="L124">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L125">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L126">      statement.setString(1, bean.getNome());</span>
+<span class="fc" id="L127">      statement.setString(2, bean.getIngredienti());</span>
+<span class="fc" id="L128">      statement.setString(3, bean.getPortata());</span>
+<span class="fc" id="L129">      statement.setInt(4, bean.getCalorie());</span>
+<span class="fc" id="L130">      statement.setInt(5, bean.getProteine());</span>
+<span class="fc" id="L131">      statement.setInt(6, bean.getGrassi());</span>
+<span class="fc" id="L132">      statement.setInt(7, bean.getSodio());</span>
+<span class="fc" id="L133">      statement.setInt(8, bean.getCarboidrati());</span>
+<span class="fc" id="L134">      System.out.println(&quot;doSave=&quot; + statement);</span>
+<span class="fc" id="L135">      statement.executeUpdate();</span>
+<span class="fc" id="L136">      con.commit();</span>
+<span class="nc" id="L137">    } catch (Exception e) {</span>
+<span class="nc" id="L138">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L143">        statement.close();</span>
+<span class="fc" id="L144">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L146">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L148">        e.printStackTrace();</span>
+<span class="fc" id="L149">      }</span>
+    }
+<span class="fc" id="L151">  }</span>
+
+  /**
+   * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
+   *
+   * @param bean Piatto con contenuto aggiornato
+   * @category Aggiorna un piatto
+   */
+  @Override
+  public void doUpdate(PiattoBean bean) throws SQLException {
+<span class="fc" id="L161">    Connection con = null;</span>
+<span class="fc" id="L162">    PreparedStatement statement = null;</span>
+<span class="fc" id="L163">    String sql = &quot;UPDATE piatto SET ingredienti=? WHERE nome=?&quot;;</span>
+    try {
+<span class="fc" id="L165">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L166">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L167">      statement.setString(1, bean.getIngredienti());</span>
+<span class="fc" id="L168">      statement.setString(2, bean.getNome());</span>
+<span class="fc" id="L169">      System.out.println(&quot;doUpdate=&quot; + statement);</span>
+<span class="fc" id="L170">      statement.executeUpdate();</span>
+<span class="fc" id="L171">      con.commit();</span>
+<span class="nc" id="L172">    } catch (Exception e) {</span>
+<span class="nc" id="L173">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L178">        statement.close();</span>
+<span class="fc" id="L179">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L181">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L183">        e.printStackTrace();</span>
+<span class="fc" id="L184">      }</span>
+    }
+<span class="fc" id="L186">  }</span>
+
+  /**
+   * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
+   *
+   * @param bean Indica il bean da eliminare
+   * @category Cancella un piatto
+   */
+  @Override
+  public void doDelete(PiattoBean bean) throws SQLException {
+<span class="fc" id="L196">    Connection con = null;</span>
+<span class="fc" id="L197">    PreparedStatement statement = null;</span>
+<span class="fc" id="L198">    String sql = &quot;DELETE FROM piatto WHERE nome=?&quot;;</span>
+    try {
+<span class="fc" id="L200">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L201">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L202">      statement.setString(1, bean.getNome());</span>
+<span class="fc" id="L203">      System.out.println(&quot;doUpdate=&quot; + statement);</span>
+<span class="fc" id="L204">      statement.executeUpdate();</span>
+<span class="fc" id="L205">      con.commit();</span>
+<span class="nc" id="L206">    } catch (Exception e) {</span>
+<span class="nc" id="L207">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L212">        statement.close();</span>
+<span class="fc" id="L213">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L215">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L217">        e.printStackTrace();</span>
+<span class="fc" id="L218">      }</span>
+    }
+<span class="fc" id="L220">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

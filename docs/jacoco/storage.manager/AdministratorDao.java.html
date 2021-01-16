@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdministratorDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">storage.manager</a> &gt; <span class="el_source">AdministratorDao.java</span></div><h1>AdministratorDao.java</h1><pre class="source lang-java linenums">package storage.manager;
+
+import business.admin.AdministratorBean;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import storage.interfaces.AdministratorInterface;
+
+public class AdministratorDao implements AdministratorInterface&lt;AdministratorBean&gt; {
+
+  /*
+   * Costruttore per AdministratorDao.
+   */
+<span class="fc" id="L17">  public AdministratorDao() {</span>
+<span class="fc" id="L18">  }</span>
+
+  /**
+   * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
+   *
+   * @param email email dell'amministratore da ricercare
+   * @category Ricerca un amministratore in base all'email dell'amministratore
+   */
+  @Override
+  public AdministratorBean doRetrieveByKey(String email) throws SQLException {
+<span class="fc" id="L28">    AdministratorBean bean = new AdministratorBean();</span>
+<span class="fc" id="L29">    Connection con = null;</span>
+<span class="fc" id="L30">    PreparedStatement statement = null;</span>
+<span class="fc" id="L31">    String sql = &quot;SELECT * FROM administrator WHERE email=?&quot;;</span>
+    try {
+<span class="fc" id="L33">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L34">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L35">      statement.setString(1, email);</span>
+<span class="fc" id="L36">      System.out.println(&quot;DoRetrieveByKey&quot; + statement);</span>
+<span class="fc" id="L37">      ResultSet rs = statement.executeQuery();</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">      if (rs.next()) {</span>
+<span class="fc" id="L39">        bean.setEmail(rs.getString(&quot;email&quot;));</span>
+<span class="fc" id="L40">        bean.setNome(rs.getString(&quot;nome&quot;));</span>
+<span class="fc" id="L41">        bean.setCognome(rs.getString(&quot;cognome&quot;));</span>
+<span class="fc" id="L42">        return bean;</span>
+      }
+<span class="nc" id="L44">    } catch (Exception e) {</span>
+<span class="nc" id="L45">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L50">        statement.close();</span>
+<span class="fc" id="L51">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L53">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L55">        e.printStackTrace();</span>
+<span class="fc" id="L56">      }</span>
+    }
+<span class="fc" id="L58">    return null;</span>
+  }
+
+  /**
+   * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
+   *
+   * @category Ritorna tutti gli administrator
+   */
+  @Override
+  public Collection&lt;AdministratorBean&gt; doRetrieveAll() throws SQLException {
+<span class="fc" id="L68">    Connection con = null;</span>
+<span class="fc" id="L69">    PreparedStatement statement = null;</span>
+<span class="fc" id="L70">    String sql = &quot;SELECT * FROM administrator&quot;;</span>
+<span class="fc" id="L71">    ArrayList&lt;AdministratorBean&gt; collection = new ArrayList&lt;&gt;();</span>
+    try {
+<span class="fc" id="L73">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L74">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L75">      System.out.println(&quot;DoRetriveAll&quot; + statement);</span>
+<span class="fc" id="L76">      ResultSet rs = statement.executeQuery();</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">      while (rs.next()) {</span>
+<span class="fc" id="L78">        AdministratorBean bean = new AdministratorBean();</span>
+<span class="fc" id="L79">        bean.setEmail(rs.getString(&quot;email&quot;));</span>
+<span class="fc" id="L80">        bean.setNome(rs.getString(&quot;nome&quot;));</span>
+<span class="fc" id="L81">        bean.setCognome(rs.getString(&quot;cognome&quot;));</span>
+<span class="fc" id="L82">        collection.add(bean);</span>
+<span class="fc" id="L83">      }</span>
+<span class="fc" id="L84">      return collection;</span>
+<span class="nc" id="L85">    } catch (Exception e) {</span>
+<span class="nc" id="L86">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L91">        statement.close();</span>
+<span class="fc" id="L92">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L94">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L96">        e.printStackTrace();</span>
+<span class="fc" id="L97">      }</span>
+    }
+<span class="nc" id="L99">    return collection;</span>
+  }
+
+  /**
+   * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
+   *
+   * @param bean Amministratore da salvare
+   * @category Salva un amministratore nel database
+   */
+  @Override
+  public void doSave(AdministratorBean bean) throws SQLException {
+<span class="fc" id="L110">    Connection con = null;</span>
+<span class="fc" id="L111">    PreparedStatement statement = null;</span>
+<span class="fc" id="L112">    String sql = &quot;INSERT INTO administrator VALUES (?,?,?)&quot;;</span>
+    try {
+<span class="fc" id="L114">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L115">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L116">      statement.setString(1, bean.getEmail());</span>
+<span class="fc" id="L117">      statement.setString(2, bean.getNome());</span>
+<span class="fc" id="L118">      statement.setString(3, bean.getCognome());</span>
+<span class="fc" id="L119">      System.out.println(&quot;doSave=&quot; + statement);</span>
+<span class="fc" id="L120">      statement.executeUpdate();</span>
+<span class="fc" id="L121">      con.commit();</span>
+<span class="nc" id="L122">    } catch (Exception e) {</span>
+<span class="nc" id="L123">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L128">        statement.close();</span>
+<span class="fc" id="L129">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L131">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L133">        e.printStackTrace();</span>
+<span class="fc" id="L134">      }</span>
+    }
+<span class="fc" id="L136">  }</span>
+
+  /**
+   * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
+   *
+   * @param bean Amministratore con contenuto aggiornato
+   * @category Aggiorna un amministratore
+   */
+  @Override
+  public void doUpdate(AdministratorBean bean) throws SQLException {
+<span class="fc" id="L146">    Connection con = null;</span>
+<span class="fc" id="L147">    PreparedStatement statement = null;</span>
+<span class="fc" id="L148">    String sql = &quot;UPDATE administrator SET nome=? WHERE email=?&quot;;</span>
+    try {
+<span class="fc" id="L150">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L151">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L152">      statement.setString(1, bean.getNome());</span>
+<span class="fc" id="L153">      statement.setString(2, bean.getEmail());</span>
+<span class="fc" id="L154">      System.out.println(&quot;doUpdate=&quot; + statement);</span>
+<span class="fc" id="L155">      statement.executeUpdate();</span>
+<span class="fc" id="L156">      con.commit();</span>
+<span class="nc" id="L157">    } catch (Exception e) {</span>
+<span class="nc" id="L158">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L163">        statement.close();</span>
+<span class="fc" id="L164">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L166">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L168">        e.printStackTrace();</span>
+<span class="fc" id="L169">      }</span>
+    }
+<span class="fc" id="L171">  }</span>
+
+  /**
+   * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
+   *
+   * @param bean Indica il bean da eliminare
+   * @category Cancella un amministratore
+   */
+  @Override
+  public void doDelete(AdministratorBean bean) throws SQLException {
+<span class="fc" id="L181">    Connection con = null;</span>
+<span class="fc" id="L182">    PreparedStatement statement = null;</span>
+<span class="fc" id="L183">    String sql = &quot;DELETE FROM administrator WHERE email=?&quot;;</span>
+    try {
+<span class="fc" id="L185">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L186">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L187">      statement.setString(1, bean.getEmail());</span>
+<span class="fc" id="L188">      System.out.println(&quot;doUpdate=&quot; + statement);</span>
+<span class="fc" id="L189">      statement.executeUpdate();</span>
+<span class="fc" id="L190">      con.commit();</span>
+<span class="nc" id="L191">    } catch (Exception e) {</span>
+<span class="nc" id="L192">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L197">        statement.close();</span>
+<span class="fc" id="L198">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L200">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L202">        e.printStackTrace();</span>
+<span class="fc" id="L203">      }</span>
+    }
+<span class="fc" id="L205">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

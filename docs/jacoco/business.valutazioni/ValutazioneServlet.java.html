@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ValutazioneServlet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">business.valutazioni</a> &gt; <span class="el_source">ValutazioneServlet.java</span></div><h1>ValutazioneServlet.java</h1><pre class="source lang-java linenums">package business.valutazioni;
+
+import business.piatti.PiattoBean;
+import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import storage.manager.PiattoDao;
+import storage.manager.ValutazioneDao;
+
+<span class="fc" id="L14">public class ValutazioneServlet extends HttpServlet {</span>
+
+<span class="fc" id="L16">  private static final ValutazioneDao valutazioneDao = new ValutazioneDao();</span>
+<span class="fc" id="L17">  private static final PiattoDao piattoDao = new PiattoDao();</span>
+  private String email;
+  private String piatto;
+
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+<span class="nc" id="L24">    doPost(request, response);</span>
+<span class="nc" id="L25">  }</span>
+
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+
+<span class="fc" id="L31">    String action = request.getParameter(&quot;action&quot;);</span>
+
+<span class="fc" id="L33">    email = request.getParameter(&quot;email&quot;);</span>
+<span class="fc" id="L34">    piatto = request.getParameter(&quot;piatto&quot;);</span>
+
+<span class="pc bpc" id="L36" title="2 of 6 branches missed.">    if (email != null &amp;&amp; piatto != null &amp;&amp; testFormatoPiatto(piatto)) {</span>
+
+      // controllo che il piatto esiste davvero
+      try {
+<span class="fc" id="L40">        PiattoBean tmp = piattoDao.doRetrieveByKey(piatto);</span>
+<span class="pc bpc" id="L41" title="1 of 2 branches missed.">        if (tmp == null) {</span>
+          // il piatto non esiste in DB
+<span class="nc" id="L43">          response.sendError(HttpServletResponse.SC_BAD_REQUEST,</span>
+              &quot;Errore nei parametri della richiesta!&quot;);
+<span class="nc" id="L45">          throw new IllegalArgumentException();</span>
+        }
+<span class="nc" id="L47">      } catch (SQLException throwables) {</span>
+<span class="nc" id="L48">        throwables.printStackTrace();</span>
+<span class="fc" id="L49">      }</span>
+
+<span class="pc bpc" id="L51" title="3 of 4 branches missed.">      switch (action) {</span>
+<span class="fc" id="L52">        case &quot;aggiungiValutazione&quot; -&gt; aggiungiValutazione(request, response);</span>
+<span class="nc" id="L53">        case &quot;modificaValutazione&quot; -&gt; modificaValutazione(request, response);</span>
+<span class="nc" id="L54">        case &quot;rimuoviValutazione&quot; -&gt; rimuoviValutazione(request, response);</span>
+<span class="pc" id="L55">        default -&gt; response</span>
+<span class="nc" id="L56">            .sendError(HttpServletResponse.SC_BAD_REQUEST, &quot;Errore nei parametri della richiesta!&quot;);</span>
+      }
+
+    } else {
+<span class="fc" id="L60">      response</span>
+<span class="fc" id="L61">          .sendError(HttpServletResponse.SC_BAD_REQUEST, &quot;Errore nei parametri della richiesta!&quot;);</span>
+<span class="fc" id="L62">      throw new IllegalArgumentException();</span>
+    }
+
+<span class="fc" id="L65">  }</span>
+
+  private void aggiungiValutazione(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+
+<span class="fc" id="L70">    int valutazione = Integer.parseInt(request.getParameter(&quot;valutazione&quot;));</span>
+
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">    if (testValutazione(valutazione)) {</span>
+
+      try {
+<span class="fc" id="L75">        valutazioneDao.doSave(</span>
+<span class="fc" id="L76">            new ValutazioneBean(email, piatto, valutazione, new Date(System.currentTimeMillis())));</span>
+<span class="fc" id="L77">        response.sendRedirect(response.encodeURL(request.getContextPath() + &quot;/index.jsp&quot;));</span>
+<span class="nc" id="L78">      } catch (SQLException throwables) {</span>
+<span class="nc" id="L79">        throwables.printStackTrace();</span>
+<span class="pc" id="L80">      }</span>
+
+    } else {
+<span class="nc" id="L83">      response</span>
+<span class="nc" id="L84">          .sendError(HttpServletResponse.SC_BAD_REQUEST, &quot;Errore nei parametri della richiesta!&quot;);</span>
+<span class="nc" id="L85">      throw new IllegalArgumentException();</span>
+    }
+
+<span class="fc" id="L88">  }</span>
+
+  private void modificaValutazione(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+
+<span class="nc" id="L93">    int valutazione = Integer.parseInt(request.getParameter(&quot;valutazione&quot;));</span>
+
+<span class="nc bnc" id="L95" title="All 2 branches missed.">    if (testValutazione(valutazione)) {</span>
+
+      try {
+<span class="nc" id="L98">        valutazioneDao.doUpdate(</span>
+<span class="nc" id="L99">            new ValutazioneBean(email, piatto, valutazione, new Date(System.currentTimeMillis())));</span>
+<span class="nc" id="L100">        response.sendRedirect(response.encodeURL(request.getContextPath() + &quot;/index.jsp&quot;));</span>
+<span class="nc" id="L101">      } catch (SQLException throwables) {</span>
+<span class="nc" id="L102">        throwables.printStackTrace();</span>
+<span class="nc" id="L103">      }</span>
+
+    } else {
+<span class="nc" id="L106">      response</span>
+<span class="nc" id="L107">          .sendError(HttpServletResponse.SC_BAD_REQUEST, &quot;Errore nei parametri della richiesta!&quot;);</span>
+<span class="nc" id="L108">      throw new IllegalArgumentException();</span>
+    }
+
+<span class="nc" id="L111">  }</span>
+
+  private void rimuoviValutazione(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+
+    try {
+<span class="nc" id="L117">      valutazioneDao.doDelete(new ValutazioneBean(email, piatto, 0, null));</span>
+<span class="nc" id="L118">      response.sendRedirect(response.encodeURL(request.getContextPath() + &quot;/index.jsp&quot;));</span>
+<span class="nc" id="L119">    } catch (SQLException throwables) {</span>
+<span class="nc" id="L120">      throwables.printStackTrace();</span>
+<span class="nc" id="L121">    }</span>
+<span class="nc" id="L122">  }</span>
+
+  private boolean testFormatoPiatto(String piatto) {
+<span class="fc" id="L125">    return piatto.matches(&quot;^([A-Z])+$&quot;);</span>
+  }
+
+  private boolean testValutazione(int valutazione) {
+<span class="pc bpc" id="L129" title="2 of 4 branches missed.">    return (valutazione &gt;= 1 &amp;&amp; valutazione &lt;= 5);</span>
+  }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
