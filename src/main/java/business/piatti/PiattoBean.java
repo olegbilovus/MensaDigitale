@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 public class PiattoBean implements Serializable {
 
+  private static final long serialVersionUID = 1447130805013128582L;
+
   private String nome;
   private String ingredienti;
   private String portata; // 'primo', 'secondo', 'contorno'

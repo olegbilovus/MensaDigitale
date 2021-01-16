@@ -6,6 +6,8 @@ import java.util.List;
 
 public class MenuBean implements Serializable {
 
+  private static final long serialVersionUID = 3276353706196636611L;
+
   private final List<PiattoBean> primi;
   private final List<PiattoBean> secondi;
   private final List<PiattoBean> contorni;
