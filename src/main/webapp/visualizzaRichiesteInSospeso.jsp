@@ -47,6 +47,7 @@
                     <p style="font-family: Montserrat, sans-serif;">Seleziona la Richiesta da Visionare</p>
                     <%
 							RichiesteInSospeso ris = RichiesteInSospeso.getInstance();
+                    		ris.load();
 							if (ris.getListaRichieste().isEmpty()) {
 							%>
 							<div class="border rounded-0 border-dark"><button class="btn btn-primary" type="submit" style="border: none; box-shadow:none; margin-top: 5px;margin-bottom: 5px;margin-left: 15px;width: auto;height: auto;background-color: rgba(0,123,255,0);color: rgb(33,37,41);font-family: Montserrat, sans-serif;font-size: 25px;padding: 0px;">&#x1F4E7; Nessuna Richiesta in Sospeso</button></div>
@@ -56,8 +57,8 @@
 								<%
 								for (RichiestaBean r : ris.getListaRichieste()) {
 								%>
-										<form method="post" action="<%=response.encodeURL("/ValutaRichiesta")%>">
-											<div class="border rounded-0 border-dark"><button id="id" value="<%=r.getId() %>" class="btn btn-primary" type="submit" style="border: none; box-shadow:none; margin-top: 5px;margin-bottom: 5px;margin-left: 15px;width: auto;height: auto;background-color: rgba(0,123,255,0);color: rgb(33,37,41);font-family: Montserrat, sans-serif;font-size: 25px;padding: 0px;">&#x1F4E7; <%=r.getEmail() %></button></div>
+										<form method="post" action="<%=response.encodeURL("./ValutaRichiesta")%>">
+											<div class="border rounded-0 border-dark"><button id="id" name="id" value="<%=r.getId() %>" class="btn btn-primary" type="submit" style="border: none; box-shadow:none; margin-top: 5px;margin-bottom: 5px;margin-left: 15px;width: auto;height: auto;background-color: rgba(0,123,255,0);color: rgb(33,37,41);font-family: Montserrat, sans-serif;font-size: 25px;padding: 0px;">&#x1F4E7; <%=r.getEmail() %></button></div>
 										</form>
 								<%
 								}

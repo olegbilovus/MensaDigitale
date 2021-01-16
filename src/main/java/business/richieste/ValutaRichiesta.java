@@ -50,7 +50,7 @@ public class ValutaRichiesta extends HttpServlet {
 
       RequestDispatcher rd =
           request.getRequestDispatcher(
-              response.encodeURL(request.getContextPath() + "/visualizzaRichiesta.jsp"));
+              response.encodeURL("/visualizzaRichiesta.jsp"));
       rd.forward(request, response);
     } catch (SQLException e) {
       e.printStackTrace();

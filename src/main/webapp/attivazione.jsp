@@ -41,6 +41,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col_main" style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;">
+                <form  method="post"
+		action="<%=response.encodeURL("./SubmitRichiestaServlet")%>">
                     <div><label style="padding-left: 10px;padding-right: 10px;font-family: Montserrat, sans-serif;">Nome</label><input type="text" style="font-family: Montserrat, sans-serif;"></div>
                     <div><label style="padding-left: 10px;padding-right: 10px;font-family: Montserrat, sans-serif;">Cognome</label><input type="text" style="font-family: Montserrat, sans-serif;"></div>
                     <div><label style="padding-left: 10px;padding-right: 10px;font-family: Montserrat, sans-serif;">Data di Nascita</label><input type="text" style="font-family: Montserrat, sans-serif;"></div>
@@ -100,7 +102,8 @@
                     <div
                         class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-3"><label class="form-check-label" for="formCheck-3">Acconsento</label></div>
             </div>
-            <div class="col text-center"><button class="btn btn-success text-center" type="button">Invia Domanda</button></div>
+            <div class="col text-center"><input type="submit" class="btn btn-success text-center">Invia Domanda</button></div>
+            </form>
         </div>
     </div>
     </div>

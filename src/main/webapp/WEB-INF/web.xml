@@ -68,21 +68,23 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>AdministratorFilter</filter-name>
+		<url-pattern>/tracciamentContatti.jsp</url-pattern>
 		<url-pattern>/TracciamentoContattiServlet</url-pattern>
 		<url-pattern>/FasciaOrariaServlet</url-pattern>
-		<url-pattern>/tracciamentoContatti.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>StudenteFilter</filter-name>
-		<url-pattern>/submitRichiesta.jsp</url-pattern>
-		<url-pattern>/SubmitRichiestaServlet</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>AddettoFilter</filter-name>
+		<url-pattern>/visualizzaRichiesteInSospeso.jsp</url-pattern>
 		<url-pattern>/visualizzaRichiesta.jsp</url-pattern>
 		<url-pattern>/visualizzaRichiesteInSospeso.jsp</url-pattern>
 		<url-pattern>/ValutaRichiesta</url-pattern>
-		<url-pattern>/ValutaRichiesteServlet</url-pattern>
+		<url-pattern>/ValutaRichiestaServlet</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>StudenteFilter</filter-name>
+		<url-pattern>/attivazione.jsp</url-pattern>
+		<url-pattern>/submitRichiesta.jsp</url-pattern>
+		<url-pattern>/SubmitRichiestaServlet</url-pattern>
 	</filter-mapping>
 	<servlet>
 		<servlet-name>MenuServlet</servlet-name>
