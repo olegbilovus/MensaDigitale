@@ -4,6 +4,7 @@ import business.utente.Utente;
 
 public class AdministratorBean extends Utente {
 
+  private static final long serialVersionUID = 1L;
   private String email;
   private String nome;
   private String cognome;
