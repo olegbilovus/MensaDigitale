@@ -17,9 +17,7 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
-CustomKeywords.'com.mensadigitale.MensaDigitale.login'()
-
-WebUI.navigateToUrl('http://localhost:8080/mensadigitale/attivazione.jsp')
+CustomKeywords.'com.mensadigitale.MensaDigitale.navigateWithCookie'('http://localhost:8080/mensadigitale/attivazione.jsp')
 
 WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Nome_nome'), 'Mario')
 
@@ -29,6 +27,8 @@ WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/i
 
 WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Comunedi Nascita_comuneDiNascita'), 
     'Napoli')
+
+WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Indirizzo_indirizzo'), 'Via roma 123')
 
 WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Provinciadi Nascita_provinciaDiNascita'), 
     'NA')
@@ -47,11 +47,7 @@ WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/P
 WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/Page_MD_Login/input_Cellulare_cellulare'), 
     '393338597471')
 
-WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Indirizzo_indirizzo'), 'Via roma 123')
-
-WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_IndirizzoEmail_email'), 'm.rossi999@studenti.unisa.it')
-
-WebUI.setText(findTestObject('Page_Attivazione/Page_MD_Login/input_ConfermaIndirizzo Email_confermaEmail'), 'm.rossi999@studenti.unisa.it')
+WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_IndirizzoEmail_email'), 'ab')
 
 WebUI.click(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Presentazionedati relativi alla condi_fa2033'))
 
@@ -59,7 +55,7 @@ WebUI.click(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/inp
 
 WebUI.click(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Acconsento_btn btn-success text-center'))
 
-WebUI.verifyAlertPresent(2)
+WebUI.verifyAlertNotPresent(2)
 
 WebUI.closeBrowser()
 
