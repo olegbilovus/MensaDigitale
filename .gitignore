@@ -169,5 +169,14 @@ $RECYCLE.BIN/
 *.iml
 out
 
+#Katalon
+.gradle
+Reports/
+Libs/
+output/
+build/
+Profiles/
+katalon/.gitignore
+
 # End of https://www.gitignore.io/api/git,java,maven,eclipse,windows
 src/main/webapp/WEB-INF/web.xml
