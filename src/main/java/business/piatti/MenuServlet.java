@@ -23,6 +23,7 @@ public class MenuServlet extends HttpServlet {
 
   public MenuServlet() {
     myFile = new File("menuSerializzato.txt");
+//    myFile = new File("/MensaDigitale/menuSerializzato.txt");
     try {
       myFile.createNewFile();
     } catch (IOException e) {
@@ -79,7 +80,7 @@ public class MenuServlet extends HttpServlet {
             request.setAttribute("menu", menu);
             inputStream.close();
             String destination = request.getParameter("destination");
-            request.getRequestDispatcher(request.getContextPath() + destination).forward(request, response);
+            request.getRequestDispatcher(response.encodeURL(destination)).forward(request, response);
             return;
           } catch (ClassNotFoundException e) {
             e.printStackTrace();

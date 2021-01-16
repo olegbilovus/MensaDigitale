@@ -143,7 +143,7 @@ public class ValutazioneServlet extends HttpServlet {
       ArrayList<ValutazioneBean> valutazioniByEmail = (ArrayList<ValutazioneBean>) valutazioneDao.doRetrieveByEmail(email);
 //      response.sendRedirect(response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
       request.setAttribute("valutazioniByEmail", valutazioniByEmail);
-      request.getRequestDispatcher(request.getContextPath() + "/inserisciValutazione.jsp").forward(request, response);
+      request.getRequestDispatcher(response.encodeURL("/inserisciValutazione.jsp")).forward(request, response);
     } catch (SQLException | ServletException throwables) {
       throwables.printStackTrace();
     }

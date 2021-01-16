@@ -12,6 +12,7 @@
         response.sendRedirect(request.getContextPath() + "/index.jsp");
         return;
     }
+    
     ArrayList<ValutazioneBean> valutazioniByEmail = (ArrayList<ValutazioneBean>) request.getAttribute("valutazioniByEmail");
     if (valutazioniByEmail == null) {
         request.getRequestDispatcher("valutazione?action=ottieniValutazioni&email=" + utente.getEmail()).forward(request, response);
