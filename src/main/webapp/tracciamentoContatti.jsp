@@ -18,7 +18,37 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     
     <script src="assets/js/jquery.min.js"></script>
-	<script>
+	
+</head>
+
+<body style="background-image: url(&quot;assets/img/food.jpg&quot;);height: auto;width: auto;max-height: none;">
+    <jsp:include page="navbar.jsp" />
+    <div style="margin-top: 150px;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6" style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;max-width: 95%;width: 357px;">
+                    <div>
+                        <h1 class="text-center" style="font-family: Montserrat, sans-serif;">Inserisci codice fiscale</h1>
+                        <div class="text-center"><input type="text" maxlength="16" name="cf" id="cf" placeholder="Codice Fiscale" style="margin-right: 20px;"><button class="btn btn-warning" onclick="sendCF()">Cerca</button></div>
+                    </div>
+                           <div>
+                    			<div id="date"></div>
+								<div id="divPrenotazioni"></div>
+							</div>
+                	</div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 440px;"></div>
+    <div class="text-center footer-basic" style="margin: 0px;background-color: rgb(20,20,20);">
+        <figure class="figure"><img class="img-fluid figure-img" src="assets/img/adisurclogo.png">
+            <figcaption class="figure-caption">Agenzia per il Diritto allo Studio della Regione Campania Â© 2021<br></figcaption>
+        </figure>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
+    <script>
 		var array = {}
 		function sendCF() {
 			var inputText = document.getElementById("cf").value;
@@ -82,7 +112,7 @@
 										tr.appendChild(th);
 										tableDate.appendChild(tr);
 									}
-									//Controlla se è vuoto
+									//Controlla se Ã¨ vuoto
 									array[data].push(actual);
 									let k = Object.keys(actual);
 									if (Object.keys(array)[0] == data) {
@@ -173,35 +203,6 @@
 		}
 	
 	</script>
-</head>
-
-<body style="background-image: url(&quot;assets/img/food.jpg&quot;);height: auto;width: auto;max-height: none;">
-    <jsp:include page="navbar.jsp" />
-    <div style="margin-top: 150px;">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-6" style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;max-width: 95%;width: 357px;">
-                    <div>
-                        <h1 class="text-center" style="font-family: Montserrat, sans-serif;">Inserisci codice fiscale</h1>
-                        <div class="text-center"><input type="text" maxlength="16" name="cf" id="cf" placeholder="Codice Fiscale" style="margin-right: 20px;"><button class="btn btn-warning" onclick="sendCF()">Cerca</button></div>
-                    </div>
-                           <div>
-                    			<div id="date"></div>
-								<div id="divPrenotazioni"></div>
-							</div>
-                	</div>
-            </div>
-        </div>
-    </div>
-    <div style="height: 440px;"></div>
-    <div class="text-center footer-basic" style="margin: 0px;background-color: rgb(20,20,20);">
-        <figure class="figure"><img class="img-fluid figure-img" src="assets/img/adisurclogo.png">
-            <figcaption class="figure-caption">Agenzia per il Diritto allo Studio della Regione Campania © 2021<br></figcaption>
-        </figure>
-    </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
 </body>
 
 </html>

@@ -86,16 +86,18 @@
             <div class="row justify-content-center" style="margin-top: -15px;">
                 <div class="col text-center">
                     <div class="text-center" style="margin-top: 20px;">
-	                    <form action="<%=response.encodeURL("/ValutaRichiestaServlet")%>" method="post">
+	                    <form action="<%=response.encodeURL("./ValutaRichiestaServlet")%>" method="post">
 	                    	<input type="hidden" name="esito" value="1">
+	                    	<input type="hidden" name="idRichiesta" value="<%=r.getId()%>">
                     		<button class="btn btn-success text-center" type="submit" value="Approva" style="margin-right: 15px;">Accetta Domanda</button>
                     	</form>
                 	</div>
                 </div>
                 <div class="col text-center">
                     <div class="text-center" style="margin-top: 20px;">
-                    	<form action="<%=response.encodeURL("/ValutaRichiestaServlet")%>" method="post">
+                    	<form action="<%=response.encodeURL("./ValutaRichiestaServlet")%>" method="post">
                     		<input type="hidden" name="esito" value="2">
+                    		<input type="hidden" name="idRichiesta" value="<%=r.getId()%>">
                     		<button class="btn btn-danger text-center" type="submit" value="Rifiuta" style="margin-left: 15px;">Rifiuta Domanda</button>
                 		</form>
                 	</div>
