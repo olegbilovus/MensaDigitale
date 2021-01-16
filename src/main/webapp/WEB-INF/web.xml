@@ -46,6 +46,20 @@
 		<filter-class>business.addetto.AddettoFilter</filter-class>
 	</filter>
 	<filter-mapping>
+		<filter-name>AddettoFilter</filter-name>
+		<url-pattern>/visualizzaRichiesta.jsp</url-pattern>
+		<url-pattern>/visualizzaRichiesteInSospeso.jsp</url-pattern>
+		<url-pattern>/ValutaRichiesta</url-pattern>
+		<url-pattern>/ValutaRichiesteServlet</url-pattern>
+	</filter-mapping>
+
+<filter-mapping>
+		<filter-name>AdministratorFilter</filter-name>
+		<url-pattern>/TracciamentoContattiServlet</url-pattern>
+		<url-pattern>/FasciaOrariaServlet</url-pattern>
+		<url-pattern>/tracciamentoContatti.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
 		<filter-name>FilterResetSale</filter-name>
 		<url-pattern>/prenotazione.jsp</url-pattern>
 	</filter-mapping>
