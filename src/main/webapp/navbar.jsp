@@ -1,5 +1,7 @@
 <%@ page import="business.utente.Utente" %>
+<%@ page import="business.consumatore.ConsumatoreBean" %>
 <%@ page import="business.addetto.AddettoBean" %>
+<%@ page import="business.admin.AdministratorBean" %>
 <%
     Utente consumatore = (Utente) request.getSession().getAttribute("utente");
 %>
@@ -18,21 +20,24 @@
 		                    			<input name="action" value="logOut" style="visibility:hidden;">
 		                    					<li class="nav-item" role="presentation"><a onclick="document.getElementById('logout').submit()" class="nav-link active">Logout</a></li>
 		                			</form>
-		                			<li class="nav-item" role="presentation"><a class="nav-link active" href="./userarea.jsp">Area Utente</a></li>
-		                			<li class="nav-item" role="presentation"><a class="nav-link active" href="./visualizzaMenu.jsp">Consulta Menù</a></li>
-				                	<% if(consumatore.getClass()==AddettoBean.class){%>
+		                			<% if(consumatore.getClass()==AdministratorBean.class)
+		                				{ %>
+				                       		<li class="nav-item" role="presentation"><a class="nav-link active" href="./tracciamentoContatti.jsp">Tracciamento</a></li>	
+										<%}
+				                		else if(consumatore.getClass()==AddettoBean.class){%>
+				                				<li class="nav-item" role="presentation"><a class="nav-link active" href="./userarea.jsp">Area Utente</a></li>
+		                						<li class="nav-item" role="presentation"><a class="nav-link active" href="./visualizzaMenu.jsp">Consulta Menù</a></li>
 				                				<li class="nav-item" role="presentation"><a class="nav-link active" href="./compilaMenu.jsp">Inserisci Menù</a></li>
 				                				<li class="nav-item" role="presentation"><a class="nav-link active" href="./inserisciFasciaOraria.jsp">Fasce Orarie</a></li>
 				                				<li class="nav-item" role="presentation"><a class="nav-link active" href="./visualizzaRichiesteInSospeso.jsp">Richieste</a></li>
-				                				<li class="nav-item" role="presentation"><a class="nav-link active" href="./tracciamentoContatti.jsp">Tracciamento</a></li>
-				              		 <%} 
-				                	else {%>
+				              			 <%} 
+				                		else if(consumatore.getClass()==ConsumatoreBean.class){%>
+				                				<li class="nav-item" role="presentation"><a class="nav-link active" href="./userarea.jsp">Area Utente</a></li>
+		                						<li class="nav-item" role="presentation"><a class="nav-link active" href="./visualizzaMenu.jsp">Consulta Menù</a></li>
 				                				<li class="nav-item" role="presentation"><a class="nav-link active" href="./inserisciValutazione.jsp">Valuta Servizio</a></li>
                     							<li class="nav-item" role="presentation"><a class="nav-link active" href="./prenotazione.jsp">Prenotazione</a></li>
-                    							<li class="nav-item" role="presentation"><a class="nav-link active" href="./attivazione.jsp">Servizi Ristorazione</a></li>
-				                	<%}
-		                	
-		                }%>
+				                		<%}
+				                }%>
                 </ul>
                 <ul class="nav navbar-nav">
                     <li class="nav-item" role="presentation"></li>
