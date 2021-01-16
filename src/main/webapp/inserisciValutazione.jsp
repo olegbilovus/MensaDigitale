@@ -31,7 +31,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>MD_Login</title>
+    <title>Recensioni</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -42,28 +42,7 @@
 </head>
 
 <body style="height: auto;width: auto;background-image: url(&quot;assets/img/food.jpg&quot;);">
-<nav class="navbar navbar-light fixed-top text-dark" style="background-color: #FF9900;">
-    <div class="container-fluid"><img class="img-fluid" src="assets/img/Logo.png"
-                                      style="width: 255px;padding: 0px;margin: -29px;">
-        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
-                class="navbar-toggler-icon"></span></button>
-        <div
-                class="collapse navbar-collapse text-right float-right" id="navcol-1">
-            <ul class="nav navbar-nav mx-auto">
-                <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Login</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Consulta Menù</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Inserisci Menù</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Valuta Servizio</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Prenotazione</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Servizi Ristorazione</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav">
-                <li class="nav-item" role="presentation"></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<jsp:include page="navbar.jsp" />
 <div id="wrap" style="margin-top: 150px;">
     <div class="container">
         <div class="row">

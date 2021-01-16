@@ -176,24 +176,7 @@
 </head>
 
 <body style="background-image: url(&quot;assets/img/food.jpg&quot;);height: auto;width: auto;max-height: none;">
-    <nav class="navbar navbar-light fixed-top text-dark" style="background-color: #FF9900;">
-        <div class="container-fluid"><img class="img-fluid" src="assets/img/Logo.png" style="width: 255px;padding: 0px;margin: -29px;"><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
-            <div
-                class="collapse navbar-collapse text-right float-right" id="navcol-1">
-                <ul class="nav navbar-nav mx-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Login</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Consulta Menù</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Inserisci Menù</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Valuta Servizio</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Prenotazione</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#">Servizi Ristorazione</a></li>
-                </ul>
-                <ul class="nav navbar-nav">
-                    <li class="nav-item" role="presentation"></li>
-                </ul>
-        </div>
-        </div>
-    </nav>
+    <jsp:include page="navbar.jsp" />
     <div style="margin-top: 150px;">
         <div class="container">
             <div class="row justify-content-center">
