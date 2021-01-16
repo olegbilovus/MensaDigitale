@@ -52,7 +52,7 @@ public class MenuServletTest {
   @Test
   void testModificaMenu() throws SQLException {
     /*--Variabili utili--*/
-    String nome1 = "Testing";
+    String nome1 = "Testing1";
     String nome2 = "Testing2";
     String nome3 = "Testing3";
     String portata1 = "primo";

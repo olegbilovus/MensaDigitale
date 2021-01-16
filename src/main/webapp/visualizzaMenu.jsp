@@ -33,6 +33,7 @@
 
 <body style="background-image: url(&quot;assets/img/food.jpg&quot;);height: auto;width: auto;max-height: none;">
    <jsp:include page="navbar.jsp" />
+   <form id="elimina" action="<%=response.encodeURL("./menu?action=cancellaMenu")%>" method="post"></form>
     <div style="margin-top: 200px;">
         <div class="container">
             <div class="row" style="background-color: rgba(255,255,255,0.92);">
@@ -77,19 +78,15 @@
 		                    	 {
 							%>
 		                    		<div class="text-center">
-				                    	<button class="btn btn-warning" type="button" style="margin-right: 20px;">Modifica Menù</button>
-				                    	<button class="btn btn-danger" type="button" style="margin-left: 20px;">Elimina Menù</button>
+				                    	<a href="./modificaMenu.jsp"><button class="btn btn-warning" type="button" style="margin-right: 20px;">Modifica Menù</button></a>
+				                    	<a onclick="document.getElementById('elimina').submit()"><button class="btn btn-danger" type="button" style="margin-left: 20px;">Elimina Menù</button></a>              						
 				                    </div>
-		                    <%} }%>
+				            <%} }%>
                     </div>
             </div>
         </div>
     </div>
-    <div class="text-center footer-basic" style="margin: 0px;background-color: rgb(20,20,20);margin-top: 100px;">
-        <figure class="figure"><img class="img-fluid figure-img" src="assets/img/adisurclogo.png">
-            <figcaption class="figure-caption">Agenzia per il Diritto allo Studio della Regione Campania © 2021<br></figcaption>
-        </figure>
-    </div>
+    <jsp:include page="footer.jsp" />
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
