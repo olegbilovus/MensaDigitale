@@ -35,7 +35,7 @@ public class SubmitRichiestaServlet extends HttpServlet {
       "RI",
       "RN", "RM", "RO", "SA", "SS", "SV", "SI", "SR", "SO", "SU", "TA", "TE", "TR", "TO", "TP",
       "TN",
-      "TV", "TS", "UD", "VA", "VE", "VB", "VC", "VR", "VV", "VI", "VT"
+      "TV", "TS", "UD", "VA", "VE", "VB", "VC", "VR", "VV", "VI", "VT", "EE"
   };
 
   public SubmitRichiestaServlet() {

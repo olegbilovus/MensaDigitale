@@ -1,5 +1,6 @@
 package business.richieste;
 
+import business.consumatore.ConsumatoreBean;
 import business.utente.Utente;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -7,12 +8,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import storage.manager.ConsumatoreDao;
 import storage.manager.RichiestaDao;
 
 public class ValutaRichiestaServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
   private final RichiestaDao richiestaDao = new RichiestaDao();
+  private final ConsumatoreDao consumatoreDao = new ConsumatoreDao();
 
   public ValutaRichiestaServlet() {
     super();
@@ -35,9 +38,13 @@ public class ValutaRichiestaServlet extends HttpServlet {
 
     try {
       RichiestaBean richiesta = richiestaDao.doRetrieveByKey(id);
+      ConsumatoreBean consumatore =
+          (ConsumatoreBean) consumatoreDao.doRetrieveByKey(richiesta.getEmail());
+      consumatore.setStatoServizi(esito % 2);
       richiesta.setEsito(esito);
       richiesta.setValutatore(((Utente) request.getSession().getAttribute("utente")).getEmail());
       richiestaDao.doUpdate(richiesta);
+      consumatoreDao.doUpdate(consumatore);
     } catch (SQLException e) {
       e.printStackTrace();
     }
