@@ -14,12 +14,11 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
-import org.openqa.selenium.Keys as Keys
 
 CustomKeywords.'com.mensadigitale.MensaDigitale.navigateWithCookie'('http://localhost:8080/mensadigitale/inserisciValutazione.jsp')
 
 WebUI.verifyOptionNotPresentByValue(findTestObject('Page_Recensioni/select_TESTING                             _0e66db'), 
-    'tartarre di tonno', false, 2)
+    'patatine', false, 0)
 
 WebUI.closeBrowser()
 

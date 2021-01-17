@@ -15,14 +15,14 @@
     
     ArrayList<ValutazioneBean> valutazioniByEmail = (ArrayList<ValutazioneBean>) request.getAttribute("valutazioniByEmail");
     if (valutazioniByEmail == null) {
-        request.getRequestDispatcher("valutazione?action=ottieniValutazioni&email=" + utente.getEmail()).forward(request, response);
+        request.getRequestDispatcher(response.encodeURL("valutazione?action=ottieniValutazioni&email=" + utente.getEmail())).forward(request, response);
         return;
     }
 
     MenuBean menu = (MenuBean) request.getAttribute("menu");
     if (menu == null) {
         String destination = "/inserisciValutazione.jsp";
-        request.getRequestDispatcher("menu?action=getMenu&destination=" + destination).forward(request, response);
+        request.getRequestDispatcher(response.encodeURL("menu?action=getMenu&destination=" + destination)).forward(request, response);
         return;
     }
     

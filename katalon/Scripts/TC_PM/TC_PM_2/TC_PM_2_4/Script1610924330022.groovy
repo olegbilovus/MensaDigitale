@@ -18,8 +18,14 @@ import org.openqa.selenium.Keys as Keys
 
 CustomKeywords.'com.mensadigitale.MensaDigitale.navigateWithCookie'('http://localhost:8080/mensadigitale/inserisciValutazione.jsp')
 
-WebUI.verifyOptionNotPresentByValue(findTestObject('Page_Recensioni/select_TESTING                             _0e66db'), 
-    'tartarre di tonno', false, 2)
+WebUI.selectOptionByValue(findTestObject('Page_Recensioni/select_TESTING                             _0e66db'), 'TESTING', 
+    false)
+
+WebUI.click(findTestObject('Page_Recensioni/input_Valutazione_valutazione'))
+
+WebUI.click(findTestObject('Page_Recensioni/button_Invia                        Valutazione'))
+
+WebUI.verifyElementPresent(findTestObject('Object Repository/Page_Login/span_Toggle navigation_navbar-toggler-icon'), 4)
 
 WebUI.closeBrowser()
 

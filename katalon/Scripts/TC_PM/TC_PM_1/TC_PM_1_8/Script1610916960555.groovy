@@ -41,3 +41,5 @@ WebUI.click(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Comp
 
 WebUI.verifyAlertPresent(2)
 
+WebUI.closeBrowser()
+
