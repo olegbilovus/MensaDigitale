@@ -23,7 +23,6 @@ public class MenuServlet extends HttpServlet {
 
   public MenuServlet() {
     myFile = new File("menuSerializzato.txt");
-//    myFile = new File("/MensaDigitale/menuSerializzato.txt");
     try {
       myFile.createNewFile();
     } catch (IOException e) {
@@ -46,6 +45,7 @@ public class MenuServlet extends HttpServlet {
           outputStream.writeObject(menu);
           request.setAttribute("menu", menu);
           outputStream.close();
+          response.sendRedirect(request.getContextPath() + "/index.jsp");
           break;
         case "modificaMenu":
           apriStreamsInput();
@@ -65,6 +65,7 @@ public class MenuServlet extends HttpServlet {
           outputStream.writeObject(menu);
           request.setAttribute("menu", menu);
           outputStream.close();
+          response.sendRedirect(request.getContextPath() + "/index.jsp");
           break;
         case "cancellaMenu":
           apriStreamsOutput();

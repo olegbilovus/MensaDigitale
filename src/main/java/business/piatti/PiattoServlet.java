@@ -45,6 +45,7 @@ public class PiattoServlet extends HttpServlet {
           } catch (SQLException e) {
             e.printStackTrace();
           }
+          response.sendRedirect(request.getContextPath() + "/index.jsp");
           break;
         }
         case "modificaPiatto": {
@@ -54,6 +55,7 @@ public class PiattoServlet extends HttpServlet {
           } catch (SQLException e) {
             e.printStackTrace();
           }
+          response.sendRedirect(request.getContextPath() + "/index.jsp");
           break;
         }
         case "rimuoviPiatto": {
@@ -63,6 +65,7 @@ public class PiattoServlet extends HttpServlet {
           } catch (SQLException e) {
             e.printStackTrace();
           }
+          response.sendRedirect(request.getContextPath() + "/index.jsp");
           break;
         }
         case "getPiatto": {
@@ -70,6 +73,7 @@ public class PiattoServlet extends HttpServlet {
           try {
             PiattoBean newPiatto = dao.doRetrieveByKey(nomePiatto);
             request.setAttribute("piatto", newPiatto);
+            request.getRequestDispatcher(destination).forward(request, response);
           } catch (SQLException e) {
             e.printStackTrace();
           }

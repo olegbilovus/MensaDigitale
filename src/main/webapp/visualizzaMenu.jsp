@@ -91,7 +91,7 @@
 											                    			<%
 														                            for (PiattoBean p : menu.getPrimi()){
 														                        %>
-														                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1" style="font-size: 17px;font-family: Montserrat, sans-serif;">Label</label></div>
+														                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1" style="font-size: 17px;font-family: Montserrat, sans-serif;"><%=p.getNome()%></label></div>
 														                        <%
 														                            }
 														                     %>
