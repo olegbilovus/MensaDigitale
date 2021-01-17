@@ -5,6 +5,7 @@
 <%@ page import="business.piatti.MenuBean" %>
 <%@ page import="business.piatti.PiattoBean" %>
 <%@ page import="business.consumatore.ConsumatoreBean" %>
+<%@ page import="java.util.Collection" %>
 <%
     MenuBean menu = (MenuBean) request.getAttribute("menu");
     if (menu == null) {
@@ -12,6 +13,7 @@
         request.getRequestDispatcher("menu?action=getMenu&destination=" + destination).forward(request, response);
         return;
     }
+ 
 %>
 <!DOCTYPE html>
 <html style="height: auto;width: auto;">
@@ -78,7 +80,27 @@
 		                    	 {
 							%>
 		                    		<div class="text-center">
-				                    	<a href="./modificaMenu.jsp"><button class="btn btn-warning" type="button" style="margin-right: 20px;">Modifica Menù</button></a>
+				                    	<button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modificaMenu" style="margin-right: 20px;">Modifica Menù</button>
+												<div class="modal fade" id="modificaMenu" role="dialog" tabindex="-1">
+											        <div class="modal-dialog" role="document">
+											            <div class="modal-content">
+											                <div class="modal-header">
+											                    <h4 class="modal-title">Modifica Menù</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+											                <div class="modal-body">
+											                    <div class="text-left">
+											                    			<%
+														                            for (PiattoBean p : menu.getPrimi()){
+														                        %>
+														                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1" style="font-size: 17px;font-family: Montserrat, sans-serif;">Label</label></div>
+														                        <%
+														                            }
+														                     %>
+											                    </div>
+											                </div>
+											                <div class="modal-footer"><button class="btn btn-warning" type="button" data-dismiss="modal">Annulla</button><button class="btn btn-success" type="button">Salva</button></div>
+											            </div>
+											        </div>
+											    </div>
 				                    	<a onclick="document.getElementById('elimina').submit()"><button class="btn btn-danger" type="button" style="margin-left: 20px;">Elimina Menù</button></a>              						
 				                    </div>
 				            <%} }%>
