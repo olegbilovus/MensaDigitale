@@ -25,6 +25,8 @@
         request.getRequestDispatcher("menu?action=getMenu&destination=" + destination).forward(request, response);
         return;
     }
+    
+    String[] valutazioni = new String[]{"★","★★","★★★","★★★★","★★★★★"};
 %>
 <!DOCTYPE html>
 <html style="height: 100%;width: 100%;">
@@ -129,10 +131,38 @@
                         %>
                         <tr>
                             <td><%=bean.getPiatto()%></td>
-                            <td><%=bean.getRecensione()%></td>
+                            <td><%=valutazioni[bean.getRecensione()-1]%></td>
                             <td class="data-tabella"><%=bean.getDataValutazione()%></td>
-                            <td><a href="<%=response.encodeURL("valutazione?action=rimuoviValutazione&piatto=" + bean.getPiatto() + "&email=" + bean.getEmail())%>"><button class="btn btn-primary" type="button" style="background-color: #d2453c;width: 30px;height: 30px;font-family: Montserrat, sans-serif;font-size: 15px;padding: 0px;">🗑</button></a></td>
-                            <td><a><button class="btn btn-primary text-center" type="button" style="background-color: #e87f33;width: 30px;height: 30px;font-family: Montserrat, sans-serif;font-size: 17px;padding: 0px;">🔧</button></a></td>
+                            <td>
+                            	<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#removeModal" style="background-color: #d2453c;width: 30px;height: 30px;font-family: Montserrat, sans-serif;font-size: 15px;padding: 0px;">🗑</button>
+								<div class="modal fade" id="removeModal" role="dialog" tabindex="-1">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Conferma Eliminazione</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                                    <div
+                                                        class="modal-footer">
+                                                        	<button class="btn btn-warning" type="button" data-dismiss="modal">Annulla</button>
+                                                        	<a href="<%=response.encodeURL("valutazione?action=rimuoviValutazione&piatto=" + bean.getPiatto() + "&email=" + bean.getEmail())%>"><button class="btn btn-danger" type="button">Elimina</button></a></div>
+                                            	</div>
+                                			 </div>
+                                </div>	
+                          	</td>
+                            <td>
+                            	<a><button class="btn btn-primary text-center" type="button" data-toggle="modal" data-target="#editModal" style="background-color: #e87f33;width: 30px;height: 30px;font-family: Montserrat, sans-serif;font-size: 17px;padding: 0px;">🔧</button></a>
+                            	<div class="modal fade" id="editModal" role="dialog" tabindex="-1">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Modifica Valutazione</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                                                    <div class="modal-body">
+                                                        <p><%=bean.getPiatto()%>:</p><select><option value="1" selected="">★</option><option value="2">★★</option><option value="3">★★★</option><option value="4">★★★★</option><option value="5">★★★★★</option></select></div>
+                                                    <div
+                                                        class="modal-footer"><button class="btn btn-warning" type="button" data-dismiss="modal">Annulla</button><button class="btn btn-success" type="button">Salva</button></div>
+                                            	</div>
+                                			 </div>
+                                </div>	
+                            </td>
                         </tr>
                         <%
                             }
