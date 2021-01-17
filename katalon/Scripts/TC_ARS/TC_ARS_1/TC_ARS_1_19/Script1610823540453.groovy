@@ -17,6 +17,8 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
+CustomKeywords.'com.mensadigitale.MensaDigitale.login'()
+
 CustomKeywords.'com.mensadigitale.MensaDigitale.navigateWithCookie'('http://localhost:8080/mensadigitale/attivazione.jsp')
 
 WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Nome_nome'), 'Mario')
