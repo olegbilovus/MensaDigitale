@@ -18,3 +18,32 @@ import org.openqa.selenium.Keys as Keys
 
 CustomKeywords.'com.mensadigitale.MensaDigitale.navigateWithCookie'('http://localhost:8080/mensadigitale/inserisciValutazione.jsp')
 
+CustomKeywords.'com.mensadigitale.MensaDigitale.navigateWithCookie'('http://localhost:8080/mensadigitale/inserisciValutazione.jsp')
+
+WebUI.openBrowser('')
+
+WebUI.navigateToUrl('http://localhost:8080/mensadigitale/login.jsp;jsessionid=798F2A5B21A79B93D31697AD7248EA70')
+
+WebUI.click(findTestObject('Object Repository/Page_Mensa Digitale/button_Toggle navigation'))
+
+WebUI.click(findTestObject('Object Repository/Page_Mensa Digitale/a_Consulta Men'))
+
+WebUI.click(findTestObject('Object Repository/Page_Mensa Digitale/span_Toggle navigation_navbar-toggler-icon'))
+
+WebUI.click(findTestObject('Object Repository/Page_Mensa Digitale/a_Valuta Servizio'))
+
+WebUI.selectOptionByValue(findTestObject('Object Repository/Page_Recensioni/select_TESTING                             _0e66db'), 
+    'SEC TESTING', true)
+
+WebUI.click(findTestObject('Object Repository/Page_Recensioni/input_Valutazione_valutazione'))
+
+WebUI.click(findTestObject('Object Repository/Page_Recensioni/input_Valutazione_valutazione'))
+
+WebUI.click(findTestObject('Object Repository/Page_Recensioni/input_Valutazione_valutazione'))
+
+WebUI.click(findTestObject('Object Repository/Page_Recensioni/input_Valutazione_valutazione'))
+
+WebUI.click(findTestObject('Object Repository/Page_Recensioni/input_Valutazione_valutazione'))
+
+WebUI.click(findTestObject('Object Repository/Page_Recensioni/button_Invia                        Valutazione'))
+
