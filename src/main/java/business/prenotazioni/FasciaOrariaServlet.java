@@ -1,6 +1,7 @@
 package business.prenotazioni;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Collection;
 import javax.servlet.ServletException;
@@ -73,6 +74,12 @@ public class FasciaOrariaServlet extends HttpServlet {
           fasciaOrariaDao.doSave(nuovaFasciaOraria);
           numFasceOrarie++;
           getServletContext().setAttribute("numFasceOrarie", numFasceOrarie);
+          
+          PrintWriter out = response.getWriter();
+          out.println("<script type=\"text/javascript\">");
+          out.println("alert(\"La fascia oraria si trova ora nel database!\")");
+          out.println("window.location.href = \"inserisciFasciaOraria.jsp\"");
+          out.println("</script>");
         } else {
           /*
            * La fascia oraria che si vuole inserire e' gia' presente, devo mandare un messaggio
@@ -86,6 +93,12 @@ public class FasciaOrariaServlet extends HttpServlet {
           fasciaOrariaDao.doDelete(fasciaOrariaDeleted);
           numFasceOrarie--;
           request.getServletContext().setAttribute("numFasceOrarie", numFasceOrarie);
+          
+          PrintWriter out = response.getWriter();
+          out.println("<script type=\"text/javascript\">");
+          out.println("alert(\"La fascia oraria e' stata eliminata!\")");
+          out.println("window.location.href = \"inserisciFasciaOraria.jsp\"");
+          out.println("</script>");
         } else {
           /*
            * La fascia oraria che si vuole eliminare non e' presente, devo mandare un messaggio

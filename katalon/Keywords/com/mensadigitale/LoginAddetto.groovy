@@ -10,11 +10,11 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import internal.GlobalVariable
 
 
-public class MensaDigitale {
+public class LoginAddetto {
 
 	/**
-	 * Keyword per fare il login, bisogna settare le variabili globali <code>email</code>, <code>username</code> e <code>password</code>. 
-	 * La variabile <code>password</code> va criptata (Help -> Encrypt Text).
+	 * Keyword per fare il login come addetto, bisogna settare le variabili globali <code>emailAddetto</code>, <code>usernameAddetto</code> e <code>passwordAddetto</code>. 
+	 * La variabile <code>passwordAddetto</code> va criptata (Help -> Encrypt Text).
 	 * 
 	 * Aggiorna i driver del browser (Tools -> Update WebDrivers -> {YOUR_BROWSER}) se <code>switchToWindowIndex</code> lancia eccezioni.
 	 * @return 
@@ -33,7 +33,7 @@ public class MensaDigitale {
 
 		WebUI.click(findTestObject('Object Repository/Page_Accedi - Account Google/div_Avanti_VfPpkd-RLmnJb'))
 
-		WebUI.setText(findTestObject('Object Repository/Page_Web Login Service/input_SPID__username'), GlobalVariable.username)
+		WebUI.setText(findTestObject('Object Repository/Page_Web Login Service/input_SPID__username'), GlobalVariable.usernameAddetto)
 
 		WebUI.setEncryptedText(findTestObject('Object Repository/Page_Web Login Service/input_SPID_j_password'), GlobalVariable.passwordAddetto)
 
