@@ -20,7 +20,7 @@
 
 <body style="background-image: url(&quot;assets/img/food.jpg&quot;);height: auto;width: auto;max-height: none;">
     <jsp:include page="navbar.jsp" />
-    <form id="fascia" action="<%=response.encodeURL("./FasciaOrariaServlet")%>" ></form>
+    <form id="fascia" action="<%=response.encodeURL("./FasciaOrariaServlet")%>" >
     <div style="margin-top: 150px;">
         <div class="container">
             <div class="row justify-content-center">
@@ -30,13 +30,14 @@
                         <div class="text-center"><input type="text" name="fasciaOraria" placeholder="es. 13:00"></div>
                     </div>
                     <div class="text-center">
-                    	<a onclick="document.getElementById('fascia').submit()"><button class="btn btn-success" name=action value="inserisci" type="button" style="margin-right: 15px;">Inserisci</button></a>
-                    	<a onclick="document.getElementById('fascia').submit()"><button class="btn btn-danger" name=action value="elimina" type="button" style="margin-left: 15px;">Elimina</button></a>
+                    	<a onclick="document.getElementById('fascia').submit()"><input type="submit" class="btn btn-success" name="action" value="Inserisci" style="margin-right: 15px;"></a>
+                    	<a onclick="document.getElementById('fascia').submit()"><button class="btn btn-danger" name="action" value="elimina" type="button" style="margin-left: 15px;">Elimina</button></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    </form>
     <div style="height: 700px;"></div>
  	<jsp:include page="footer.jsp" />
     <script src="assets/js/jquery.min.js"></script>

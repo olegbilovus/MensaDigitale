@@ -66,7 +66,7 @@ public class FasciaOrariaServlet extends HttpServlet {
     try {
       fasceOrarieEsistenti = fasciaOrariaDao.doRetrieveAll();
       int numFasceOrarie = ((int) getServletContext().getAttribute("numFasceOrarie"));
-      if (action.equals("inserisci")) {
+      if (action.equalsIgnoreCase("inserisci")) {
         if (!presente(fasciaOraria, fasceOrarieEsistenti)) {
           int id = getNewId(fasceOrarieEsistenti);
           FasciaOrariaBean nuovaFasciaOraria = new FasciaOrariaBean(id, fasciaOraria);
@@ -80,7 +80,7 @@ public class FasciaOrariaServlet extends HttpServlet {
            */
           throw new IllegalArgumentException();
         }
-      } else if (action.equals("elimina")) {
+      } else if (action.equalsIgnoreCase("elimina")) {
         if (presente(fasciaOraria, fasceOrarieEsistenti)) {
           FasciaOrariaBean fasciaOrariaDeleted = fasciaOrariaDao.doRetrieveByFascia(fasciaOraria);
           fasciaOrariaDao.doDelete(fasciaOrariaDeleted);
