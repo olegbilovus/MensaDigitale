@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>TC_ARS_1_22</name>
+   <name>TC_ARS_1_13</name>
    <tag></tag>
    <comment></comment>
-   <testCaseGuid>f4f6e5f0-68c5-4ae9-a378-cef250821633</testCaseGuid>
+   <testCaseGuid>138e6f91-a986-466c-84e9-4ecd0b67837d</testCaseGuid>
 </TestCaseEntity>
