@@ -6,7 +6,14 @@
     Utente consumatore = (Utente) request.getSession().getAttribute("utente");
 %>
 <nav class="navbar navbar-light fixed-top text-dark" style="background-color: #FF9900;">
-        <div class="container-fluid"><img class="img-fluid" src="assets/img/Logo.png" style="width: 255px;padding: 0px;margin: -29px;"><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container-fluid">
+        	<a href="./index.jsp">
+        		<img class="img-fluid" src="assets/img/Logo.png" style="width: 255px;padding: 0px;margin: -15px;">
+        	</a>
+        	<button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
+        		<span class="sr-only">Toggle navigation</span>
+        		<span class="navbar-toggler-icon"></span>
+        	</button>
             <div
                 class="collapse navbar-collapse text-right float-right" id="navcol-1">
                 <ul class="nav navbar-nav mx-auto">

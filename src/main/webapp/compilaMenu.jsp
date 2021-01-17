@@ -17,7 +17,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>MD_Login</title>
+    <title>Compila Menù</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -44,7 +44,26 @@
                     <div class="form-check" style="font-family: Montserrat, sans-serif;"><input class="form-check-input" type="checkbox" id="<%=nome%>"><label class="form-check-label" for="formCheck-1"><strong><%=nome%></strong></label></div>
                     <%}%>
                     <div class="text-center">
-                    	<button class="btn btn-primary" type="button" style="margin-right: 20px;">Nuovo Piatto</button>
+                    	<button class="btn btn-primary" data-toggle="modal" data-target="#nuovoPiatto" type="button" style="margin-right: 20px;">Nuovo Piatto</button>
+							    <div class="modal fade" id="nuovoPiatto" role="dialog" tabindex="-1">
+							        <div class="modal-dialog" role="document">
+							            <div class="modal-content">
+							                <div class="modal-header">
+							                    <h4 class="modal-title">Inserisci Piatto</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+							                <div class="modal-body">
+							                    <div class="text-left"><label style="margin-right: 10px;">Nome</label><input type="text" name="nomePiatto"></div>
+							                    <div class="text-left"><label style="margin-right: 10px;">Ingredienti</label><input type="text" name="nomePiatto"></div>
+							                    <div class="text-left"><label style="margin-right: 10px;">Portata</label><select><option value="primo" selected="">Primo Piatto</option><option value="secondo">Secondo Piatto</option><option value="contorno">Contorno</option></select></div>
+							                    <div class="text-left"><label style="margin-right: 10px;">Calorie</label><input type="text" name="nomePiatto"></div>
+							                    <div class="text-left"><label style="margin-right: 10px;">Proteine</label><input type="text" name="nomePiatto"></div>
+							                    <div class="text-left"><label style="margin-right: 10px;">Grassi</label><input type="text" name="nomePiatto"></div>
+							                    <div class="text-left"><label style="margin-right: 10px;">Sodio</label><input type="text" name="nomePiatto"></div>
+							                    <div class="text-left"><label style="margin-right: 10px;">Carboidrati</label><input type="text" name="nomePiatto"></div>
+							                </div>
+							                <div class="modal-footer"><button class="btn btn-warning" type="button" data-dismiss="modal">Annulla</button><button class="btn btn-success" type="button">Salva</button></div>
+							            </div>
+							        </div>
+							    </div>
                     	<button class="btn btn-success" type="button" style="margin-left: 20px;">Conferma Menù</button>
                     </div>
                 </div>
