@@ -225,6 +225,9 @@
 		<servlet-name>FasciaOrariaServlet</servlet-name>
 		<url-pattern>/FasciaOrariaServlet</url-pattern>
 	</servlet-mapping>
+	<error-page>
+		<location>/errorPage.jsp</location>
+	</error-page>
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
