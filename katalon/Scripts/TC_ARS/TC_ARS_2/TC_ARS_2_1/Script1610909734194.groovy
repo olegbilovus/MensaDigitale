@@ -16,15 +16,15 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
-CustomKeywords.'com.mensadigitale.MensaDigitale.login'()
+CustomKeywords.'com.mensadigitale.LoginAddetto.navigateWithCookie'('http://localhost:8080/mensadigitale/visualizzaRichiesteInSospeso.jsp')
 
-WebUI.openBrowser('')
+WebUI.click(findTestObject('Object Repository/Page_Attivazione/Page_MD_AttivazioneServizi/Page_MD_ValutazioneServizi/Page_Richieste in Sospeso/button_ s.masullo7studenti.unisa.it'))
 
-WebUI.navigateToUrl('http://localhost:8080/mensadigitale/inserisciFasciaOraria.jsp')
+WebUI.verifyElementAttributeValue(findTestObject('Page_Attivazione/Page_MD_AttivazioneServizi/Page_MD_ValutazioneServizi/Page_Richiesta/button_Accetta Domanda'), 
+    'value', 'Approva', 2)
 
-WebUI.setText(findTestObject('Object Repository/Page_Fascia Oraria/input_Fascia Oraria_fasciaOraria'), '9.00')
-
-WebUI.click(findTestObject('Object Repository/Page_Fascia Oraria/button_Inserisci'))
+WebUI.verifyElementAttributeValue(findTestObject('Page_Attivazione/Page_MD_AttivazioneServizi/Page_MD_ValutazioneServizi/Page_Richiesta/button_Rifiuta Domanda'), 
+    'value', 'Rifiuta', 2)
 
 WebUI.closeBrowser()
 
