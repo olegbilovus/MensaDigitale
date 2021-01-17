@@ -69,6 +69,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input name="action" value="aggiungiPiatto" style="visibility: hidden; display: block">
                     </form>
                     </div>
                 </div>
