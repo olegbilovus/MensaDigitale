@@ -57,6 +57,7 @@
 								"cf" : inputText
 							},
 							success : function(resp) {
+								array = {};
 								resp = JSON.parse(resp);
 								var children = document.getElementById("date").childNodes;
 								for(let i = 0; i < children.length; i++) {
@@ -108,7 +109,7 @@
 										tr.appendChild(th);
 										tableDate.appendChild(tr);
 									}
-									//Controlla se è vuoto
+									//Controlla se e' vuoto
 									array[data].push(actual);
 									let k = Object.keys(actual);
 									if (Object.keys(array)[0] == data) {
