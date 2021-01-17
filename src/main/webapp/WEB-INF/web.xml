@@ -79,6 +79,8 @@
 		<url-pattern>/visualizzaRichiesteInSospeso.jsp</url-pattern>
 		<url-pattern>/ValutaRichiesta</url-pattern>
 		<url-pattern>/ValutaRichiestaServlet</url-pattern>
+		<url-pattern>/gestioneidentificativo</url-pattern>
+		<url-pattern>/pagamento</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>StudenteFilter</filter-name>
