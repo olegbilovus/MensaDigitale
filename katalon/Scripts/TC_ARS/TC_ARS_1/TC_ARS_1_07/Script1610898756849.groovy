@@ -14,14 +14,19 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
-import org.openqa.selenium.Keys as Keys
 
 CustomKeywords.'com.mensadigitale.MensaDigitale.navigateWithCookie'('http://localhost:8080/mensadigitale/attivazione.jsp')
 
-WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_AttivazioneServizi/Page_Attivazione/input_Cognome_cognome'), 
-    'A')
+WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Nome_nome'), 'Mario')
 
-WebUI.click(findTestObject('Object Repository/Page_Attivazione/Page_MD_AttivazioneServizi/Page_Attivazione/input_Acconsento_btn btn-success text-center'))
+WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Cognome_cognome'), 'Rossi')
+
+WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Datadi Nascita_dataDiNascita'), '20/02/1999')
+
+WebUI.setText(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Provinciadi Nascita_provinciaDiNascita'), 
+    'VZ')
+
+WebUI.click(findTestObject('Object Repository/Page_Attivazione/Page_MD_Login/input_Acconsento_btn btn-success text-center'))
 
 WebUI.verifyAlertNotPresent(2)
 
