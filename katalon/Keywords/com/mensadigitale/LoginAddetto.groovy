@@ -60,4 +60,24 @@ public class LoginAddetto {
 
 		WebUI.navigateToUrl(url + ";jsessionid=" + ck.getValue())
 	}
+
+	/**
+	 * Keyword per navaidare ad un url, in automatico sarà aggiunto il cookie all'url, eseguire prima il test case Login
+	 * @param url url dove si vuole navigare
+	 * @param params sono i parametri da passare all'url (es. id=3&name=test)
+	 * @return
+	 */
+	@Keyword(keywordObject = "auto")
+	def navigateWithCookieAndParams(String url, String params){
+
+		File file = new File("cookie")
+
+		Cookie ck = new Cookie("JSESSIONID", new Scanner(file).nextLine())
+
+		println ck.getValue()
+
+		WebUI.openBrowser('')
+
+		WebUI.navigateToUrl(url + ";jsessionid=" + ck.getValue() + "?" + params)
+	}
 }

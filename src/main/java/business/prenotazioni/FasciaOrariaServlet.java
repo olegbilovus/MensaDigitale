@@ -41,24 +41,17 @@ public class FasciaOrariaServlet extends HttpServlet {
     char f4 = fasciaOraria.charAt(3);
     char f5 = fasciaOraria.charAt(4);
 
-    boolean f1val =
-        (Character.getNumericValue(f1) == 0
+    boolean f1val = (Character.getNumericValue(f1) == 0
+        && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 9))
+        || (Character.getNumericValue(f1) == 1
             && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 9))
-            || (Character.getNumericValue(f1) == 1
-            && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 9))
-            || (Character.getNumericValue(f1) == 2
+        || (Character.getNumericValue(f1) == 2
             && (Character.getNumericValue(f2) >= 0 && Character.getNumericValue(f2) <= 3));
     boolean f4val = (Character.getNumericValue(f4) >= 0 && Character.getNumericValue(f4) <= 5);
     boolean f5val = (Character.getNumericValue(f5) >= 0 && Character.getNumericValue(f5) <= 9);
 
-    if (!(Character.isDigit(f1))
-        || !(Character.isDigit(f2))
-        || f3 != ':'
-        || !(Character.isDigit(f4))
-        || !(Character.isDigit(f5))
-        || !f1val
-        || !f4val
-        || !f5val) {
+    if (!(Character.isDigit(f1)) || !(Character.isDigit(f2)) || f3 != ':'
+        || !(Character.isDigit(f4)) || !(Character.isDigit(f5)) || !f1val || !f4val || !f5val) {
 
       throw new IllegalArgumentException();
     }
@@ -74,12 +67,14 @@ public class FasciaOrariaServlet extends HttpServlet {
           fasciaOrariaDao.doSave(nuovaFasciaOraria);
           numFasceOrarie++;
           getServletContext().setAttribute("numFasceOrarie", numFasceOrarie);
-          
-          PrintWriter out = response.getWriter();
-          out.println("<script type=\"text/javascript\">");
-          out.println("alert(\"La fascia oraria si trova ora nel database!\")");
-          out.println("window.location.href = \"inserisciFasciaOraria.jsp\"");
-          out.println("</script>");
+
+          if (response.getWriter() != null) {
+            PrintWriter out = response.getWriter();
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert(\"La fascia oraria si trova ora nel database!\")");
+            out.println("window.location.href = \"inserisciFasciaOraria.jsp\"");
+            out.println("</script>");
+          }
         } else {
           /*
            * La fascia oraria che si vuole inserire e' gia' presente, devo mandare un messaggio
@@ -93,12 +88,14 @@ public class FasciaOrariaServlet extends HttpServlet {
           fasciaOrariaDao.doDelete(fasciaOrariaDeleted);
           numFasceOrarie--;
           request.getServletContext().setAttribute("numFasceOrarie", numFasceOrarie);
-          
-          PrintWriter out = response.getWriter();
-          out.println("<script type=\"text/javascript\">");
-          out.println("alert(\"La fascia oraria e' stata eliminata!\")");
-          out.println("window.location.href = \"inserisciFasciaOraria.jsp\"");
-          out.println("</script>");
+
+          if (response.getWriter() != null) {
+            PrintWriter out = response.getWriter();
+            out.println("<script type=\"text/javascript\">");
+            out.println("alert(\"La fascia oraria e' stata eliminata!\")");
+            out.println("window.location.href = \"inserisciFasciaOraria.jsp\"");
+            out.println("</script>");
+          }
         } else {
           /*
            * La fascia oraria che si vuole eliminare non e' presente, devo mandare un messaggio
@@ -168,15 +165,12 @@ public class FasciaOrariaServlet extends HttpServlet {
       }
     }
 
-    Ora nuovaFascia =
-        new Ora(
-            Integer.parseInt(fasciaOraria.subSequence(0, 2).toString()),
-            Integer.parseInt(fasciaOraria.subSequence(3, 5).toString()));
+    Ora nuovaFascia = new Ora(Integer.parseInt(fasciaOraria.subSequence(0, 2).toString()),
+        Integer.parseInt(fasciaOraria.subSequence(3, 5).toString()));
 
     for (FasciaOrariaBean oldFascia : list) {
       Ora vecchiaFascia =
-          new Ora(
-              Integer.parseInt(oldFascia.getFascia().subSequence(0, 2).toString()),
+          new Ora(Integer.parseInt(oldFascia.getFascia().subSequence(0, 2).toString()),
               Integer.parseInt(oldFascia.getFascia().subSequence(3, 5).toString()));
 
       if (nuovaFascia.equals(vecchiaFascia)) {

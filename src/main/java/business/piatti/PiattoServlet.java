@@ -1,6 +1,7 @@
 package business.piatti;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -34,6 +35,7 @@ public class PiattoServlet extends HttpServlet {
     }
 
     String action = request.getParameter("action");
+    System.out.println("Action is " + action);
     PiattoDao dao = new PiattoDao();
 
     if (action != null) {
@@ -42,10 +44,16 @@ public class PiattoServlet extends HttpServlet {
           PiattoBean newPiatto = createNewPiatto(request, response);
           try {
             dao.doSave(newPiatto);
+            if (response.getWriter() != null) {
+              PrintWriter out = response.getWriter();
+              out.println("<script type=\"text/javascript\">");
+              out.println("alert(\"Il piatto si trova ora nel database!\")");
+              out.println("window.location.href = \"compilaMenu.jsp\"");
+              out.println("</script>");
+            }
           } catch (SQLException e) {
             e.printStackTrace();
           }
-          response.sendRedirect(request.getContextPath() + "/index.jsp");
           break;
         }
         case "modificaPiatto": {
@@ -83,7 +91,8 @@ public class PiattoServlet extends HttpServlet {
           try {
             ArrayList<PiattoBean> list = new ArrayList<PiattoBean>(dao.doRetrieveAll());
             request.setAttribute("tuttiPiatti", list);
-            request.getRequestDispatcher(destination).forward(request, response);
+            request.getRequestDispatcher(response.encodeURL(destination)).forward(request,
+                response);
           } catch (SQLException e) {
             e.printStackTrace();
           }
@@ -105,25 +114,18 @@ public class PiattoServlet extends HttpServlet {
     int grassi = Integer.parseInt(request.getParameter("grassi"));
     int sodio = Integer.parseInt(request.getParameter("sodio"));
     int carboidrati = Integer.parseInt(request.getParameter("carboidrati"));
-    if (ingredienti == null
-        || ingredienti.length() < 4
-        || ingredienti.length() > 200
-        || !ingredienti.matches("^([A-Z,])+$")
-        || calorie < 1
-        || calorie > 2000
-        || proteine < 0
-        || grassi < 0
-        || sodio < 0
-        || carboidrati < 0) {
+    if (ingredienti == null || ingredienti.length() < 4 || ingredienti.length() > 200
+        || !ingredienti.matches("^([A-Z,])+$") || calorie < 1 || calorie > 2000 || proteine < 0
+        || grassi < 0 || sodio < 0 || carboidrati < 0) {
       throw new IllegalArgumentException();
     }
     if (nomePiatto == null || nomePiatto.trim().equals("")) {
-      response.sendError(
-          HttpServletResponse.SC_BAD_REQUEST, "Errori nei parametri della richiesta!");
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+          "Errori nei parametri della richiesta!");
       throw new IllegalArgumentException();
     } else {
-      return new PiattoBean(
-          nomePiatto, ingredienti, portata, calorie, proteine, grassi, sodio, carboidrati);
+      return new PiattoBean(nomePiatto, ingredienti, portata, calorie, proteine, grassi, sodio,
+          carboidrati);
     }
   }
 }

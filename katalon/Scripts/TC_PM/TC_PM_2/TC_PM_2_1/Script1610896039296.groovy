@@ -16,5 +16,5 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 import org.openqa.selenium.Keys as Keys
 
-CustomKeywords.'com.mensadigitale.MensaDigitale.navigateWithCookie'('http://localhost:8080/mensadigitale/inserisciValutazione.jsp')
+CustomKeywords.'com.mensadigitale.LoginAddetto.navigateWithCookie'('http://localhost:8080/mensadigitale/inserisciValutazione.jsp')
 
