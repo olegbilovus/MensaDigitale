@@ -52,7 +52,7 @@ public class MensaDigitale {
 
 		WebUI.verifyElementNotPresent(findTestObject('Page_Login/span_Sign in'), 0)
 
-		//WebUI.closeBrowser()
+		WebUI.closeBrowser()
 	}
 
 	/**
