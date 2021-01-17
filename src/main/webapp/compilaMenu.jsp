@@ -48,7 +48,6 @@
                     	<button class="btn btn-success" type="submit" style="margin-left: 20px;">Conferma Menù</button>
                     </form>
                     <form class="text-center" action="piatto" method="post">
-                        <input name="action" value="aggiungiPiatto" style="visibility: hidden;">
                         <button class="btn btn-primary" data-toggle="modal" data-target="#nuovoPiatto" type="button" style="margin-right: 20px;">Nuovo Piatto</button>
                         <div class="modal fade" id="nuovoPiatto" role="dialog" tabindex="-1">
                             <div class="modal-dialog" role="document">
@@ -69,6 +68,7 @@
                                 </div>
                             </div>
                         </div>
+                        <input name="action" value="aggiungiPiatto" style="visibility: hidden; display: block">
                     </form>
                     </div>
                 </div>

@@ -48,30 +48,19 @@ public class MenuServlet extends HttpServlet {
           response.sendRedirect(request.getContextPath() + "/index.jsp");
           break;
         case "modificaMenu":
-          apriStreamsInput();
-          try {
-            menu = (MenuBean) inputStream.readObject();
-            /* Rimuovo piatti vecchi */
-            String[] piattiDaRimuovere = request.getParameterValues("piattiDaRimuovere");
-            rimuoviPiatti(piattiDaRimuovere, menu);
-            inputStream.close();
-            /* Aggiungo i nuovi piatti */
-            apriStreamsOutput();
-            String[] piattiDaAggiungere = request.getParameterValues("piattiDaAggiungere");
-            aggiungiPiatti(piattiDaAggiungere, menu);
-          } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-          }
+          /* Rimuovo piatti vecchi */
+          rimuoviMenu(request, response);
+          /* Aggiungo i nuovi piatti */
+          String[] piattiDaAggiungere = request.getParameterValues("piatti");
+          aggiungiPiatti(piattiDaAggiungere, menu);
+          apriStreamsOutput();
           outputStream.writeObject(menu);
-          request.setAttribute("menu", menu);
           outputStream.close();
+          request.setAttribute("menu", menu);
           response.sendRedirect(request.getContextPath() + "/index.jsp");
           break;
         case "cancellaMenu":
-          apriStreamsOutput();
-          outputStream.writeObject(new MenuBean());
-          request.setAttribute("menu", menu);
-          outputStream.close();
+          rimuoviMenu(request, response);
           response.sendRedirect("./visualizzaMenu.jsp");
           break;
         case "getMenu":
@@ -101,6 +90,8 @@ public class MenuServlet extends HttpServlet {
     for (String p : piatti) {
       try {
         PiattoBean tmp = dao.doRetrieveByKey(p);
+        System.out.println("Nome piatto: " + tmp.getNome());
+        System.out.println("Portata piatto: " + tmp.getPortata());
         switch (tmp.getPortata()) {
           case "primo" -> menu.addPrimo(tmp);
           case "secondo" -> menu.addSecondo(tmp);
@@ -112,19 +103,12 @@ public class MenuServlet extends HttpServlet {
     }
   }
 
-  private void rimuoviPiatti(String[] piattiDaRimuovere, MenuBean menu) {
-    for (String p : piattiDaRimuovere) {
-      try {
-        PiattoBean tmp = dao.doRetrieveByKey(p);
-        switch (tmp.getPortata()) {
-          case "primo" -> menu.removePrimo(tmp);
-          case "secondo" -> menu.removeSecondo(tmp);
-          case "contorno" -> menu.removeContorno(tmp);
-        }
-      } catch (SQLException throwables) {
-        throwables.printStackTrace();
-      }
-    }
+  private void rimuoviMenu(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    menu = new MenuBean();
+    apriStreamsOutput();
+    outputStream.writeObject(menu);
+    request.setAttribute("menu", menu);
+    outputStream.close();
   }
 
   private void apriStreamsInput() throws IOException {

@@ -1,6 +1,7 @@
 package business.piatti;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class PiattoBean implements Serializable {
 
@@ -110,6 +111,14 @@ public class PiattoBean implements Serializable {
 
   public void setPortata(String portata) {
     this.portata = portata;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PiattoBean that = (PiattoBean) o;
+    return calorie == that.calorie && proteine == that.proteine && grassi == that.grassi && sodio == that.sodio && carboidrati == that.carboidrati && Objects.equals(nome, that.nome) && Objects.equals(ingredienti, that.ingredienti) && Objects.equals(portata, that.portata);
   }
 
   @Override
