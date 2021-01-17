@@ -68,16 +68,11 @@ public class MenuServletTest {
     dao.doSave(tmp2);
     dao.doSave(tmp3);
     /*--prpearo request--*/
-    String[] piattiDaRimuovere = new String[3];
-    piattiDaRimuovere[0] = nome1;
-    piattiDaRimuovere[1] = nome2;
-    piattiDaRimuovere[2] = nome3;
     String[] piattiDaAggiungere = new String[3];
     piattiDaAggiungere[0] = nome1;
     piattiDaAggiungere[1] = nome2;
     piattiDaAggiungere[2] = nome3;
-    Mockito.doReturn(piattiDaRimuovere).when(request).getParameterValues("piattiDaRimuovere");
-    Mockito.doReturn(piattiDaAggiungere).when(request).getParameterValues("piattiDaAggiungere");
+    Mockito.doReturn(piattiDaAggiungere).when(request).getParameterValues("piatti");
     try {
       assertDoesNotThrow(() -> servlet.doPost(request, response));
     } finally {
