@@ -52,13 +52,15 @@
             <div class="col-md-6 col_main"
                  style="background-color: rgba(255,255,255,0.92);padding-bottom: 15px;padding-top: 15px;">
                 <form method="post" action="<%=response.encodeURL("valutazione")%>">
+                  <input name="email" value="<%=utente.getEmail()%>" style="visibility: hidden;">
+                  <input name="action" value="aggiungiValutazione" style="visibility: hidden;">
                     <div>
                         <h1 style="font-family: Montserrat, sans-serif;">Piatti del Giorno</h1><select name="piatto" style="font-family: Montserrat, sans-serif;">
                         <optgroup label="Primi del Giorno">
                             <%
                                 for (PiattoBean p : menu.getPrimi()){
                             %>
-                            <option value="pasta al pomodoro"><%=p.getNome()%></option>
+                            <option name="piatti" value="<%=p.getNome()%>"><%=p.getNome()%></option>
                             <%
                                 }
                             %>
@@ -67,7 +69,7 @@
                             <%
                                 for (PiattoBean p : menu.getSecondi()){
                             %>
-                            <option value="pasta al pomodoro"><%=p.getNome()%></option>
+                            <option name="piatti" value="<%=p.getNome()%>"><%=p.getNome()%></option>
                             <%
                                 }
                             %>
@@ -76,7 +78,7 @@
                             <%
                                 for (PiattoBean p : menu.getContorni()){
                             %>
-                            <option value="pasta al pomodoro"><%=p.getNome()%></option>
+                            <option name="piatti" value="<%=p.getNome()%>"><%=p.getNome()%></option>
                             <%
                                 }
                             %>
@@ -156,9 +158,25 @@
                                                     <div class="modal-header">
                                                         <h4 class="modal-title">Modifica Valutazione</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                                                     <div class="modal-body">
-                                                        <p><%=bean.getPiatto()%>:</p><select><option value="1" selected="">★</option><option value="2">★★</option><option value="3">★★★</option><option value="4">★★★★</option><option value="5">★★★★★</option></select></div>
+                                                        <p><%=bean.getPiatto()%>:</p>
+                                                        <form action="valutazione">
+                                                            <input name="action" value="modificaValutazione" style="visibility:hidden;">
+                                                            <input name="piatto" value="<%=bean.getPiatto()%>" style="visibility:hidden;">
+                                                            <input name="email" value="<%=bean.getEmail()%>" style="visibility:hidden;">
+                                                        <select name="valutazione">
+                                                            <option value="1" selected="">★</option>
+                                                            <option value="2">★★</option>
+                                                            <option value="3">★★★</option>
+                                                            <option value="4">★★★★</option>
+                                                            <option value="5">★★★★★</option>
+                                                        </select>
+                                                    </div>
                                                     <div
-                                                        class="modal-footer"><button class="btn btn-warning" type="button" data-dismiss="modal">Annulla</button><button class="btn btn-success" type="button">Salva</button></div>
+                                                        class="modal-footer">
+                                                        <button class="btn btn-warning" type="button" data-dismiss="modal">Annulla</button>
+                                                        <button class="btn btn-success" type="submit">Salva</button>
+                                                        </form>
+                                                    </div>
                                             	</div>
                                 			 </div>
                                 </div>	

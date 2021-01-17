@@ -31,7 +31,7 @@ public class MenuServletTest {
   @Test
   void testAggiungiMenu() throws SQLException {
     /*--Variabili utili--*/
-    String nome = "Testing";
+    String nome = "TESTING";
     String portata = "primo";
     /*--action--*/
     Mockito.doReturn("aggiungiMenu").when(request).getParameter("action");
@@ -52,9 +52,9 @@ public class MenuServletTest {
   @Test
   void testModificaMenu() throws SQLException {
     /*--Variabili utili--*/
-    String nome1 = "Testing1";
-    String nome2 = "Testing2";
-    String nome3 = "Testing3";
+    String nome1 = "TESTING";
+    String nome2 = "SEC TESTING";
+    String nome3 = "TERZO TESTING";
     String portata1 = "primo";
     String portata2 = "secondo";
     String portata3 = "contorno";

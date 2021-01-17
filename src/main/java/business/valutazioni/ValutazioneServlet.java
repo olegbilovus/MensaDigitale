@@ -150,7 +150,7 @@ public class ValutazioneServlet extends HttpServlet {
   }
 
   private boolean testFormatoPiatto(String piatto) {
-    return piatto.matches("^([A-Z])+$");
+    return piatto.matches("^([A-Z ])+$");
   }
 
   private boolean testValutazione(int valutazione) {
