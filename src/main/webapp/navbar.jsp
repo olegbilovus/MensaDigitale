@@ -33,7 +33,6 @@
 				                       		<li class="nav-item" role="presentation"><a class="nav-link active" href="./inserisciFasciaOraria.jsp">Fasce Orarie</a></li>	
 										<%}
 				                		else if(consumatore.getClass()==AddettoBean.class){%>
-				                				<li class="nav-item" role="presentation"><a class="nav-link active" href="./userarea.jsp">Area Utente</a></li>
 		                						<li class="nav-item" role="presentation"><a class="nav-link active" href="./visualizzaMenu.jsp">Consulta Menù</a></li>
 				                				<li class="nav-item" role="presentation"><a class="nav-link active" href="./compilaMenu.jsp">Inserisci Menù</a></li>
 				                				<li class="nav-item" role="presentation"><a class="nav-link active" href="./visualizzaRichiesteInSospeso.jsp">Richieste</a></li>
