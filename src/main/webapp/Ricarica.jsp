@@ -74,6 +74,7 @@
 					            	type:"POST", url:"./RicaricaSaldo", data:{transaction_id:details.id,amount:importo}, 
 					            	success: function (data) {
 					            		alert("Transazione Eseguita");
+					            		window.location.href = "userarea.jsp"
 					            	}
 					            })
 					        	  
