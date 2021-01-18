@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import storage.interfaces.ConsumatoreInterface;
 import storage.manager.ConsumatoreDao;
+import storage.manager.FasciaOrariaDao;
+import storage.manager.PrenotazioneDao;
 
 class FilterResetSaleTest {
 
@@ -69,6 +71,85 @@ class FilterResetSaleTest {
     } catch (NullPointerException e) {
 
     } finally {
+      dao.doDelete(tester);
+    }
+  }
+
+  @Test
+  public void testDoFilter3() throws SQLException, IOException, ServletException {
+    try {
+      tester.setStatoServizi(0);
+      dao.doSave(tester);
+      Mockito.doReturn(new Date(System.currentTimeMillis())).when(ctx)
+          .getAttribute("dataSaleReset");
+      Mockito.doReturn(5).when(ctx).getAttribute("numFasceOrarie");
+      Mockito.doReturn(tester).when(session).getAttribute("utente");
+
+      servlet.doFilter(request, response, chain);
+    } catch (NullPointerException e) {
+
+    } finally {
+      dao.doDelete(tester);
+    }
+  }
+
+  @Test
+  public void testDoFilter4() throws SQLException, IOException, ServletException {
+    PrenotazioneDao prenDao = new PrenotazioneDao();
+    FasciaOrariaDao fasciaDao = new FasciaOrariaDao();
+    
+    FasciaOrariaBean fascia = new FasciaOrariaBean(100, "13:00");
+    PrenotazioneBean<String> prenBean =
+        new PrenotazioneBean<String>(new Date(System.currentTimeMillis()), new QRCode("aa"), 1,
+            fascia.getId(), tester.getEmail());
+    
+    
+    try {
+      dao.doSave(tester);
+      fasciaDao.doSave(fascia);
+      prenDao.doSave(prenBean);
+      Mockito.doReturn(new Date(System.currentTimeMillis())).when(ctx)
+          .getAttribute("dataSaleReset");
+      Mockito.doReturn(5).when(ctx).getAttribute("numFasceOrarie");
+      Mockito.doReturn(tester).when(session).getAttribute("utente");
+
+      servlet.doFilter(request, response, chain);
+    } catch (NullPointerException e) {
+
+    } finally {
+      prenDao.doDelete(prenBean);
+      fasciaDao.doDelete(fascia);
+      dao.doDelete(tester);
+    }
+  }
+  
+  @Test
+  public void testDoFilter5() throws SQLException, IOException, ServletException {
+    PrenotazioneDao prenDao = new PrenotazioneDao();
+    FasciaOrariaDao fasciaDao = new FasciaOrariaDao();
+    
+    FasciaOrariaBean fascia = new FasciaOrariaBean(100, "13:00");
+    PrenotazioneBean<String> prenBean =
+        new PrenotazioneBean<String>(new Date(System.currentTimeMillis()), new QRCode("aa"), 1,
+            fascia.getId(), tester.getEmail());
+    prenBean.setEntrato(true);
+    
+    
+    try {
+      dao.doSave(tester);
+      fasciaDao.doSave(fascia);
+      prenDao.doSave(prenBean);
+      Mockito.doReturn(new Date(System.currentTimeMillis())).when(ctx)
+          .getAttribute("dataSaleReset");
+      Mockito.doReturn(5).when(ctx).getAttribute("numFasceOrarie");
+      Mockito.doReturn(tester).when(session).getAttribute("utente");
+
+      servlet.doFilter(request, response, chain);
+    } catch (NullPointerException e) {
+
+    } finally {
+      prenDao.doDelete(prenBean);
+      fasciaDao.doDelete(fascia);
       dao.doDelete(tester);
     }
   }
