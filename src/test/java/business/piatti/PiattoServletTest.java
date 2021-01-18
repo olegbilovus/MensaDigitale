@@ -1,18 +1,18 @@
 package business.piatti;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import storage.manager.PiattoDao;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class PiattoServletTest {
@@ -339,6 +339,39 @@ class PiattoServletTest {
         "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
     Mockito.doReturn(veryLong).when(request).getParameter("ingredienti");
     assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+
+  }
+
+  @Test
+  void testPiattoEquals_1() {
+
+    PiattoBean tmp = new PiattoBean("Lasagna", "Pomodoro", "primo", 1, 1, 1, 1, 1);
+    assertTrue(tmp.equals(tmp));
+
+  }
+
+  @Test
+  void testPiattoEquals_2() {
+
+    PiattoBean tmp = new PiattoBean("Lasagna", "Pomodoro", "primo", 1, 1, 1, 1, 1);
+    assertFalse(tmp.equals(null));
+
+  }
+
+  @Test
+  void testPiattoEquals_3() {
+
+    PiattoBean tmp = new PiattoBean("Lasagna", "Pomodoro", "primo", 1, 1, 1, 1, 1);
+    assertFalse(tmp.equals("Ciao"));
+
+  }
+
+  @Test
+  void testPiattoEquals_4() {
+
+    PiattoBean tmp = new PiattoBean("Lasagna", "Pomodoro", "primo", 1, 1, 1, 1, 1);
+    PiattoBean tmp2 = new PiattoBean("Lasagna", "Pomodoro", "primo", 1, 1, 1, 1, 1);
+    assertTrue(tmp.equals(tmp2));
 
   }
 
