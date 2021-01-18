@@ -1,9 +1,7 @@
 package business.prenotazioni;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -15,7 +13,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.mockito.internal.matchers.Null;
 import storage.manager.FasciaOrariaDao;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class FasciaOrariaServletTest {
 
@@ -25,6 +26,7 @@ class FasciaOrariaServletTest {
   private static final HttpSession session = Mockito.mock(HttpSession.class);
   private static final HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
   private static final ServletContext ctx = Mockito.mock(ServletContext.class);
+  private static final PrintWriter writer = Mockito.mock(PrintWriter.class);
   private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
   private final FasciaOrariaServlet servlet = new FasciaOrariaServlet() {
     public ServletContext getServletContext() {
@@ -91,6 +93,81 @@ class FasciaOrariaServletTest {
     } finally {
       fasciaOrariaDao.doDelete(fasciaOrariaDao.doRetrieveByFascia(fascia));
     }
+  }
+
+  @Test
+  void writerNotNull() throws SQLException, IOException {
+    String fascia = "18:00";
+    try {
+      Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+      Mockito.doReturn("inserisci").when(request).getParameter("action");
+      Mockito.doReturn(new PrintWriter(System.out)).when(response).getWriter();
+
+      assertDoesNotThrow(() -> servlet.doPost(request, response));
+    } finally {
+      if (fasciaOrariaDao.doRetrieveByFascia(fascia) != null) {
+        fasciaOrariaDao.doDelete(fasciaOrariaDao.doRetrieveByFascia(fascia));
+      }
+    }
+  }
+
+  @Test
+  void actionElimina() throws SQLException {
+    Mockito.doReturn("elimina").when(request).getParameter("action");
+    Mockito.doReturn(ctx).when(request).getServletContext();
+    String fascia = "13:40";
+    FasciaOrariaBean tmp = new FasciaOrariaBean(99, "13:40");
+    try {
+      fasciaOrariaDao.doSave(tmp);
+      Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+      assertDoesNotThrow(() -> servlet.doPost(request, response));
+    } finally {
+      if (fasciaOrariaDao.doRetrieveByFascia(fascia) != null) {
+        fasciaOrariaDao.doDelete(fasciaOrariaDao.doRetrieveByFascia(fascia));
+      }
+      fasciaOrariaDao.doDelete(tmp);
+    }
+  }
+
+  @Test
+  void actionEliminaWriterNotNull() throws SQLException, IOException {
+    Mockito.doReturn("elimina").when(request).getParameter("action");
+    Mockito.doReturn(new PrintWriter(System.out)).when(response).getWriter();
+    String fascia = "13:40";
+    FasciaOrariaBean tmp = new FasciaOrariaBean(99, "13:40");
+    try {
+      fasciaOrariaDao.doSave(tmp);
+      Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+      assertDoesNotThrow(() -> servlet.doPost(request, response));
+    } finally {
+      if (fasciaOrariaDao.doRetrieveByFascia(fascia) != null) {
+        fasciaOrariaDao.doDelete(fasciaOrariaDao.doRetrieveByFascia(fascia));
+      }
+      fasciaOrariaDao.doDelete(tmp);
+    }
+  }
+
+  @Test
+  void actionEliminaFasciaNonPresente() throws SQLException, IOException {
+    Mockito.doReturn("elimina").when(request).getParameter("action");
+    Mockito.doReturn(new PrintWriter(System.out)).when(response).getWriter();
+    String fascia = "13:40";
+    try {
+      Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+      assertThrows(IllegalArgumentException.class ,() -> servlet.doPost(request, response));
+    } finally {
+      if (fasciaOrariaDao.doRetrieveByFascia(fascia) != null) {
+        fasciaOrariaDao.doDelete(fasciaOrariaDao.doRetrieveByFascia(fascia));
+      }
+    }
+  }
+
+  @Test
+  void actionNonPrevista() throws SQLException, IOException {
+    Mockito.doReturn("hahaha").when(request).getParameter("action");
+//    Mockito.doReturn(new PrintWriter(System.out)).when(response).getWriter();
+    String fascia = "13:40";
+    assertDoesNotThrow(() -> servlet.doPost(request, response));
   }
 
 }
