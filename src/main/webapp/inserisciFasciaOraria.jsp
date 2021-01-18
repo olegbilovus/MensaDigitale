@@ -30,8 +30,8 @@
                         <div class="text-center"><input type="text" name="fasciaOraria" placeholder="es. 13:00"></div>
                     </div>
                     <div class="text-center">
-                    	<a onclick="document.getElementById('fascia').submit()"><input type="submit" class="btn btn-success" name="action" value="Inserisci" style="margin-right: 15px;"></a>
-                    	<a onclick="document.getElementById('fascia').submit()"><input type="submit" class="btn btn-danger" name="action" value="Elimina" style="margin-left: 15px;"></a>
+                    	<a onclick="document.getElementById('fascia').submit()"><input id="inviaFasciaInserisci" type="submit" class="btn btn-success" name="action" value="Inserisci" style="margin-right: 15px;"></a>
+                    	<a onclick="document.getElementById('fascia').submit()"><input id="inviaFasciaElimina" type="submit" class="btn btn-danger" name="action" value="Elimina" style="margin-left: 15px;"></a>
                     </div>
                 </div>
             </div>
