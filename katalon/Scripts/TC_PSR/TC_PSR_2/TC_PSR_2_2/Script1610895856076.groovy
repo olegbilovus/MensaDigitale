@@ -20,7 +20,7 @@ CustomKeywords.'com.mensadigitale.LoginAdministrator.navigateWithCookie'('http:/
 
 WebUI.setText(findTestObject('Object Repository/Page_Fascia Oraria/input_Fascia Oraria_fasciaOraria'), '9.30')
 
-WebUI.click(findTestObject('Object Repository/Page_Fascia Oraria/button_Inserisci'))
+WebUI.click(findTestObject('Page_Fascia Oraria/input_Fascia Oraria_action'))
 
 WebUI.verifyAlertNotPresent(2)
 
