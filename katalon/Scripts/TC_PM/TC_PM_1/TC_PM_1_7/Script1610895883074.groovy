@@ -21,6 +21,8 @@ CustomKeywords.'com.mensadigitale.LoginAddetto.navigateWithCookieAndParams'('htt
 
 WebUI.click(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/button_Nuovo Piatto'))
 
+WebUI.waitForElementPresent(findTestObject('Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Nome_nomePiatto'), 3)
+
 WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Nome_nomePiatto'), 'Pizza')
 
 WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Ingredienti_ingredienti'), 
@@ -32,10 +34,7 @@ WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Co
 
 WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Grassi_grassi'), '1')
 
-WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Sodio_sodio'), '1')
-
-WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Carboidrati_carboidrati'), 
-    '-1')
+WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Sodio_sodio'), '-1')
 
 WebUI.click(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/button_Salva'))
 

@@ -37,11 +37,11 @@ WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Co
 WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Sodio_sodio'), '1')
 
 WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Carboidrati_carboidrati'), 
-    '1')
+    '-1')
 
 WebUI.click(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/button_Salva'))
 
-WebUI.verifyAlertPresent(2)
+WebUI.verifyAlertNotPresent(2)
 
 WebUI.closeBrowser()
 

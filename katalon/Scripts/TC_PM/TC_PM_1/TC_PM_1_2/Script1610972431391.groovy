@@ -26,22 +26,11 @@ WebUI.waitForElementPresent(findTestObject('Page_Menu/Page_NuovoMenu/Page_Compil
 WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Nome_nomePiatto'), 'Pizza')
 
 WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Ingredienti_ingredienti'), 
-    'LATTE,FARINA')
-
-WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Calorie_calorie'), '1')
-
-WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Proteine_proteine'), '1')
-
-WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Grassi_grassi'), '1')
-
-WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Sodio_sodio'), '1')
-
-WebUI.setText(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/input_Carboidrati_carboidrati'), 
-    '1')
+    'latte,farina')
 
 WebUI.click(findTestObject('Object Repository/Page_Menu/Page_NuovoMenu/Page_Compila Men/button_Salva'))
 
-WebUI.verifyAlertPresent(2)
+WebUI.verifyAlertNotPresent(2)
 
 WebUI.closeBrowser()
 

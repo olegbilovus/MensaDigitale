@@ -29,4 +29,10 @@
       <isRun>true</isRun>
       <testCaseId>Test Cases/TC_PSR/TC_PSR_2/TC_PSR_2_2</testCaseId>
    </testCaseLink>
+   <testCaseLink>
+      <guid>508734a1-0d37-45b6-b232-95cb29bbf203</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/TC_PSR/TC_PSR_2/TC_PSR_2_3</testCaseId>
+   </testCaseLink>
 </TestSuiteEntity>
