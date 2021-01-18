@@ -165,9 +165,65 @@ class FasciaOrariaServletTest {
   @Test
   void actionNonPrevista() throws SQLException, IOException {
     Mockito.doReturn("hahaha").when(request).getParameter("action");
-//    Mockito.doReturn(new PrintWriter(System.out)).when(response).getWriter();
     String fascia = "13:40";
-    assertDoesNotThrow(() -> servlet.doPost(request, response));
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+//    assertDoesNotThrow(() -> servlet.doPost(request, response));
+  }
+
+  @Test
+  void fasciaSbagliata1() throws SQLException, IOException {
+    String fascia = "a3:40";
+    Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+  }
+
+  @Test
+  void fasciaSbagliata2() throws SQLException, IOException {
+    String fascia = "1b:40";
+    Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+  }
+
+  @Test
+  void fasciaSbagliata3() throws SQLException, IOException {
+    String fascia = "13a40";
+    Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+  }
+
+  @Test
+  void fasciaSbagliata4() throws SQLException, IOException {
+    String fascia = "23:a0";
+    Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+  }
+
+  @Test
+  void fasciaSbagliata5() throws SQLException, IOException {
+    String fascia = "03:4a";
+    Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+  }
+
+  @Test
+  void fasciaSbagliata6() throws SQLException, IOException {
+    String fascia = "31:40";
+    Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+  }
+
+  @Test
+  void fasciaSbagliata7() throws SQLException, IOException {
+    String fascia = "11:70";
+    Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
+  }
+
+  @Test
+  void fasciaSbagliata8() throws SQLException, IOException {
+    String fascia = "24:a0";
+    Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
+    assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
   }
 
 }
