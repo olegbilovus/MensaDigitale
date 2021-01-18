@@ -86,7 +86,7 @@ public class ValutazioneServlet extends HttpServlet {
       try {
         valutazioneDao.doSave(
             new ValutazioneBean(email, piatto, valutazione, new Date(System.currentTimeMillis())));
-        response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
+        response.sendRedirect(response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
       } catch (SQLException throwables) {
         throwables.printStackTrace();
       }
@@ -109,7 +109,7 @@ public class ValutazioneServlet extends HttpServlet {
       try {
         valutazioneDao.doUpdate(
             new ValutazioneBean(email, piatto, valutazione, new Date(System.currentTimeMillis())));
-        response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
+        response.sendRedirect(response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
       } catch (SQLException throwables) {
         throwables.printStackTrace();
       }
@@ -129,7 +129,7 @@ public class ValutazioneServlet extends HttpServlet {
 
     try {
       valutazioneDao.doDelete(new ValutazioneBean(email, piatto, 0, null));
-      response.sendRedirect(response.encodeURL(request.getContextPath() + "/index.jsp"));
+      response.sendRedirect(response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }

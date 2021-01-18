@@ -86,23 +86,23 @@
                     </select></div>
                     <div>
                         <h2 style="font-family: Montserrat, sans-serif;">Valutazione</h2>
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"
+                        <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1"
                                                        name="valutazione" value="1"><label class="form-check-label"
                                                                                            for="formCheck-1">★☆☆☆☆</label>
                         </div>
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"
+                        <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1"
                                                        name="valutazione" value="2"><label class="form-check-label"
                                                                                            for="formCheck-1">★★☆☆☆<br></label>
                         </div>
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"
+                        <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1"
                                                        name="valutazione" value="3"><label class="form-check-label"
                                                                                            for="formCheck-1">★★★☆☆<br></label>
                         </div>
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"
+                        <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1"
                                                        name="valutazione" value="4"><label class="form-check-label"
                                                                                            for="formCheck-1">★★★★☆<br></label>
                         </div>
-                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"
+                        <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1"
                                                        name="valutazione" value="5"><label class="form-check-label"
                                                                                            for="formCheck-1">★★★★★<br></label>
                         </div>
