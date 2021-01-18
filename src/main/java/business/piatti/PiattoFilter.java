@@ -18,9 +18,10 @@ public class PiattoFilter implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws ServletException, IOException {
 
+    /*
     HttpServletRequest req = (HttpServletRequest) request;
     HttpServletResponse resp = (HttpServletResponse) response;
-
+    
     Utente utente = (Utente) req.getSession().getAttribute("utente");
 
     if (utente == null) {
@@ -34,6 +35,7 @@ public class PiattoFilter implements Filter {
       resp.sendRedirect(resp.encodeURL(req.getContextPath() + "/index.jsp"));
       return;
     }
+    */
 
     chain.doFilter(request, response);
   }
