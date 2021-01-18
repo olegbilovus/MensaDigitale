@@ -31,7 +31,7 @@
                     </div>
                     <div class="text-center">
                     	<a onclick="document.getElementById('fascia').submit()"><input type="submit" class="btn btn-success" name="action" value="Inserisci" style="margin-right: 15px;"></a>
-                    	<a onclick="document.getElementById('fascia').submit()"><input type="submit" class="btn btn-danger" name="action" value="elimina" style="margin-left: 15px;">Elimina</button></a>
+                    	<a onclick="document.getElementById('fascia').submit()"><input type="submit" class="btn btn-danger" name="action" value="Elimina" style="margin-left: 15px;"></a>
                     </div>
                 </div>
             </div>
