@@ -1,4 +1,12 @@
+<%@ page import="business.utente.Utente" %>
+<%@ page import="business.consumatore.ConsumatoreBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%
+	Utente user = (Utente) request.getSession().getAttribute("utente");
+	if (user == null || user.getClass() != ConsumatoreBean.class || ((ConsumatoreBean) user).isDocente()){
+		response.sendError(HttpServletResponse.SC_FORBIDDEN, "Questa pagina e' accessibile solo da studenti");
+	}
+%>
 <!DOCTYPE html>
 <html style="height: auto; width: auto; color: rgb(255, 255, 255);">
 

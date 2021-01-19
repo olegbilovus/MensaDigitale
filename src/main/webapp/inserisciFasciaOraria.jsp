@@ -1,5 +1,16 @@
+<%@ page import="business.utente.Utente" %>
+<%@ page import="business.admin.AdministratorBean" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+         pageEncoding="ISO-8859-1"%>
+<%
+
+    Utente user = (Utente) request.getSession().getAttribute("utente");
+    if (user == null || user.getClass() != AdministratorBean.class){
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Questa pagina e' accessibile solo da admin");
+        return;
+    }
+
+%>
 <!DOCTYPE html>
 <html style="height: auto;width: auto;">
 

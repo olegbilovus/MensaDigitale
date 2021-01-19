@@ -1,14 +1,15 @@
 <%@ page import="business.consumatore.ConsumatoreBean"%>
+<%@ page import="business.utente.Utente" %>
 <%@ page language="java" contentType="text/html; charset=iso-8859-15"
 	pageEncoding="iso-8859-15"%>
-<% 
-    ConsumatoreBean consumatore = (ConsumatoreBean) request.getSession().getAttribute("utente"); //TODO replace with Utente when ready
-    if (consumatore == null){ //DA CAMBIARE
-      
-      response.sendRedirect(request.getContextPath() + "/index.jsp");
-      
-      return;
+<%
+
+    Utente utente = (Utente) request.getSession().getAttribute("utente");
+    if (utente == null || utente.getClass() != ConsumatoreBean.class) {
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Questa pagina e' accessibile solo da Consumatori");
+        return;
     }
+
 %>
 <!DOCTYPE html>
 <html style="height: auto;width: auto;">

@@ -1,10 +1,6 @@
 <%@ page import="business.utente.Utente" %>
 <%@ page import="business.addetto.AddettoBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    Utente consumatore = (Utente) request.getSession().getAttribute("utente");
-%>
-
 <!DOCTYPE html>
 <html style="height: auto;width: auto;">
 
