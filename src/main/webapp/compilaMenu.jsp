@@ -1,7 +1,15 @@
 <%@ page import="java.util.Collection" %>
 <%@ page import="business.piatti.PiattoBean" %>
+<%@ page import="business.utente.Utente" %>
+<%@ page import="business.addetto.AddettoBean" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
+        Utente user = (Utente) request.getSession().getAttribute("utente");
+        if (user == null || user.getClass() != AddettoBean.class){
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Questa pagina e' accessibile solo da addetti");
+            return;
+        }
+
         Collection<PiattoBean> piatti = (Collection<PiattoBean>) request.getAttribute("tuttiPiatti");
         String error = (String) request.getAttribute("error");
         if (piatti == null && error == null) {
