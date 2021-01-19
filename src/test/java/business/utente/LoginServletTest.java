@@ -21,7 +21,7 @@ import storage.manager.ConsumatoreDao;
 public class LoginServletTest {
 
   private static final String rightEmail = "a.cacciapuoti3@studenti.unisa.it";
-  private static final String badEmail = "yantcacciaa@gmail.com";
+  private static final String badEmail = "test@libero.it";
 
   private static final ConsumatoreDao consumatoreDao = new ConsumatoreDao();
   private static final AddettoDao addettoDao = new AddettoDao();
