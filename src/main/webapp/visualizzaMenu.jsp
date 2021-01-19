@@ -4,15 +4,25 @@
 <%@ page import="business.addetto.AddettoBean" %>
 <%@ page import="business.piatti.MenuBean" %>
 <%@ page import="business.piatti.PiattoBean" %>
-<%@ page import="business.consumatore.ConsumatoreBean" %>
 <%@ page import="java.util.Collection" %>
 <%
     Collection<PiattoBean> piatti = (Collection<PiattoBean>) request.getAttribute("tuttiPiatti");
     String error = (String) request.getAttribute("error");
-    if (piatti == null && error == null) {
-        /*vuol dire che fin'ora non siamo mai passati per la Servlet*/
-        response.sendRedirect("piatto?action=getTuttiPiatti&destination=visualizzaMenu.jsp");
-        return;
+
+    Utente user = (Utente) request.getSession().getAttribute("utente");
+
+    boolean isAddetto = false;
+
+    if(user != null && user.getClass() == AddettoBean.class){
+      /* Siamo addetti */
+      isAddetto = true;
+
+      if (piatti == null && error == null) {
+            /* Siamo addetti ma non abbiamo i piatti */
+            response.sendRedirect("piatto?action=getTuttiPiatti&destination=visualizzaMenu.jsp");
+            return;
+        }
+
     }
 
     MenuBean menu = (MenuBean) request.getAttribute("menu");
@@ -85,10 +95,7 @@
                 </div>
 
                 <%
-                    Utente consumatore = (Utente) request.getSession().getAttribute("utente");
-                    if (consumatore != null) {
-
-                        if (consumatore.getClass() == AddettoBean.class) {
+                    if (isAddetto) {
                 %>
                 <div class="text-center">
                     <button class="btn btn-warning" type="button" data-toggle="modal" data-target="#modificaMenu"
@@ -133,7 +140,6 @@
                     </a>
                 </div>
                 <%
-                        }
                     }
                 %>
             </div>
@@ -146,12 +152,14 @@
 <script src="https://unpkg.com/@bootstrapstudio/bootstrap-better-nav/dist/bootstrap-better-nav.min.js"></script>
 <script>
     <%
-    for (PiattoBean p : piatti){
-      if (menu.getPrimi().contains(p) || menu.getSecondi().contains(p) || menu.getContorni().contains(p)){
-    %>
-        document.getElementById("<%=p.getNome()%>").checked = true;
-    <%
-      }
+    if(isAddetto){
+        for (PiattoBean p : piatti){
+          if (menu.getPrimi().contains(p) || menu.getSecondi().contains(p) || menu.getContorni().contains(p)){
+        %>
+            document.getElementById("<%=p.getNome()%>").checked = true;
+        <%
+          }
+        }
     }
     %>
 </script>
