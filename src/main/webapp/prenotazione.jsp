@@ -1,7 +1,6 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="storage.manager.FasciaOrariaDao"%>
 <%@page import="business.prenotazioni.FasciaOrariaBean"%>
-<%@page import="java.util.Collection"%>
 <%@ page import="business.prenotazioni.PrenotazioneBean"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%

@@ -1,7 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="business.consumatore.ConsumatoreBean" %>
+<%@ page import="business.utente.Utente" %>
 <%
+
+    Utente utente = (Utente) request.getSession().getAttribute("utente");
+    if (utente == null || utente.getClass() != ConsumatoreBean.class) {
+        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Questa pagina e' accessibile solo da Consumatori");
+        return;
+    }
+
 	ConsumatoreBean consumer = (ConsumatoreBean) request.getSession().getAttribute("utente");
 	String nome = consumer.getNome();
 	String cognome = consumer.getCognome();
