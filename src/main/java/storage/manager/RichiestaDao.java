@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import storage.interfaces.RichiestaInterface;
 
+/**
+ * Classe DAO per la gestione di RichiestaBean
+ */
 public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
 
   /*

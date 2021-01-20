@@ -12,7 +12,7 @@ import java.util.Collection;
 import storage.interfaces.PrenotazioneInterface;
 
 /**
- * Dao per la prenotazione.
+ * Classe DAO per la gestione di PrenotazioneBean
  */
 public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<String>> {
 

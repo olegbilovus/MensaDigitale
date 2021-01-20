@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import storage.interfaces.FasciaOrariaInterface;
 
+/**
+ * Classe DAO per la gestione di FasciaOrariaBean
+ */
 public class FasciaOrariaDao implements FasciaOrariaInterface<FasciaOrariaBean> {
 
   /**

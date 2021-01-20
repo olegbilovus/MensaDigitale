@@ -14,7 +14,7 @@ import java.util.Date;
 import storage.interfaces.ConsumatoreInterface;
 
 /**
- * Dao per il consumatore.
+ * Classe DAO per la gestione di ConsumatoreBean
  */
 public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
 
