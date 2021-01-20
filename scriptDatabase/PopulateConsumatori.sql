@@ -5,5 +5,6 @@ INSERT INTO consumatore VALUES ('email1', 'Simone', 'Masullo', 0, 'AAA', null, n
                                 ('email4', 'Raffaele', 'Squillante', 0, 'DDD', null, null, null, null, null, null, null, false, false, 0 , 1),
                                 ('email5', 'Antonio', 'Giametta', 0, 'EEE', null, null, null, null, null, null, null, false, false, 0 , 1),
                                 ('email6', 'Paolo', 'Pisapia', 0, 'FFF', null, null, null, null, null, null, null, false, false, 0, 1),
-                                ('email', 'Francesco', 'Capriglione', 1, 'GGG', null, null, null, null, null, null, null, false, false, 5000, 1);
+                                ('email', 'Francesco', 'Capriglione', 1, 'GGG', null, null, null, null, null, null, null, false, false, 5000, 1),
+                                ('a.cacciapuoti3@studenti.unisa.it', 'Antonio', 'Cacciapuoti', 1, 'CCCNTN999999999X', null, null, null, null, null, null, null, null, null, 100, 1);
 
