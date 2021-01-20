@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import storage.interfaces.ValutazioneInterface;
 
+/**
+ * Classe DAO per la gestione di ValutazioneBean
+ */
 public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
 
   /*

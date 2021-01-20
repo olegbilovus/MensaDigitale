@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import storage.interfaces.AddettoInterface;
 
+/**
+ * Classe DAO per la gestione di AddettoBean
+ */
 public class AddettoDao implements AddettoInterface<AddettoBean> {
 
   /*

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import storage.interfaces.AdministratorInterface;
 
+/**
+ * Classe DAO per la gestione di AdministratorBean
+ */
 public class AdministratorDao implements AdministratorInterface<AdministratorBean> {
 
   /*

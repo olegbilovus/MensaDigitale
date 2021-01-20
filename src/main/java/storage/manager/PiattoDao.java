@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import storage.interfaces.PiattoInterface;
 
+/**
+ * Classe DAO per la gestione di PiattoBean
+ */
 public class PiattoDao implements PiattoInterface<PiattoBean> {
 
   /*

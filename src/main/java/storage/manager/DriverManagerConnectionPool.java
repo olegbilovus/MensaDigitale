@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * DriverManager
+ */
 public class DriverManagerConnectionPool {
 
   private static final List<Connection> freeDbConnections;
