@@ -268,7 +268,8 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
   /**
    * Metodo utilizzato per effettuare il tracciamento dei contatti.
    *
-   * @pre
+   * @pre codiceFiscale e' non null e dataIniziale e' non null
+   * @post la lista di ritorno contiene strighe con informazioni sui consumatori entrati in contatto col consumatore che ha il codice fiscale uguale a codiceFiscale
    * @param codiceFiscale e' il codice fiscale del consumatore
    * @param dataIniziale  e' la data (14gg antecedente a quella odierna)
    * @category Trova tutti i consumatori entrati in contatto con il consumatore di cui si cerca il

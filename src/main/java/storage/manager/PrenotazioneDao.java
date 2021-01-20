@@ -19,6 +19,8 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    *
+   * @pre id e' non null
+   * @post se l'entita' esiste nel database il valore di ritorno e' diverso da null
    * @param id id della prenotazione da ricercare
    * @category Ricerca la prenotazione in base all'id della prenotazione
    */
@@ -63,6 +65,7 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
    *
+   * @post se la table corrispondente contiene entita', la lista di ritorno non e' vuota
    * @category Ritorna tutte le prenotazioni
    */
   @Override
@@ -106,6 +109,8 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
    *
+   * @pre bean e' una PrenotazioneBean valida e non null
+   * @post bean e' reso persistente nel database
    * @param bean Prenotazione da salvare
    * @category Salva una prenotazione nel database
    */
@@ -145,6 +150,8 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
    *
+   * @pre bean e' una PrenotazioneBean valida, non null, gia' esistente nel database
+   * @post l'entita' corrispondente nel database rispecchia lo stato di bean
    * @param bean Prenotazione con contenuto aggiornato
    * @category Aggiorna una prenotazione
    */
@@ -181,6 +188,8 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
    *
+   * @pre bean e' una PrenotazioneBean valida, non null, gia' esistente nel database
+   * @post l'entita' corrispondente nel database viene eliminata
    * @param bean Indica il bean da eliminare
    * @category Cancella una prenotazione
    */
@@ -212,6 +221,16 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
     }
   }
 
+  /**
+   *
+   * @pre date, email e fasciaOraria sono non null
+   * @post se nel database e' presente una prenotazione con dataPrenotazione, email e fasciaOraria corrispondenti ai parametri passati, il valore di ritorno e' non null
+   * @param date data della prenotazione
+   * @param email email del consumatore di cui si vuole cercare la prenotazione
+   * @param fasciaOraria la fascia oraria in cui cercare la prenotazione
+   * @return un PrenotazioneBean che ha dataPrenotazione, email e fasciaOraria corrispondenti ai parametri passati
+   * @throws SQLException se c'e' un errore nel dialogo col database
+   */
   @Override
   public PrenotazioneBean<String> doRetrieveByDateAndFascia(
       Date date, String email, int fasciaOraria) throws SQLException {
@@ -254,6 +273,15 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
     return null;
   }
 
+  /**
+   *
+   * @pre date e email sono non null
+   * @post se nel database e' presente una prenotazione con dataPrenotazione e email corrispondenti ai parametri passati, il valore di ritorno e' non null
+   * @param date la data della prenotazione
+   * @param email l'email della prenotazione
+   * @return un PrenotazioneBean con data e email corrispondenti ai parametri passati
+   * @throws SQLException se c'e' un errore nel dialogo col database
+   */
   @Override
   public PrenotazioneBean<String> doRetrieveByDateAndMail(Date date, String email)
       throws SQLException {
@@ -294,6 +322,16 @@ public class PrenotazioneDao implements PrenotazioneInterface<PrenotazioneBean<S
     return null;
   }
 
+  /**
+   *
+   * @pre date e' non null
+   * @post se nel database sono presenti prenotazioni con dataPrenotazione, sala e fasciaOraria corrispondenti ai parametri passati, il valore di ritorno e' non null
+   * @param date la data delle prenotazioni da ricercare
+   * @param sala la sala delle prenotazioni da ricercare
+   * @param fascia la fasciaOraria delle prenotazioni da ricercare
+   * @return una collezione di PrenotazioneBean che hanno dataPrenotazione, sala e fasciaOraria corrispondenti ai parametri passati
+   * @throws SQLException se c'e' un errore nel dialogo col database
+   */
   @Override
   public Collection<PrenotazioneBean<String>> doRetrieveByDateSalaFascia(
       Date date, int sala, int fascia) throws SQLException {
