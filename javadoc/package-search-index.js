@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"storage.interfaces"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"business.addetto"},{"l":"business.admin"},{"l":"business.consumatore"},{"l":"business.piatti"},{"l":"business.prenotazioni"},{"l":"business.richieste"},{"l":"business.utente"},{"l":"business.valutazioni"},{"l":"startup"},{"l":"storage.interfaces"},{"l":"storage.manager"}]
