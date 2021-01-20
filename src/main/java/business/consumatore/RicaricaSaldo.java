@@ -10,19 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import storage.manager.ConsumatoreDao;
 
 /**
- * Servlet implementation class RicaricaSaldo
+ * Servlet implementation class RicaricaSaldo.
  */
 public class RicaricaSaldo extends HttpServlet {
 
   private static final long serialVersionUID = 1L;
   private static final ConsumatoreDao dao = new ConsumatoreDao();
 
-  /**
-   * @see HttpServlet#HttpServlet()
-   */
   public RicaricaSaldo() {
     super();
-    // TODO Auto-generated constructor stub
   }
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)

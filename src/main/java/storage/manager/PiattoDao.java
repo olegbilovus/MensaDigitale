@@ -20,6 +20,8 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    *
+   * @pre nome non e' null
+   * @post se l'entita' esiste nel database il valore di ritorno non e' null
    * @param nome Nome del piatto da ricercare
    * @category Ricerca il piatto in base al nome del piatto
    */
@@ -66,6 +68,7 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
    *
+   * @post restituisce la lista contenente tutti i piatti nel database. La lista puo' essere vuota 
    * @category Ritorna tutte i piatti
    */
   @Override
@@ -112,6 +115,8 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
    *
+   * @pre bean non e' null
+   * @post il piatto rappresentato da bean e' stato salvato in modo persistente sul database
    * @param bean Piatto da salvare
    * @category Salva un piatto nel database
    */
@@ -153,6 +158,8 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
    *
+   * @pre bean non e' null
+   * @post il piatto rappresentato da bean e' aggiornato correttamente nel database
    * @param bean Piatto con contenuto aggiornato
    * @category Aggiorna un piatto
    */
@@ -188,6 +195,8 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
    *
+   * @pre bean non e' null
+   * @post il piatto identificato da bean non e' piu' presente nel database
    * @param bean Indica il bean da eliminare
    * @category Cancella un piatto
    */
