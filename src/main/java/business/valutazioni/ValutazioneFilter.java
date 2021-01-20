@@ -11,6 +11,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Filter per la valutazione.
+ *
+ */
 public class ValutazioneFilter implements Filter {
 
   @Override

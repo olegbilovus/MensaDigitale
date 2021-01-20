@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import storage.manager.PiattoDao;
 
+/**
+ * Servlet implementation class MenuServlet.
+ *
+ */
 public class MenuServlet extends HttpServlet {
 
   private final PiattoDao dao = new PiattoDao();

@@ -3,6 +3,10 @@ package business.richieste;
 import java.util.Collection;
 import storage.manager.RichiestaDao;
 
+/**
+ * Singleton per le richieste i sospeso.
+ *
+ */
 public class RichiesteInSospeso {
 
   private static RichiesteInSospeso instance = null;

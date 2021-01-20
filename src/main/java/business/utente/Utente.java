@@ -2,6 +2,10 @@ package business.utente;
 
 import java.io.Serializable;
 
+/**
+ * Classe abstract per l'utente
+ *
+ */
 public abstract class Utente implements Serializable {
 
   private static final long serialVersionUID = 1L;

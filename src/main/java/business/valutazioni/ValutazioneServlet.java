@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import storage.manager.PiattoDao;
 import storage.manager.ValutazioneDao;
 
+/**
+ * Servlet implementation class ValutazioneServlet.
+ *
+ */
 public class ValutazioneServlet extends HttpServlet {
 
   private static final ValutazioneDao valutazioneDao = new ValutazioneDao();

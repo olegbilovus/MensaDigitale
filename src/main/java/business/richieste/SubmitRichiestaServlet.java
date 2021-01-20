@@ -15,6 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import storage.manager.ConsumatoreDao;
 import storage.manager.RichiestaDao;
 
+/**
+ * Servlet implementation class SubmitRichiestaServlet.
+ *
+ */
 public class SubmitRichiestaServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;

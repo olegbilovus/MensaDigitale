@@ -1,5 +1,9 @@
 package business.richieste;
 
+/**
+ * Bean per la richiesta.
+ *
+ */
 public class RichiestaBean {
 
   private int id;

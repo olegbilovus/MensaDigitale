@@ -1,5 +1,9 @@
 package business.prenotazioni;
 
+/**
+ * Bean per la fascia oraria.
+ *
+ */
 public class FasciaOrariaBean {
 
   private int id;

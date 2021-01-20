@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import storage.manager.ConsumatoreDao;
 import storage.manager.RichiestaDao;
 
+/**
+ * Servlet implementation class ValutaRichiesta.
+ *
+ */
 public class ValutaRichiesta extends HttpServlet {
 
   private static final long serialVersionUID = 1L;

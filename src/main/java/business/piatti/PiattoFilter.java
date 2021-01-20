@@ -12,6 +12,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Filtro per il piatto.
+ *
+ */
 public class PiattoFilter implements Filter {
 
   @Override

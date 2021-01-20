@@ -13,6 +13,10 @@ import storage.manager.AddettoDao;
 import storage.manager.AdministratorDao;
 import storage.manager.ConsumatoreDao;
 
+/**
+ * Servlet implementation class LoginServlet.
+ *
+ */
 public class LoginServlet extends HttpServlet {
 
   private static final ConsumatoreDao consumatoreDao = new ConsumatoreDao();

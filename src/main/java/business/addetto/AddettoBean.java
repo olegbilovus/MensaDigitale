@@ -7,6 +7,9 @@ public class AddettoBean extends Utente {
   private static final long serialVersionUID = 1L;
   private int lvlPermessi;
 
+  /**
+   * Bean per l'addetto.
+   */
   public AddettoBean() {
     super();
   }

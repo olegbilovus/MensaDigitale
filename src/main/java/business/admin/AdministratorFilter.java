@@ -10,6 +10,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Filtro per l'admin.
+ *
+ */
 public class AdministratorFilter implements Filter {
 
   /**

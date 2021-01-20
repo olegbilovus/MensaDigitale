@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Bean per l'utente
+ *
+ */
 public class MenuBean implements Serializable {
 
   private static final long serialVersionUID = 3276353706196636611L;

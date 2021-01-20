@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import storage.interfaces.FasciaOrariaInterface;
 import storage.manager.FasciaOrariaDao;
 
+/**
+ * Servlet implementation class FasciaOrariaServlet.
+ *
+ */
 public class FasciaOrariaServlet extends HttpServlet {
 
   private static final long serialVersionUID = 1L;

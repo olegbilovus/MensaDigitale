@@ -2,6 +2,10 @@ package business.valutazioni;
 
 import java.sql.Date;
 
+/**
+ * Bean per la valutazione.
+ *
+ */
 public class ValutazioneBean {
 
   private String email;

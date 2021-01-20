@@ -10,6 +10,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Filtro per lo studente.
+ * @author HP Laptop
+ *
+ */
 public class StudenteFilter implements Filter {
 
   /**

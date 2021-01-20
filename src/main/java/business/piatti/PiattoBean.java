@@ -3,6 +3,10 @@ package business.piatti;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Bean per il piatto.
+ *
+ */
 public class PiattoBean implements Serializable {
 
   private static final long serialVersionUID = 1447130805013128582L;

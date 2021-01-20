@@ -2,6 +2,9 @@ package business.admin;
 
 import business.utente.Utente;
 
+/**
+ * Bena per l'admin. *
+ */
 public class AdministratorBean extends Utente {
 
   private static final long serialVersionUID = 1L;

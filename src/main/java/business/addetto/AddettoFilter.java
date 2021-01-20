@@ -10,6 +10,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Filter per l'addetto.
+ *
+ */
 public class AddettoFilter implements Filter {
 
   /**
