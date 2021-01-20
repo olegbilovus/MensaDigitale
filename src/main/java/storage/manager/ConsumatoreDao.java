@@ -27,6 +27,8 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    *
+   * @pre email e' non null
+   * @post se l'entita' esiste nel database il valore di ritorno e' diverso da null
    * @param email email del consumatore da ricercare
    * @category Ricerca il consumatore in base all'email del consumatore
    */
@@ -82,6 +84,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
    *
+   * @post se la table corrispondente contiene entita', la lista di ritorno non e' vuota
    * @category Ritorna tutti i consumatori
    */
   @Override
@@ -136,6 +139,8 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
    *
+   * @pre bean e' un ConsumatoreBean valido e non null
+   * @post bean e' reso persistente nel database
    * @param bean Recensione da salvare
    * @category Salva una recensione nel database
    */
@@ -189,6 +194,8 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
    *
+   * @pre bean e' un ConsumatoreBean valido, non null, gia' esistente nel database
+   * @post l'entita' corrispondente nel database rispecchia lo stato di bean
    * @param bean Consumatore con contenuto aggiornato
    * @category Aggiorna un consumatore
    */
@@ -225,6 +232,8 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
    *
+   * @pre bean e' un Administrator valido, non null, gia' esistente nel database
+   * @post l'entita' corrispondente nel database viene eliminata
    * @param bean Indica il bean da eliminare
    * @category Cancella un consumatore
    */
@@ -259,6 +268,7 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
   /**
    * Metodo utilizzato per effettuare il tracciamento dei contatti.
    *
+   * @pre
    * @param codiceFiscale e' il codice fiscale del consumatore
    * @param dataIniziale  e' la data (14gg antecedente a quella odierna)
    * @category Trova tutti i consumatori entrati in contatto con il consumatore di cui si cerca il
@@ -328,4 +338,5 @@ public class ConsumatoreDao implements ConsumatoreInterface<ConsumatoreBean> {
     c2.setTime(dataPrenotazione);
     return !c2.before(c1);
   }
+
 }
