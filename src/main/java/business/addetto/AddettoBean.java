@@ -2,6 +2,9 @@ package business.addetto;
 
 import business.utente.Utente;
 
+/**
+ * Bean per l'Addetto
+ */
 public class AddettoBean extends Utente {
 
   private static final long serialVersionUID = 1L;

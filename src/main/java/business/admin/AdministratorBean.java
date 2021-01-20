@@ -3,7 +3,7 @@ package business.admin;
 import business.utente.Utente;
 
 /**
- * Bena per l'admin. *
+ * Bean per l'admin. *
  */
 public class AdministratorBean extends Utente {
 

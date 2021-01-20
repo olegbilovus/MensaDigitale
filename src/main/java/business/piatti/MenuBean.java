@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Bean per l'utente
- *
+ * Bean per il menu
  */
 public class MenuBean implements Serializable {
 
