@@ -54,7 +54,11 @@
                 </div>
                 <div class="col-md-6 align-self-center">
                     <div style="width: 50%;">
-                        <p style="width: 100%%;font-family: Montserrat, sans-serif; font-size:30;font-weight:bold;"><%=nome %> <%=cognome %><br><%=data %><br><%=fascia %></p>
+                        <p style="width: 100%;font-family: Montserrat, sans-serif; font-size:30;font-weight:bold;">
+                            Nome: <%=nome %><br>
+                            Cognome: <%=cognome %><br>
+                            Data di nascita: <%=data %><br>
+                            Fascia di pagamento: <%=fascia %></p>
                     </div>
                 </div>
             </div>
