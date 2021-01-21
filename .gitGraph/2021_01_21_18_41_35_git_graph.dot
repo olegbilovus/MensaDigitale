@@ -73,6 +73,8 @@ digraph auto {
 	"0d95f334e69afb857078fd9140e6b00f3e6ee5b7" -> "5562729150965c6d88afdb7054d54ab8527889d6"
 	"0dc60824893882b77a4e647600f909c019a3ebfa" [label="0dc6082" fillcolor="#85d5fa"]
 	"0dc60824893882b77a4e647600f909c019a3ebfa" -> "67d2206d74602113d7845c5ba08e7eb5923fd596"
+	"0dd9e9bc58955b47d9b8c4041e5d3571da5f28bf" [label="0dd9e9b" fillcolor="#85d5fa"]
+	"0dd9e9bc58955b47d9b8c4041e5d3571da5f28bf" -> cf0efeaaabf5002fee8209e3cfaedd2950f7671d
 	"0e9858a157b2ae178cdce2c0eab9d6aa547eb37f" [label="0e9858a" fillcolor="#85d5fa"]
 	"0e9858a157b2ae178cdce2c0eab9d6aa547eb37f" -> "35185009f073559654a94046c3cf1963d8882d21"
 	"0e9858a157b2ae178cdce2c0eab9d6aa547eb37f" -> "6f4790779abb175049c177c61bbc09fd848716ea"
@@ -1291,7 +1293,7 @@ digraph auto {
 	ff7cb8fa400aa58576f3f90618096a025c5d1a39 [label=ff7cb8f fillcolor="#85d5fa"]
 	ff7cb8fa400aa58576f3f90618096a025c5d1a39 -> b7c81948f185dd6d91aa736de773632cdbabd4b7
 	"origin/main" [label=main fillcolor="#ffa366"]
-	"origin/main" -> cf0efeaaabf5002fee8209e3cfaedd2950f7671d
+	"origin/main" -> "0dd9e9bc58955b47d9b8c4041e5d3571da5f28bf"
 	"origin/qrcodetest" [label=qrcodet fillcolor="#ffa366"]
 	"origin/qrcodetest" -> b4b858fe54e3f07e5e21af1012b07e81f9b0f34b
 	"origin/testParallel" [label=testPar fillcolor="#ffa366"]
@@ -1307,4 +1309,6 @@ digraph auto {
 	"1b1b8830f481541e02d40ba4b38af355ab12ad8b" -> add359463c4e42f2fd2eea43ed29e9c5c1ec4874
 	"v0.1" [label="v0.1" fillcolor="#ffc61a"]
 	"v0.1" -> "1b1b8830f481541e02d40ba4b38af355ab12ad8b"
+	"v1.0" [label="v1.0" fillcolor="#ffc61a"]
+	"v1.0" -> "0dd9e9bc58955b47d9b8c4041e5d3571da5f28bf"
 }
