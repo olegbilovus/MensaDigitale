@@ -97,13 +97,12 @@ class FilterResetSaleTest {
   public void testDoFilter4() throws SQLException, IOException, ServletException {
     PrenotazioneDao prenDao = new PrenotazioneDao();
     FasciaOrariaDao fasciaDao = new FasciaOrariaDao();
-    
+
     FasciaOrariaBean fascia = new FasciaOrariaBean(100, "13:00");
     PrenotazioneBean<String> prenBean =
         new PrenotazioneBean<String>(new Date(System.currentTimeMillis()), new QRCode("aa"), 1,
             fascia.getId(), tester.getEmail());
-    
-    
+
     try {
       dao.doSave(tester);
       fasciaDao.doSave(fascia);
@@ -122,19 +121,18 @@ class FilterResetSaleTest {
       dao.doDelete(tester);
     }
   }
-  
+
   @Test
   public void testDoFilter5() throws SQLException, IOException, ServletException {
     PrenotazioneDao prenDao = new PrenotazioneDao();
     FasciaOrariaDao fasciaDao = new FasciaOrariaDao();
-    
+
     FasciaOrariaBean fascia = new FasciaOrariaBean(100, "13:00");
     PrenotazioneBean<String> prenBean =
         new PrenotazioneBean<String>(new Date(System.currentTimeMillis()), new QRCode("aa"), 1,
             fascia.getId(), tester.getEmail());
     prenBean.setEntrato(true);
-    
-    
+
     try {
       dao.doSave(tester);
       fasciaDao.doSave(fascia);

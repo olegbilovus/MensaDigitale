@@ -10,7 +10,7 @@ import java.util.Collection;
 import storage.interfaces.AddettoInterface;
 
 /**
- * Classe DAO per la gestione di AddettoBean
+ * Classe DAO per la gestione di AddettoBean.
  */
 public class AddettoDao implements AddettoInterface<AddettoBean> {
 
@@ -23,9 +23,9 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    *
+   * @param email email dell'addettoda ricercare
    * @pre email e' non null
    * @post se l'entita' esiste nel database il valore di ritorno e' diverso da null
-   * @param email email dell'addettoda ricercare
    * @category Ricerca l'addetto in base all'email dell'addetto
    */
   @Override
@@ -110,9 +110,9 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
    *
+   * @param bean Addetto da salvare
    * @pre bean e' un AddettoBean valido e non null
    * @post bean e' reso persistente nel database
-   * @param bean Addetto da salvare
    * @category Salva un addetto nel database
    */
   @Override
@@ -149,9 +149,9 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
    *
+   * @param bean Addetto con contenuto aggiornato
    * @pre bean e' un AddettoBean valido, non null, gia' esistente nel database
    * @post l'entita' corrispondente nel database rispecchia lo stato di bean
-   * @param bean Addetto con contenuto aggiornato
    * @category Aggiorna un addetto
    */
   @Override
@@ -186,9 +186,9 @@ public class AddettoDao implements AddettoInterface<AddettoBean> {
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
    *
+   * @param bean Indica il bean da eliminare
    * @pre bean e' un AddettoBean valido, non null, gia' esistente nel database
    * @post l'entita' corrispondente nel database viene eliminata
-   * @param bean Indica il bean da eliminare
    * @category Cancella un addetto
    */
   @Override

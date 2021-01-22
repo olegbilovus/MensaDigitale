@@ -13,7 +13,6 @@ import storage.manager.FasciaOrariaDao;
 
 /**
  * Servlet implementation class FasciaOrariaServlet.
- *
  */
 public class FasciaOrariaServlet extends HttpServlet {
 
@@ -46,8 +45,8 @@ public class FasciaOrariaServlet extends HttpServlet {
     char f5 = fasciaOraria.charAt(4);
 
     boolean f1val = (Character.getNumericValue(f1) == 0)
-            || (Character.getNumericValue(f1) == 1)
-            || (Character.getNumericValue(f1) == 2 && Character.getNumericValue(f2) <= 3);
+        || (Character.getNumericValue(f1) == 1)
+        || (Character.getNumericValue(f1) == 2 && Character.getNumericValue(f2) <= 3);
     boolean f4val = Character.getNumericValue(f4) <= 5;
 
     if (!(Character.isDigit(f1)) || !(Character.isDigit(f2)) || f3 != ':'

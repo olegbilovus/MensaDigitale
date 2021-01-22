@@ -10,7 +10,7 @@ import java.util.Collection;
 import storage.interfaces.AdministratorInterface;
 
 /**
- * Classe DAO per la gestione di AdministratorBean
+ * Classe DAO per la gestione di AdministratorBean.
  */
 public class AdministratorDao implements AdministratorInterface<AdministratorBean> {
 
@@ -23,9 +23,9 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    *
+   * @param email email dell'amministratore da ricercare
    * @pre email e' non null
    * @post se l'entita' esiste nel database il valore di ritorno e' diverso da null
-   * @param email email dell'amministratore da ricercare
    * @category Ricerca un amministratore in base all'email dell'amministratore
    */
   @Override
@@ -108,9 +108,9 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
    *
+   * @param bean Amministratore da salvare
    * @pre bean e' un AdministratorBean valido e non null
    * @post bean e' reso persistente nel database
-   * @param bean Amministratore da salvare
    * @category Salva un amministratore nel database
    */
   @Override
@@ -146,9 +146,9 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
    *
+   * @param bean Amministratore con contenuto aggiornato
    * @pre bean e' un AdministratorBean valido, non null, gia' esistente nel database
    * @post l'entita' corrispondente nel database rispecchia lo stato di bean
-   * @param bean Amministratore con contenuto aggiornato
    * @category Aggiorna un amministratore
    */
   @Override
@@ -183,9 +183,9 @@ public class AdministratorDao implements AdministratorInterface<AdministratorBea
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
    *
+   * @param bean Indica il bean da eliminare
    * @pre bean e' un Administrator valido, non null, gia' esistente nel database
    * @post l'entita' corrispondente nel database viene eliminata
-   * @param bean Indica il bean da eliminare
    * @category Cancella un amministratore
    */
   @Override

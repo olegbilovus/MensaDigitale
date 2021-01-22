@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Filtro per il piatto.
- *
  */
 public class PiattoFilter implements Filter {
 

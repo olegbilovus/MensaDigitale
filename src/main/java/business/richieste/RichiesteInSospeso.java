@@ -5,7 +5,6 @@ import storage.manager.RichiestaDao;
 
 /**
  * Singleton per le richieste i sospeso.
- *
  */
 public class RichiesteInSospeso {
 

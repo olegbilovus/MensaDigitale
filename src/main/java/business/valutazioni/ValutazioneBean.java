@@ -4,7 +4,6 @@ import java.sql.Date;
 
 /**
  * Bean per la valutazione.
- *
  */
 public class ValutazioneBean {
 

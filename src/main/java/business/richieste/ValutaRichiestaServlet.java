@@ -14,7 +14,6 @@ import storage.manager.RichiestaDao;
 
 /**
  * Servlet implementation class ValutaRichiestaServlet.
- *
  */
 public class ValutaRichiestaServlet extends HttpServlet {
 
@@ -44,7 +43,7 @@ public class ValutaRichiestaServlet extends HttpServlet {
     try {
       RichiestaBean richiesta = richiestaDao.doRetrieveByKey(id);
       ConsumatoreBean consumatore =
-          (ConsumatoreBean) consumatoreDao.doRetrieveByKey(richiesta.getEmail());
+          consumatoreDao.doRetrieveByKey(richiesta.getEmail());
       consumatore.setStatoServizi(esito % 2);
       richiesta.setEsito(esito);
       richiesta.setValutatore(((Utente) request.getSession().getAttribute("utente")).getEmail());

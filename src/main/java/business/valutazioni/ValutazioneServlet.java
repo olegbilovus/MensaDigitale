@@ -14,7 +14,6 @@ import storage.manager.ValutazioneDao;
 
 /**
  * Servlet implementation class ValutazioneServlet.
- *
  */
 public class ValutazioneServlet extends HttpServlet {
 
@@ -51,7 +50,7 @@ public class ValutazioneServlet extends HttpServlet {
           if (tmp == null) {
             // il piatto non esiste in DB
             response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-                    "Il piatto non esiste nel database");
+                "Il piatto non esiste nel database");
             throw new IllegalArgumentException();
           }
         } catch (SQLException throwables) {
@@ -63,12 +62,13 @@ public class ValutazioneServlet extends HttpServlet {
           case "modificaValutazione" -> modificaValutazione(request, response);
           case "rimuoviValutazione" -> rimuoviValutazione(request, response);
           default -> response
-                  .sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
+              .sendError(HttpServletResponse.SC_BAD_REQUEST,
+                  "Errore nei parametri della richiesta!");
         }
 
       } else {
         response
-                .sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
+            .sendError(HttpServletResponse.SC_BAD_REQUEST, "Errore nei parametri della richiesta!");
         throw new IllegalArgumentException();
       }
 
@@ -90,7 +90,8 @@ public class ValutazioneServlet extends HttpServlet {
       try {
         valutazioneDao.doSave(
             new ValutazioneBean(email, piatto, valutazione, new Date(System.currentTimeMillis())));
-        response.sendRedirect(response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
+        response.sendRedirect(
+            response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
       } catch (SQLException throwables) {
         throwables.printStackTrace();
       }
@@ -113,7 +114,8 @@ public class ValutazioneServlet extends HttpServlet {
       try {
         valutazioneDao.doUpdate(
             new ValutazioneBean(email, piatto, valutazione, new Date(System.currentTimeMillis())));
-        response.sendRedirect(response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
+        response.sendRedirect(
+            response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
       } catch (SQLException throwables) {
         throwables.printStackTrace();
       }
@@ -133,21 +135,23 @@ public class ValutazioneServlet extends HttpServlet {
 
     try {
       valutazioneDao.doDelete(new ValutazioneBean(email, piatto, 0, null));
-      response.sendRedirect(response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
+      response
+          .sendRedirect(response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
   }
 
   private void ottieniValutazioni(HttpServletRequest request, HttpServletResponse response)
-          throws IOException {
-
+      throws IOException {
 
     try {
-      ArrayList<ValutazioneBean> valutazioniByEmail = (ArrayList<ValutazioneBean>) valutazioneDao.doRetrieveByEmail(email);
-//      response.sendRedirect(response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
+      ArrayList<ValutazioneBean> valutazioniByEmail =
+          (ArrayList<ValutazioneBean>) valutazioneDao.doRetrieveByEmail(email);
+      //response.sendRedirect(response.encodeURL(request.getContextPath() + "/inserisciValutazione.jsp"));
       request.setAttribute("valutazioniByEmail", valutazioniByEmail);
-      request.getRequestDispatcher(response.encodeURL("/inserisciValutazione.jsp")).forward(request, response);
+      request.getRequestDispatcher(response.encodeURL("/inserisciValutazione.jsp"))
+          .forward(request, response);
     } catch (SQLException | ServletException throwables) {
       throwables.printStackTrace();
     }

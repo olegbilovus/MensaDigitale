@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * DriverManager
+ * DriverManager.
  */
 public class DriverManagerConnectionPool {
 

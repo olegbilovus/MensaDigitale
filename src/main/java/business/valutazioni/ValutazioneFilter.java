@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Filter per la valutazione.
- *
  */
 public class ValutazioneFilter implements Filter {
 
@@ -30,7 +29,8 @@ public class ValutazioneFilter implements Filter {
       // non e' loggato
       resp.sendRedirect(resp.encodeURL(req.getContextPath() + "/login.jsp"));
       return;
-    } else if (utente.getClass() != ConsumatoreBean.class || ((ConsumatoreBean) utente).getStatoServizi() != 1) {
+    } else if (utente.getClass() != ConsumatoreBean.class
+        || ((ConsumatoreBean) utente).getStatoServizi() != 1) {
       // non e' consumatore
       resp.sendRedirect(resp.encodeURL(req.getContextPath() + "/index.jsp"));
       return;

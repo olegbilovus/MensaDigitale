@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /***
- * Filtro per la servlet Login.
- * L'accesso alla servlet e' consentito solo se non si e' gia loggati.
+ * Filtro per la servlet Login. L'accesso alla servlet e' consentito solo se non si e' gia loggati.
  */
 public class LoginFilter implements Filter {
 

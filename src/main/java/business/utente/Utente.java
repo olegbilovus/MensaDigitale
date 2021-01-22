@@ -3,8 +3,7 @@ package business.utente;
 import java.io.Serializable;
 
 /**
- * Classe abstract per l'utente
- *
+ * Classe abstract per l'utente.
  */
 public abstract class Utente implements Serializable {
 
@@ -16,8 +15,8 @@ public abstract class Utente implements Serializable {
   /**
    * Utente rappresenta l'utente generico del sistema.
    *
-   * @param email e' l'email dell'utente
-   * @param nome e' il nome dell'utente
+   * @param email   e' l'email dell'utente
+   * @param nome    e' il nome dell'utente
    * @param cognome e' il cognome dell'utente
    */
   public Utente(String email, String nome, String cognome) {

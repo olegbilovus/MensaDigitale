@@ -1,11 +1,9 @@
 package business.piatti;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * Bean per il piatto.
- *
  */
 public class PiattoBean implements Serializable {
 
@@ -20,17 +18,18 @@ public class PiattoBean implements Serializable {
   private int sodio;
   private int carboidrati;
 
-  public PiattoBean() {}
+  public PiattoBean() {
+  }
 
   /**
    * Costruttore della classe PiattoBean.
    *
-   * @param nome il nome del Piatto
+   * @param nome        il nome del Piatto
    * @param ingredienti una stringa che contiene tutti gli ingredienti
-   * @param calorie numero di calorie
-   * @param proteine numero di proteine (in g/porzione)
-   * @param grassi numero di grassi (in g/porzione)
-   * @param sodio numero di sodio (in g/porzione)
+   * @param calorie     numero di calorie
+   * @param proteine    numero di proteine (in g/porzione)
+   * @param grassi      numero di grassi (in g/porzione)
+   * @param sodio       numero di sodio (in g/porzione)
    * @param carboidrati numero di carboidrati (in g/porzione)
    */
   public PiattoBean(String nome, String ingredienti, String portata, int calorie, int proteine,

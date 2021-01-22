@@ -17,7 +17,6 @@ import storage.manager.RichiestaDao;
 
 /**
  * Servlet implementation class SubmitRichiestaServlet.
- *
  */
 public class SubmitRichiestaServlet extends HttpServlet {
 

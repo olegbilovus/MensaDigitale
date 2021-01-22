@@ -10,21 +10,22 @@ import java.util.Collection;
 import storage.interfaces.RichiestaInterface;
 
 /**
- * Classe DAO per la gestione di RichiestaBean
+ * Classe DAO per la gestione di RichiestaBean.
  */
 public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
 
   /*
    * Costruttore per RichiestaDao.
    */
-  public RichiestaDao() {}
+  public RichiestaDao() {
+  }
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    *
-   * @post restituisce la richiesta identificata dall'id passato come parametro se presente nel
-   *       database
    * @param id id della richiesta da ricercare
+   * @post restituisce la richiesta identificata dall'id passato come parametro se presente nel
+   * database
    * @category Ricerca la richiesta in base all'id della richiesta
    */
   @Override
@@ -66,7 +67,7 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
 
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
-   * 
+   *
    * @post restituisce la lista contenente tutte le richieste presenti nel database
    * @category Ritorna tutte le richieste
    */
@@ -110,9 +111,9 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
    *
+   * @param bean Richiesta da salvare
    * @pre bean non e' null
    * @post la richiesta identificata da bean e' correttamente salvata dal database
-   * @param bean Richiesta da salvare
    * @category Salva una richiesta nel database
    */
   @Override
@@ -149,9 +150,9 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
    *
+   * @param bean Richiesta con contenuto aggiornato
    * @pre bean non e' null
    * @post la richiesta identificata da bean e' correttamente aggiornata sul database
-   * @param bean Richiesta con contenuto aggiornato
    * @category Aggiorna una richiesta
    */
   @Override
@@ -187,9 +188,9 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
    *
+   * @param bean Indica il bean da eliminare
    * @pre bean non e' null
    * @post la richiesta identificata da bean non e' piu' presente sul database
-   * @param bean Indica il bean da eliminare
    * @category Cancella una richiesta
    */
   @Override
@@ -223,8 +224,8 @@ public class RichiestaDao implements RichiestaInterface<RichiestaBean> {
   /**
    * Metodo invocato per ottenere la lista delle richieste a cui non � ancora stato dato un esito.
    *
-   * @post restituisce una lista contenente tutte le richieste con esito = 0 presenti nel database
    * @return collection di richieste in sospeso
+   * @post restituisce una lista contenente tutte le richieste con esito = 0 presenti nel database
    */
   public Collection<RichiestaBean> doRetrieveInSospeso() {
     Connection con = null;

@@ -10,23 +10,24 @@ import java.util.Collection;
 import storage.interfaces.ValutazioneInterface;
 
 /**
- * Classe DAO per la gestione di ValutazioneBean
+ * Classe DAO per la gestione di ValutazioneBean.
  */
 public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
 
   /*
    * Costruttore per ValutazioneDao.
    */
-  public ValutazioneDao() {}
+  public ValutazioneDao() {
+  }
 
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    *
+   * @param email  email dell'utente che ha fatto la valutazione da ricercare
+   * @param piatto nome del piatto per cui e' stata fatta la valutazione da ricercare
    * @pre email e piatto non sono null
    * @post se e' presente una valutazione nel database identificato da email e piatto esso viene
-   *       restituito
-   * @param email email dell'utente che ha fatto la valutazione da ricercare
-   * @param piatto nome del piatto per cui e' stata fatta la valutazione da ricercare
+   * restituito
    * @category Ricerca la valutazione in base all'email dell'utente
    */
   @Override
@@ -112,9 +113,9 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
    *
+   * @param bean Recensione da salvare
    * @pre bean non e' null
    * @post la valutazione identificata da bean viene correttamente salvata sul database
-   * @param bean Recensione da salvare
    * @category Salva una recensione nel database
    */
   @Override
@@ -151,9 +152,9 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
    *
+   * @param bean Recensione con contenuto aggiornato
    * @pre bean non e' null
    * @post la valutazione identificata da bean e' correttamente aggiornata sul database
-   * @param bean Recensione con contenuto aggiornato
    * @category Aggiorna una recensione
    */
   @Override
@@ -191,9 +192,9 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
    *
+   * @param bean Indica il bean da eliminare
    * @pre bean non e' null
    * @post la valutazione identificata da bean non e' piu' presente sul database
-   * @param bean Indica il bean da eliminare
    * @category Cancella una recensione
    */
   @Override
@@ -227,14 +228,13 @@ public class ValutazioneDao implements ValutazioneInterface<ValutazioneBean> {
 
   /**
    * Metodo utilizzato per ottenere tutte le recensioni effettuate da un utente.
-   * 
-   * @pre email non e' null
-   * @post viene restituita una lista contenente tutte le valutazioni effettuate dall'utente
-   *       identificato dall'email
+   *
    * @param email email dell'utente che ha effettuato le valutazioni da ricercare
    * @return lista delle valutazioni effettuate dall'utente
-   * 
    * @throws SQLException se c'e' un errore nel dialogo con il database
+   * @pre email non e' null
+   * @post viene restituita una lista contenente tutte le valutazioni effettuate dall'utente
+   * identificato dall'email
    */
   public Collection<ValutazioneBean> doRetrieveByEmail(String email) throws SQLException {
     Connection con = null;

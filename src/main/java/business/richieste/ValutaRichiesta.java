@@ -13,7 +13,6 @@ import storage.manager.RichiestaDao;
 
 /**
  * Servlet implementation class ValutaRichiesta.
- *
  */
 public class ValutaRichiesta extends HttpServlet {
 

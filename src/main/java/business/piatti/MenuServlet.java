@@ -15,7 +15,6 @@ import storage.manager.PiattoDao;
 
 /**
  * Servlet implementation class MenuServlet.
- *
  */
 public class MenuServlet extends HttpServlet {
 
@@ -75,7 +74,8 @@ public class MenuServlet extends HttpServlet {
             request.setAttribute("menu", menu);
             inputStream.close();
             String destination = request.getParameter("destination");
-            request.getRequestDispatcher(response.encodeURL(destination)).forward(request, response);
+            request.getRequestDispatcher(response.encodeURL(destination))
+                .forward(request, response);
             return;
           } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -107,7 +107,8 @@ public class MenuServlet extends HttpServlet {
     }
   }
 
-  private void rimuoviMenu(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  private void rimuoviMenu(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
     menu = new MenuBean();
     apriStreamsOutput();
     outputStream.writeObject(menu);

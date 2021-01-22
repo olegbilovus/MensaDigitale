@@ -31,7 +31,8 @@ class SubmitRichiestaServletTest {
   private static final ConsumatoreDao consumatoreDao = new ConsumatoreDao();
   private static int nRichieste;
   private final HttpServletResponse response = Mockito.mock(HttpServletResponse.class);
-  private final SubmitRichiestaServlet servlet = new SubmitRichiestaServlet() {};
+  private final SubmitRichiestaServlet servlet = new SubmitRichiestaServlet() {
+  };
 
   @BeforeAll
   public static void init() throws SQLException {
@@ -1034,7 +1035,7 @@ class SubmitRichiestaServletTest {
     } finally {
     }
   }
-  
+
   @Test
   void coverage_8() throws SQLException, IOException, ServletException {
     ConsumatoreBean studente = new ConsumatoreBean("m.rossi998@studenti.unisa.it", "Mario", "Rossi",
@@ -1072,7 +1073,7 @@ class SubmitRichiestaServletTest {
     } finally {
     }
   }
-  
+
   @Test
   void coverage_9() throws SQLException, IOException, ServletException {
     ConsumatoreBean studente2 = new ConsumatoreBean("g.c@studenti.unisa.it", "G", "C",

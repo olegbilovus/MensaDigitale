@@ -10,7 +10,7 @@ import java.util.Collection;
 import storage.interfaces.PiattoInterface;
 
 /**
- * Classe DAO per la gestione di PiattoBean
+ * Classe DAO per la gestione di PiattoBean.
  */
 public class PiattoDao implements PiattoInterface<PiattoBean> {
 
@@ -23,9 +23,9 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   /**
    * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
    *
+   * @param nome Nome del piatto da ricercare
    * @pre nome non e' null
    * @post se l'entita' esiste nel database il valore di ritorno non e' null
-   * @param nome Nome del piatto da ricercare
    * @category Ricerca il piatto in base al nome del piatto
    */
   @Override
@@ -71,7 +71,7 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   /**
    * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
    *
-   * @post restituisce la lista contenente tutti i piatti nel database. La lista puo' essere vuota 
+   * @post restituisce la lista contenente tutti i piatti nel database. La lista puo' essere vuota
    * @category Ritorna tutte i piatti
    */
   @Override
@@ -118,9 +118,9 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   /**
    * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
    *
+   * @param bean Piatto da salvare
    * @pre bean non e' null
    * @post il piatto rappresentato da bean e' stato salvato in modo persistente sul database
-   * @param bean Piatto da salvare
    * @category Salva un piatto nel database
    */
   @Override
@@ -161,9 +161,9 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   /**
    * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
    *
+   * @param bean Piatto con contenuto aggiornato
    * @pre bean non e' null
    * @post il piatto rappresentato da bean e' aggiornato correttamente nel database
-   * @param bean Piatto con contenuto aggiornato
    * @category Aggiorna un piatto
    */
   @Override
@@ -198,9 +198,9 @@ public class PiattoDao implements PiattoInterface<PiattoBean> {
   /**
    * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
    *
+   * @param bean Indica il bean da eliminare
    * @pre bean non e' null
    * @post il piatto identificato da bean non e' piu' presente nel database
-   * @param bean Indica il bean da eliminare
    * @category Cancella un piatto
    */
   @Override

@@ -3,7 +3,7 @@ package business.addetto;
 import business.utente.Utente;
 
 /**
- * Bean per l'Addetto
+ * Bean per l'Addetto.
  */
 public class AddettoBean extends Utente {
 

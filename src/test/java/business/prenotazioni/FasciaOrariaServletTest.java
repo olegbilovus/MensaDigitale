@@ -1,5 +1,9 @@
 package business.prenotazioni;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -13,10 +17,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.mockito.internal.matchers.Null;
 import storage.manager.FasciaOrariaDao;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class FasciaOrariaServletTest {
 
@@ -154,7 +155,7 @@ class FasciaOrariaServletTest {
     String fascia = "13:40";
     try {
       Mockito.doReturn(fascia).when(request).getParameter("fasciaOraria");
-      assertThrows(IllegalArgumentException.class ,() -> servlet.doPost(request, response));
+      assertThrows(IllegalArgumentException.class, () -> servlet.doPost(request, response));
     } finally {
       if (fasciaOrariaDao.doRetrieveByFascia(fascia) != null) {
         fasciaOrariaDao.doDelete(fasciaOrariaDao.doRetrieveByFascia(fascia));

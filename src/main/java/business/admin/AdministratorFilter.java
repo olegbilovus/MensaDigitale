@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Filtro per l'admin.
- *
  */
 public class AdministratorFilter implements Filter {
 
