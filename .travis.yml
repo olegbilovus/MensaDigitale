@@ -5,8 +5,6 @@ cache:
   directories: 
   - $HOME/.m2
 os: linux
-dist: focal
-arch: arm64
 git:
   quiet: true
 before_install:
