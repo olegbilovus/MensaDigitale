@@ -11,21 +11,12 @@ before_install:
 - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
 services:
 - mysql
-install:
-- |
-  if [[ $TRAVIS_CPU_ARCH == "arm64" ]]; then
-    sudo bash -ec '
-    echo -e '\''[mysqld]\\nskip-grant-tables'\'' >/etc/mysql/conf.d/grant.cnf
-    systemctl restart mysql
-    mysql -e "UPDATE mysql.user SET Grant_priv='\''Y'\'', Super_priv='\''Y'\'' WHERE User='\''root'\''; flush privileges;"
-    rm /etc/mysql/conf.d/grant.cnf
-    systemctl restart mysql'
-  fi
+install: echo "skip install"
 before_script:
 - mysql -u root < scriptDatabase/DB.sql
 - mysql -u root -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
 - mysql -u root -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'localhost';"
 - mysql -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;"
 script:
-- /usr/local/maven/bin/mvn test -B jacoco:report
+- mvn test -B jacoco:report
 - bash ./scriptTravis.sh
