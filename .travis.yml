@@ -13,7 +13,16 @@ before_install:
 - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
 services:
 - mysql
-install: sudo echo "skip install"
+install:
+- |
+  if [[ $TRAVIS_CPU_ARCH == "arm64" ]]; then
+    sudo bash -ec '
+    echo -e '\''[mysqld]\\nskip-grant-tables'\'' >/etc/mysql/conf.d/grant.cnf
+    systemctl restart mysql
+    mysql -e "UPDATE mysql.user SET Grant_priv='\''Y'\'', Super_priv='\''Y'\'' WHERE User='\''root'\''; flush privileges;"
+    rm /etc/mysql/conf.d/grant.cnf
+    systemctl restart mysql'
+  fi
 before_script:
 - mysql -u root < scriptDatabase/DB.sql
 - mysql -u root -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
