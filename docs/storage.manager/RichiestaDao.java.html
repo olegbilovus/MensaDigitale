@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RichiestaDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">storage.manager</a> &gt; <span class="el_source">RichiestaDao.java</span></div><h1>RichiestaDao.java</h1><pre class="source lang-java linenums">package storage.manager;
+
+import business.richieste.RichiestaBean;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import storage.interfaces.RichiestaInterface;
+
+/**
+ * Classe DAO per la gestione di RichiestaBean.
+ */
+public class RichiestaDao implements RichiestaInterface&lt;RichiestaBean&gt; {
+
+  /*
+   * Costruttore per RichiestaDao.
+   */
+<span class="fc" id="L20">  public RichiestaDao() {</span>
+<span class="fc" id="L21">  }</span>
+
+  /**
+   * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
+   *
+   * @param id id della richiesta da ricercare
+   * @post restituisce la richiesta identificata dall'id passato come parametro se presente nel
+   * database
+   * @category Ricerca la richiesta in base all'id della richiesta
+   */
+  @Override
+  public RichiestaBean doRetrieveByKey(int id) throws SQLException {
+<span class="fc" id="L33">    RichiestaBean bean = null;</span>
+<span class="fc" id="L34">    Connection con = null;</span>
+<span class="fc" id="L35">    PreparedStatement statement = null;</span>
+<span class="fc" id="L36">    String sql = &quot;SELECT * FROM richiesta WHERE id=?&quot;;</span>
+    try {
+<span class="fc" id="L38">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L39">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L40">      statement.setInt(1, id);</span>
+<span class="fc" id="L41">      System.out.println(&quot;DoRetrieveByKey&quot; + statement);</span>
+<span class="fc" id="L42">      ResultSet rs = statement.executeQuery();</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">      if (rs.next()) {</span>
+<span class="fc" id="L44">        bean = new RichiestaBean();</span>
+<span class="fc" id="L45">        bean.setId(rs.getInt(&quot;id&quot;));</span>
+<span class="fc" id="L46">        bean.setEmail(rs.getString(&quot;email&quot;));</span>
+<span class="fc" id="L47">        bean.setEsito(rs.getInt(&quot;esito&quot;));</span>
+<span class="fc" id="L48">        bean.setValutatore(rs.getString(&quot;valutatore&quot;));</span>
+<span class="fc" id="L49">        return bean;</span>
+      }
+<span class="nc" id="L51">    } catch (Exception e) {</span>
+<span class="nc" id="L52">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L57">        statement.close();</span>
+<span class="fc" id="L58">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L60">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L62">        e.printStackTrace();</span>
+<span class="fc" id="L63">      }</span>
+    }
+<span class="fc" id="L65">    return null;</span>
+  }
+
+  /**
+   * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
+   *
+   * @post restituisce la lista contenente tutte le richieste presenti nel database
+   * @category Ritorna tutte le richieste
+   */
+  @Override
+  public Collection&lt;RichiestaBean&gt; doRetrieveAll() throws SQLException {
+<span class="fc" id="L76">    Connection con = null;</span>
+<span class="fc" id="L77">    PreparedStatement statement = null;</span>
+<span class="fc" id="L78">    String sql = &quot;SELECT * FROM richiesta&quot;;</span>
+<span class="fc" id="L79">    ArrayList&lt;RichiestaBean&gt; collection = new ArrayList&lt;RichiestaBean&gt;();</span>
+    try {
+<span class="fc" id="L81">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L82">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L83">      System.out.println(&quot;DoRetriveAll&quot; + statement);</span>
+<span class="fc" id="L84">      ResultSet rs = statement.executeQuery();</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">      while (rs.next()) {</span>
+<span class="fc" id="L86">        RichiestaBean bean = new RichiestaBean();</span>
+<span class="fc" id="L87">        bean.setId(rs.getInt(&quot;id&quot;));</span>
+<span class="fc" id="L88">        bean.setEmail(rs.getString(&quot;email&quot;));</span>
+<span class="fc" id="L89">        bean.setEsito(rs.getInt(&quot;esito&quot;));</span>
+<span class="fc" id="L90">        bean.setValutatore(rs.getString(&quot;valutatore&quot;));</span>
+<span class="fc" id="L91">        collection.add(bean);</span>
+<span class="fc" id="L92">      }</span>
+<span class="fc" id="L93">      return collection;</span>
+<span class="nc" id="L94">    } catch (Exception e) {</span>
+<span class="nc" id="L95">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L100">        statement.close();</span>
+<span class="fc" id="L101">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L103">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L105">        e.printStackTrace();</span>
+<span class="fc" id="L106">      }</span>
+    }
+<span class="nc" id="L108">    return collection;</span>
+  }
+
+  /**
+   * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
+   *
+   * @param bean Richiesta da salvare
+   * @pre bean non e' null
+   * @post la richiesta identificata da bean e' correttamente salvata dal database
+   * @category Salva una richiesta nel database
+   */
+  @Override
+  public void doSave(RichiestaBean bean) throws SQLException {
+<span class="fc" id="L121">    Connection con = null;</span>
+<span class="fc" id="L122">    PreparedStatement statement = null;</span>
+<span class="fc" id="L123">    String sql = &quot;INSERT INTO richiesta VALUES (?,?,?,?)&quot;;</span>
+    try {
+<span class="fc" id="L125">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L126">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L127">      statement.setInt(1, bean.getId());</span>
+<span class="fc" id="L128">      statement.setString(2, bean.getEmail());</span>
+<span class="fc" id="L129">      statement.setInt(3, bean.getEsito());</span>
+<span class="fc" id="L130">      statement.setString(4, bean.getValutatore());</span>
+<span class="fc" id="L131">      System.out.println(&quot;doSave=&quot; + statement);</span>
+<span class="fc" id="L132">      statement.executeUpdate();</span>
+<span class="fc" id="L133">      con.commit();</span>
+<span class="nc" id="L134">    } catch (Exception e) {</span>
+<span class="nc" id="L135">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L140">        statement.close();</span>
+<span class="fc" id="L141">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L143">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L145">        e.printStackTrace();</span>
+<span class="fc" id="L146">      }</span>
+    }
+<span class="fc" id="L148">  }</span>
+
+  /**
+   * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
+   *
+   * @param bean Richiesta con contenuto aggiornato
+   * @pre bean non e' null
+   * @post la richiesta identificata da bean e' correttamente aggiornata sul database
+   * @category Aggiorna una richiesta
+   */
+  @Override
+  public void doUpdate(RichiestaBean bean) throws SQLException {
+<span class="fc" id="L160">    Connection con = null;</span>
+<span class="fc" id="L161">    PreparedStatement statement = null;</span>
+<span class="fc" id="L162">    String sql = &quot;UPDATE richiesta SET esito=?, valutatore=? WHERE id=?&quot;;</span>
+    try {
+<span class="fc" id="L164">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L165">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L166">      statement.setInt(1, bean.getEsito());</span>
+<span class="fc" id="L167">      statement.setString(2, bean.getValutatore());</span>
+<span class="fc" id="L168">      statement.setInt(3, bean.getId());</span>
+<span class="fc" id="L169">      System.out.println(&quot;doUpdate=&quot; + statement);</span>
+<span class="fc" id="L170">      statement.executeUpdate();</span>
+<span class="fc" id="L171">      con.commit();</span>
+<span class="nc" id="L172">    } catch (Exception e) {</span>
+<span class="nc" id="L173">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L178">        statement.close();</span>
+<span class="fc" id="L179">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L181">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L183">        e.printStackTrace();</span>
+<span class="fc" id="L184">      }</span>
+    }
+<span class="fc" id="L186">  }</span>
+
+  /**
+   * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
+   *
+   * @param bean Indica il bean da eliminare
+   * @pre bean non e' null
+   * @post la richiesta identificata da bean non e' piu' presente sul database
+   * @category Cancella una richiesta
+   */
+  @Override
+  public void doDelete(RichiestaBean bean) throws SQLException {
+<span class="fc" id="L198">    Connection con = null;</span>
+<span class="fc" id="L199">    PreparedStatement statement = null;</span>
+<span class="fc" id="L200">    String sql = &quot;DELETE FROM richiesta WHERE id=?&quot;;</span>
+    try {
+<span class="fc" id="L202">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L203">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L204">      statement.setInt(1, bean.getId());</span>
+<span class="fc" id="L205">      System.out.println(&quot;doUpdate=&quot; + statement);</span>
+<span class="fc" id="L206">      statement.executeUpdate();</span>
+<span class="fc" id="L207">      con.commit();</span>
+<span class="nc" id="L208">    } catch (Exception e) {</span>
+<span class="nc" id="L209">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L214">        statement.close();</span>
+<span class="fc" id="L215">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L217">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L219">        e.printStackTrace();</span>
+<span class="fc" id="L220">      }</span>
+    }
+<span class="fc" id="L222">  }</span>
+
+  /**
+   * Metodo invocato per ottenere la lista delle richieste a cui non � ancora stato dato un esito.
+   *
+   * @return collection di richieste in sospeso
+   * @post restituisce una lista contenente tutte le richieste con esito = 0 presenti nel database
+   */
+  public Collection&lt;RichiestaBean&gt; doRetrieveInSospeso() {
+<span class="fc" id="L231">    Connection con = null;</span>
+<span class="fc" id="L232">    PreparedStatement statement = null;</span>
+<span class="fc" id="L233">    Collection&lt;RichiestaBean&gt; listaRichieste = new ArrayList&lt;RichiestaBean&gt;();</span>
+<span class="fc" id="L234">    String sql = &quot;SELECT * FROM richiesta WHERE esito = 0&quot;;</span>
+    try {
+<span class="fc" id="L236">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L237">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L238">      ResultSet result = statement.executeQuery();</span>
+<span class="fc bfc" id="L239" title="All 2 branches covered.">      while (result.next()) {</span>
+<span class="fc" id="L240">        int id = result.getInt(&quot;id&quot;);</span>
+<span class="fc" id="L241">        String email = result.getString(&quot;email&quot;);</span>
+
+<span class="fc" id="L243">        RichiestaBean richiesta = new RichiestaBean(id, email);</span>
+<span class="fc" id="L244">        listaRichieste.add(richiesta);</span>
+<span class="fc" id="L245">      }</span>
+<span class="fc" id="L246">      return listaRichieste;</span>
+
+<span class="nc" id="L248">    } catch (Exception e) {</span>
+<span class="nc" id="L249">      e.printStackTrace();</span>
+    } finally {
+      try {
+<span class="fc" id="L252">        statement.close();</span>
+<span class="fc" id="L253">        DriverManagerConnectionPool.releaseConnection(con);</span>
+<span class="nc" id="L254">      } catch (SQLException e) {</span>
+<span class="nc" id="L255">        e.printStackTrace();</span>
+<span class="fc" id="L256">      }</span>
+    }
+<span class="nc" id="L258">    return listaRichieste;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

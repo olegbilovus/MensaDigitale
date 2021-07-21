@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GestioneIdentificativo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">business.addetto</a> &gt; <span class="el_source">GestioneIdentificativo.java</span></div><h1>GestioneIdentificativo.java</h1><pre class="source lang-java linenums">package business.addetto;
+
+import business.consumatore.ConsumatoreBean;
+import business.prenotazioni.PrenotazioneBean;
+import java.io.IOException;
+import java.sql.SQLException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
+import storage.interfaces.ConsumatoreInterface;
+import storage.interfaces.PrenotazioneInterface;
+import storage.manager.ConsumatoreDao;
+import storage.manager.PrenotazioneDao;
+
+/**
+ * Servlet implementation class ControlloIdentificativo.
+ */
+public class GestioneIdentificativo extends HttpServlet {
+
+  private static final long serialVersionUID = 1L;
+<span class="fc" id="L23">  private static final PrenotazioneInterface&lt;PrenotazioneBean&lt;String&gt;&gt; prenotazioneDao =</span>
+      new PrenotazioneDao();
+<span class="fc" id="L25">  private static final ConsumatoreInterface&lt;ConsumatoreBean&gt; consumatoreDao = new ConsumatoreDao();</span>
+
+  public GestioneIdentificativo() {
+<span class="fc" id="L28">    super();</span>
+<span class="fc" id="L29">  }</span>
+
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+<span class="nc" id="L34">    response.setStatus(HttpServletResponse.SC_FORBIDDEN);</span>
+<span class="nc" id="L35">  }</span>
+
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+<span class="fc" id="L40">    response.setContentType(&quot;application/json&quot;);</span>
+<span class="fc" id="L41">    String identificativo = request.getParameter(&quot;identificativo&quot;);</span>
+<span class="fc" id="L42">    JSONObject json = new JSONObject();</span>
+<span class="fc" id="L43">    String action = request.getParameter(&quot;action&quot;);</span>
+<span class="fc" id="L44">    String res = &quot;response&quot;;</span>
+    try {
+<span class="fc" id="L46">      PrenotazioneBean&lt;String&gt; prenotazione = prenotazioneDao.doRetrieveByKey(identificativo);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">      if (prenotazione != null) {</span>
+<span class="fc" id="L48">        json.put(res, &quot;200&quot;);</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (action.equals(&quot;controllo&quot;)) {</span>
+<span class="fc" id="L50">          ConsumatoreBean consumatore = consumatoreDao.doRetrieveByKey(prenotazione.getEmail());</span>
+<span class="fc" id="L51">          json.put(&quot;prenotazione&quot;, new JSONObject(prenotazione));</span>
+<span class="fc" id="L52">          json.put(&quot;consumatore&quot;, new JSONObject(consumatore));</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        } else if (action.equals(&quot;segnala&quot;)) {</span>
+<span class="fc" id="L54">          prenotazione.setEntrato(true);</span>
+<span class="fc" id="L55">          prenotazioneDao.doUpdate(prenotazione);</span>
+        } else {
+<span class="fc" id="L57">          json.put(res, &quot;400&quot;);</span>
+        }
+      } else {
+<span class="fc" id="L60">        json.put(res, &quot;404&quot;);</span>
+      }
+
+<span class="nc" id="L63">    } catch (SQLException e) {</span>
+<span class="nc" id="L64">      json.put(res, &quot;500&quot;);</span>
+<span class="nc" id="L65">      e.printStackTrace();</span>
+<span class="fc" id="L66">    }</span>
+<span class="fc" id="L67">    response.getWriter().println(json.toString());</span>
+<span class="fc" id="L68">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

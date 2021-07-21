@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">business.piatti</a> &gt; <span class="el_source">MenuBean.java</span></div><h1>MenuBean.java</h1><pre class="source lang-java linenums">package business.piatti;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Bean per il menu.
+ */
+public class MenuBean implements Serializable {
+
+  private static final long serialVersionUID = 3276353706196636611L;
+
+  private final List&lt;PiattoBean&gt; primi;
+  private final List&lt;PiattoBean&gt; secondi;
+  private final List&lt;PiattoBean&gt; contorni;
+
+  /**
+   * Costruttore per la classe MenuBean. Inizializza le liste che rappresentano i primi, i secondi e
+   * i contorni.
+   */
+<span class="fc" id="L22">  public MenuBean() {</span>
+<span class="fc" id="L23">    primi = new ArrayList&lt;PiattoBean&gt;();</span>
+<span class="fc" id="L24">    secondi = new ArrayList&lt;PiattoBean&gt;();</span>
+<span class="fc" id="L25">    contorni = new ArrayList&lt;PiattoBean&gt;();</span>
+<span class="fc" id="L26">  }</span>
+
+  public List&lt;PiattoBean&gt; getPrimi() {
+<span class="nc" id="L29">    return primi;</span>
+  }
+
+  public List&lt;PiattoBean&gt; getSecondi() {
+<span class="nc" id="L33">    return secondi;</span>
+  }
+
+  public List&lt;PiattoBean&gt; getContorni() {
+<span class="nc" id="L37">    return contorni;</span>
+  }
+
+  /**
+   * Aggiunge un piatto alla lista dei primi.
+   *
+   * @param primo il piatto da aggiungere alla lista dei primi
+   */
+  public void addPrimo(PiattoBean primo) {
+<span class="fc" id="L46">    primi.add(primo);</span>
+<span class="fc" id="L47">  }</span>
+
+  /**
+   * Aggiunge un piatto alla lista dei secondi.
+   *
+   * @param secondo il piatto da aggiungere alla lista dei secondi
+   */
+  public void addSecondo(PiattoBean secondo) {
+<span class="fc" id="L55">    secondi.add(secondo);</span>
+<span class="fc" id="L56">  }</span>
+
+  /**
+   * Aggiunge un piatto alla lista dei contorni.
+   *
+   * @param contorno il piatto da aggiungere alla lista dei contorni
+   */
+  public void addContorno(PiattoBean contorno) {
+<span class="fc" id="L64">    contorni.add(contorno);</span>
+<span class="fc" id="L65">  }</span>
+
+  /**
+   * Rimuove un piatto dalla lista dei primi.
+   *
+   * @param primo il piatto da rimuovere dalla lista dei primi
+   */
+  public void removePrimo(PiattoBean primo) {
+<span class="nc" id="L73">    primi.remove(primo);</span>
+<span class="nc" id="L74">  }</span>
+
+  /**
+   * Rimuove un piatto dalla lista dei secondi.
+   *
+   * @param secondo il piatto da rimuovere dalla lista dei secondi
+   */
+  public void removeSecondo(PiattoBean secondo) {
+<span class="nc" id="L82">    secondi.remove(secondo);</span>
+<span class="nc" id="L83">  }</span>
+
+  /**
+   * Rimuove un piatto dalla lista dei contorni.
+   *
+   * @param contorno il piatto da rimuovere dalla lista dei contorni
+   */
+  public void removeContorno(PiattoBean contorno) {
+<span class="nc" id="L91">    contorni.remove(contorno);</span>
+<span class="nc" id="L92">  }</span>
+
+  /**
+   * Rimuove tutti i piatti dalla lista dei primi.
+   */
+  public void clearPrimi() {
+<span class="nc" id="L98">    primi.clear();</span>
+<span class="nc" id="L99">  }</span>
+
+  /**
+   * Rimuove tutti i piatti dalla lista dei secondi.
+   */
+  public void clearSecondi() {
+<span class="nc" id="L105">    secondi.clear();</span>
+<span class="nc" id="L106">  }</span>
+
+  /**
+   * Rimuove tutti i piatti dalla lista dei contorni.
+   */
+  public void clearContorni() {
+<span class="nc" id="L112">    contorni.clear();</span>
+<span class="nc" id="L113">  }</span>
+
+  @Override
+  public String toString() {
+<span class="fc" id="L117">    return &quot;MenuBean{&quot; + &quot;primi=&quot; + primi + &quot;, secondi=&quot; + secondi + &quot;, contorni=&quot; + contorni + '}';</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

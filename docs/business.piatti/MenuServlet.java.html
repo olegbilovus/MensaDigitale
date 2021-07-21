@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuServlet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">business.piatti</a> &gt; <span class="el_source">MenuServlet.java</span></div><h1>MenuServlet.java</h1><pre class="source lang-java linenums">package business.piatti;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.sql.SQLException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import storage.manager.PiattoDao;
+
+/**
+ * Servlet implementation class MenuServlet.
+ */
+public class MenuServlet extends HttpServlet {
+
+<span class="fc" id="L21">  private final PiattoDao dao = new PiattoDao();</span>
+  private final File myFile;
+  private ObjectInputStream inputStream;
+  private ObjectOutputStream outputStream;
+  private MenuBean menu;
+
+<span class="fc" id="L27">  public MenuServlet() {</span>
+<span class="fc" id="L28">    myFile = new File(&quot;menuSerializzato.txt&quot;);</span>
+    try {
+<span class="fc" id="L30">      myFile.createNewFile();</span>
+<span class="nc" id="L31">    } catch (IOException e) {</span>
+<span class="nc" id="L32">      e.printStackTrace();</span>
+<span class="fc" id="L33">    }</span>
+<span class="fc" id="L34">  }</span>
+
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+
+<span class="fc" id="L39">    String action = request.getParameter(&quot;action&quot;);</span>
+
+<span class="fc bfc" id="L41" title="All 2 branches covered.">    if (action != null) {</span>
+<span class="pc bpc" id="L42" title="1 of 5 branches missed.">      switch (action) {</span>
+        case &quot;aggiungiMenu&quot;:
+<span class="fc" id="L44">          apriStreamsOutput();</span>
+<span class="fc" id="L45">          menu = new MenuBean();</span>
+<span class="fc" id="L46">          String[] piatti = request.getParameterValues(&quot;piatti&quot;);</span>
+<span class="fc" id="L47">          aggiungiPiatti(piatti, menu);</span>
+<span class="fc" id="L48">          outputStream.writeObject(menu);</span>
+<span class="fc" id="L49">          request.setAttribute(&quot;menu&quot;, menu);</span>
+<span class="fc" id="L50">          outputStream.close();</span>
+<span class="fc" id="L51">          response.sendRedirect(request.getContextPath() + &quot;/index.jsp&quot;);</span>
+<span class="fc" id="L52">          break;</span>
+        case &quot;modificaMenu&quot;:
+          /* Rimuovo piatti vecchi */
+<span class="fc" id="L55">          rimuoviMenu(request, response);</span>
+          /* Aggiungo i nuovi piatti */
+<span class="fc" id="L57">          String[] piattiDaAggiungere = request.getParameterValues(&quot;piatti&quot;);</span>
+<span class="fc" id="L58">          aggiungiPiatti(piattiDaAggiungere, menu);</span>
+<span class="fc" id="L59">          apriStreamsOutput();</span>
+<span class="fc" id="L60">          outputStream.writeObject(menu);</span>
+<span class="fc" id="L61">          outputStream.close();</span>
+<span class="fc" id="L62">          request.setAttribute(&quot;menu&quot;, menu);</span>
+<span class="fc" id="L63">          response.sendRedirect(request.getContextPath() + &quot;/index.jsp&quot;);</span>
+<span class="fc" id="L64">          break;</span>
+        case &quot;cancellaMenu&quot;:
+<span class="fc" id="L66">          rimuoviMenu(request, response);</span>
+<span class="fc" id="L67">          response.sendRedirect(&quot;./visualizzaMenu.jsp&quot;);</span>
+<span class="fc" id="L68">          break;</span>
+        case &quot;getMenu&quot;:
+          try {
+<span class="fc" id="L71">            apriStreamsInput();</span>
+<span class="fc" id="L72">            menu = (MenuBean) inputStream.readObject();</span>
+<span class="fc" id="L73">            System.out.println(menu);</span>
+<span class="fc" id="L74">            request.setAttribute(&quot;menu&quot;, menu);</span>
+<span class="fc" id="L75">            inputStream.close();</span>
+<span class="fc" id="L76">            String destination = request.getParameter(&quot;destination&quot;);</span>
+<span class="fc" id="L77">            request.getRequestDispatcher(response.encodeURL(destination))</span>
+<span class="nc" id="L78">                .forward(request, response);</span>
+<span class="nc" id="L79">            return;</span>
+<span class="nc" id="L80">          } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L81">            e.printStackTrace();</span>
+          }
+          break;
+      }
+    }
+<span class="fc" id="L86">  }</span>
+
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+<span class="nc" id="L90">    doPost(request, response);</span>
+<span class="nc" id="L91">  }</span>
+
+  private void aggiungiPiatti(String[] piatti, MenuBean menu) {
+<span class="fc bfc" id="L94" title="All 2 branches covered.">    for (String p : piatti) {</span>
+      try {
+<span class="fc" id="L96">        PiattoBean tmp = dao.doRetrieveByKey(p);</span>
+<span class="fc" id="L97">        System.out.println(&quot;Nome piatto: &quot; + tmp.getNome());</span>
+<span class="fc" id="L98">        System.out.println(&quot;Portata piatto: &quot; + tmp.getPortata());</span>
+<span class="pc bpc" id="L99" title="1 of 4 branches missed.">        switch (tmp.getPortata()) {</span>
+<span class="fc" id="L100">          case &quot;primo&quot; -&gt; menu.addPrimo(tmp);</span>
+<span class="fc" id="L101">          case &quot;secondo&quot; -&gt; menu.addSecondo(tmp);</span>
+<span class="fc" id="L102">          case &quot;contorno&quot; -&gt; menu.addContorno(tmp);</span>
+        }
+<span class="nc" id="L104">      } catch (SQLException throwables) {</span>
+<span class="nc" id="L105">        throwables.printStackTrace();</span>
+<span class="fc" id="L106">      }</span>
+    }
+<span class="fc" id="L108">  }</span>
+
+  private void rimuoviMenu(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+<span class="fc" id="L112">    menu = new MenuBean();</span>
+<span class="fc" id="L113">    apriStreamsOutput();</span>
+<span class="fc" id="L114">    outputStream.writeObject(menu);</span>
+<span class="fc" id="L115">    request.setAttribute(&quot;menu&quot;, menu);</span>
+<span class="fc" id="L116">    outputStream.close();</span>
+<span class="fc" id="L117">  }</span>
+
+  private void apriStreamsInput() throws IOException {
+<span class="fc" id="L120">    FileInputStream fileInput = new FileInputStream(myFile);</span>
+<span class="fc" id="L121">    inputStream = new ObjectInputStream(fileInput);</span>
+<span class="fc" id="L122">  }</span>
+
+  private void apriStreamsOutput() throws IOException {
+<span class="fc" id="L125">    FileOutputStream fileOutput = new FileOutputStream(myFile, false);</span>
+<span class="fc" id="L126">    outputStream = new ObjectOutputStream(fileOutput);</span>
+<span class="fc" id="L127">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

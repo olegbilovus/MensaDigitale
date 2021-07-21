@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConsumatoreBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">business.consumatore</a> &gt; <span class="el_source">ConsumatoreBean.java</span></div><h1>ConsumatoreBean.java</h1><pre class="source lang-java linenums">package business.consumatore;
+
+import business.utente.Utente;
+import java.util.Date;
+
+/**
+ * Bean per il consumatore.
+ */
+public class ConsumatoreBean extends Utente {
+
+  private static final long serialVersionUID = 1L;
+  private int statoServizi;
+  private String codiceFiscale;
+  private Date dataDiNascita;
+  private String indirizzo;
+  private String telefono;
+  private String cellulare;
+  private String comuneNascita;
+  private String provinciaNascita;
+  private String cittadinanza;
+  private boolean rifugiato;
+  private boolean residenzaNucleoFamiliare;
+  private float saldo;
+  private int fasciaPagamento;
+
+  public ConsumatoreBean() {
+<span class="fc" id="L27">    super();</span>
+<span class="fc" id="L28">  }</span>
+
+  /**
+   * Costruttore del consumatore.
+   *
+   * @param email                    L'email del consumatore
+   * @param nome                     Nome del consumatore
+   * @param cognome                  Cognome del consumatore
+   * @param statoServizi             Lo stato dei servizi
+   * @param codiceFiscale            Codice Fiscale consumaore
+   * @param dataDiNascita            Data di nascita del consumatore
+   * @param indirizzo                Indirizzo del consumatore
+   * @param telefono                 Telefono del consumatore
+   * @param cellulare                Cellulare del consumatore
+   * @param comuneNascita            Comune di nascita del consumatore
+   * @param provinciaNascita         Provincia di nascita del consumatore
+   * @param cittadinanza             Cittadinanza del consumatore
+   * @param rifugiato                Indica se il consumatore e' rifugiato
+   * @param residenzaNucleoFamiliare Indica la residenza
+   * @param saldo                    Indica il saldo del consumatore
+   * @param fasciaPagamento          Fascia pagamento del consumatore
+   */
+  public ConsumatoreBean(
+      String email,
+      String nome,
+      String cognome,
+      int statoServizi,
+      String codiceFiscale,
+      Date dataDiNascita,
+      String indirizzo,
+      String telefono,
+      String cellulare,
+      String comuneNascita,
+      String provinciaNascita,
+      String cittadinanza,
+      boolean rifugiato,
+      boolean residenzaNucleoFamiliare,
+      float saldo,
+      int fasciaPagamento) {
+<span class="fc" id="L67">    super(email, nome, cognome);</span>
+<span class="fc" id="L68">    this.statoServizi = statoServizi;</span>
+<span class="fc" id="L69">    this.codiceFiscale = codiceFiscale;</span>
+<span class="fc" id="L70">    this.dataDiNascita = dataDiNascita;</span>
+<span class="fc" id="L71">    this.indirizzo = indirizzo;</span>
+<span class="fc" id="L72">    this.telefono = telefono;</span>
+<span class="fc" id="L73">    this.cellulare = cellulare;</span>
+<span class="fc" id="L74">    this.comuneNascita = comuneNascita;</span>
+<span class="fc" id="L75">    this.provinciaNascita = provinciaNascita;</span>
+<span class="fc" id="L76">    this.cittadinanza = cittadinanza;</span>
+<span class="fc" id="L77">    this.rifugiato = rifugiato;</span>
+<span class="fc" id="L78">    this.residenzaNucleoFamiliare = residenzaNucleoFamiliare;</span>
+<span class="fc" id="L79">    this.saldo = saldo;</span>
+<span class="fc" id="L80">    this.fasciaPagamento = fasciaPagamento;</span>
+<span class="fc" id="L81">  }</span>
+
+<span class="nc" id="L83">  public ConsumatoreBean(String email) {</span>
+<span class="nc" id="L84">    this.email = email;</span>
+<span class="nc" id="L85">  }</span>
+
+  public int getStatoServizi() {
+<span class="fc" id="L88">    return statoServizi;</span>
+  }
+
+  public void setStatoServizi(int statoServizi) {
+<span class="fc" id="L92">    this.statoServizi = statoServizi;</span>
+<span class="fc" id="L93">  }</span>
+
+  public String getCodiceFiscale() {
+<span class="fc" id="L96">    return codiceFiscale;</span>
+  }
+
+  public void setCodiceFiscale(String codiceFiscale) {
+<span class="fc" id="L100">    this.codiceFiscale = codiceFiscale;</span>
+<span class="fc" id="L101">  }</span>
+
+  public Date getDataDiNascita() {
+<span class="fc" id="L104">    return dataDiNascita;</span>
+  }
+
+  public void setDataDiNascita(Date dataDiNascita) {
+<span class="fc" id="L108">    this.dataDiNascita = dataDiNascita;</span>
+<span class="fc" id="L109">  }</span>
+
+  public String getIndirizzo() {
+<span class="fc" id="L112">    return indirizzo;</span>
+  }
+
+  public void setIndirizzo(String indirizzo) {
+<span class="fc" id="L116">    this.indirizzo = indirizzo;</span>
+<span class="fc" id="L117">  }</span>
+
+  public String getTelefono() {
+<span class="fc" id="L120">    return telefono;</span>
+  }
+
+  public void setTelefono(String telefono) {
+<span class="fc" id="L124">    this.telefono = telefono;</span>
+<span class="fc" id="L125">  }</span>
+
+  public String getCellulare() {
+<span class="fc" id="L128">    return cellulare;</span>
+  }
+
+  public void setCellulare(String cellulare) {
+<span class="fc" id="L132">    this.cellulare = cellulare;</span>
+<span class="fc" id="L133">  }</span>
+
+  public String getComuneNascita() {
+<span class="fc" id="L136">    return comuneNascita;</span>
+  }
+
+  public void setComuneNascita(String comuneNascita) {
+<span class="fc" id="L140">    this.comuneNascita = comuneNascita;</span>
+<span class="fc" id="L141">  }</span>
+
+  public String getProvinciaNascita() {
+<span class="fc" id="L144">    return provinciaNascita;</span>
+  }
+
+  public void setProvinciaNascita(String provinciaNascita) {
+<span class="fc" id="L148">    this.provinciaNascita = provinciaNascita;</span>
+<span class="fc" id="L149">  }</span>
+
+  public String getCittadinanza() {
+<span class="fc" id="L152">    return cittadinanza;</span>
+  }
+
+  public void setCittadinanza(String cittadinanza) {
+<span class="fc" id="L156">    this.cittadinanza = cittadinanza;</span>
+<span class="fc" id="L157">  }</span>
+
+  public boolean getRifugiato() {
+<span class="fc" id="L160">    return rifugiato;</span>
+  }
+
+  public void setRifugiato(boolean rifugiato) {
+<span class="fc" id="L164">    this.rifugiato = rifugiato;</span>
+<span class="fc" id="L165">  }</span>
+
+  public boolean getResidenzaNucleoFamiliare() {
+<span class="fc" id="L168">    return residenzaNucleoFamiliare;</span>
+  }
+
+  public void setResidenzaNucleoFamiliare(boolean residenzaNucleoFamiliare) {
+<span class="fc" id="L172">    this.residenzaNucleoFamiliare = residenzaNucleoFamiliare;</span>
+<span class="fc" id="L173">  }</span>
+
+  public float getSaldo() {
+<span class="fc" id="L176">    return saldo;</span>
+  }
+
+  public void setSaldo(float f) {
+<span class="fc" id="L180">    this.saldo = f;</span>
+<span class="fc" id="L181">  }</span>
+
+  public int getFasciaPagamento() {
+<span class="fc" id="L184">    return fasciaPagamento;</span>
+  }
+
+  public void setFasciaPagamento(int fasciaPagamento) {
+<span class="fc" id="L188">    this.fasciaPagamento = fasciaPagamento;</span>
+<span class="fc" id="L189">  }</span>
+
+  public boolean isDocente() {
+<span class="fc" id="L192">    return super.getEmail().endsWith(&quot;@unisa.it&quot;);</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="fc" id="L197">    return &quot;ConsumatoreBean{&quot;</span>
+        + &quot;statoServizi=&quot;
+        + statoServizi
+        + &quot;, codiceFiscale='&quot;
+        + codiceFiscale
+        + '\''
+        + &quot;, dataDiNascita=&quot;
+        + dataDiNascita
+        + &quot;, indirizzo='&quot;
+        + indirizzo
+        + '\''
+        + &quot;, telefono='&quot;
+        + telefono
+        + '\''
+        + &quot;, cellulare='&quot;
+        + cellulare
+        + '\''
+        + &quot;, comuneNascita='&quot;
+        + comuneNascita
+        + '\''
+        + &quot;, provinciaNascita='&quot;
+        + provinciaNascita
+        + '\''
+        + &quot;, cittadinanza='&quot;
+        + cittadinanza
+        + '\''
+        + &quot;, rifugiato=&quot;
+        + rifugiato
+        + &quot;, residenzaNucleoFamiliare=&quot;
+        + residenzaNucleoFamiliare
+        + &quot;, saldo=&quot;
+        + saldo
+        + &quot;, fasciaPagamento=&quot;
+        + fasciaPagamento
+        + &quot;} &quot;
+<span class="fc" id="L232">        + super.toString();</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PiattoBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">business.piatti</a> &gt; <span class="el_source">PiattoBean.java</span></div><h1>PiattoBean.java</h1><pre class="source lang-java linenums">package business.piatti;
+
+import java.io.Serializable;
+
+/**
+ * Bean per il piatto.
+ */
+public class PiattoBean implements Serializable {
+
+  private static final long serialVersionUID = 1447130805013128582L;
+
+  private String nome;
+  private String ingredienti;
+  private String portata; // 'primo', 'secondo', 'contorno'
+  private int calorie;
+  private int proteine;
+  private int grassi;
+  private int sodio;
+  private int carboidrati;
+
+<span class="fc" id="L21">  public PiattoBean() {</span>
+<span class="fc" id="L22">  }</span>
+
+  /**
+   * Costruttore della classe PiattoBean.
+   *
+   * @param nome        il nome del Piatto
+   * @param ingredienti una stringa che contiene tutti gli ingredienti
+   * @param calorie     numero di calorie
+   * @param proteine    numero di proteine (in g/porzione)
+   * @param grassi      numero di grassi (in g/porzione)
+   * @param sodio       numero di sodio (in g/porzione)
+   * @param carboidrati numero di carboidrati (in g/porzione)
+   */
+  public PiattoBean(String nome, String ingredienti, String portata, int calorie, int proteine,
+<span class="fc" id="L36">      int grassi, int sodio, int carboidrati) {</span>
+<span class="fc" id="L37">    this.nome = nome;</span>
+<span class="fc" id="L38">    this.ingredienti = ingredienti;</span>
+<span class="fc" id="L39">    this.portata = portata;</span>
+<span class="fc" id="L40">    this.calorie = calorie;</span>
+<span class="fc" id="L41">    this.proteine = proteine;</span>
+<span class="fc" id="L42">    this.grassi = grassi;</span>
+<span class="fc" id="L43">    this.sodio = sodio;</span>
+<span class="fc" id="L44">    this.carboidrati = carboidrati;</span>
+<span class="fc" id="L45">  }</span>
+
+  public String getNome() {
+<span class="fc" id="L48">    return nome;</span>
+  }
+
+  public void setNome(String nome) {
+<span class="fc" id="L52">    this.nome = nome;</span>
+<span class="fc" id="L53">  }</span>
+
+  public String getIngredienti() {
+<span class="fc" id="L56">    return ingredienti;</span>
+  }
+
+  public void setIngredienti(String ingredienti) {
+<span class="fc" id="L60">    this.ingredienti = ingredienti;</span>
+<span class="fc" id="L61">  }</span>
+
+  public int getCalorie() {
+<span class="fc" id="L64">    return calorie;</span>
+  }
+
+  public void setCalorie(int calorie) {
+<span class="fc" id="L68">    this.calorie = calorie;</span>
+<span class="fc" id="L69">  }</span>
+
+  public int getProteine() {
+<span class="fc" id="L72">    return proteine;</span>
+  }
+
+  public void setProteine(int proteine) {
+<span class="fc" id="L76">    this.proteine = proteine;</span>
+<span class="fc" id="L77">  }</span>
+
+  public int getGrassi() {
+<span class="fc" id="L80">    return grassi;</span>
+  }
+
+  public void setGrassi(int grassi) {
+<span class="fc" id="L84">    this.grassi = grassi;</span>
+<span class="fc" id="L85">  }</span>
+
+  public int getSodio() {
+<span class="fc" id="L88">    return sodio;</span>
+  }
+
+  public void setSodio(int sodio) {
+<span class="fc" id="L92">    this.sodio = sodio;</span>
+<span class="fc" id="L93">  }</span>
+
+  public int getCarboidrati() {
+<span class="fc" id="L96">    return carboidrati;</span>
+  }
+
+  public void setCarboidrati(int carboidrati) {
+<span class="fc" id="L100">    this.carboidrati = carboidrati;</span>
+<span class="fc" id="L101">  }</span>
+
+  public String getPortata() {
+<span class="fc" id="L104">    return portata;</span>
+  }
+
+  public void setPortata(String portata) {
+<span class="fc" id="L108">    this.portata = portata;</span>
+<span class="fc" id="L109">  }</span>
+
+  @Override
+  public boolean equals(Object o) {
+<span class="fc bfc" id="L113" title="All 2 branches covered.">    if (this == o) {</span>
+<span class="fc" id="L114">      return true;</span>
+    }
+<span class="fc bfc" id="L116" title="All 4 branches covered.">    if (o == null || getClass() != o.getClass()) {</span>
+<span class="fc" id="L117">      return false;</span>
+    }
+<span class="fc" id="L119">    PiattoBean that = (PiattoBean) o;</span>
+<span class="fc" id="L120">    return this.nome.equals(((PiattoBean) o).getNome());</span>
+  }
+
+  @Override
+  public String toString() {
+<span class="fc" id="L125">    return &quot;PiattoBean{&quot; + &quot;nome='&quot; + nome + '\'' + &quot;, ingredienti='&quot; + ingredienti + '\''</span>
+        + &quot;, portata='&quot; + portata + '\'' + &quot;, calorie=&quot; + calorie + &quot;, proteine=&quot; + proteine
+        + &quot;, grassi=&quot; + grassi + &quot;, sodio=&quot; + sodio + &quot;, carboidrati=&quot; + carboidrati + '}';
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

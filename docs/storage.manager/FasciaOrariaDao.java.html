@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FasciaOrariaDao.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">storage.manager</a> &gt; <span class="el_source">FasciaOrariaDao.java</span></div><h1>FasciaOrariaDao.java</h1><pre class="source lang-java linenums">package storage.manager;
+
+import business.prenotazioni.FasciaOrariaBean;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import storage.interfaces.FasciaOrariaInterface;
+
+/**
+ * Classe DAO per la gestione di FasciaOrariaBean.
+ */
+<span class="fc" id="L15">public class FasciaOrariaDao implements FasciaOrariaInterface&lt;FasciaOrariaBean&gt; {</span>
+
+  /**
+   * Metodo da utilizzare per prelevare una singola riga dal database ed inserirla in un bean.
+   *
+   * @param id id della fascia oraria da ricercare
+   * @category Ricerca la fascia oraria in base all'id della fascia oraria
+   */
+  @Override
+  public FasciaOrariaBean doRetrieveByKey(int id) throws SQLException {
+<span class="fc" id="L25">    FasciaOrariaBean bean = new FasciaOrariaBean();</span>
+<span class="fc" id="L26">    Connection con = null;</span>
+<span class="fc" id="L27">    PreparedStatement statement = null;</span>
+<span class="fc" id="L28">    String sql = &quot;SELECT * FROM fasciaoraria WHERE id=?&quot;;</span>
+    try {
+<span class="fc" id="L30">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L31">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L32">      statement.setInt(1, id);</span>
+<span class="fc" id="L33">      System.out.println(&quot;DoRetrieveByKey&quot; + statement);</span>
+<span class="fc" id="L34">      ResultSet rs = statement.executeQuery();</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">      if (rs.next()) {</span>
+<span class="fc" id="L36">        bean.setId(rs.getInt(&quot;id&quot;));</span>
+<span class="fc" id="L37">        bean.setFascia(rs.getString(&quot;fascia&quot;));</span>
+<span class="fc" id="L38">        return bean;</span>
+      }
+<span class="nc" id="L40">    } catch (Exception e) {</span>
+<span class="nc" id="L41">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L46">        statement.close();</span>
+<span class="fc" id="L47">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L49">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L51">        e.printStackTrace();</span>
+<span class="fc" id="L52">      }</span>
+    }
+<span class="fc" id="L54">    return null;</span>
+  }
+
+  /**
+   * Metodo da utilizzare per prelevare tutte le entry di un elemento in una tabella.
+   *
+   * @category Ritorna tutte le fasce orarie
+   */
+  @Override
+  public Collection&lt;FasciaOrariaBean&gt; doRetrieveAll() throws SQLException {
+<span class="fc" id="L64">    Connection con = null;</span>
+<span class="fc" id="L65">    PreparedStatement statement = null;</span>
+<span class="fc" id="L66">    String sql = &quot;SELECT * FROM fasciaoraria&quot;;</span>
+<span class="fc" id="L67">    ArrayList&lt;FasciaOrariaBean&gt; collection = new ArrayList&lt;&gt;();</span>
+    try {
+<span class="fc" id="L69">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L70">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L71">      System.out.println(&quot;DoRetriveAll&quot; + statement);</span>
+<span class="fc" id="L72">      ResultSet rs = statement.executeQuery();</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">      while (rs.next()) {</span>
+<span class="fc" id="L74">        FasciaOrariaBean bean = new FasciaOrariaBean();</span>
+<span class="fc" id="L75">        bean.setId(rs.getInt(&quot;id&quot;));</span>
+<span class="fc" id="L76">        bean.setFascia(rs.getString(&quot;fascia&quot;));</span>
+<span class="fc" id="L77">        collection.add(bean);</span>
+<span class="fc" id="L78">      }</span>
+<span class="fc" id="L79">      return collection;</span>
+<span class="nc" id="L80">    } catch (Exception e) {</span>
+<span class="nc" id="L81">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L86">        statement.close();</span>
+<span class="fc" id="L87">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L89">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L91">        e.printStackTrace();</span>
+<span class="fc" id="L92">      }</span>
+    }
+<span class="nc" id="L94">    return collection;</span>
+  }
+
+  /**
+   * Metodo utilizzato per salvare i valori contenuti in un bean all'interno di una tabella.
+   *
+   * @param bean Fascia oraria da salvare
+   * @category Salva una fascia oraria nel database
+   */
+  @Override
+  public void doSave(FasciaOrariaBean bean) throws SQLException {
+<span class="fc" id="L105">    Connection con = null;</span>
+<span class="fc" id="L106">    PreparedStatement statement = null;</span>
+<span class="fc" id="L107">    String sql = &quot;INSERT INTO fasciaoraria VALUES (?,?)&quot;;</span>
+    try {
+<span class="fc" id="L109">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L110">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L111">      statement.setInt(1, bean.getId());</span>
+<span class="fc" id="L112">      statement.setString(2, bean.getFascia());</span>
+<span class="fc" id="L113">      System.out.println(&quot;doSave=&quot; + statement);</span>
+<span class="fc" id="L114">      statement.executeUpdate();</span>
+<span class="fc" id="L115">      con.commit();</span>
+<span class="nc" id="L116">    } catch (Exception e) {</span>
+<span class="nc" id="L117">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L122">        statement.close();</span>
+<span class="fc" id="L123">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L125">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L127">        e.printStackTrace();</span>
+<span class="fc" id="L128">      }</span>
+    }
+<span class="fc" id="L130">  }</span>
+
+  /**
+   * Metodo utilizzato per aggiornare i valori di un bean all'interno del database.
+   *
+   * @param bean Fascia oraria con contenuto aggiornato
+   * @category Aggiorna una fascia oraria
+   */
+  @Override
+  public void doUpdate(FasciaOrariaBean bean) throws SQLException {
+<span class="fc" id="L140">    Connection con = null;</span>
+<span class="fc" id="L141">    PreparedStatement statement = null;</span>
+<span class="fc" id="L142">    String sql = &quot;UPDATE fasciaoraria SET fascia=? WHERE id=?&quot;;</span>
+    try {
+<span class="fc" id="L144">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L145">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L146">      statement.setString(1, bean.getFascia());</span>
+<span class="fc" id="L147">      statement.setInt(2, bean.getId());</span>
+<span class="fc" id="L148">      System.out.println(&quot;doUpdate=&quot; + statement);</span>
+<span class="fc" id="L149">      statement.executeUpdate();</span>
+<span class="fc" id="L150">      con.commit();</span>
+<span class="nc" id="L151">    } catch (Exception e) {</span>
+<span class="nc" id="L152">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L157">        statement.close();</span>
+<span class="fc" id="L158">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L160">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L162">        e.printStackTrace();</span>
+<span class="fc" id="L163">      }</span>
+    }
+<span class="fc" id="L165">  }</span>
+
+  /**
+   * Metodo utilizzato per eliminare una riga identificata da un bean all'interno del databse.
+   *
+   * @param bean Indica il bean da eliminare
+   * @category Cancella una fascia oraria
+   */
+  @Override
+  public void doDelete(FasciaOrariaBean bean) throws SQLException {
+<span class="fc" id="L175">    Connection con = null;</span>
+<span class="fc" id="L176">    PreparedStatement statement = null;</span>
+<span class="fc" id="L177">    String sql = &quot;DELETE FROM fasciaoraria WHERE id=?&quot;;</span>
+    try {
+<span class="fc" id="L179">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L180">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L181">      statement.setInt(1, bean.getId());</span>
+<span class="fc" id="L182">      System.out.println(&quot;doUpdate=&quot; + statement);</span>
+<span class="fc" id="L183">      statement.executeUpdate();</span>
+<span class="fc" id="L184">      con.commit();</span>
+<span class="nc" id="L185">    } catch (Exception e) {</span>
+<span class="nc" id="L186">      e.printStackTrace();</span>
+    } finally {
+
+      try {
+
+<span class="fc" id="L191">        statement.close();</span>
+<span class="fc" id="L192">        DriverManagerConnectionPool.releaseConnection(con);</span>
+
+<span class="nc" id="L194">      } catch (SQLException e) {</span>
+
+<span class="nc" id="L196">        e.printStackTrace();</span>
+<span class="fc" id="L197">      }</span>
+    }
+<span class="fc" id="L199">  }</span>
+
+  /**
+   * Metodo utilizzato per trovare una fascia oraria identificata dalla fascia.
+   *
+   * @param fasciaOraria indica la fascia oraria da cercare
+   * @category Restituisce una fascia oraria
+   */
+  public FasciaOrariaBean doRetrieveByFascia(String fasciaOraria) throws SQLException {
+<span class="fc" id="L208">    Connection con = null;</span>
+<span class="fc" id="L209">    PreparedStatement statement = null;</span>
+<span class="fc" id="L210">    String sql = &quot;SELECT * FROM fasciaoraria WHERE fascia = ?&quot;;</span>
+<span class="fc" id="L211">    FasciaOrariaBean result = null;</span>
+    try {
+<span class="fc" id="L213">      con = DriverManagerConnectionPool.getConnection();</span>
+<span class="fc" id="L214">      statement = con.prepareStatement(sql);</span>
+<span class="fc" id="L215">      statement.setString(1, fasciaOraria);</span>
+<span class="fc" id="L216">      System.out.println(&quot;doRetrieveByFascia=&quot; + statement);</span>
+<span class="fc" id="L217">      ResultSet results = statement.executeQuery();</span>
+<span class="fc bfc" id="L218" title="All 2 branches covered.">      if (!results.next()) {</span>
+<span class="fc" id="L219">        return null;</span>
+      }
+<span class="fc" id="L221">      result = new FasciaOrariaBean(results.getInt(&quot;id&quot;), results.getString(&quot;fascia&quot;));</span>
+<span class="nc" id="L222">    } catch (Exception e) {</span>
+<span class="nc" id="L223">      e.printStackTrace();</span>
+    } finally {
+      try {
+<span class="fc" id="L226">        statement.close();</span>
+<span class="fc" id="L227">        DriverManagerConnectionPool.releaseConnection(con);</span>
+<span class="nc" id="L228">      } catch (SQLException e) {</span>
+<span class="nc" id="L229">        e.printStackTrace();</span>
+<span class="fc" id="L230">      }</span>
+    }
+
+<span class="fc" id="L233">    return result;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

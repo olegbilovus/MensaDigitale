@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RichiestaBean.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">business.richieste</a> &gt; <span class="el_source">RichiestaBean.java</span></div><h1>RichiestaBean.java</h1><pre class="source lang-java linenums">package business.richieste;
+
+/**
+ * Bean per la richiesta.
+ */
+public class RichiestaBean {
+
+  private int id;
+  private String email;
+  private int esito;
+  private String valutatore;
+
+  public RichiestaBean() {
+<span class="fc" id="L14">    super();</span>
+<span class="fc" id="L15">  }</span>
+
+  /**
+   * Costruttore della richiesta.
+   *
+   * @param email      L'email dell'utente
+   * @param id         Identificatore della richiesta
+   * @param esito      Esito della richiesta
+   * @param valutatore Ente che ha valutato la richiesta
+   */
+  public RichiestaBean(int id, String email, int esito, String valutatore) {
+<span class="fc" id="L26">    super();</span>
+<span class="fc" id="L27">    this.id = id;</span>
+<span class="fc" id="L28">    this.email = email;</span>
+<span class="fc" id="L29">    this.esito = esito;</span>
+<span class="fc" id="L30">    this.valutatore = valutatore;</span>
+<span class="fc" id="L31">  }</span>
+
+  /**
+   * Costruttore della nuova richiesta da salvare su Database con chiave autogenerata.
+   *
+   * @param email L'email dell'utente
+   */
+  public RichiestaBean(String email) {
+<span class="nc" id="L39">    super();</span>
+<span class="nc" id="L40">    this.email = email;</span>
+<span class="nc" id="L41">    this.esito = 0;</span>
+<span class="nc" id="L42">    this.valutatore = null;</span>
+<span class="nc" id="L43">  }</span>
+
+  /**
+   * Costruttore della richiesta non ancora esitata ottenuta.
+   *
+   * @param id    l'id della richiesta
+   * @param email l'email del richiedente
+   */
+<span class="fc" id="L51">  public RichiestaBean(int id, String email) {</span>
+<span class="fc" id="L52">    this.id = id;</span>
+<span class="fc" id="L53">    this.email = email;</span>
+<span class="fc" id="L54">    this.esito = 0;</span>
+<span class="fc" id="L55">    this.valutatore = null;</span>
+<span class="fc" id="L56">  }</span>
+
+  public int getId() {
+<span class="fc" id="L59">    return id;</span>
+  }
+
+  public void setId(int id) {
+<span class="fc" id="L63">    this.id = id;</span>
+<span class="fc" id="L64">  }</span>
+
+  public String getEmail() {
+<span class="fc" id="L67">    return email;</span>
+  }
+
+  public void setEmail(String email) {
+<span class="fc" id="L71">    this.email = email;</span>
+<span class="fc" id="L72">  }</span>
+
+  public int getEsito() {
+<span class="fc" id="L75">    return esito;</span>
+  }
+
+  public void setEsito(int esito) {
+<span class="fc" id="L79">    this.esito = esito;</span>
+<span class="fc" id="L80">  }</span>
+
+  public String getValutatore() {
+<span class="fc" id="L83">    return valutatore;</span>
+  }
+
+  public void setValutatore(String valutatore) {
+<span class="fc" id="L87">    this.valutatore = valutatore;</span>
+<span class="fc" id="L88">  }</span>
+
+  @Override
+  public String toString() {
+<span class="nc" id="L92">    return &quot;RichiestaBean [id=&quot;</span>
+        + id
+        + &quot;, email=&quot;
+        + email
+        + &quot;, esito=&quot;
+        + esito
+        + &quot;, valutatore=&quot;
+        + valutatore
+        + &quot;]&quot;;
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

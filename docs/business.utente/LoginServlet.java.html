@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginServlet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">business.utente</a> &gt; <span class="el_source">LoginServlet.java</span></div><h1>LoginServlet.java</h1><pre class="source lang-java linenums">package business.utente;
+
+import business.addetto.AddettoBean;
+import business.admin.AdministratorBean;
+import business.consumatore.ConsumatoreBean;
+import java.io.IOException;
+import java.sql.SQLException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import storage.manager.AddettoDao;
+import storage.manager.AdministratorDao;
+import storage.manager.ConsumatoreDao;
+
+/**
+ * Servlet implementation class LoginServlet.
+ */
+public class LoginServlet extends HttpServlet {
+
+<span class="fc" id="L21">  private static final ConsumatoreDao consumatoreDao = new ConsumatoreDao();</span>
+<span class="fc" id="L22">  private static final AdministratorDao administratorDao = new AdministratorDao();</span>
+<span class="fc" id="L23">  private static final AddettoDao addettoDao = new AddettoDao();</span>
+
+  /**
+   * Costruttore per LoginServlet. Inizializza il verifier per utilizzare il sistema di
+   * autenticazione fornito da Google
+   */
+<span class="fc" id="L29">  public LoginServlet() {</span>
+<span class="fc" id="L30">  }</span>
+
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+<span class="nc" id="L35">    doPost(request, response);</span>
+<span class="nc" id="L36">  }</span>
+
+  @Override
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+
+<span class="fc" id="L42">    String action = request.getParameter(&quot;action&quot;);</span>
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">    if (action != null) {</span>
+
+<span class="fc bfc" id="L46" title="All 3 branches covered.">      switch (action) {</span>
+
+<span class="fc" id="L48">        case &quot;loginGoogle&quot; -&gt; loginGoogle(request, response);</span>
+
+        case &quot;logOut&quot; -&gt; {
+<span class="fc" id="L51">          request.getSession().invalidate();</span>
+<span class="fc" id="L52">          response.sendRedirect(request.getContextPath() + &quot;/index.jsp&quot;);</span>
+        }
+
+      }
+
+    }
+
+<span class="fc" id="L59">  }</span>
+
+  /**
+   * Verifica se l'indirizzo email passato come parametro e' presente nel database. Se lo e', setta
+   * lo studente come attributo di sessione
+   *
+   * @param email    l'indirizzo email di uno studente
+   * @param request  la request http
+   * @param response la response http
+   */
+  private void verificaStudenti(
+      String email, HttpServletRequest request, HttpServletResponse response) {
+
+    try {
+<span class="fc" id="L73">      ConsumatoreBean consumatore = consumatoreDao.doRetrieveByKey(email);</span>
+
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">      if (consumatore == null) {</span>
+        // login tentato da uno studente, ma l'indirizzo email non e' presente nel db mensadigitale
+<span class="nc" id="L77">        request.getSession().setAttribute(&quot;utente&quot;, new ConsumatoreBean(email));</span>
+<span class="nc" id="L78">        response</span>
+<span class="nc" id="L79">            .sendRedirect(response.encodeURL(request.getContextPath() + &quot;/attivazione.jsp&quot;));</span>
+
+      } else {
+        // login effettuato con successo da parte di uno studente
+<span class="fc" id="L83">        request.getSession().setAttribute(&quot;utente&quot;, consumatore);</span>
+<span class="fc" id="L84">        response.sendRedirect(response.encodeURL(request.getContextPath() + &quot;/index.jsp&quot;));</span>
+      }
+
+<span class="nc" id="L87">    } catch (SQLException | IOException throwables) {</span>
+<span class="nc" id="L88">      throwables.printStackTrace();</span>
+<span class="fc" id="L89">    }</span>
+
+<span class="fc" id="L91">  }</span>
+
+  /**
+   * Verifica se l'indirizzo email passato come parametro e' presente nel database. Se lo e', setta
+   * il docente come attributo di sessione
+   *
+   * @param email    l'indirizzo email di un docente
+   * @param request  la request http
+   * @param response la response http
+   */
+  private void verificaDocente(String email, HttpServletRequest request,
+      HttpServletResponse response) {
+
+    try {
+      // e' un docente?
+<span class="fc" id="L106">      ConsumatoreBean consumatore = consumatoreDao.doRetrieveByKey(email);</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">      if (consumatore != null) {</span>
+        // si, era un docente
+<span class="fc" id="L109">        request.getSession().setAttribute(&quot;utente&quot;, consumatore);</span>
+<span class="fc" id="L110">        response.sendRedirect(response.encodeURL(request.getContextPath() + &quot;/index.jsp&quot;));</span>
+
+      } else {
+<span class="nc" id="L113">        response.sendError(HttpServletResponse.SC_FORBIDDEN,</span>
+            &quot;Impossibile trovavare l'indirizzo &quot; + email + &quot; nel database di MensaDigitale&quot;);
+      }
+
+<span class="nc" id="L117">    } catch (SQLException | IOException throwables) {</span>
+<span class="nc" id="L118">      throwables.printStackTrace();</span>
+<span class="fc" id="L119">    }</span>
+
+<span class="fc" id="L121">  }</span>
+
+  /**
+   * Verifica se l'indirizzo email passato come parametro e' presente nel database. Se lo e', setta
+   * l'administrator o l'addetto come attributo di sessione
+   *
+   * @param email    l'email di un administrator o di un addetto
+   * @param request  la request http
+   * @param response la response http
+   */
+  private void verificaAdminAddetto(String email, HttpServletRequest request,
+      HttpServletResponse response) {
+
+    try {
+
+      // e' un admin?
+<span class="fc" id="L137">      AdministratorBean administratorBean = administratorDao.doRetrieveByKey(email);</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">      if (administratorBean != null) {</span>
+        // si, e' un admin
+<span class="fc" id="L140">        request.getSession().setAttribute(&quot;utente&quot;, administratorBean);</span>
+<span class="fc" id="L141">        response.sendRedirect(response.encodeURL(request.getContextPath() + &quot;/index.jsp&quot;));</span>
+
+      } else {
+        // e' un addetto?
+<span class="fc" id="L145">        AddettoBean addettoBean = addettoDao.doRetrieveByKey(email);</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        if (addettoBean != null) {</span>
+          // si, e' un addetto
+<span class="fc" id="L148">          request.getSession().setAttribute(&quot;utente&quot;, addettoBean);</span>
+<span class="fc" id="L149">          response.sendRedirect(response.encodeURL(request.getContextPath() + &quot;/index.jsp&quot;));</span>
+
+        } else {
+          // non e' niente
+<span class="fc" id="L153">          response.sendError(HttpServletResponse.SC_BAD_REQUEST,</span>
+              &quot;Questa email non e' presente nel database.&quot;);
+<span class="fc" id="L155">          throw new IllegalArgumentException(&quot;Questa email non e' presente nel database.&quot;);</span>
+        }
+      }
+<span class="nc" id="L158">    } catch (SQLException | IOException throwables) {</span>
+<span class="nc" id="L159">      throwables.printStackTrace();</span>
+<span class="fc" id="L160">    }</span>
+
+<span class="fc" id="L162">  }</span>
+
+  /**
+   * Responsabile della logica di business per gestire il login attraverso il dominio Google.
+   *
+   * @param request  la request http
+   * @param response la response http
+   */
+  private void loginGoogle(HttpServletRequest request, HttpServletResponse response) {
+
+<span class="fc" id="L172">    String email = request.getParameter(&quot;email&quot;);</span>
+
+<span class="pc bpc" id="L174" title="1 of 2 branches missed.">    if (email != null) {</span>
+
+<span class="fc" id="L176">      String dominio = email.split(&quot;@&quot;)[1];</span>
+
+<span class="fc bfc" id="L178" title="All 3 branches covered.">      switch (dominio) {</span>
+<span class="fc" id="L179">        case (&quot;studenti.unisa.it&quot;) -&gt; verificaStudenti(email, request, response);</span>
+<span class="fc" id="L180">        case (&quot;unisa.it&quot;) -&gt; verificaDocente(email, request, response);</span>
+<span class="fc" id="L181">        default -&gt; verificaAdminAddetto(email, request, response);</span>
+      }
+
+<span class="fc" id="L184">    } else {</span>
+<span class="nc" id="L185">      System.out.println(&quot;LoginServlet: Token ID non valido.&quot;);</span>
+    }
+
+<span class="fc" id="L188">  }</span>
+
+  //TOO EASY
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

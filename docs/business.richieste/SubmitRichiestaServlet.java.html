@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SubmitRichiestaServlet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">business.richieste</a> &gt; <span class="el_source">SubmitRichiestaServlet.java</span></div><h1>SubmitRichiestaServlet.java</h1><pre class="source lang-java linenums">package business.richieste;
+
+import business.consumatore.ConsumatoreBean;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
+import java.util.Date;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import storage.manager.ConsumatoreDao;
+import storage.manager.RichiestaDao;
+
+/**
+ * Servlet implementation class SubmitRichiestaServlet.
+ */
+public class SubmitRichiestaServlet extends HttpServlet {
+
+  private static final long serialVersionUID = 1L;
+<span class="fc" id="L24">  private static final RichiestaDao richiestaDao = new RichiestaDao();</span>
+<span class="fc" id="L25">  private static final ConsumatoreDao consumatoreDao = new ConsumatoreDao();</span>
+<span class="fc" id="L26">  private final int annoInizio = 1900;</span>
+<span class="fc" id="L27">  private final int annoFine = 2020;</span>
+<span class="fc" id="L28">  private final String[] listaProvince = {</span>
+      &quot;AG&quot;, &quot;AL&quot;, &quot;AN&quot;, &quot;AO&quot;, &quot;AR&quot;, &quot;AP&quot;, &quot;AT&quot;, &quot;AV&quot;, &quot;BA&quot;, &quot;BT&quot;, &quot;BL&quot;, &quot;BN&quot;, &quot;BG&quot;, &quot;BI&quot;, &quot;BO&quot;,
+      &quot;BZ&quot;,
+      &quot;BS&quot;, &quot;BR&quot;, &quot;CA&quot;, &quot;CL&quot;, &quot;CB&quot;, &quot;CE&quot;, &quot;CT&quot;, &quot;CZ&quot;, &quot;CH&quot;, &quot;CO&quot;, &quot;CS&quot;, &quot;CR&quot;, &quot;KR&quot;, &quot;CN&quot;, &quot;EN&quot;,
+      &quot;FM&quot;,
+      &quot;FE&quot;, &quot;FI&quot;, &quot;FG&quot;, &quot;FC&quot;, &quot;FR&quot;, &quot;GE&quot;, &quot;GO&quot;, &quot;GR&quot;, &quot;IM&quot;, &quot;IS&quot;, &quot;AQ&quot;, &quot;SP&quot;, &quot;LT&quot;, &quot;LE&quot;, &quot;LC&quot;,
+      &quot;LI&quot;,
+      &quot;LO&quot;, &quot;LU&quot;, &quot;MC&quot;, &quot;MN&quot;, &quot;MS&quot;, &quot;MT&quot;, &quot;ME&quot;, &quot;MI&quot;, &quot;MO&quot;, &quot;MB&quot;, &quot;NA&quot;, &quot;NO&quot;, &quot;NU&quot;, &quot;OR&quot;, &quot;PA&quot;,
+      &quot;PD&quot;,
+      &quot;PR&quot;, &quot;PV&quot;, &quot;PG&quot;, &quot;PU&quot;, &quot;PE&quot;, &quot;PC&quot;, &quot;PI&quot;, &quot;PT&quot;, &quot;PN&quot;, &quot;PZ&quot;, &quot;PO&quot;, &quot;RC&quot;, &quot;RG&quot;, &quot;RA&quot;, &quot;RE&quot;,
+      &quot;RI&quot;,
+      &quot;RN&quot;, &quot;RM&quot;, &quot;RO&quot;, &quot;SA&quot;, &quot;SS&quot;, &quot;SV&quot;, &quot;SI&quot;, &quot;SR&quot;, &quot;SO&quot;, &quot;SU&quot;, &quot;TA&quot;, &quot;TE&quot;, &quot;TR&quot;, &quot;TO&quot;, &quot;TP&quot;,
+      &quot;TN&quot;,
+      &quot;TV&quot;, &quot;TS&quot;, &quot;UD&quot;, &quot;VA&quot;, &quot;VE&quot;, &quot;VB&quot;, &quot;VC&quot;, &quot;VR&quot;, &quot;VV&quot;, &quot;VI&quot;, &quot;VT&quot;, &quot;EE&quot;
+  };
+
+  public SubmitRichiestaServlet() {
+<span class="fc" id="L45">    super();</span>
+<span class="fc" id="L46">  }</span>
+
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+<span class="nc" id="L50">    doPost(request, response);</span>
+<span class="nc" id="L51">  }</span>
+
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+<span class="fc" id="L55">    String cognome = request.getParameter(&quot;cognome&quot;);</span>
+<span class="fc" id="L56">    String nome = request.getParameter(&quot;nome&quot;);</span>
+<span class="fc" id="L57">    String dataDiNascita = request.getParameter(&quot;dataDiNascita&quot;);</span>
+<span class="fc" id="L58">    String provinciaDiNascita = request.getParameter(&quot;provinciaDiNascita&quot;);</span>
+<span class="fc" id="L59">    String comuneDiNascita = request.getParameter(&quot;comuneDiNascita&quot;);</span>
+<span class="fc" id="L60">    String codiceFiscale = request.getParameter(&quot;codiceFiscale&quot;);</span>
+<span class="fc" id="L61">    String cittadinanza = request.getParameter(&quot;cittadinanza&quot;);</span>
+<span class="fc" id="L62">    boolean rifugiato = Boolean.getBoolean(request.getParameter(&quot;rifugiato&quot;));</span>
+<span class="fc" id="L63">    boolean residenzaNucleo = Boolean.getBoolean(request.getParameter(&quot;residenzaNucleo&quot;));</span>
+<span class="fc" id="L64">    String indirizzo = request.getParameter(&quot;indirizzo&quot;);</span>
+<span class="fc" id="L65">    String telefono = request.getParameter(&quot;telefono&quot;); // Can be null</span>
+<span class="fc" id="L66">    String cellulare = request.getParameter(&quot;cellulare&quot;); // Can be null</span>
+<span class="fc" id="L67">    String email = request.getParameter(&quot;email&quot;);</span>
+<span class="fc" id="L68">    String confermaEmail = request.getParameter(&quot;confermaEmail&quot;);</span>
+
+<span class="fc" id="L70">    boolean prelazione = Boolean.valueOf(request.getParameter(&quot;prelazione&quot;));</span>
+<span class="fc" id="L71">    boolean responsabilita = Boolean.valueOf(request.getParameter(&quot;responsabilita&quot;));</span>
+
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">    boolean checkCognome =</span>
+        cognome != null
+<span class="pc bpc" id="L75" title="1 of 4 branches missed.">            &amp;&amp; (cognome.length() &gt;= 2 &amp;&amp; cognome.length() &lt;= 50)</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            &amp;&amp; onlyLetters(cognome);</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">    boolean checkNome =</span>
+<span class="pc bpc" id="L78" title="1 of 6 branches missed.">        nome != null &amp;&amp; (nome.length() &gt;= 2 &amp;&amp; nome.length() &lt;= 50) &amp;&amp; onlyLetters(nome);</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">    boolean checkDataDiNascita =</span>
+<span class="pc bpc" id="L80" title="1 of 4 branches missed.">        dataDiNascita != null &amp;&amp; dataDiNascita.length() == 10 &amp;&amp; validateData(dataDiNascita);</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">    boolean checkProvinciaDiNascita =</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        provinciaDiNascita != null &amp;&amp; validateProvincia(provinciaDiNascita);</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">    boolean checkComuneDiNascita =</span>
+        comuneDiNascita != null
+<span class="pc bpc" id="L85" title="1 of 4 branches missed.">            &amp;&amp; (comuneDiNascita.length() &gt;= 2 &amp;&amp; comuneDiNascita.length() &lt;= 50)</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">            &amp;&amp; onlyLetters(comuneDiNascita);</span>
+<span class="fc bfc" id="L87" title="All 4 branches covered.">    boolean checkCodiceFiscale = codiceFiscale != null &amp;&amp; validateCodiceFiscale(codiceFiscale);</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">    boolean checkCittadinanza =</span>
+        cittadinanza != null
+<span class="pc bpc" id="L90" title="1 of 4 branches missed.">            &amp;&amp; (cittadinanza.length() &gt;= 2 &amp;&amp; cittadinanza.length() &lt;= 50)</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            &amp;&amp; onlyLetters(cittadinanza);</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">    boolean checkIndirizzo =</span>
+<span class="pc bpc" id="L93" title="1 of 4 branches missed.">        indirizzo != null &amp;&amp; (indirizzo.length() &gt;= 4 &amp;&amp; indirizzo.length() &lt;= 100);</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">    boolean checkTelefono =</span>
+        telefono == null
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">            || telefono.equals(&quot;&quot;)</span>
+<span class="pc bpc" id="L97" title="1 of 4 branches missed.">            || (telefono.length() &gt;= 6 &amp;&amp; telefono.length() &lt;= 20);</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">    boolean checkCellulare =</span>
+        cellulare == null
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">            || cellulare.equals(&quot;&quot;)</span>
+<span class="pc bpc" id="L101" title="1 of 4 branches missed.">            || (cellulare.length() &gt;= 6 &amp;&amp; cellulare.length() &lt;= 20);</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">    boolean checkEmail =</span>
+<span class="fc bfc" id="L103" title="All 4 branches covered.">        email != null &amp;&amp; validateEmail(email) &amp;&amp; email.equalsIgnoreCase(confermaEmail);</span>
+
+<span class="fc bfc" id="L105" title="All 22 branches covered.">    if (!(checkCognome</span>
+        &amp;&amp; checkNome
+        &amp;&amp; checkDataDiNascita
+        &amp;&amp; checkProvinciaDiNascita
+        &amp;&amp; checkComuneDiNascita
+        &amp;&amp; checkCodiceFiscale
+        &amp;&amp; checkCittadinanza
+        &amp;&amp; checkIndirizzo
+        &amp;&amp; checkTelefono
+        &amp;&amp; checkCellulare
+        &amp;&amp; checkEmail)) {
+<span class="fc" id="L116">      throw new IllegalArgumentException();</span>
+    }
+
+<span class="pc bpc" id="L119" title="1 of 4 branches missed.">    if (!prelazione || !responsabilita) {</span>
+<span class="fc" id="L120">      throw new IllegalArgumentException();</span>
+    }
+
+    try {
+<span class="fc" id="L124">      ConsumatoreBean studente = null;</span>
+<span class="fc" id="L125">      studente = (ConsumatoreBean) request.getSession().getAttribute(&quot;utente&quot;);</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">      if ((studente.isDocente())) {</span>
+<span class="fc" id="L127">        throw new IllegalArgumentException();</span>
+      }
+<span class="fc" id="L129">      studente.setNome(nome);</span>
+<span class="fc" id="L130">      studente.setCognome(cognome);</span>
+<span class="fc" id="L131">      Date ddn = new SimpleDateFormat(&quot;dd/MM/yyyy&quot;).parse(dataDiNascita);</span>
+<span class="fc" id="L132">      studente.setDataDiNascita(</span>
+<span class="fc" id="L133">          new SimpleDateFormat(&quot;yyyy/MM/dd&quot;).parse(new SimpleDateFormat(&quot;yyyy/MM/dd&quot;).format(ddn)));</span>
+<span class="fc" id="L134">      studente.setCodiceFiscale(codiceFiscale);</span>
+<span class="fc" id="L135">      studente.setProvinciaNascita(provinciaDiNascita);</span>
+<span class="fc" id="L136">      studente.setComuneNascita(comuneDiNascita);</span>
+<span class="fc" id="L137">      studente.setCittadinanza(cittadinanza);</span>
+<span class="fc" id="L138">      studente.setRifugiato(rifugiato);</span>
+<span class="fc" id="L139">      studente.setResidenzaNucleoFamiliare(residenzaNucleo);</span>
+<span class="fc" id="L140">      studente.setIndirizzo(indirizzo);</span>
+<span class="fc" id="L141">      studente.setTelefono(telefono);</span>
+<span class="fc" id="L142">      studente.setCellulare(cellulare);</span>
+
+<span class="fc" id="L144">      int idRichiesta = generateIdRichiesta();</span>
+<span class="fc" id="L145">      RichiestaBean nuovaRichiesta = new RichiestaBean(idRichiesta, email);</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">      if (consumatoreDao.doRetrieveByKey(studente.getEmail()) != null) {</span>
+<span class="fc" id="L147">        consumatoreDao.doUpdate(studente);</span>
+      } else {
+<span class="fc" id="L149">        consumatoreDao.doSave(studente);</span>
+      }
+
+<span class="fc" id="L152">      richiestaDao.doSave(nuovaRichiesta);</span>
+
+      /*
+       * Check if correct
+       */
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">      if (response.getWriter() != null) {</span>
+<span class="nc" id="L158">        PrintWriter out = response.getWriter();</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">        if (richiestaDao.doRetrieveByKey(nuovaRichiesta.getId()) != null) {</span>
+<span class="nc" id="L160">          out.println(&quot;&lt;script type=\&quot;text/javascript\&quot;&gt;&quot;);</span>
+<span class="nc" id="L161">          out.println(&quot;alert(\&quot;La richiesta si trova ora in attesa di approvazione!\&quot;)&quot;);</span>
+        } else {
+<span class="nc" id="L163">          out.println(&quot;&lt;script type=\&quot;text/javascript\&quot;&gt;&quot;);</span>
+<span class="nc" id="L164">          out.println(&quot;alert(\&quot;Inoltro della richiesta fallito. Ritentare successivamente\&quot;)&quot;);</span>
+        }
+<span class="nc" id="L166">        out.println(&quot;window.location.href = \&quot;index.jsp\&quot;&quot;);</span>
+<span class="nc" id="L167">        out.println(&quot;&lt;/script&gt;&quot;);</span>
+      }
+<span class="nc" id="L169">    } catch (SQLException | ParseException e) {</span>
+<span class="nc" id="L170">      e.printStackTrace();</span>
+<span class="fc" id="L171">    }</span>
+<span class="fc" id="L172">  }</span>
+
+  private boolean onlyLetters(String word) {
+<span class="fc" id="L175">    char[] array = word.toCharArray();</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">    for (char c : array) {</span>
+<span class="fc bfc" id="L177" title="All 2 branches covered.">      if (!Character.isLetter(c)) {</span>
+<span class="fc" id="L178">        return false;</span>
+      }
+    }
+<span class="fc" id="L181">    return true;</span>
+  }
+
+  private boolean validateData(String data) {
+<span class="fc bfc" id="L185" title="All 4 branches covered.">    if (data.charAt(2) != '/' || data.charAt(5) != '/') {</span>
+<span class="fc" id="L186">      return false;</span>
+    }
+<span class="fc" id="L188">    int day = Integer.parseInt(data.subSequence(0, 2).toString());</span>
+<span class="fc" id="L189">    int month = Integer.parseInt(data.substring(3, 5));</span>
+<span class="fc" id="L190">    int year = Integer.parseInt(data.substring(6, 10));</span>
+<span class="fc bfc" id="L191" title="All 4 branches covered.">    if (year &lt; annoInizio || year &gt; annoFine) {</span>
+<span class="fc" id="L192">      return false;</span>
+    }
+    //    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10
+    //        || month == 12) { // mese di 31
+    //      if (!(day &gt;= 1 &amp;&amp; day &lt;= 31)) {
+    //        return false;
+    //      }
+<span class="fc bfc" id="L199" title="All 2 branches covered.">    if (String.valueOf(month).matches(&quot;^([13578]{1}[02]{0,1})$&quot;)) {</span>
+      //    } else if (month == 11 || month == 4 || month == 6 || month == 9) { // mese di 30
+<span class="fc bfc" id="L201" title="All 2 branches covered.">    } else if (String.valueOf(month).matches(&quot;^([1469]{1}[1]{0,1})$&quot;)) { // mese di 30</span>
+      //      if (!(day &gt;= 1 &amp;&amp; day &lt;= 30)) {
+<span class="fc" id="L203">      return String.valueOf(day).matches(&quot;^([1-9]{1}|([12]{1}[0-9]{1})|30)$&quot;);</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">    } else if (month == 2) { // mese == febbraio</span>
+<span class="pc bpc" id="L205" title="3 of 6 branches missed.">      if (year % 4 == 0 &amp;&amp; (year % 100 != 0 || year % 400 == 0)) { // anno bisestile</span>
+<span class="pc bpc" id="L206" title="1 of 4 branches missed.">        return day &gt;= 1 &amp;&amp; day &lt;= 29;</span>
+      } else {
+        //        if (!(day &gt;= 1 &amp;&amp; day &lt;= 28)) {
+<span class="pc bpc" id="L209" title="2 of 4 branches missed.">        return day &gt;= 1 &amp;&amp; day &lt;= 28;</span>
+      }
+    } else {
+<span class="fc" id="L212">      return false;</span>
+    }
+<span class="fc" id="L214">    return true;</span>
+  }
+
+  private boolean validateProvincia(String provincia) {
+<span class="fc bfc" id="L218" title="All 2 branches covered.">    for (String esistente : listaProvince) {</span>
+<span class="fc bfc" id="L219" title="All 2 branches covered.">      if (provincia.equalsIgnoreCase(esistente)) {</span>
+<span class="fc" id="L220">        return true;</span>
+      }
+    }
+<span class="fc" id="L223">    return false;</span>
+  }
+
+  private boolean validateCodiceFiscale(String cf) {
+<span class="fc bfc" id="L227" title="All 2 branches covered.">    if (!cf.matches(&quot;^[0-9A-Z]{16}$&quot;)) {</span>
+<span class="fc" id="L228">      return false;</span>
+    }
+
+<span class="fc" id="L231">    int s = 0;</span>
+<span class="fc" id="L232">    String evenMap = &quot;BAFHJNPRTVCESULDGIMOQKWZYX&quot;;</span>
+
+<span class="fc bfc" id="L234" title="All 2 branches covered.">    for (int i = 0; i &lt; 15; i++) {</span>
+<span class="fc" id="L235">      int c = cf.charAt(i);</span>
+
+      int n;
+
+<span class="pc bpc" id="L239" title="1 of 4 branches missed.">      if ('0' &lt;= c &amp;&amp; c &lt;= '9') {</span>
+<span class="fc" id="L240">        n = c - '0';</span>
+      } else {
+<span class="fc" id="L242">        n = c - 'A';</span>
+      }
+
+<span class="fc bfc" id="L245" title="All 2 branches covered.">      if ((i &amp; 1) == 0) {</span>
+<span class="fc" id="L246">        n = evenMap.charAt(n) - 'A';</span>
+      }
+<span class="fc" id="L248">      s += n;</span>
+    }
+
+<span class="pc bpc" id="L251" title="1 of 2 branches missed.">    return s % 26 + 'A' == cf.charAt(15);</span>
+  }
+
+  private boolean validateEmail(String email) {
+<span class="fc" id="L255">    String regex = &quot;^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$&quot;;</span>
+<span class="fc" id="L256">    return email.matches(regex);</span>
+  }
+
+  private int generateIdRichiesta() throws SQLException {
+<span class="fc" id="L260">    Collection&lt;RichiestaBean&gt; richieste = richiestaDao.doRetrieveAll();</span>
+<span class="fc" id="L261">    boolean[] ids = new boolean[richieste.size()];</span>
+<span class="fc bfc" id="L262" title="All 2 branches covered.">    for (RichiestaBean r : richieste) {</span>
+<span class="fc bfc" id="L263" title="All 2 branches covered.">      if (r.getId() &lt; ids.length) {</span>
+<span class="fc" id="L264">        ids[r.getId()] = true;</span>
+      }
+<span class="fc" id="L266">    }</span>
+
+<span class="fc bfc" id="L268" title="All 2 branches covered.">    for (int i = 0; i &lt; ids.length; i++) {</span>
+<span class="fc bfc" id="L269" title="All 2 branches covered.">      if (!ids[i]) {</span>
+<span class="fc" id="L270">        return i;</span>
+      }
+    }
+<span class="fc" id="L273">    return ids.length;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

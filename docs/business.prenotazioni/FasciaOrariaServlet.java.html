@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FasciaOrariaServlet.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mensadigitale Maven Webapp</a> &gt; <a href="index.source.html" class="el_package">business.prenotazioni</a> &gt; <span class="el_source">FasciaOrariaServlet.java</span></div><h1>FasciaOrariaServlet.java</h1><pre class="source lang-java linenums">package business.prenotazioni;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.Collection;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import storage.interfaces.FasciaOrariaInterface;
+import storage.manager.FasciaOrariaDao;
+
+/**
+ * Servlet implementation class FasciaOrariaServlet.
+ */
+public class FasciaOrariaServlet extends HttpServlet {
+
+  private static final long serialVersionUID = 1L;
+<span class="fc" id="L20">  private static final FasciaOrariaInterface&lt;FasciaOrariaBean&gt; fasciaOrariaDao =</span>
+      new FasciaOrariaDao();
+
+  public FasciaOrariaServlet() {
+<span class="fc" id="L24">    super();</span>
+<span class="fc" id="L25">  }</span>
+
+  protected void doGet(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+<span class="nc" id="L29">    doPost(request, response);</span>
+<span class="nc" id="L30">  }</span>
+
+  protected void doPost(HttpServletRequest request, HttpServletResponse response)
+      throws ServletException, IOException {
+<span class="fc" id="L34">    String fasciaOraria = request.getParameter(&quot;fasciaOraria&quot;);</span>
+<span class="fc" id="L35">    String action = request.getParameter(&quot;action&quot;);</span>
+
+<span class="fc bfc" id="L37" title="All 2 branches covered.">    if (fasciaOraria.length() != 5) {</span>
+<span class="fc" id="L38">      throw new IllegalArgumentException();</span>
+    }
+
+<span class="fc" id="L41">    char f1 = fasciaOraria.charAt(0);</span>
+<span class="fc" id="L42">    char f2 = fasciaOraria.charAt(1);</span>
+<span class="fc" id="L43">    char f3 = fasciaOraria.charAt(2);</span>
+<span class="fc" id="L44">    char f4 = fasciaOraria.charAt(3);</span>
+<span class="fc" id="L45">    char f5 = fasciaOraria.charAt(4);</span>
+
+<span class="fc bfc" id="L47" title="All 2 branches covered.">    boolean f1val = (Character.getNumericValue(f1) == 0)</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        || (Character.getNumericValue(f1) == 1)</span>
+<span class="fc bfc" id="L49" title="All 4 branches covered.">        || (Character.getNumericValue(f1) == 2 &amp;&amp; Character.getNumericValue(f2) &lt;= 3);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">    boolean f4val = Character.getNumericValue(f4) &lt;= 5;</span>
+
+<span class="fc bfc" id="L52" title="All 6 branches covered.">    if (!(Character.isDigit(f1)) || !(Character.isDigit(f2)) || f3 != ':'</span>
+<span class="fc bfc" id="L53" title="All 8 branches covered.">        || !(Character.isDigit(f4)) || !(Character.isDigit(f5)) || !f1val || !f4val) {</span>
+
+<span class="fc" id="L55">      throw new IllegalArgumentException();</span>
+    }
+
+    Collection&lt;FasciaOrariaBean&gt; fasceOrarieEsistenti;
+    try {
+<span class="fc" id="L60">      fasceOrarieEsistenti = fasciaOrariaDao.doRetrieveAll();</span>
+<span class="fc" id="L61">      int numFasceOrarie = ((int) getServletContext().getAttribute(&quot;numFasceOrarie&quot;));</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">      if (action.equalsIgnoreCase(&quot;inserisci&quot;)) {</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (!presente(fasciaOraria, fasceOrarieEsistenti)) {</span>
+<span class="fc" id="L64">          int id = getNewId(fasceOrarieEsistenti);</span>
+<span class="fc" id="L65">          FasciaOrariaBean nuovaFasciaOraria = new FasciaOrariaBean(id, fasciaOraria);</span>
+<span class="fc" id="L66">          fasciaOrariaDao.doSave(nuovaFasciaOraria);</span>
+<span class="fc" id="L67">          numFasceOrarie++;</span>
+<span class="fc" id="L68">          getServletContext().setAttribute(&quot;numFasceOrarie&quot;, numFasceOrarie);</span>
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">          if (response.getWriter() != null) {</span>
+<span class="fc" id="L71">            PrintWriter out = response.getWriter();</span>
+<span class="fc" id="L72">            out.println(&quot;&lt;script type=\&quot;text/javascript\&quot;&gt;&quot;);</span>
+<span class="fc" id="L73">            out.println(&quot;alert(\&quot;La fascia oraria si trova ora nel database!\&quot;)&quot;);</span>
+<span class="fc" id="L74">            out.println(&quot;window.location.href = \&quot;inserisciFasciaOraria.jsp\&quot;&quot;);</span>
+<span class="fc" id="L75">            out.println(&quot;&lt;/script&gt;&quot;);</span>
+          }
+<span class="fc" id="L77">        } else {</span>
+          /*
+           * La fascia oraria che si vuole inserire e' gia' presente, devo mandare un messaggio
+           * Lancio l'eccezione per i test
+           */
+<span class="fc" id="L82">          throw new IllegalArgumentException();</span>
+        }
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">      } else if (action.equalsIgnoreCase(&quot;elimina&quot;)) {</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (presente(fasciaOraria, fasceOrarieEsistenti)) {</span>
+<span class="fc" id="L86">          FasciaOrariaBean fasciaOrariaDeleted = fasciaOrariaDao.doRetrieveByFascia(fasciaOraria);</span>
+<span class="fc" id="L87">          fasciaOrariaDao.doDelete(fasciaOrariaDeleted);</span>
+<span class="fc" id="L88">          numFasceOrarie--;</span>
+<span class="fc" id="L89">          request.getServletContext().setAttribute(&quot;numFasceOrarie&quot;, numFasceOrarie);</span>
+
+<span class="fc bfc" id="L91" title="All 2 branches covered.">          if (response.getWriter() != null) {</span>
+<span class="fc" id="L92">            PrintWriter out = response.getWriter();</span>
+<span class="fc" id="L93">            out.println(&quot;&lt;script type=\&quot;text/javascript\&quot;&gt;&quot;);</span>
+<span class="fc" id="L94">            out.println(&quot;alert(\&quot;La fascia oraria e' stata eliminata!\&quot;)&quot;);</span>
+<span class="fc" id="L95">            out.println(&quot;window.location.href = \&quot;inserisciFasciaOraria.jsp\&quot;&quot;);</span>
+<span class="fc" id="L96">            out.println(&quot;&lt;/script&gt;&quot;);</span>
+          }
+<span class="fc" id="L98">        } else {</span>
+          /*
+           * La fascia oraria che si vuole eliminare non e' presente, devo mandare un messaggio
+           * Lancio l'eccezione per i test
+           */
+<span class="fc" id="L103">          throw new IllegalArgumentException();</span>
+        }
+      } else {
+<span class="nc" id="L106">        response.sendError(HttpServletResponse.SC_BAD_REQUEST);</span>
+      }
+<span class="nc" id="L108">    } catch (SQLException e) {</span>
+<span class="nc" id="L109">      e.printStackTrace();</span>
+<span class="fc" id="L110">    }</span>
+<span class="fc" id="L111">  }</span>
+
+  private boolean presente(String fasciaOraria, Collection&lt;FasciaOrariaBean&gt; list) {
+    /*
+     * f = fasciaOraria: es. 11:00 - Durata 40 min Se x,y,z sono tre fasce e x &lt; y &lt; z allora y-x
+     * &gt;=40 e z-y &gt;= 40
+     */
+
+    class Ora {
+
+      private final int ora;
+      private final int minuti;
+
+<span class="fc" id="L124">      public Ora(int ora, int minuti) {</span>
+<span class="fc" id="L125">        this.ora = ora;</span>
+<span class="fc" id="L126">        this.minuti = minuti;</span>
+<span class="fc" id="L127">      }</span>
+
+      public boolean equals(Ora anotherOra) {
+<span class="fc bfc" id="L130" title="All 4 branches covered.">        return this.ora == anotherOra.ora &amp;&amp; this.minuti == anotherOra.minuti;</span>
+      }
+
+      /**
+       * Confronta due orari.
+       *
+       * @return 1 se this &gt; anotherOra
+       * @return 0 se this == anotherOra
+       * @return -1 se this &lt; anotherOra
+       */
+      public int compareTo(Ora anotherOra) {
+<span class="fc bfc" id="L141" title="All 2 branches covered.">        if (this.ora &gt; anotherOra.ora) {</span>
+<span class="fc" id="L142">          return 1;</span>
+        }
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">        if (this.ora &lt; anotherOra.ora) {</span>
+<span class="nc" id="L145">          return -1;</span>
+        }
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">        if (this.minuti &gt; anotherOra.minuti) {</span>
+<span class="nc" id="L148">          return 1;</span>
+        }
+<span class="pc bpc" id="L150" title="1 of 2 branches missed.">        if (this.minuti &lt; anotherOra.minuti) {</span>
+<span class="nc" id="L151">          return -1;</span>
+        }
+<span class="fc" id="L153">        return 0;</span>
+      }
+
+      public Ora getFineFascia() {
+<span class="fc" id="L157">        int minutiFine = this.minuti + 40;</span>
+<span class="fc" id="L158">        int oraFine = this.ora;</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">        if (minutiFine - 60 &gt; 0) {</span>
+<span class="fc" id="L160">          oraFine++;</span>
+<span class="fc" id="L161">          minutiFine = minutiFine - 60;</span>
+        }
+<span class="fc" id="L163">        return new Ora(oraFine, minutiFine);</span>
+      }
+    }
+
+<span class="fc" id="L167">    Ora nuovaFascia = new Ora(Integer.parseInt(fasciaOraria.subSequence(0, 2).toString()),</span>
+<span class="fc" id="L168">        Integer.parseInt(fasciaOraria.subSequence(3, 5).toString()));</span>
+
+<span class="fc bfc" id="L170" title="All 2 branches covered.">    for (FasciaOrariaBean oldFascia : list) {</span>
+<span class="fc" id="L171">      Ora vecchiaFascia =</span>
+<span class="fc" id="L172">          new Ora(Integer.parseInt(oldFascia.getFascia().subSequence(0, 2).toString()),</span>
+<span class="fc" id="L173">              Integer.parseInt(oldFascia.getFascia().subSequence(3, 5).toString()));</span>
+
+<span class="fc bfc" id="L175" title="All 2 branches covered.">      if (nuovaFascia.equals(vecchiaFascia)) {</span>
+<span class="fc" id="L176">        return true;</span>
+      }
+<span class="fc bfc" id="L178" title="All 2 branches covered.">      if (nuovaFascia.ora == vecchiaFascia.ora) {</span>
+        /*
+         * Se l'ora e' uguale controllo se la distanza tra le due fasce orarie e' di meno di 40
+         * minuti
+         */
+<span class="fc bfc" id="L183" title="All 2 branches covered.">        if (Math.abs(nuovaFascia.minuti - vecchiaFascia.minuti) &lt; 40) {</span>
+<span class="fc" id="L184">          return true;</span>
+        }
+      } else {
+<span class="fc bfc" id="L187" title="All 2 branches covered.">        if (nuovaFascia.ora &gt; vecchiaFascia.ora) {</span>
+          /*
+           * Se l'ora e' diversa controllo se l'inizio della fascia con l'ora piu' alta e'
+           * precedente alla fine dell'altra fascia
+           */
+<span class="pc bpc" id="L192" title="1 of 2 branches missed.">          if (nuovaFascia.compareTo(vecchiaFascia.getFineFascia()) &lt; 0) {</span>
+<span class="nc" id="L193">            return true;</span>
+          }
+        } else {
+<span class="pc bpc" id="L196" title="1 of 2 branches missed.">          if (nuovaFascia.getFineFascia().compareTo(vecchiaFascia) &gt; 0) { // .</span>
+<span class="nc" id="L197">            return true;</span>
+          }
+        }
+      }
+<span class="fc" id="L201">    }</span>
+<span class="fc" id="L202">    return false;</span>
+  }
+
+  private int getNewId(Collection&lt;FasciaOrariaBean&gt; list) {
+<span class="fc" id="L206">    boolean[] array = new boolean[list.size() + 1]; // +1 e' la posizione [0] che ignoriamo</span>
+<span class="fc" id="L207">    array[0] = false; // Evitiamo di usare un id = 0</span>
+<span class="fc bfc" id="L208" title="All 2 branches covered.">    for (int i = 1; i &lt; array.length; i++) {</span>
+<span class="fc" id="L209">      array[i] = true;</span>
+    }
+<span class="fc bfc" id="L211" title="All 2 branches covered.">    for (FasciaOrariaBean fascia : list) {</span>
+<span class="pc bpc" id="L212" title="1 of 2 branches missed.">      if (fascia.getId() &lt;= list.size()) {</span>
+<span class="fc" id="L213">        array[fascia.getId()] = false;</span>
+      }
+<span class="fc" id="L215">    }</span>
+<span class="fc bfc" id="L216" title="All 2 branches covered.">    for (int i = 1; i &lt; array.length; i++) {</span>
+<span class="pc bpc" id="L217" title="1 of 2 branches missed.">      if (array[i]) {</span>
+<span class="nc" id="L218">        return i;</span>
+      }
+    }
+<span class="fc" id="L221">    return array.length;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
