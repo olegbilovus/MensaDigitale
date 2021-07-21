@@ -17,6 +17,25 @@ before_script:
 - mysql -u root -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
 - mysql -u root -e "GRANT ALL ON MensaDigitale.* to '${MYSQL_USER}'@'localhost';"
 - mysql -u"$MYSQL_USER" -p"$MYSQL_PASS" -e "USE MensaDigitale; SHOW tables;"
-script:
-- mvn test -B jacoco:report
-- bash ./scriptTravis.sh
+jobs: 
+  include:
+    - script: mvn -Dtest="business/addetto/*" test 
+      name: business.addetto 
+    - script: mvn -Dtest="business/admin/*" test 
+      name: business.admin
+    - script: mvn -Dtest="business/consumatore/*" test 
+      name: business.consumatore
+    - script: mvn -Dtest="business/piatti/*" test 
+      name: business.piatti 
+    - script: mvn -Dtest="business/prenotazioni/*" test 
+      name: business.prenotazioni 
+    - script: mvn -Dtest="business/richieste/*" test 
+      name: business.richieste      
+    - script: mvn -Dtest="business/utente/*" test 
+      name: business.utente
+    - script: mvn -Dtest="business/valutazioni/*" test 
+      name: business.valutazioni
+    - script: mvn -Dtest="startup/*" test 
+      name: startup
+    - script: mvn -Dtest="storage/manager/*" test 
+      name: storage.manager
